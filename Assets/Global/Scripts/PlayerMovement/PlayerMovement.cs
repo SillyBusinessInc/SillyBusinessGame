@@ -4,6 +4,9 @@ using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Transform orientation;
+    public Rigidbody Rb;
+    
     [Header("Movement")] 
     public float walkingSpeed = 30f;
     public float sprintSpeed = 100f;
@@ -26,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public float velocity; // not used, only here so you can see the state in the inspector
     
     // Properties for state access
-    public Rigidbody Rb { get; private set; }
+    //public Rigidbody Rb { get; private set; }
     public Vector3 GravityDirection { get; private set; } = Vector3.down;
     public Vector3 ModelDownDirection { get; private set; } = Vector3.down;
     public bool IsGrounded { get; private set; }
@@ -44,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void Start()
     {
-        this.Rb = this.GetComponent<Rigidbody>();
+        //this.Rb = this.GetComponent<Rigidbody>();
         this.Rb.useGravity = false;
         this.Rb.freezeRotation = true;
         
@@ -83,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (this.showGizmosLines)
         {
-            var p = this.transform.position;
+            var p = this.Rb.transform.position;
             Debug.DrawRay(p, this.ModelDownDirection * this.gravityFloorCheckDistance, Color.yellow,0f, false);
             Debug.DrawRay(p, this.GravityDirection * this.gravityFloorCheckDistance, Color.red,0f, false);
         }
@@ -92,11 +95,19 @@ public class PlayerMovement : MonoBehaviour
     // It might very well be that this method should also be internalized in all the states.
     public Vector3 GetMoveDirection()
     {
-        var t = this.transform;
-        var direction = t.forward * this._verticalInput + t.right * this._horizontalInput;
+        
+        var t = this.orientation.transform;
+        var forward =  Vector3.ProjectOnPlane(t.forward , this.GravityDirection).normalized;
+        var right = Vector3.ProjectOnPlane(t.right, this.GravityDirection).normalized;
+        
+        var direction = forward * this._verticalInput + right * this._horizontalInput;
         if (this.showGizmosLines)
-            Debug.DrawRay(this.transform.position, direction, Color.cyan, 0f, false);
-          
+        {
+            var p = this.Rb.transform.position;
+            Debug.DrawRay(p, forward, Color.green, 0f, false);
+            Debug.DrawRay(p, direction, Color.cyan, 0f, false);
+        }
+        
         return direction;
     }
     
@@ -114,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else 
         { // rotate only based on down
-            var gravityAlignedRotation = Quaternion.FromToRotation(this.transform.up, -downDirection) * this.transform.rotation;
+            var gravityAlignedRotation = Quaternion.FromToRotation(this.Rb.transform.up, -downDirection) * this.Rb.transform.rotation;
             this. Rb.rotation = Quaternion.Slerp(this.Rb.rotation, gravityAlignedRotation, this.modelRotationSpeed);
         }
     }

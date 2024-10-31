@@ -23,7 +23,7 @@ public abstract class PlayerBaseState
     { 
         // This method does the ground check and returns data about this check
         // This data includes e.g. the new gravity direction and whether the player is grounded
-        var grounded = Physics.Raycast(this.Player.transform.position,
+        var grounded = Physics.Raycast(this.Player.Rb.transform.position,
                                        this.Player.GravityDirection, out var hit,
                                        this.Player.gravityFloorCheckDistance);
         var gravityDirection = grounded ? -hit.normal : Vector3.down;

@@ -23,7 +23,7 @@ public class PlayerFallingState : PlayerBaseState
         // Difference from normal calculation:
         // - we are falling, so we dont have to check what the new gravity direction is, we know it is down
         // - to make it look a bit nicer, we are not directly setting the model rotation down, but we are smoothing it to the down direction
-        var grounded = Physics.Raycast(this.Player.transform.position, Vector3.down, out var hit, 
+        var grounded = Physics.Raycast(this.Player.Rb.transform.position, Vector3.down, out var hit, 
                                        this.Player.gravityFloorCheckDistance);
         var slope = Vector3.Angle(hit.normal, Vector3.up);
         return new()
