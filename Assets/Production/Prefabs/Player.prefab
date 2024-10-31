@@ -160,14 +160,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 700b5c9fe64b81c49a1232dc183a6f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showInGizmos: 0
-  airControl: 0.3
   movementSpeed: 9
-  modelRotationSpeed: 10
+  modelRotationSpeed: 0.2
+  fallingRotateSpeed: 0.2
+  airControl: 0.3
+  jumpForce: 20
+  jumpWorldUpPercentage: 0.7
   gravityForce: 9.81
   gravityFloorCheckDistance: 1.5
-  velocity: 0
-  onGround: 0
+  showGizmosLines: 0
+  currentStateName: 
 --- !u!1 &4384928622097160103
 GameObject:
   m_ObjectHideFlags: 0

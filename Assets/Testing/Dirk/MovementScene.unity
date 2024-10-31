@@ -694,6 +694,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8537504599547482134, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: showGizmosLines
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8537504599547482134, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: gravitySnappingSpeed
       value: 20
       objectReference: {fileID: 0}
