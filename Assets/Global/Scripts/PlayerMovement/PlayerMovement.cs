@@ -4,15 +4,15 @@ using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Movement")]
+    [Header("Movement")] 
     public float walkingSpeed = 30f;
-    public float sprintSpeed = 130f;
+    public float sprintSpeed = 100f;
     public float modelRotationSpeed = 0.2f;
     public float fallingRotateSpeed = 0.2f;
+    public float airControl = 0.3f;
     
     [Header("Jump")]
-    public float airControl = 0.3f;
-    public float jumpForce = 700f;
+    public float jumpForce = 30f;
     [Tooltip("Percentage of world up direction to apply to jump direction. 0.0 = perpendicular to the floor, 1.0 = world up.")]
     public float jumpWorldUpPercentage = 0.7f;
     
@@ -60,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
         this.RequestingSprint = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.LeftControl);
         this._stateMachine.Update();
         
+        // ONLY FOR DEBUGGING PURPOSES
         this.currentStateName = this.CurrentState.GetType().Name;
         this.velocity = this.Rb.linearVelocity.magnitude;
     }
@@ -67,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         this.UpdateGroundCheck();
-        this.ApplyCustomGravity();
+        this.CurrentState.ApplyGravity();
         this._stateMachine.FixedUpdate();
         this.RotatePlayer(this.ModelDownDirection,this.Rb.linearVelocity);
     }
@@ -93,17 +94,12 @@ public class PlayerMovement : MonoBehaviour
     {
         var t = this.transform;
         var direction = t.forward * this._verticalInput + t.right * this._horizontalInput;
-        if(this.showGizmosLines)
-            Debug.DrawRay(this.transform.position, direction, Color.cyan,0f, false);
+        if (this.showGizmosLines)
+            Debug.DrawRay(this.transform.position, direction, Color.cyan, 0f, false);
+          
         return direction;
     }
     
-    private void ApplyCustomGravity()
-    {
-        var gravity = this.GravityDirection.normalized * this.gravityForce;
-        this.Rb.AddForce(gravity, ForceMode.Force);
-    }
-
     private void RotatePlayer(Vector3 downDirection, Vector3 forwardDirection)
     {
         var projectedDirection = Vector3.ProjectOnPlane(forwardDirection, downDirection);

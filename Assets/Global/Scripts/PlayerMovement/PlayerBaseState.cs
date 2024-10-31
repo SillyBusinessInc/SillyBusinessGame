@@ -27,11 +27,19 @@ public abstract class PlayerBaseState
                                        this.Player.GravityDirection, out var hit,
                                        this.Player.gravityFloorCheckDistance);
         var gravityDirection = grounded ? -hit.normal : Vector3.down;
+        var slope = Vector3.Angle(hit.normal, Vector3.up);
         return new()
         {
+            SlopeAngle = slope,
             IsGrounded = grounded,
             GravityDirection = gravityDirection,
             ModelDownDirection = gravityDirection
         };
+    }
+
+    public virtual void ApplyGravity()
+    {
+        var gravity = this.Player.GravityDirection.normalized * this.Player.gravityForce;
+        this.Player.Rb.AddForce(gravity, ForceMode.Force);
     }
 }
