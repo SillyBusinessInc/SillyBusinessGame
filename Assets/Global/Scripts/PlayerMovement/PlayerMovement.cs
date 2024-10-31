@@ -1,26 +1,28 @@
+using Global.Scripts.Helpers;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-    public float movementSpeed = 9f;
+    public float movementSpeed = 40f;
     public float modelRotationSpeed = 0.2f;
     public float fallingRotateSpeed = 0.2f;
     
     [Header("Jump")]
     public float airControl = 0.3f;
-    public float jumpForce = 20f;
+    public float jumpForce = 500f;
     [Tooltip("Percentage of world up direction to apply to jump direction. 0.0 = perpendicular to the floor, 1.0 = world up.")]
     public float jumpWorldUpPercentage = 0.7f;
     
     [Header("Custom Gravity")]
-    public float gravityForce = 9.81f;
+    public float gravityForce = 29.81f;
     public float gravityFloorCheckDistance = 1.5f;
 
     [Header("Debug")]
     public bool showGizmosLines;
     public string currentStateName; // not used, only here so you can see the state in the inspector
+    public float velocity; // not used, only here so you can see the state in the inspector
     
     // Properties for state access
     public Rigidbody Rb { get; private set; }
@@ -56,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
         this._stateMachine.Update();
         
         this.currentStateName = this.CurrentState.GetType().Name;
+        this.velocity = this.Rb.linearVelocity.magnitude;
     }
     
     private void FixedUpdate()
@@ -94,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void ApplyCustomGravity()
     {
-        var gravity = this.GravityDirection.normalized * (this.gravityForce * 10f);
+        var gravity = this.GravityDirection.normalized * this.gravityForce;
         this.Rb.AddForce(gravity, ForceMode.Force);
     }
 

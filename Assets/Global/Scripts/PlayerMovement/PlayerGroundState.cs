@@ -9,7 +9,7 @@ public class PlayerGroundState : PlayerBaseState
     {
         // Apply full movement speed
         var moveDirection = this.Player.GetMoveDirection();
-        moveDirection = moveDirection.normalized * (this.Player.movementSpeed * 10f);
+        moveDirection = moveDirection.normalized * this.Player.movementSpeed;
         this.Player.Rb.AddForce(moveDirection, ForceMode.Force);
         
         // Check for state transitions
