@@ -9,7 +9,7 @@ public class PlayerGroundState : PlayerBaseState
     {
         // Apply full movement speed
         var moveDirection = this.Player.GetMoveDirection();
-        moveDirection = moveDirection.normalized * this.Player.movementSpeed;
+        moveDirection = moveDirection.normalized * (this.Player.RequestingSprint ? this.Player.sprintSpeed : this.Player.walkingSpeed);
         this.Player.Rb.AddForce(moveDirection, ForceMode.Force);
         
         // Check for state transitions
@@ -19,7 +19,7 @@ public class PlayerGroundState : PlayerBaseState
             return;
         }
         
-        if (this.Player.ShouldJump)
+        if (this.Player.RequestingJump)
             this.StateMachine.ChangeState(PlayerStateType.Jump);
     }
 }

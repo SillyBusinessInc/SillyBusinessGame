@@ -9,8 +9,8 @@ public class PlayerFallingState : PlayerBaseState
     {
         // Apply reduced movement speed
         var moveDirection = this.Player.GetMoveDirection();
-        moveDirection = moveDirection.normalized * 
-                        (this.Player.movementSpeed * this.Player.airControl);
+        moveDirection = moveDirection.normalized * (this.Player.airControl *
+                                                    (this.Player.RequestingSprint ? this.Player.sprintSpeed : this.Player.walkingSpeed));
         this.Player.Rb.AddForce(moveDirection, ForceMode.Force);
         
         // Check for ground contact

@@ -8,7 +8,7 @@ public class PlayerJumpState : PlayerBaseState
     public override void Enter()
     {
         // Apply jump force
-        Vector3 jumpDirection = -this.Player.GravityDirection.normalized;
+        var jumpDirection = -this.Player.GravityDirection.normalized;
         jumpDirection = Vector3.Lerp(jumpDirection, Vector3.up, this.Player.jumpWorldUpPercentage);
         this.Player.Rb.AddForce(jumpDirection * this.Player.jumpForce, ForceMode.Force);
         

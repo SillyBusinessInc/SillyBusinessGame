@@ -694,6 +694,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8537504599547482134, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: sprintSpeed
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 8537504599547482134, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: walkingSpeed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8537504599547482134, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: showGizmosLines
       value: 0
       objectReference: {fileID: 0}
