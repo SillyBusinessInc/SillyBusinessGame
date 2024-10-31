@@ -161,7 +161,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
   TargetOffset: {x: 0, y: 0, z: 0}
-  Damping: {x: 0.5, y: 0.5}
+  Damping: {x: 0.3, y: 0.5}
   Lookahead:
     Enabled: 0
     Time: 0
@@ -683,6 +683,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4811859323897289456, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6139225746314599756, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6139225746314599756, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: m_AngularDrag
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8537504599547482134, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
