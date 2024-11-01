@@ -42,4 +42,20 @@ public abstract class PlayerBaseState
         var gravity = this.Player.GravityDirection.normalized * this.Player.gravityForce;
         this.Player.Rb.AddForce(gravity, ForceMode.Force);
     }
+    
+    public virtual Vector3 GetMoveDirection(float verticalInput, float horizontalInput)
+    {
+        var t = this.Player.orientation.transform;
+        var forward =  Vector3.ProjectOnPlane(t.forward , this.Player.GravityDirection).normalized;
+        var right = Vector3.ProjectOnPlane(t.right, this.Player.GravityDirection).normalized;
+        
+        var direction = forward * verticalInput + right * horizontalInput;
+        //if (this.Player.showGizmosLines)
+        //{
+        //    var p = this.Player.Rb.transform.position;
+        //    Debug.DrawRay(p, forward, Color.green, 0f, false);
+        //   
+        //}
+        return direction;
+    }
 }

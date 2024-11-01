@@ -13,6 +13,7 @@ public class PlayerJumpState : PlayerBaseState
         this.Player.Rb.AddForce(jumpDirection * this.Player.jumpForce, ForceMode.Impulse);
         
         // Immediately transition to airborne state
+        this.Player.ResetJumpCooldown();
         this.StateMachine.ChangeState(PlayerStateType.Falling);
     }
 }

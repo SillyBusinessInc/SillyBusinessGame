@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 30f;
     [Tooltip("Percentage of world up direction to apply to jump direction. 0.0 = perpendicular to the floor, 1.0 = world up.")]
     public float jumpWorldUpPercentage = 0.7f;
+    public float jumpCooldown = 1f;
     
     [Header("Custom Gravity")]
     public float gravityForce = 39.81f;
@@ -33,14 +34,14 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 GravityDirection { get; private set; } = Vector3.down;
     public Vector3 ModelDownDirection { get; private set; } = Vector3.down;
     public bool IsGrounded { get; private set; }
-    public bool RequestingJump { get; private set; }
     public bool RequestingSprint { get; private set; }
     
     // Internal properties, no real need to have these accessible from the states
     private PlayerStateMachine _stateMachine;
     private float _horizontalInput;
     private float _verticalInput;
-    private bool _isJumpHeld;
+    
+    private bool _jumpInput;
     private float _jumpTimer;
 
     private PlayerBaseState CurrentState => this._stateMachine.GetCurrentState();
@@ -59,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
     {
         this._horizontalInput = Input.GetAxis("Horizontal");
         this._verticalInput = Input.GetAxis("Vertical");
-        this.RequestingJump = Input.GetKey(KeyCode.Space);
+        this._jumpInput = Input.GetKey(KeyCode.Space);
         this.RequestingSprint = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.LeftControl);
         this._stateMachine.Update();
         
@@ -73,7 +74,8 @@ public class PlayerMovement : MonoBehaviour
         this.UpdateGroundCheck();
         this.CurrentState.ApplyGravity();
         this._stateMachine.FixedUpdate();
-        this.RotatePlayer(this.ModelDownDirection,this.Rb.linearVelocity);
+        this.UpdateJumpCooldown(Time.fixedDeltaTime);
+        this.RotatePlayerObject(this.ModelDownDirection,this.Rb.linearVelocity);
     }
     
     private void UpdateGroundCheck()
@@ -91,27 +93,14 @@ public class PlayerMovement : MonoBehaviour
             Debug.DrawRay(p, this.GravityDirection * this.gravityFloorCheckDistance, Color.red,0f, false);
         }
     }
+
+    public bool RequestingJump() => this._jumpInput && this._jumpTimer > this.jumpCooldown;
+    private void UpdateJumpCooldown(float deltaTime) => this._jumpTimer += deltaTime;
+    public void ResetJumpCooldown() =>  this._jumpTimer = 0f;
     
-    // It might very well be that this method should also be internalized in all the states.
-    public Vector3 GetMoveDirection()
-    {
-        
-        var t = this.orientation.transform;
-        var forward =  Vector3.ProjectOnPlane(t.forward , this.GravityDirection).normalized;
-        var right = Vector3.ProjectOnPlane(t.right, this.GravityDirection).normalized;
-        
-        var direction = forward * this._verticalInput + right * this._horizontalInput;
-        if (this.showGizmosLines)
-        {
-            var p = this.Rb.transform.position;
-            Debug.DrawRay(p, forward, Color.green, 0f, false);
-            Debug.DrawRay(p, direction, Color.cyan, 0f, false);
-        }
-        
-        return direction;
-    }
-    
-    private void RotatePlayer(Vector3 downDirection, Vector3 forwardDirection)
+    public Vector3 GetMoveDirection() => this.CurrentState.GetMoveDirection(this._verticalInput, this._horizontalInput);
+
+    private void RotatePlayerObject(Vector3 downDirection, Vector3 forwardDirection)
     {
         var projectedDirection = Vector3.ProjectOnPlane(forwardDirection, downDirection);
         // If the player is moving, rotate the model to face the direction of movement

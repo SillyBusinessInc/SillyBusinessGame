@@ -19,7 +19,7 @@ public class PlayerGroundState : PlayerBaseState
             return;
         }
         
-        if (this.Player.RequestingJump)
+        if (this.Player.RequestingJump())
             this.StateMachine.ChangeState(PlayerStateType.Jump);
     }
 }
