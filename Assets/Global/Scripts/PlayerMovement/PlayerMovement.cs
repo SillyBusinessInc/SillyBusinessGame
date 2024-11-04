@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         this.Rb.freezeRotation = true;
         
         this._stateMachine = new(this);
+     
         this._stateMachine.Initialize(PlayerStateType.Ground);
     }
 
