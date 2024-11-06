@@ -50,7 +50,7 @@ public class FollowingEnemyScript : EnemyScript
                 if (target == null || !IsPlayerInSight())
                 {
                     currentState = State.Roaming;
-                    target = null; // Reset the target when the player is no longer in sight
+                    target = null;
                     SetNewRoamingPosition();
                 }
                 break;
