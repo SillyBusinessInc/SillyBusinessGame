@@ -8,19 +8,24 @@ public abstract class BaseMovement : MonoBehaviour
         this.player = player;
     }
 
-    public void Walk()
+    public virtual void OnAttack()
     {
         
     }    
 
-    public void Fall()
+    public virtual void OnJump()
     {
-        Debug.Log("Falling");
+        
     }
 
-    public void Jump()
+    public virtual void OnWalk()
     {
-        Debug.Log("Jumping");
+        
+    }
+
+    public virtual void OnGround()
+    {
+
     }
 
 }

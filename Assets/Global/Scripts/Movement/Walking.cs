@@ -6,4 +6,14 @@ public class Walking : BaseMovement
     {
         
     }
+
+    public override void OnAttack()
+    {
+        player.SetState(new Attacking(player));
+    }
+
+    public override void OnWalk()
+    {
+        //player stop walking go to idle
+    }
 }
