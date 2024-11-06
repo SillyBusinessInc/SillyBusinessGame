@@ -10,7 +10,11 @@ public class Jumping : BaseMovement
 
     public override void OnJump()
     {
-        player.playerRb.AddForce(Vector3.up * player.jumpforce, ForceMode.Impulse);
+        if (player.isOnGround)
+        {
+            player.playerRb.AddForce(Vector3.up * player.jumpforce, ForceMode.Impulse);
+        }
+        player.isOnGround = false;
         player.SetState(new Falling(player));
     }
 }
