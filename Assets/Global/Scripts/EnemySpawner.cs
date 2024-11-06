@@ -67,8 +67,8 @@ public class EnemySpawner : MonoBehaviour
         Vector3 areaSize = spawnArea.localScale;
 
         // Randomize a point within the spawn area's bounds
-        float xPos = Random.Range(-(areaSize.x / 2)-1, (areaSize.x / 2)-2);
-        float zPos = Random.Range(-(areaSize.z / 2)-1, (areaSize.z / 2)-2);
+        float xPos = Random.Range(-(areaSize.x / 2)-2, (areaSize.x / 2)-2);
+        float zPos = Random.Range(-(areaSize.z / 2)-2, (areaSize.z / 2)-2);
         
         // You can adjust this if you want to spawn on a specific surface (e.g., ground level)
         Debug.Log(new Vector3(areaCenter.x + xPos, areaCenter.y, areaCenter.z + zPos));
