@@ -6,7 +6,7 @@ public class EnemyScript : MonoBehaviour
     // Base enemy fields
     [SerializeField]
     [Range(0, 250)]
-    private int _health = 100;
+    private int health = 100;
 
     void Update()
     {
@@ -23,13 +23,18 @@ public class EnemyScript : MonoBehaviour
         // Base enemy Attack-function
     }
 
-    void OnHit()
+    void OnHit(int damage)
     {
-        // Base enemy OnHit-function
+        health -= damage;
+        if (health <= 0)
+        {
+            OnDeath();
+        }
     }
 
     void OnDeath()
     {
         // Base enemy OnDeath-function
+        Debug.Log($"{this.name} OnDeath() triggered", this);
     }
 }
