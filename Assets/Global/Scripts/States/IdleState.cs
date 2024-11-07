@@ -18,6 +18,10 @@ public class IdleState : BaseState
         {
             player.SetState(new JumpingState(player));
         }
+        if (!player.isGrounded)
+        {
+            player.SetState(new FallingState(player));
+        }
     }
 
 }

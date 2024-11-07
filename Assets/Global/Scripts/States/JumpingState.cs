@@ -5,16 +5,12 @@ public class JumpingState : BaseState
 {
     public JumpingState(Player player) : base(player)
     {
-
     }
 
     public override void Update()
     {
-        if (player.jumps > 0)
-        {
-            player.playerRb.AddForce(Vector3.up * player.jumpforce, ForceMode.Impulse);
-            player.jumps--;
-        }
+        player.playerRb.AddForce(Vector3.up * player.jumpforce, ForceMode.Impulse);
+        
         player.SetState(new FallingState(player));
     }
     public void OnJump()

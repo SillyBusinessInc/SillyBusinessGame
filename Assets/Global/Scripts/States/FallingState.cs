@@ -5,13 +5,16 @@ public class FallingState : BaseState
     public FallingState(Player player) : base(player)
     {
     }
-
-
+    
     public override void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        player.transform.Translate(0.5f* Vector3.forward * Time.deltaTime * player.speed * player.horizontalInput);
+        player.transform.Translate(0.5f* Vector3.left * Time.deltaTime * player.speed * player.verticalInput);
+        
+        if(Input.GetKeyDown(KeyCode.Space) && player.doubleJumps > player.currentJumps)
         {
             player.SetState(new JumpingState(player));
+            player.currentJumps += 1; 
         }
     }
 
@@ -20,7 +23,7 @@ public class FallingState : BaseState
         if (collision.gameObject.CompareTag("Ground"))
         {
             player.SetState(new IdleState(player));
-            player.jumps = 2;
+            player.currentJumps = 0;
         }
     }
 }
