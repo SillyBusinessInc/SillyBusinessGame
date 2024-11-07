@@ -9,7 +9,10 @@ public class FallingState : BaseState
 
     public override void Update()
     {
-
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            player.SetState(new JumpingState(player));
+        }
     }
 
     public override void OnCollision(Collision collision)
@@ -17,7 +20,7 @@ public class FallingState : BaseState
         if (collision.gameObject.CompareTag("Ground"))
         {
             player.SetState(new IdleState(player));
-            player.isOnGround = true;
+            player.jumps = 2;
         }
     }
 }

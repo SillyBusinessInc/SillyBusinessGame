@@ -10,11 +10,11 @@ public class JumpingState : BaseState
 
     public override void Update()
     {
-        if (player.isOnGround)
+        if (player.jumps > 0)
         {
             player.playerRb.AddForce(Vector3.up * player.jumpforce, ForceMode.Impulse);
+            player.jumps--;
         }
-        player.isOnGround = false;
         player.SetState(new FallingState(player));
     }
     public void OnJump()

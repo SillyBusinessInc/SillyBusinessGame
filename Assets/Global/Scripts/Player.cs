@@ -7,14 +7,14 @@ public class Player : MonoBehaviour
     public BaseState currentState;
     public float jumpforce = 2f;
     public float speed = 5f;
+    public int jumps = 2;
     [HideInInspector]
     public float horizontalInput;
     [HideInInspector]
     public float verticalInput;
     [HideInInspector]
     public Rigidbody playerRb;
-    [HideInInspector]
-    public bool isOnGround = true;
+    
 
     [Header("Debugging")]
     public string currentStateName;

@@ -315,7 +315,7 @@ Transform:
   m_GameObject: {fileID: 475050971}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 4.98, y: 1.81, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -526,6 +526,7 @@ MonoBehaviour:
   verticalInput: 0
   playerRb: {fileID: 0}
   isOnGround: 1
+  currentStateName: 
 --- !u!54 &2135676566
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -536,7 +537,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.0005
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
