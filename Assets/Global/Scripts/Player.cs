@@ -15,10 +15,9 @@ public class Player : MonoBehaviour
     public Rigidbody playerRb;
     [HideInInspector]
     public bool isOnGround = true;
-    
+
     [Header("Debugging")]
     public string currentStateName;
-    
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
@@ -29,39 +28,18 @@ public class Player : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
-
-        if (Input.GetKey(KeyCode.Space))
-        {
-            currentState.OnJump();
-        }
-
-        if (Keypressed())
-        {
-            currentState.OnWalk();
-        }
-        else
-        {
-            currentState.Still();
-        }
-        
+        currentState.Update();
         currentStateName = currentState.GetType().Name;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        currentState.OnCollision(collision);
+    }
     public void SetState(BaseState newState)
     {
         currentState = newState;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            SetState(new IdleState(this));
-            isOnGround = true;
-        }
-    }
-
-    Func<bool> Keypressed = () => Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || 
-                                  Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
 
 }

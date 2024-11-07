@@ -6,8 +6,8 @@ public class AttackingState : BaseState
     {
     }
 
-    public override void OnAttack()
+    public override void Update()
     {
-        player.SetState(new IdleState(player));
+        
     }
 }

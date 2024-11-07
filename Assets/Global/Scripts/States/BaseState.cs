@@ -8,27 +8,27 @@ public abstract class BaseState : MonoBehaviour
         this.player = player;
     }
 
-    public virtual void OnAttack()
-    {
-        
-    }    
-
-    public virtual void OnJump()
-    {
-        
-    }
-
-    public virtual void OnWalk()
-    {
-        
-    }
-
-    public virtual void OnGround()
+    public virtual void Enter()
     {
 
     }
 
-    public virtual void Still()
+    public virtual void Update()
+    {
+
+    }
+
+    public virtual void FixedUpdate()
+    {
+
+    }
+
+    public virtual void Exit()
+    {
+
+    }
+
+    public virtual void OnCollision(Collision collision)
     {
 
     }

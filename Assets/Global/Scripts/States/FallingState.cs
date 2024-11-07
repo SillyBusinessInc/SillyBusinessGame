@@ -6,15 +6,18 @@ public class FallingState : BaseState
     {
     }
 
-    public override void OnGround()
+
+    public override void Update()
     {
-        player.SetState(new WalkingState(player));
+
     }
 
-    public override void OnAttack()
+    public override void OnCollision(Collision collision)
     {
-        player.SetState(new AttackingState(player));
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            player.SetState(new IdleState(player));
+            player.isOnGround = true;
+        }
     }
-
-
 }

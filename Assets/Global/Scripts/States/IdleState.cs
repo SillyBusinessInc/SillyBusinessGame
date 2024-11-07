@@ -7,19 +7,17 @@ public class IdleState : BaseState
 
     }
 
-    public override void OnWalk()
+    public override void Update()
     {
-        player.SetState(new WalkingState(player));
-    }
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            player.SetState(new WalkingState(player));
+        }
 
-    public override void OnJump()
-    {
-        player.SetState(new JumpingState(player));
-    }
-
-    public override void OnAttack()
-    {
-        player.SetState(new AttackingState(player));
+        if(Input.GetKey(KeyCode.Space))
+        {
+            player.SetState(new JumpingState(player));
+        }
     }
 
 }

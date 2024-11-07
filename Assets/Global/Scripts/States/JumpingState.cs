@@ -5,10 +5,10 @@ public class JumpingState : BaseState
 {
     public JumpingState(Player player) : base(player)
     {
-        OnJump();
+
     }
 
-    public override void OnJump()
+    public override void Update()
     {
         if (player.isOnGround)
         {
@@ -16,5 +16,9 @@ public class JumpingState : BaseState
         }
         player.isOnGround = false;
         player.SetState(new FallingState(player));
+    }
+    public void OnJump()
+    {
+        
     }
 }
