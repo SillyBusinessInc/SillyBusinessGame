@@ -519,7 +519,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8727f22fc89cd54b9e87543dfb8dca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: {fileID: 0}
   jumpforce: 5
   speed: 5
   doubleJumps: 3
@@ -529,6 +528,7 @@ MonoBehaviour:
   playerRb: {fileID: 0}
   isGrounded: 0
   currentStateName: 
+  Drag: 10
 --- !u!54 &2135676566
 Rigidbody:
   m_ObjectHideFlags: 0

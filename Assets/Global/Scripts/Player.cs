@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
 
     [Header("Debugging")]
     public string currentStateName;
+    public float Drag;
+    
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();

@@ -16,6 +16,11 @@ public class FallingState : BaseState
             player.SetState(new JumpingState(player));
             player.currentJumps += 1; 
         }
+
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            player.SetState(new GlidingState(player));
+        }
     }
 
     public override void OnCollision(Collision collision)
