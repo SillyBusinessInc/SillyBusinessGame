@@ -501,7 +501,7 @@ GameObject:
   - component: {fileID: 2135676566}
   - component: {fileID: 2135676565}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -519,8 +519,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8727f22fc89cd54b9e87543dfb8dca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMovement: {fileID: 0}
-  jumpforce: 10
+  currentState: {fileID: 0}
+  jumpforce: 5
   speed: 5
   horizontalInput: 0
   verticalInput: 0
