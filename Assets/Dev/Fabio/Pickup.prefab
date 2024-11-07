@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3272585941159203157}
+  - component: {fileID: 5979587528334382396}
   - component: {fileID: 8256247101242528256}
   m_Layer: 0
   m_Name: Pickup
@@ -35,6 +36,22 @@ Transform:
   - {fileID: 7051722449933835787}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5979587528334382396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607437902846116804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf23930878271c6409ece5229a3d5ad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupRange: 1
+  pickupSpeed: 0.1
+  isLocked: 0
+  isStatic: 0
 --- !u!54 &8256247101242528256
 Rigidbody:
   m_ObjectHideFlags: 0
