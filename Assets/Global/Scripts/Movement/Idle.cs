@@ -21,4 +21,5 @@ public class Idle : BaseMovement
     {
         player.SetState(new Attacking(player));
     }
+
 }

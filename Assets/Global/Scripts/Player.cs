@@ -1,18 +1,26 @@
+using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [HideInInspector]
     public BaseMovement baseMovement;
-    public float jumpforce = 10f;
+    public float jumpforce = 2f;
     public float speed = 5f;
-    private float horizontalInput;
-    private float verticalInput;
+    [HideInInspector]
+    public float horizontalInput;
+    [HideInInspector]
+    public float verticalInput;
+    [HideInInspector]
     public Rigidbody playerRb;
+    [HideInInspector]
+
 
     public bool isOnGround = true;
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+        SetState(new Idle(this));
     }
 
     void Update()
@@ -20,20 +28,21 @@ public class Player : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
 
-        transform.Translate(Vector3.forward * Time.deltaTime * speed * horizontalInput);
-        transform.Translate(Vector3.left * Time.deltaTime * speed * verticalInput);
-
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+        if (Input.GetKey(KeyCode.Space))
         {
-            playerRb.AddForce(Vector3.up * jumpforce, ForceMode.Impulse);
-            isOnGround = false;
+            baseMovement.OnJump();
+        }
+
+        if (Keypressed())
+        {
+            baseMovement.OnWalk();
+        }
+        else
+        {
+            baseMovement.Still();
         }
     }
 
-    public Player()
-    {
-        baseMovement = new Idle(this);
-    }
     public void SetState(BaseMovement newState)
     {
         baseMovement = newState;
@@ -43,7 +52,16 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
+            SetState(new Idle(this));
             isOnGround = true;
         }
+    }
+
+    Func<bool> Keypressed = () => Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
+
+    public void Move()
+    {
+        transform.Translate(Vector3.forward * Time.deltaTime * speed * horizontalInput);
+        transform.Translate(Vector3.left * Time.deltaTime * speed * verticalInput);
     }
 }

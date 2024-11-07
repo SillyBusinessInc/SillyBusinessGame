@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class Walking : BaseMovement
 {
+    void Update()
+    {
+    }
+
     public Walking(Player player) : base(player)
     {
-        
+
     }
 
     public override void OnAttack()
@@ -14,6 +18,16 @@ public class Walking : BaseMovement
 
     public override void OnWalk()
     {
-        //player stop walking go to idle
+        player.Move();
+    }
+
+    public override void OnJump()
+    {
+        player.SetState(new Jumping(player));
+    }
+
+    public override void Still()
+    {
+        player.SetState(new Idle(player));
     }
 }

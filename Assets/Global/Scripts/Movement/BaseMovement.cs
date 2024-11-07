@@ -28,4 +28,8 @@ public abstract class BaseMovement : MonoBehaviour
 
     }
 
+    public virtual void Still()
+    {
+
+    }
 }
