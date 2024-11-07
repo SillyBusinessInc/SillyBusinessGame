@@ -14,9 +14,11 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public Rigidbody playerRb;
     [HideInInspector]
-
-
     public bool isOnGround = true;
+    
+    [Header("Debugging")]
+    public string currentStateName;
+    
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
@@ -41,6 +43,8 @@ public class Player : MonoBehaviour
         {
             currentState.Still();
         }
+        
+        currentStateName = currentState.GetType().Name;
     }
 
     public void SetState(BaseState newState)
@@ -57,6 +61,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    Func<bool> Keypressed = () => Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
+    Func<bool> Keypressed = () => Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || 
+                                  Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
 
 }
