@@ -47,17 +47,8 @@ public class EnemySpawner : MonoBehaviour
         // Ensure the spawn position is on the ground by raycasting downward
         if (spawnPosition != Vector3.zero)
         {
-            // Raycast downwards from the spawn point to find the ground
-            RaycastHit hit;
-            if (Physics.Raycast(new Vector3(spawnPosition.x, 1000f, spawnPosition.z), Vector3.down, out hit, Mathf.Infinity))
-            {
-                // Adjust the spawn position to be on the ground
-                spawnPosition.y = hit.point.y;
-
-                // Instantiate the enemy at the adjusted position
-                GameObject newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
-                activeEnemies.Add(newEnemy);
-            }
+            GameObject newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+            activeEnemies.Add(newEnemy);
         }
     }
 
@@ -67,11 +58,11 @@ public class EnemySpawner : MonoBehaviour
         Vector3 areaSize = spawnArea.localScale;
 
         // Randomize a point within the spawn area's bounds
-        float xPos = Random.Range(-(areaSize.x / 2)-2, (areaSize.x / 2)-2);
-        float zPos = Random.Range(-(areaSize.z / 2)-2, (areaSize.z / 2)-2);
+        float xPos = Random.Range(-(areaSize.x / 2), (areaSize.x / 2));
+        float zPos = Random.Range(-(areaSize.z / 2), (areaSize.z / 2));
         
         // You can adjust this if you want to spawn on a specific surface (e.g., ground level)
-        Debug.Log(new Vector3(areaCenter.x + xPos, areaCenter.y, areaCenter.z + zPos));
+        // Debug.Log(new Vector3(areaCenter.x + xPos, areaCenter.y, areaCenter.z + zPos));
         return new Vector3(areaCenter.x + xPos, areaCenter.y, areaCenter.z + zPos);
     }
 }
