@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
         currentState.Update();
         currentStateName = currentState.GetType().Name;
     }
+    
+    void FixedUpdate() => currentState.FixedUpdate();
 
     private void OnCollisionEnter(Collision collision)
     {
