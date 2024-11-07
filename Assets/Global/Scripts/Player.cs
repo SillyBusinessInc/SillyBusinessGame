@@ -38,7 +38,10 @@ public class Player : MonoBehaviour
     }
     public void SetState(BaseState newState)
     {
+        if ( currentState!= null) 
+            currentState.Exit();
         currentState = newState;
+        currentState.Enter();
     }
 
 

@@ -16,5 +16,9 @@ public class WalkingState : BaseState
             player.SetState(new IdleState(player));
         }
 
+        if(Input.GetKey(KeyCode.Space))
+        {
+            player.SetState(new JumpingState(player));
+        }
     }
 }
