@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 using FollowingEnemy;
 
 public class RoamingState : BaseState
@@ -7,11 +8,15 @@ public class RoamingState : BaseState
 
     public override void Enter()
     {
+        SetNewDestination();
+
+        // TODO: Remove after review
         Debug.Log("ENTERING: Roaming");
     }
 
     public override void Exit()
     {
+        // TODO: Remove after review
         Debug.Log("EXITING: Roaming");
     }
 
@@ -28,7 +33,21 @@ public class RoamingState : BaseState
     {
         if (!enemy.agent.pathPending && enemy.agent.remainingDistance < 0.5f)
         {
-            SetNewRoamingPosition();
+            SetNewDestination();
+        }
+    }
+
+    protected void SetNewDestination()
+    {
+        float angle = Random.Range(-enemy.roamingAngleRange / 2, enemy.roamingAngleRange / 2);
+        Vector3 direction = Quaternion.Euler(0, angle, 0) * enemy.transform.forward;
+        Vector3 randomDirection = direction * Random.Range(1f, enemy.roamingRadius);
+
+        randomDirection += enemy.transform.position;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(randomDirection, out hit, enemy.roamingRadius, NavMesh.AllAreas))
+        {
+            enemy.agent.SetDestination(hit.position);
         }
     }
 
