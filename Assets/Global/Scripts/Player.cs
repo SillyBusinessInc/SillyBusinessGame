@@ -4,7 +4,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [HideInInspector]
-    public BaseMovement baseMovement;
+    public BaseState currentState;
     public float jumpforce = 2f;
     public float speed = 5f;
     [HideInInspector]
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
-        SetState(new Idle(this));
+        SetState(new IdleState(this));
     }
 
     void Update()
@@ -30,38 +30,33 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
-            baseMovement.OnJump();
+            currentState.OnJump();
         }
 
         if (Keypressed())
         {
-            baseMovement.OnWalk();
+            currentState.OnWalk();
         }
         else
         {
-            baseMovement.Still();
+            currentState.Still();
         }
     }
 
-    public void SetState(BaseMovement newState)
+    public void SetState(BaseState newState)
     {
-        baseMovement = newState;
+        currentState = newState;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            SetState(new Idle(this));
+            SetState(new IdleState(this));
             isOnGround = true;
         }
     }
 
     Func<bool> Keypressed = () => Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
 
-    public void Move()
-    {
-        transform.Translate(Vector3.forward * Time.deltaTime * speed * horizontalInput);
-        transform.Translate(Vector3.left * Time.deltaTime * speed * verticalInput);
-    }
 }

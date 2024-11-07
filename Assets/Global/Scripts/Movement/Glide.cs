@@ -1,6 +1,6 @@
-public class Gliding : BaseMovement
+public class GlidingState : BaseState
 {
-    public Gliding(Player player) : base(player)
+    public GlidingState(Player player) : base(player)
     {
     }
 }

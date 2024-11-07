@@ -1,20 +1,20 @@
 using UnityEngine;
 
-public class Falling : BaseMovement
+public class FallingState : BaseState
 {
-    public Falling(Player player) : base(player)
+    public FallingState(Player player) : base(player)
     {
     }
 
     public override void OnGround()
     {
-        player.SetState(new Walking(player));
+        player.SetState(new WalkingState(player));
     }
 
     public override void OnAttack()
     {
-        player.SetState(new Attacking(player));
+        player.SetState(new AttackingState(player));
     }
 
-    
+
 }

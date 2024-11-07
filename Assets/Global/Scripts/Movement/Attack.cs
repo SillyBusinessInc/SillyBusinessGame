@@ -1,14 +1,13 @@
 using JetBrains.Annotations;
 
-public class Attacking : BaseMovement
+public class AttackingState : BaseState
 {
-    public Attacking(Player player) : base(player)
+    public AttackingState(Player player) : base(player)
     {
     }
 
     public override void OnAttack()
     {
-        //add functionality
-        player.SetState(new Idle(player));
+        player.SetState(new IdleState(player));
     }
 }

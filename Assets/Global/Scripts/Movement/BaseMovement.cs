@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public abstract class BaseMovement : MonoBehaviour
+public abstract class BaseState : MonoBehaviour
 {
     public Player player;
-    public BaseMovement(Player player)
+    public BaseState(Player player)
     {
         this.player = player;
     }

@@ -1,9 +1,9 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
-public class Jumping : BaseMovement
+public class JumpingState : BaseState
 {
-    public Jumping(Player player) : base(player)
+    public JumpingState(Player player) : base(player)
     {
         OnJump();
     }
@@ -15,6 +15,6 @@ public class Jumping : BaseMovement
             player.playerRb.AddForce(Vector3.up * player.jumpforce, ForceMode.Impulse);
         }
         player.isOnGround = false;
-        player.SetState(new Falling(player));
+        player.SetState(new FallingState(player));
     }
 }

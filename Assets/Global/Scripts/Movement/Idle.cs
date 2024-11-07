@@ -1,25 +1,25 @@
 using UnityEngine;
 
-public class Idle : BaseMovement
+public class IdleState : BaseState
 {
-    public Idle(Player player) : base(player)
+    public IdleState(Player player) : base(player)
     {
 
     }
 
     public override void OnWalk()
     {
-        player.SetState(new Walking(player));
+        player.SetState(new WalkingState(player));
     }
 
     public override void OnJump()
     {
-        player.SetState(new Jumping(player));
+        player.SetState(new JumpingState(player));
     }
 
     public override void OnAttack()
     {
-        player.SetState(new Attacking(player));
+        player.SetState(new AttackingState(player));
     }
 
 }
