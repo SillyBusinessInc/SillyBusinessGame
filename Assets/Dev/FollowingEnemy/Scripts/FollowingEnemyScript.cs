@@ -5,9 +5,9 @@ using UnityEngine.AI;
 
 public class FollowingEnemyScript : EnemyScript
 {
-    public Dictionary<string, BaseState> states;
+    public Dictionary<string, FollowingEnemy.BaseState> states;
 
-    public BaseState currentState;
+    public FollowingEnemy.BaseState currentState;
     public NavMeshAgent agent;
 
     // Roaming behavior
@@ -26,7 +26,7 @@ public class FollowingEnemyScript : EnemyScript
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        states = new Dictionary<string, BaseState>
+        states = new Dictionary<string, FollowingEnemy.BaseState>
             {
                 {"Roaming", new RoamingState(this)},
                 {"Following", new FollowingState(this)}
@@ -43,7 +43,7 @@ public class FollowingEnemyScript : EnemyScript
         };
     }
 
-    public void ChangeState(BaseState state)
+    public void ChangeState(FollowingEnemy.BaseState state)
     {
         if (currentState != null) currentState.Exit();
         currentState = state;

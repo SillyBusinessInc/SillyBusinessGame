@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using FollowingEnemy;
 
-public class RoamingState : BaseState
+public class RoamingState : FollowingEnemy.BaseState
 {
     public RoamingState(FollowingEnemyScript enemy) : base(enemy) { }
 

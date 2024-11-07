@@ -1,7 +1,7 @@
 using FollowingEnemy;
 using UnityEngine;
 
-public class FollowingState : BaseState
+public class FollowingState : FollowingEnemy.BaseState
 {
     public FollowingState(FollowingEnemyScript enemy) : base(enemy) { }
     public override void Enter()
