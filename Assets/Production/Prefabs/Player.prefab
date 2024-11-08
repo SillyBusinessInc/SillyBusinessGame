@@ -181,7 +181,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4811859323897289456}
-  - component: {fileID: 8537504599547482134}
+  - component: {fileID: 9169223613212550927}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -208,7 +208,7 @@ Transform:
   - {fileID: 8159941675243024157}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8537504599547482134
+--- !u!114 &9169223613212550927
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -217,24 +217,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 637936633501757367}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 700b5c9fe64b81c49a1232dc183a6f5a, type: 3}
+  m_Script: {fileID: 11500000, guid: c8727f22fc89cd54b9e87543dfb8dca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpforce: 5
+  speed: 7
+  doubleJumps: 1
+  currentJumps: 0
+  horizontalInput: 0
+  verticalInput: 0
+  playerRb: {fileID: 4479891375412012469}
+  isGrounded: 0
   orientation: {fileID: 8661837782861090297}
-  Rb: {fileID: 4479891375412012469}
-  walkingSpeed: 30
-  sprintSpeed: 80
-  modelRotationSpeed: 0.4
-  fallingRotateSpeed: 0.2
-  airControl: 0.3
-  jumpForce: 25
-  jumpWorldUpPercentage: 0.7
-  jumpCooldown: 1
-  gravityForce: 29.81
-  gravityFloorCheckDistance: 1.2
-  showGizmosLines: 0
   currentStateName: 
-  velocity: 0
+  versionCamThing: 0
 --- !u!1 &2503413153551277579
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,7 +514,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3831690697130644598}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.14521314, y: 3.8349265e-11, z: -5.628477e-12, w: 0.9894004}
+  m_LocalRotation: {x: 0.14521316, y: -0, z: -0, w: 0.9894004}
   m_LocalPosition: {x: 0, y: 3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -625,7 +621,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8661837782861090297}
-  - component: {fileID: 8888396655452957029}
+  - component: {fileID: 5559707000031844645}
   m_Layer: 0
   m_Name: CamOrientation
   m_TagString: Untagged
@@ -648,7 +644,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4811859323897289456}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8888396655452957029
+--- !u!114 &5559707000031844645
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -657,7 +653,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4384928622097160103}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3597db31085c4ceaae33abe1f2b104ad, type: 3}
+  m_Script: {fileID: 11500000, guid: 785e70c0a23a3ca4ba305b9841196530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sensitivityX: 400
@@ -675,6 +671,7 @@ GameObject:
   - component: {fileID: 3283009994523005968}
   - component: {fileID: 7191464586079592423}
   - component: {fileID: 4479891375412012469}
+  - component: {fileID: 4926589023627480149}
   m_Layer: 0
   m_Name: PlayerObj
   m_TagString: Untagged
@@ -799,11 +796,24 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &4926589023627480149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6841058461259160835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9235bd2ee59880468e8c5db0a6a3dc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 9169223613212550927}
 --- !u!1 &8305221382316356718
 GameObject:
   m_ObjectHideFlags: 0

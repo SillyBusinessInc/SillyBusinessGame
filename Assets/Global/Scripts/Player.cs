@@ -1,4 +1,5 @@
 using System;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -17,17 +18,17 @@ public class Player : MonoBehaviour
     public float horizontalInput;
     [HideInInspector]
     public float verticalInput;
-    [HideInInspector]
     public Rigidbody playerRb;
     [HideInInspector]
     public bool isGrounded;
+    public Transform orientation;
 
     [Header("Debugging")]
     public string currentStateName;
-    
+
     void Start()
     {
-        playerRb = GetComponent<Rigidbody>();
+        // playerRb = GetComponent<Rigidbody>();
         SetState(new IdleState(this));
     }
 
@@ -37,16 +38,17 @@ public class Player : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
         currentState.Update();
         currentStateName = currentState.GetType().Name;
+        RotatePlayerObj();
     }
     
     void FixedUpdate() => currentState.FixedUpdate();
 
-    private void OnCollisionEnter(Collision collision)
+    public void OnCollisionEnter(Collision collision)
     {
         isGrounded = collision.gameObject.CompareTag("Ground");
         currentState.OnCollision(collision);
     }
-    private void OnCollisionExit(Collision collision)
+    public void OnCollisionExit(Collision collision)
     {
         isGrounded = !collision.gameObject.CompareTag("Ground");
     }
@@ -57,5 +59,24 @@ public class Player : MonoBehaviour
             currentState.Exit();
         currentState = newState;
         currentState.Enter();
+    }
+
+    public Vector3 GetDirection() {
+        // go forward/back
+        Vector3 forwardMovement = orientation.forward * verticalInput;
+
+        // go left/right
+        Vector3 rightMovement = Vector3.Cross(orientation.forward * horizontalInput, Vector3.down);
+
+        return (forwardMovement + rightMovement).normalized;
+    }
+
+    private void RotatePlayerObj()
+    {
+        if (playerRb.linearVelocity.magnitude > 0.1f)
+        { 
+            var direction = Vector3.ProjectOnPlane(playerRb.linearVelocity, Vector3.up).normalized; 
+            playerRb.MoveRotation(Quaternion.LookRotation(direction));
+        }
     }
 }
