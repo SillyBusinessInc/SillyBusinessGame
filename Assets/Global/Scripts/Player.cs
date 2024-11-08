@@ -7,13 +7,16 @@ public class Player : MonoBehaviour
     public BaseState currentState;
     public float jumpforce = 2f;
     public float speed = 5f;
+    public int doubleJumps = 1;
+    [HideInInspector] 
+    public int currentJumps = 0;
     [HideInInspector]
     public float horizontalInput;
     [HideInInspector]
     public float verticalInput;
     public Rigidbody playerRb;
     [HideInInspector]
-    public bool isOnGround = true;
+    public bool isGrounded;
     public Transform orientation;
 
     [Header("Debugging")]
@@ -34,10 +37,16 @@ public class Player : MonoBehaviour
     
     void FixedUpdate() => currentState.FixedUpdate();
 
-    private void OnCollisionEnter(Collision collision)
+    public void OnCollisionEnter(Collision collision)
     {
+        isGrounded = collision.gameObject.CompareTag("Ground");
         currentState.OnCollision(collision);
     }
+    public void OnCollisionExit(Collision collision)
+    {
+        isGrounded = !collision.gameObject.CompareTag("Ground");
+    }
+    
     public void SetState(BaseState newState)
     {
         if ( currentState!= null) 
@@ -47,9 +56,6 @@ public class Player : MonoBehaviour
     }
 
     public Vector3 getDirection() {
-        // Vector3 direction = new Vector3(horizontalInput, 0f, verticalInput);
-        // Vector3 normalized = direction.normalized;
-        // return normalized;
         return orientation.forward;
     }
 }
