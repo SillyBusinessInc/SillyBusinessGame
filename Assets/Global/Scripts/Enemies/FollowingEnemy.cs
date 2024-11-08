@@ -5,34 +5,38 @@ using UnityEngine.AI;
 
 public class FollowEnemyBase : EnemyBase
 {
-    public Dictionary<string, FollowingEnemy.BaseState> states;
+    public Dictionary<string, FollowingEnemy.StateBase> states;
+    private FollowingEnemy.StateBase currentState;
+    
+    [HideInInspector] public NavMeshAgent agent;
 
-    public FollowingEnemy.BaseState currentState;
-    public NavMeshAgent agent;
-
-    // Roaming behavior
+    [Header("Roaming behavior")]
     public float roamingRadius = 10f;
     public float roamingAngleRange = 90f;
-    public Vector3 roamingNextDestination;
+    // public Vector3 roamingNextDestination; // never used?
 
-    // Following behavior
+    [Header("Following behavior")]
+    public Collider playerObject; // The player object is what the enemy is following
     public Transform target;
-    public float followRange = 10f;
-
-    // Vision cone parameters
+    // public float followRange = 10f; // never used?
+    
+    [Header("Vision cone")]
     public float visionAngle = 45f;
     public float visionRange = 10f;
-
+    
+    [Header("Debugging")]
+    [SerializeField] private string currentStateName = "none";
+    
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        states = new Dictionary<string, FollowingEnemy.BaseState>
+        states = new Dictionary<string, FollowingEnemy.StateBase>
             {
                 {"Roaming", new RoamingState(this)},
                 {"Following", new FollowingState(this)}
 
         };
-        currentState = states["Roaming"];
+        ChangeState(states["Roaming"]);
     }
 
     private void Update()
@@ -43,15 +47,15 @@ public class FollowEnemyBase : EnemyBase
         };
     }
 
-    public void ChangeState(FollowingEnemy.BaseState state)
+    public void ChangeState(FollowingEnemy.StateBase state)
     {
-        if (currentState != null) currentState.Exit();
+        currentState?.Exit();
         currentState = state;
-        if (currentState != null) currentState.Enter();
+        currentState?.Enter();
+        currentStateName = state.GetType().Name;
     }
-
+    
     // Visualize the cone of vision in the editor
-    // TODO: Remove for build
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;

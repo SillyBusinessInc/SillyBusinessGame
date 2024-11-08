@@ -1,58 +1,58 @@
-using FollowingEnemy;
 using UnityEngine;
 
-public class FollowingState : FollowingEnemy.BaseState
+namespace FollowingEnemy
 {
-    public FollowingState(FollowEnemyBase followEnemy) : base(followEnemy) { }
-    public override void Enter()
+    public class FollowingState : FollowingEnemy.StateBase
     {
-        // TODO: Remove after review
-        Debug.Log("ENTERING: Following");
-    }
-
-    public override void Exit()
-    {
-        // TODO: Remove after review
-        Debug.Log("EXITING: Following");
-    }
-
-    public override void Update()
-    {
-        Following();
-        if (followEnemy.target == null || !IsPlayerInSight())
+        public FollowingState(FollowEnemyBase followEnemy) : base(followEnemy)
         {
-            followEnemy.target = null;
-            followEnemy.ChangeState(followEnemy.states["Roaming"]);
         }
-    }
-    private void Following()
-    {
-        if (followEnemy.target != null)
+        public override void Enter()
         {
-            followEnemy.agent.SetDestination(followEnemy.target.position);
         }
-    }
 
-    // Checks if the player is still in sight
-    protected bool IsPlayerInSight()
-    {
-        if (followEnemy.target == null) return false;
-
-        Vector3 directionToPlayer = (followEnemy.target.position - followEnemy.transform.position).normalized;
-        float angleToPlayer = Vector3.Angle(followEnemy.transform.forward, directionToPlayer);
-
-        if (angleToPlayer < followEnemy.visionAngle / 2 && Vector3.Distance(followEnemy.transform.position, followEnemy.target.position) <= followEnemy.visionRange)
+        public override void Exit()
         {
-            RaycastHit hit;
-            if (Physics.Raycast(followEnemy.transform.position, directionToPlayer, out hit, followEnemy.visionRange))
+        }
+
+        public override void Update()
+        {
+            Following();
+            if (followEnemy.target == null || !IsPlayerInSight())
             {
-                if (hit.collider.GetComponent<Player>() != null)
-                {
-                    return true;
-                }
+                followEnemy.target = null;
+                followEnemy.ChangeState(followEnemy.states["Roaming"]);
             }
         }
-        return false;
+        private void Following()
+        {
+            if (followEnemy.target != null)
+            {
+                followEnemy.agent.SetDestination(followEnemy.target.position);
+            }
+        }
+
+        // Checks if the player is still in sight
+        protected bool IsPlayerInSight()
+        {
+            if (followEnemy.target == null) return false;
+
+            Vector3 directionToPlayer = (followEnemy.target.position - followEnemy.transform.position).normalized;
+            float angleToPlayer = Vector3.Angle(followEnemy.transform.forward, directionToPlayer);
+
+            if (angleToPlayer < followEnemy.visionAngle / 2 && Vector3.Distance(followEnemy.transform.position, followEnemy.target.position) <= followEnemy.visionRange)
+            {
+                if (Physics.Raycast(followEnemy.transform.position, 
+                        directionToPlayer, out var hit, 
+                        followEnemy.visionRange))
+                {
+                    if (hit.collider == followEnemy.playerObject)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }
-

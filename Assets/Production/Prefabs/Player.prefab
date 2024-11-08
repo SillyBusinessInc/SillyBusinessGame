@@ -220,17 +220,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8727f22fc89cd54b9e87543dfb8dca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpforce: 5
+  jumpForce: 2
   speed: 7
+  airBornMovementFactor: 0.5
   doubleJumps: 1
+  glideDrag: 2
+  rb: {fileID: 4479891375412012469}
+  orientation: {fileID: 8661837782861090297}
   currentJumps: 0
   horizontalInput: 0
   verticalInput: 0
-  playerRb: {fileID: 4479891375412012469}
   isGrounded: 0
-  orientation: {fileID: 8661837782861090297}
-  currentStateName: 
-  versionCamThing: 0
+  currentStateName: none
 --- !u!1 &2503413153551277579
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,7 +658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensitivityX: 400
-  playerObject: {fileID: 4479891375412012469}
+  playerRb: {fileID: 4479891375412012469}
 --- !u!1 &6841058461259160835
 GameObject:
   m_ObjectHideFlags: 0

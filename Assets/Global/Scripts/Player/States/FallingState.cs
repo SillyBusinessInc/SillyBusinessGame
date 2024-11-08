@@ -8,7 +8,7 @@ public class FallingState : StateBase
     
     public override void Update()
     {
-        Player.playerRb.AddForce(Player.GetDirection() * (Player.speed * Player.airBornMovementFactor), ForceMode.Force);
+        Player.rb.AddForce(Player.GetDirection() * (Player.speed * Player.airBornMovementFactor), ForceMode.Force);
 
         if(Input.GetKeyDown(KeyCode.Space) && Player.doubleJumps > Player.currentJumps)
         {
@@ -16,7 +16,7 @@ public class FallingState : StateBase
             Player.currentJumps += 1; 
         }
 
-        if(Input.GetKey(KeyCode.LeftShift) && Player.playerRb.linearVelocity.y < 0)
+        if(Input.GetKey(KeyCode.LeftShift) && Player.rb.linearVelocity.y < 0)
         {
             Player.SetState(new GlidingState(Player));
         }

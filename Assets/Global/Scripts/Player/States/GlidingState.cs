@@ -12,7 +12,7 @@ public class GlidingState : StateBase
         {
             Player.SetState(new FallingState(Player));
         }
-        Player.playerRb.AddForce(Player.GetDirection() * Player.speed, ForceMode.Force);
+        Player.rb.AddForce(Player.GetDirection() * Player.speed, ForceMode.Force);
         
         if(Input.GetKeyDown(KeyCode.Space) && Player.doubleJumps > Player.currentJumps)
         {
@@ -24,13 +24,13 @@ public class GlidingState : StateBase
 
     public override void Enter()
     {
-        oldDrag = Player.playerRb.linearDamping;
-        Player.playerRb.linearDamping = Player.glideDrag;
+        oldDrag = Player.rb.linearDamping;
+        Player.rb.linearDamping = Player.glideDrag;
     }
 
     public override void Exit()
     {
-        Player.playerRb.linearDamping = oldDrag;
+        Player.rb.linearDamping = oldDrag;
     }
 
     public override void OnCollision(Collision collision)
