@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void RotatePlayerObject(Vector3 downDirection, Vector3 forwardDirection)
     {
+        // this.Rb.transform.position = orientation.GameObject. transform.position;
         var projectedDirection = Vector3.ProjectOnPlane(forwardDirection, downDirection);
         // If the player is moving, rotate the model to face the direction of movement
         // If not (aka this magnitude is to low) then we only align the model with the down direction (gravity most of the time)

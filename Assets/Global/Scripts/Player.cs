@@ -11,16 +11,16 @@ public class Player : MonoBehaviour
     public float horizontalInput;
     [HideInInspector]
     public float verticalInput;
-    [HideInInspector]
     public Rigidbody playerRb;
     [HideInInspector]
     public bool isOnGround = true;
+    public Transform orientation;
 
     [Header("Debugging")]
     public string currentStateName;
     void Start()
     {
-        playerRb = GetComponent<Rigidbody>();
+        // playerRb = GetComponent<Rigidbody>();
         SetState(new IdleState(this));
     }
 
@@ -46,5 +46,10 @@ public class Player : MonoBehaviour
         currentState.Enter();
     }
 
-
+    public Vector3 getDirection() {
+        // Vector3 direction = new Vector3(horizontalInput, 0f, verticalInput);
+        // Vector3 normalized = direction.normalized;
+        // return normalized;
+        return orientation.forward;
+    }
 }

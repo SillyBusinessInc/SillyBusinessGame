@@ -23,5 +23,7 @@ public class PlayerOrientation : MonoBehaviour
         
         trans.position = this.playerObject.transform.position;
         trans.Translate(Vector3.forward);
+        Debug.DrawRay(trans.position, trans.forward, Color.red, 0f, false);
+        
     }
 }
