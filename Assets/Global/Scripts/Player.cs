@@ -60,12 +60,12 @@ public class Player : MonoBehaviour
 
     public Vector3 GetDirection() {
         // go forward/back
-        Vector3 forwardMovement = orientation.forward * speed * verticalInput;
+        Vector3 forwardMovement = orientation.forward * verticalInput;
 
         // go left/right
-        Vector3 rightMovement = Vector3.Cross(orientation.forward * speed * horizontalInput, Vector3.down);
+        Vector3 rightMovement = Vector3.Cross(orientation.forward * horizontalInput, Vector3.down);
 
-        return forwardMovement + rightMovement;
+        return (forwardMovement + rightMovement).normalized;
     }
 
     private void RotatePlayerObj()
