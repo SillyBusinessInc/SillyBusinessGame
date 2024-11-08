@@ -52,12 +52,12 @@ public class Player : MonoBehaviour
         isGrounded = !collision.gameObject.CompareTag("Ground");
     }
     
-    public void SetState(StateBase @new)
+    public void SetState(StateBase newState)
     {
         currentState?.Exit();
-        currentState = @new;
+        currentState = newState;
         currentState.Enter();
-        currentStateName = @new.GetType().Name;
+        currentStateName = newState.GetType().Name;
     }
 
     public Vector3 GetDirection() {
