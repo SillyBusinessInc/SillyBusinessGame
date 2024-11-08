@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class BaseState : MonoBehaviour
+public abstract class BaseState
 {
     public Player player;
     public BaseState(Player player)

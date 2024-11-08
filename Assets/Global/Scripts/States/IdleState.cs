@@ -14,9 +14,13 @@ public class IdleState : BaseState
             player.SetState(new WalkingState(player));
         }
 
-        if(Input.GetKey(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             player.SetState(new JumpingState(player));
+        }
+        if (!player.isGrounded)
+        {
+            player.SetState(new FallingState(player));
         }
     }
 
