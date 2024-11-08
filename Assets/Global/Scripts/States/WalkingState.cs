@@ -9,10 +9,19 @@ public class WalkingState : BaseState
 
     public override void Update()
     {
-        player.playerRb.AddForce(player.getDirection() * player.speed, ForceMode.Force);
+        if (Input.GetKey(KeyCode.W))
+            player.playerRb.AddForce(player.getDirection() * player.speed, ForceMode.Force); // go forward
+        if (Input.GetKey(KeyCode.S))
+            player.playerRb.AddForce(-player.getDirection() * player.speed, ForceMode.Force); // go back
+
+        Vector3 leftDirection = Vector3.Cross(player.getDirection(), Vector3.up);
+        if (Input.GetKey(KeyCode.A)) {
+            player.playerRb.AddForce(leftDirection * player.speed, ForceMode.Force);
+        }
+        if (Input.GetKey(KeyCode.D)) {
+            player.playerRb.AddForce(-leftDirection * player.speed, ForceMode.Force);
+        }
         
-        // player.transform.Translate(Vector3.forward * Time.deltaTime * player.speed * player.verticalInput);
-        // player.transform.Translate(Vector3.right * Time.deltaTime * player.speed * player.horizontalInput);
         if (!(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)))
         {
             player.SetState(new IdleState(player));
