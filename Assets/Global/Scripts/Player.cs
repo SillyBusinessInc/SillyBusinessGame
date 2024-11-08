@@ -56,6 +56,12 @@ public class Player : MonoBehaviour
     }
 
     public Vector3 getDirection() {
-        return orientation.forward;
+        // go forward/back
+        Vector3 forwardMovement = orientation.forward * speed * verticalInput;
+
+        // go left/right
+        Vector3 rightMovement = Vector3.Cross(orientation.forward * speed * horizontalInput, Vector3.down);
+
+        return forwardMovement + rightMovement;
     }
 }

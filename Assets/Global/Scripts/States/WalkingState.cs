@@ -9,7 +9,7 @@ public class WalkingState : BaseState
 
     public override void Update()
     {
-        player.playerRb.AddForce(player.getDirection() * player.speed, ForceMode.Force);
+        player.playerRb.AddForce(player.getDirection(), ForceMode.Force);
         // if (Input.GetKey(KeyCode.W))
         //     player.playerRb.AddForce(player.getDirection() * player.speed, ForceMode.Force); // go forward
         // if (Input.GetKey(KeyCode.S))
