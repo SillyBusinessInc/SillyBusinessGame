@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -97,6 +96,6 @@ public abstract class PickupBase : MonoBehaviour
     }
 
     protected virtual void OnTrigger() {
-        return;
+        return; // so sad to see this return all alone   .·´¯`(>▂<)´¯`·. 
     }
 }

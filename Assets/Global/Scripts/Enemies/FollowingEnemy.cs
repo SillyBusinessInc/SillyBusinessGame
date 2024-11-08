@@ -3,7 +3,7 @@ using FollowingEnemy;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class FollowingEnemyScript : EnemyScript
+public class FollowEnemyBase : EnemyBase
 {
     public Dictionary<string, FollowingEnemy.BaseState> states;
 

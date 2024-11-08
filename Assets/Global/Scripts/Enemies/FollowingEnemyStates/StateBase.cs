@@ -1,12 +1,12 @@
 namespace FollowingEnemy
 {
 
-    public class BaseState
+    public abstract class BaseState
     {
-        protected FollowingEnemyScript enemy;
-        public BaseState(FollowingEnemyScript enemy)
+        protected FollowEnemyBase followEnemy;
+        protected BaseState(FollowEnemyBase followEnemy)
         {
-            this.enemy = enemy;
+            this.followEnemy = followEnemy;
         }
 
         public virtual void Enter() { }

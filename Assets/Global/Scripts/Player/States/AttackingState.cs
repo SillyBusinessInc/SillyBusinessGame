@@ -1,6 +1,5 @@
-using JetBrains.Annotations;
 
-public class AttackingState : BaseState
+public class AttackingState : StateBase
 {
     public AttackingState(Player player) : base(player)
     {

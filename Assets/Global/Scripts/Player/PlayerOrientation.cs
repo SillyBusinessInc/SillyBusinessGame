@@ -3,9 +3,8 @@ using UnityEngine;
 
 public class PlayerOrientation : MonoBehaviour
 {
-    public float sensitivityX = 200f;
-
-    public Rigidbody playerObject;
+    [SerializeField] private float sensitivityX = 200f;
+    [SerializeField] private Rigidbody playerObject;
 
     private float _yRotation;
 

@@ -3,25 +3,21 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    
-    public float jumpforce = 2f;
+    public float jumpForce = 2f;
     public float speed = 5f;
+    public float airBornMovementFactor = 0.5f;
     public int doubleJumps = 1;
     public float glideDrag = 2f;
     
-    [HideInInspector]
-    public BaseState currentState;
-    [HideInInspector] 
-    public int currentJumps = 0;
-    [HideInInspector]
-    public float horizontalInput;
-    [HideInInspector]
-    public float verticalInput;
     public Rigidbody playerRb;
-    [HideInInspector]
-    public bool isGrounded;
     public Transform orientation;
-
+    
+    [HideInInspector] public int currentJumps = 0;
+    [HideInInspector] public float horizontalInput;
+    [HideInInspector] public float verticalInput;
+    [HideInInspector] public bool isGrounded;
+    private StateBase _current;
+    
     [Header("Debugging")]
     public string currentStateName;
 
@@ -35,29 +31,29 @@ public class Player : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
-        currentState.Update();
-        currentStateName = currentState.GetType().Name;
+        _current.Update();
+        currentStateName = _current.GetType().Name;
         RotatePlayerObj();
     }
     
-    void FixedUpdate() => currentState.FixedUpdate();
+    void FixedUpdate() => _current.FixedUpdate();
 
     public void OnCollisionEnter(Collision collision)
     {
         isGrounded = collision.gameObject.CompareTag("Ground");
-        currentState.OnCollision(collision);
+        _current.OnCollision(collision);
     }
     public void OnCollisionExit(Collision collision)
     {
         isGrounded = !collision.gameObject.CompareTag("Ground");
     }
     
-    public void SetState(BaseState newState)
+    public void SetState(StateBase @new)
     {
-        if ( currentState!= null) 
-            currentState.Exit();
-        currentState = newState;
-        currentState.Enter();
+        if ( _current!= null) 
+            _current.Exit();
+        _current = @new;
+        _current.Enter();
     }
 
     public Vector3 GetDirection() {

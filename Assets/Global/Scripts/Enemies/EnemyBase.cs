@@ -1,7 +1,7 @@
 using UnityEngine;
 
 // Base enemy class
-public class EnemyScript : MonoBehaviour
+public abstract class EnemyBase : MonoBehaviour
 {
     // Base enemy fields
     [SerializeField]
