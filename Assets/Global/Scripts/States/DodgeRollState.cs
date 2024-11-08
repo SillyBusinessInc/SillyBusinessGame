@@ -15,15 +15,15 @@ public class DodgeRollState : BaseState
         Vector3 dodgeDirection = player.GetDirection();
         
         timer = dodgeRollDuration;
-        player.playerRb.linearVelocity = player.transform.forward * player.dodgeRollSpeed;
+        // player.playerRb.linearVelocity = player.transform.forward * player.dodgeRollSpeed;
         player.canDodgeRoll = false;
         
         if (dodgeDirection == Vector3.zero)
         {
-            dodgeDirection = player.GetComponentInChildren<PlayerObjScript>().transform.forward.normalized;
+            dodgeDirection = player.playerRb.transform.forward.normalized;
         }
         Debug.Log(dodgeDirection);
-        player.playerRb.linearVelocity = dodgeDirection * player.dodgeRollSpeed;
+        player.playerRb.AddForce(dodgeDirection * player.dodgeRollSpeed, ForceMode.Impulse);
         // player.animator.SetTrigger("DodgeRoll");
     }
 
@@ -46,7 +46,7 @@ public class DodgeRollState : BaseState
 
     public override void Exit()
     {
-        player.playerRb.linearVelocity = Vector3.zero;
+        // player.playerRb.linearVelocity = Vector3.zero;
     }
 
     // public override void HandleInput()
