@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
         currentState.Enter();
     }
 
-    public Vector3 getDirection() {
+    public Vector3 GetDirection() {
         // go forward/back
         Vector3 forwardMovement = orientation.forward * speed * verticalInput;
 
