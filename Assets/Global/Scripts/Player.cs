@@ -1,4 +1,5 @@
 using System;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour
 
     [Header("Debugging")]
     public string currentStateName;
+    public bool versionCamThing;
     void Start()
     {
         // playerRb = GetComponent<Rigidbody>();
@@ -33,6 +35,7 @@ public class Player : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
         currentState.Update();
         currentStateName = currentState.GetType().Name;
+        RotatePlayerObj();
     }
     
     void FixedUpdate() => currentState.FixedUpdate();
@@ -63,5 +66,14 @@ public class Player : MonoBehaviour
         Vector3 rightMovement = Vector3.Cross(orientation.forward * speed * horizontalInput, Vector3.down);
 
         return forwardMovement + rightMovement;
+    }
+
+    private void RotatePlayerObj()
+    {
+        if (playerRb.linearVelocity.magnitude > 0.1f)
+        { 
+            var direction = Vector3.ProjectOnPlane(playerRb.linearVelocity, Vector3.up).normalized; 
+            playerRb.MoveRotation(Quaternion.LookRotation(direction));
+        }
     }
 }
