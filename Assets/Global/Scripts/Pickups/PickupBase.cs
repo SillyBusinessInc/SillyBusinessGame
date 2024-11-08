@@ -28,7 +28,7 @@ public abstract class PickupBase : MonoBehaviour
         mr = GetComponentInChildren<MeshRenderer>();
         c = GetComponentInChildren<Collider>();
 
-        target = GlobalReference.Player.transform.GetChild(0);
+        target = GlobalReference.GetReference<PlayerReference>().transform.GetChild(0);
     }
 
     void Update()
