@@ -9,9 +9,15 @@ public class JumpingState : BaseState
     
     public override void Update()
     {
+        
         player.playerRb.linearVelocity = new Vector3(player.playerRb.linearVelocity.x, 0, player.playerRb.linearVelocity.z);
         player.playerRb.AddForce(Vector3.up * player.jumpforce, ForceMode.Impulse);
         player.SetState(new FallingState(player));
+
+        if(Input.GetKeyDown(KeyCode.E) && player.canDodgeRoll)
+        {
+            player.SetState(new DodgeRollState(player));
+        }
     }
     public void OnJump()
     {

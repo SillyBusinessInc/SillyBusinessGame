@@ -21,6 +21,10 @@ public class FallingState : BaseState
         {
             player.SetState(new GlidingState(player));
         }
+        if(Input.GetKeyDown(KeyCode.E) && player.canDodgeRoll)
+        {
+            player.SetState(new DodgeRollState(player));
+        }
     }
 
     public override void OnCollision(Collision collision)

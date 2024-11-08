@@ -21,6 +21,10 @@ public class GlidingState : BaseState
             player.SetState(new JumpingState(player));
             player.currentJumps += 1; 
         }
+        if(Input.GetKeyDown(KeyCode.E) && player.canDodgeRoll)
+        {
+            player.SetState(new DodgeRollState(player));
+        }
 
     }
 

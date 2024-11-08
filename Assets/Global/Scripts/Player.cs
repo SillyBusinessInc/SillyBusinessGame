@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public float speed = 5f;
     public int doubleJumps = 1;
     public float glideDrag = 2f;
+    public float dodgeRollSpeed = 10f;
     
     [HideInInspector]
     public BaseState currentState;
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour
     public Rigidbody playerRb;
     [HideInInspector]
     public bool isGrounded;
+    public bool canDodgeRoll = true;
     public Transform orientation;
 
     [Header("Debugging")]
@@ -38,6 +40,10 @@ public class Player : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
         currentState.Update();
         currentStateName = currentState.GetType().Name;
+        if (isGrounded)
+        {
+            canDodgeRoll = true;
+        }
         RotatePlayerObj();
     }
     
@@ -74,7 +80,7 @@ public class Player : MonoBehaviour
     private void RotatePlayerObj()
     {
         if (playerRb.linearVelocity.magnitude > 0.1f)
-        { 
+        {
             var direction = Vector3.ProjectOnPlane(playerRb.linearVelocity, Vector3.up).normalized; 
             playerRb.MoveRotation(Quaternion.LookRotation(direction));
         }
