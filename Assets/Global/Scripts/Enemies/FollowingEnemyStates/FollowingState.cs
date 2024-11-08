@@ -1,10 +1,10 @@
 using UnityEngine;
 
-namespace FollowingEnemy
+namespace FollowEnemyStates
 {
-    public class FollowingState : FollowingEnemy.StateBase
+    public class FollowingState : StateBase
     {
-        public FollowingState(FollowEnemyBase followEnemy) : base(followEnemy)
+        public FollowingState(FollowEnemy followEnemy) : base(followEnemy)
         {
         }
         public override void Enter()

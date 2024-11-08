@@ -12,13 +12,13 @@ public class FallingState : StateBase
 
         if(Input.GetKeyDown(KeyCode.Space) && Player.doubleJumps > Player.currentJumps)
         {
-            Player.SetState(new JumpingState(Player));
+            Player.SetState(Player.states.Jumping);
             Player.currentJumps += 1; 
         }
 
         if(Input.GetKey(KeyCode.LeftShift) && Player.rb.linearVelocity.y < 0)
         {
-            Player.SetState(new GlidingState(Player));
+            Player.SetState(Player.states.Gliding);
         }
     }
 
@@ -26,7 +26,7 @@ public class FallingState : StateBase
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Player.SetState(new IdleState(Player));
+            Player.SetState(Player.states.Idle);
             Player.currentJumps = 0;
         }
     }

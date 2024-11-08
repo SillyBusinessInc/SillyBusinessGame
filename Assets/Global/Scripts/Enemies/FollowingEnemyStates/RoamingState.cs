@@ -2,11 +2,11 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-namespace FollowingEnemy
+namespace FollowEnemyStates
 {
-    public class RoamingState : FollowingEnemy.StateBase
+    public class RoamingState : StateBase
     {
-        public RoamingState(FollowEnemyBase followEnemy) : base(followEnemy) { }
+        public RoamingState(FollowEnemy followEnemy) : base(followEnemy) { }
 
         public override void Enter()
         {

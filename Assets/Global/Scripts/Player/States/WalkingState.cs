@@ -14,17 +14,17 @@ public class WalkingState : StateBase
 
         if (!(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)))
         {
-            Player.SetState(new IdleState(Player));
+            Player.SetState(Player.states.Idle);
         }
 
         if(Input.GetKey(KeyCode.Space))
         {
-            Player.SetState(new JumpingState(Player));
+            Player.SetState(Player.states.Jumping);
         }
 
         if (!Player.isGrounded)
         {
-            Player.SetState(new FallingState(Player));
+            Player.SetState(Player.states.Falling);
         }
     }
 }

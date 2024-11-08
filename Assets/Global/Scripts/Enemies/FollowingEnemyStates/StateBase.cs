@@ -1,9 +1,9 @@
-namespace FollowingEnemy
+namespace FollowEnemyStates
 {
     public abstract class StateBase
     {
-        protected FollowEnemyBase followEnemy;
-        protected StateBase(FollowEnemyBase followEnemy)
+        protected FollowEnemy followEnemy;
+        protected StateBase(FollowEnemy followEnemy)
         {
             this.followEnemy = followEnemy;
         }

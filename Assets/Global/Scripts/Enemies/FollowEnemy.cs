@@ -1,12 +1,12 @@
 using System.Collections.Generic;
-using FollowingEnemy;
+using FollowEnemyStates;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class FollowEnemyBase : EnemyBase
+public class FollowEnemy : EnemyBase
 {
-    public Dictionary<string, FollowingEnemy.StateBase> states;
-    private FollowingEnemy.StateBase currentState;
+    public Dictionary<string, FollowEnemyStates.StateBase> states;
+    private FollowEnemyStates.StateBase currentState;
     
     [HideInInspector] public NavMeshAgent agent;
 
@@ -30,7 +30,7 @@ public class FollowEnemyBase : EnemyBase
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        states = new Dictionary<string, FollowingEnemy.StateBase>
+        states = new Dictionary<string, FollowEnemyStates.StateBase>
             {
                 {"Roaming", new RoamingState(this)},
                 {"Following", new FollowingState(this)}
@@ -47,7 +47,7 @@ public class FollowEnemyBase : EnemyBase
         };
     }
 
-    public void ChangeState(FollowingEnemy.StateBase state)
+    public void ChangeState(FollowEnemyStates.StateBase state)
     {
         currentState?.Exit();
         currentState = state;

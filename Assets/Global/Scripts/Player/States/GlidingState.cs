@@ -10,13 +10,13 @@ public class GlidingState : StateBase
     {
         if (!Input.GetKey(KeyCode.LeftShift))
         {
-            Player.SetState(new FallingState(Player));
+            Player.SetState(Player.states.Falling);
         }
         Player.rb.AddForce(Player.GetDirection() * Player.speed, ForceMode.Force);
         
         if(Input.GetKeyDown(KeyCode.Space) && Player.doubleJumps > Player.currentJumps)
         {
-            Player.SetState(new JumpingState(Player));
+            Player.SetState(Player.states.Jumping);
             Player.currentJumps += 1; 
         }
 
@@ -37,7 +37,7 @@ public class GlidingState : StateBase
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Player.SetState(new IdleState(Player));
+            Player.SetState(Player.states.Idle);
             Player.currentJumps = 0;
         }
     }

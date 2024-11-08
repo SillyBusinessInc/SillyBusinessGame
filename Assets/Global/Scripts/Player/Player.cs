@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public float horizontalInput;
     [HideInInspector] public float verticalInput;
     [HideInInspector] public bool isGrounded;
+    [HideInInspector] public PlayerStates states;
     private StateBase currentState;
     
     [Header("Debugging")]
@@ -27,8 +28,8 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        // playerRb = GetComponent<Rigidbody>();
-        SetState(new IdleState(this));
+        states = new PlayerStates(this);
+        SetState(states.Idle);
     }
 
     void Update()
