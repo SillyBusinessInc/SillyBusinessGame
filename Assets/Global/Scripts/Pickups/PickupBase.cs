@@ -7,7 +7,7 @@ using UnityEngine.Splines;
 
 public abstract class PickupBase : MonoBehaviour
 {
-    public float pickupRange = 1;
+    public float pickupRange = 2;
     public float pickupSpeed = 0.1f;
     public bool isLocked = false;
     public bool isStatic = false;
