@@ -7,6 +7,9 @@ public class Player : MonoBehaviour
     public BaseState currentState;
     public float jumpforce = 2f;
     public float speed = 5f;
+    public int doubleJumps = 1;
+    [HideInInspector] 
+    public int currentJumps = 0;
     [HideInInspector]
     public float horizontalInput;
     [HideInInspector]
@@ -14,7 +17,7 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public Rigidbody playerRb;
     [HideInInspector]
-    public bool isOnGround = true;
+    public bool isGrounded;
 
     [Header("Debugging")]
     public string currentStateName;
@@ -36,8 +39,14 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        isGrounded = collision.gameObject.CompareTag("Ground");
         currentState.OnCollision(collision);
     }
+    private void OnCollisionExit(Collision collision)
+    {
+        isGrounded = !collision.gameObject.CompareTag("Ground");
+    }
+    
     public void SetState(BaseState newState)
     {
         if ( currentState!= null) 
@@ -45,6 +54,4 @@ public class Player : MonoBehaviour
         currentState = newState;
         currentState.Enter();
     }
-
-
 }

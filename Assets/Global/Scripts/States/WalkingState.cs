@@ -20,5 +20,10 @@ public class WalkingState : BaseState
         {
             player.SetState(new JumpingState(player));
         }
+
+        if (!player.isGrounded)
+        {
+            player.SetState(new FallingState(player));
+        }
     }
 }
