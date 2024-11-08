@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AI;
-using FollowingEnemy;
 
 public class RoamingState : FollowingEnemy.BaseState
 {
@@ -57,7 +56,7 @@ public class RoamingState : FollowingEnemy.BaseState
         Collider[] hits = Physics.OverlapSphere(enemy.transform.position, enemy.visionRange);
         foreach (var hit in hits)
         {
-            PlayerScript player = hit.GetComponent<PlayerScript>();
+            Player player = hit.GetComponent<Player>();
             if (player != null)
             {
                 Vector3 directionToPlayer = (player.transform.position - enemy.transform.position).normalized;
@@ -68,7 +67,7 @@ public class RoamingState : FollowingEnemy.BaseState
                     RaycastHit rayHit;
                     if (Physics.Raycast(enemy.transform.position, directionToPlayer, out rayHit, enemy.visionRange))
                     {
-                        if (rayHit.collider.GetComponent<PlayerScript>() != null)
+                        if (rayHit.collider.GetComponent<Player>() != null)
                         {
                             enemy.target = player.transform;
                             return true;

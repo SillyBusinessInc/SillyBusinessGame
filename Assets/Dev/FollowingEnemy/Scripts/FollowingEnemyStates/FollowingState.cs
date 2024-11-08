@@ -1,4 +1,3 @@
-using FollowingEnemy;
 using UnityEngine;
 
 public class FollowingState : FollowingEnemy.BaseState
@@ -46,7 +45,7 @@ public class FollowingState : FollowingEnemy.BaseState
             RaycastHit hit;
             if (Physics.Raycast(enemy.transform.position, directionToPlayer, out hit, enemy.visionRange))
             {
-                if (hit.collider.GetComponent<PlayerScript>() != null)
+                if (hit.collider.GetComponent<Player>() != null)
                 {
                     return true;
                 }
