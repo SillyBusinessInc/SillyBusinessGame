@@ -3,11 +3,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [HideInInspector]
-    public BaseState currentState;
+    
     public float jumpforce = 2f;
     public float speed = 5f;
     public int doubleJumps = 1;
+    public float glideDrag = 2f;
+    
+    [HideInInspector]
+    public BaseState currentState;
     [HideInInspector] 
     public int currentJumps = 0;
     [HideInInspector]
@@ -21,6 +24,7 @@ public class Player : MonoBehaviour
 
     [Header("Debugging")]
     public string currentStateName;
+    
     void Start()
     {
         // playerRb = GetComponent<Rigidbody>();
