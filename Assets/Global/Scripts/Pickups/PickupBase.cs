@@ -3,7 +3,6 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.Splines;
 
 public abstract class PickupBase : MonoBehaviour
 {
