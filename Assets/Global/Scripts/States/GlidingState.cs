@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class GlidingState : BaseState
 {
+    private float oldDrag;
     public GlidingState(Player player) : base(player)
     {
     }
@@ -14,16 +15,24 @@ public class GlidingState : BaseState
         }
         player.transform.Translate(0.5f * Vector3.forward * Time.deltaTime * player.speed * player.horizontalInput);
         player.transform.Translate(0.5f * Vector3.left * Time.deltaTime * player.speed * player.verticalInput);
+       
+        if(Input.GetKeyDown(KeyCode.Space) && player.doubleJumps > player.currentJumps)
+        {
+            player.SetState(new JumpingState(player));
+            player.currentJumps += 1; 
+        }
+
     }
 
     public override void Enter()
     {
-        player.playerRb.linearDamping = player.Drag;
+        oldDrag = player.playerRb.linearDamping;
+        player.playerRb.linearDamping = player.glideDrag;
     }
 
     public override void Exit()
     {
-        player.playerRb.linearDamping = 0f;
+        player.playerRb.linearDamping = oldDrag;
     }
 
     public override void OnCollision(Collision collision)
