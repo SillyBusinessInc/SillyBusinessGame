@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
 
     [Header("Debugging")]
     public string currentStateName;
-    
+
     void Start()
     {
         // playerRb = GetComponent<Rigidbody>();
@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
         currentState.Update();
         currentStateName = currentState.GetType().Name;
+        RotatePlayerObj();
     }
     
     void FixedUpdate() => currentState.FixedUpdate();
@@ -59,7 +60,22 @@ public class Player : MonoBehaviour
         currentState.Enter();
     }
 
-    public Vector3 getDirection() {
-        return orientation.forward;
+    public Vector3 GetDirection() {
+        // go forward/back
+        Vector3 forwardMovement = orientation.forward * verticalInput;
+
+        // go left/right
+        Vector3 rightMovement = Vector3.Cross(orientation.forward * horizontalInput, Vector3.down);
+
+        return (forwardMovement + rightMovement).normalized;
+    }
+
+    private void RotatePlayerObj()
+    {
+        if (playerRb.linearVelocity.magnitude > 0.1f)
+        { 
+            var direction = Vector3.ProjectOnPlane(playerRb.linearVelocity, Vector3.up).normalized; 
+            playerRb.MoveRotation(Quaternion.LookRotation(direction));
+        }
     }
 }

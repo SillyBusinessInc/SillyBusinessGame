@@ -8,8 +8,9 @@ public class FallingState : BaseState
     
     public override void Update()
     {
-        player.transform.Translate(0.5f* Vector3.forward * Time.deltaTime * player.speed * player.horizontalInput);
-        player.transform.Translate(0.5f* Vector3.left * Time.deltaTime * player.speed * player.verticalInput);
+
+        player.playerRb.AddForce(player.GetDirection() * player.speed * 0.5f, ForceMode.Force);
+
         if(Input.GetKeyDown(KeyCode.Space) && player.doubleJumps > player.currentJumps)
         {
             player.SetState(new JumpingState(player));
