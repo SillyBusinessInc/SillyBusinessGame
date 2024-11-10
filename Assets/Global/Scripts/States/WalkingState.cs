@@ -16,7 +16,7 @@ public class WalkingState : BaseState
             player.SetState(new IdleState(player));
         }
 
-        if(Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             player.SetState(new JumpingState(player));
         }
@@ -24,6 +24,11 @@ public class WalkingState : BaseState
         if (!player.isGrounded)
         {
             player.SetState(new FallingState(player));
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            player.SetState(new AttackingState(player));
         }
     }
 }

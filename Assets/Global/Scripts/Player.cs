@@ -3,15 +3,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    
+
     public float jumpforce = 2f;
     public float speed = 5f;
     public int doubleJumps = 1;
     public float glideDrag = 2f;
-    
+
     [HideInInspector]
     public BaseState currentState;
-    [HideInInspector] 
+    [HideInInspector]
     public int currentJumps = 0;
     [HideInInspector]
     public float horizontalInput;
@@ -25,6 +25,11 @@ public class Player : MonoBehaviour
     [Header("Debugging")]
     public string currentStateName;
 
+    public Transform TransformPlayer;
+    public Transform TransformTail;
+    public bool rotateLeft;
+
+    public float turnSpeed;
     void Start()
     {
         // playerRb = GetComponent<Rigidbody>();
@@ -39,7 +44,7 @@ public class Player : MonoBehaviour
         currentStateName = currentState.GetType().Name;
         RotatePlayerObj();
     }
-    
+
     void FixedUpdate() => currentState.FixedUpdate();
 
     public void OnCollisionEnter(Collision collision)
@@ -51,16 +56,17 @@ public class Player : MonoBehaviour
     {
         isGrounded = !collision.gameObject.CompareTag("Ground");
     }
-    
+
     public void SetState(BaseState newState)
     {
-        if ( currentState!= null) 
+        if (currentState != null)
             currentState.Exit();
         currentState = newState;
         currentState.Enter();
     }
 
-    public Vector3 GetDirection() {
+    public Vector3 GetDirection()
+    {
         // go forward/back
         Vector3 forwardMovement = orientation.forward * verticalInput;
 
@@ -73,8 +79,8 @@ public class Player : MonoBehaviour
     private void RotatePlayerObj()
     {
         if (playerRb.linearVelocity.magnitude > 0.1f)
-        { 
-            var direction = Vector3.ProjectOnPlane(playerRb.linearVelocity, Vector3.up).normalized; 
+        {
+            var direction = Vector3.ProjectOnPlane(playerRb.linearVelocity, Vector3.up).normalized;
             playerRb.MoveRotation(Quaternion.LookRotation(direction));
         }
     }

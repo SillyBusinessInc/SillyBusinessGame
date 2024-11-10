@@ -13,8 +13,4 @@ public class JumpingState : BaseState
         player.playerRb.AddForce(Vector3.up * player.jumpforce, ForceMode.Impulse);
         player.SetState(new FallingState(player));
     }
-    public void OnJump()
-    {
-        
-    }
 }
