@@ -21,6 +21,11 @@ public class AttackingState : StateBase
 
     void Turn()
     {
+        if(rotate >= 360)
+        {
+            Player.SetState(Player.states.Idle);
+            return;
+        }
         rotateLeft = Player.TransformTail.rotation.eulerAngles.y >= 180? !rotateLeft : rotateLeft;
         Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, rotateLeft ? Player.TurnSpeed : -Player.TurnSpeed);
         rotate += Player.TurnSpeed;
