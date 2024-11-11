@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class IdleState : BaseState
+public class IdleState : StateBase
 {
     public IdleState(Player player) : base(player)
     {
@@ -12,16 +12,16 @@ public class IdleState : BaseState
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || 
             Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
-            player.SetState(new WalkingState(player));
+            Player.SetState(Player.states.Walking);
         }
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            player.SetState(new JumpingState(player));
+            Player.SetState(Player.states.Jumping);
         }
-        if (!player.isGrounded)
+        if (!Player.isGrounded)
         {
-            player.SetState(new FallingState(player));
+            Player.SetState(Player.states.Falling);
         }
     }
 

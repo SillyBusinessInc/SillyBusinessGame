@@ -1,41 +1,35 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
-    // health
-    public Image healthbar;
-    [Range(10, 1000)]
-    public int maxHealth = 100;
-    private float health;
-
-    public float jumpforce = 2f;
+    [Header("Settings")]
+    public float jumpForce = 2f;
     public float speed = 5f;
+    public float airBornMovementFactor = 0.5f;
     public int doubleJumps = 1;
     public float glideDrag = 2f;
 
-    [HideInInspector]
-    public BaseState currentState;
-    [HideInInspector]
-    public int currentJumps = 0;
-    [HideInInspector]
-    public float horizontalInput;
-    [HideInInspector]
-    public float verticalInput;
-    public Rigidbody playerRb;
-    [HideInInspector]
-    public bool isGrounded;
+    [Header("References")]
+    [FormerlySerializedAs("playerRb")]
+    public Rigidbody rb;
     public Transform orientation;
 
+    [HideInInspector] public int currentJumps = 0;
+    [HideInInspector] public float horizontalInput;
+    [HideInInspector] public float verticalInput;
+    [HideInInspector] public bool isGrounded;
+    [HideInInspector] public PlayerStates states;
+    private StateBase currentState;
+
     [Header("Debugging")]
-    public string currentStateName;
+    [SerializeField] private string currentStateName = "none";
 
     void Start()
     {
-        health = maxHealth;
-        // playerRb = GetComponent<Rigidbody>();
-        SetState(new IdleState(this));
+        states = new PlayerStates(this);
+        SetState(states.Idle);
     }
 
     void Update()
@@ -43,7 +37,6 @@ public class Player : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
         currentState.Update();
-        currentStateName = currentState.GetType().Name;
         RotatePlayerObj();
     }
 
@@ -59,28 +52,13 @@ public class Player : MonoBehaviour
         isGrounded = !collision.gameObject.CompareTag("Ground");
     }
 
-    public void SetState(BaseState newState)
+    public void SetState(StateBase newState)
     {
-        if (currentState != null)
-            currentState.Exit();
+        currentState?.Exit();
         currentState = newState;
         currentState.Enter();
+        currentStateName = newState.GetType().Name;
     }
-
-    public void OnHit(int damage)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            OnDeath();
-        }
-    }
-
-    public void OnDeath()
-    {
-        Debug.Log("PLAYER DIED", this);
-    }
-
 
     public Vector3 GetDirection()
     {
@@ -95,10 +73,10 @@ public class Player : MonoBehaviour
 
     private void RotatePlayerObj()
     {
-        if (playerRb.linearVelocity.magnitude > 0.1f)
+        if (rb.linearVelocity.magnitude > 0.1f)
         {
-            var direction = Vector3.ProjectOnPlane(playerRb.linearVelocity, Vector3.up).normalized;
-            playerRb.MoveRotation(Quaternion.LookRotation(direction));
+            var direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
+            rb.MoveRotation(Quaternion.LookRotation(direction));
         }
     }
 }
