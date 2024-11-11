@@ -25,6 +25,10 @@ public class AttackingState : BaseState
     {
         for (int i = 0; i < player.turnSpeed; i++) //Forloop to make the rotation speed more smooth
         {
+            if (rotation >= 360.0f)
+            {
+                return;
+            }
             if (rotation == 180.0f)
             {
                 player.rotateLeft = !player.rotateLeft;
