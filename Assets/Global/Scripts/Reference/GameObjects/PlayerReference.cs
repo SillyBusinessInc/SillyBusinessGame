@@ -1,10 +1,14 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerReference : Reference
 {
-    public Player player;
-    void Start() {
-        player = GetComponent<Player>();
+    private Player player;
+    public Player Player {
+        get => player ? player : player = GetComponent<Player>();
+    }
+
+    private PlayerObjScript playerObj;
+    public PlayerObjScript PlayerObj {
+        get => playerObj ? playerObj : playerObj = GetComponentInChildren<PlayerObjScript>();
     }
 }

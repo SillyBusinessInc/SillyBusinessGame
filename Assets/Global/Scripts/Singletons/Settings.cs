@@ -1,30 +1,17 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Settings
 {
-    // Define the settings (only float, int or string)
-    private float masterVolume;
-    private int fullscreen;
-
-    // Define how each setting is accessed
+    private readonly string pre = "settings_";
+    
     public float MasterVolume {
-        get => masterVolume;
-        set => masterVolume = Mathf.Clamp(value, 0, 100);
+        get => PlayerPrefs.GetFloat($"{pre}masterVolume");
+        set => PlayerPrefs.SetFloat($"{pre}masterVolume", Mathf.Clamp(value, 0f, 100f));
     }
+
     public bool FullScreen {
-        get => fullscreen == 1;
-        set => fullscreen = value ? 1 : 0;
-    }
-
-    // Define how each setting is saved
-    public void Save() {
-        PlayerPrefs.SetFloat("masterVolume", masterVolume);
-        PlayerPrefs.SetInt("fullscreen", fullscreen);
-    }
-
-    // Define how each setting is loaded
-    public void Load() {
-        masterVolume = PlayerPrefs.GetFloat("masterVolume");
-        fullscreen = PlayerPrefs.GetInt("fullscreen");
+        get => PlayerPrefs.GetInt($"{pre}fullscreen") == 1;
+        set => PlayerPrefs.SetInt($"{pre}fullscreen", value ? 1 : 0);
     }
 }

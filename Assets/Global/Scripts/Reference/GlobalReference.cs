@@ -9,17 +9,17 @@ public static class GlobalReference
     // Non monobehavior singletons
     private static Statistics statistics;
     public static Statistics Statistics { 
-        get { return statistics == null ? statistics : statistics = new(); }
+        get => statistics != null ? statistics : statistics = new();
     }
 
     private static Settings settings;
     public static Settings Settings { 
-        get { return settings == null ? settings : settings = new(); }
+        get => settings != null ? settings : settings = new();
     }
 
     private static GameManager gameManager;
     public static GameManager GameManager { 
-        get { return gameManager == null ? gameManager : gameManager = new(); }
+        get => gameManager != null ? gameManager : gameManager = new();
     }
 
     // GameObject reference logic
@@ -55,10 +55,13 @@ public static class GlobalReference
         referenceList.Remove(name);
     }
 
+    /// <summary>
+    /// <para>Finds the reference defined by the given generic type.</para>
+    /// <para>Never use this method in Awake() or in OnDestroy()</para>
+    /// </summary>
     public static T GetReference<T>() {
-        foreach (KeyValuePair<string, Reference> pair in referenceList) {
-            if (pair.Value is T t) return t;
-        }
+        string name = typeof(T).Name;
+        if (referenceList[name] is T t) return t;
         return default;
     }
 }

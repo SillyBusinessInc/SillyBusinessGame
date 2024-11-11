@@ -28,7 +28,8 @@ public abstract class PickupBase : MonoBehaviour
         mr = GetComponentInChildren<MeshRenderer>();
         c = GetComponentInChildren<Collider>();
 
-        target = GlobalReference.GetReference<PlayerReference>().transform.GetChild(0);
+        PlayerObjScript p = GlobalReference.GetReference<PlayerReference>().PlayerObj;
+        target = p.transform;
     }
 
     void Update()
@@ -96,7 +97,5 @@ public abstract class PickupBase : MonoBehaviour
         OnCollectCompleted();
     }
 
-    protected virtual void OnTrigger() {
-        return;
-    }
+    protected abstract void OnTrigger();
 }
