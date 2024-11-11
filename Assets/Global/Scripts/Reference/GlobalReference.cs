@@ -7,20 +7,15 @@ using UnityEngine.InputSystem.Utilities;
 public static class GlobalReference
 {
     // Non monobehavior singletons
-    private static Statistics statistics;
-    public static Statistics Statistics { 
-        get => statistics != null ? statistics : statistics = new();
-    }
+    // private static Statistics statistics;
+    // public static Statistics Statistics { 
+    //     get => statistics ??= new();
+    // }
 
-    private static Settings settings;
-    public static Settings Settings { 
-        get => settings != null ? settings : settings = new();
-    }
-
-    private static GameManager gameManager;
-    public static GameManager GameManager { 
-        get => gameManager != null ? gameManager : gameManager = new();
-    }
+    // private static Settings settings;
+    // public static Settings Settings { 
+    //     get => settings ??= new();
+    // }
 
     // GameObject reference logic
     public static Dictionary<string, Reference> referenceList = new();

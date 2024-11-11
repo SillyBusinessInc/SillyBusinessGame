@@ -7,8 +7,8 @@ public class PlayerReference : Reference
         get => player ? player : player = GetComponent<Player>();
     }
 
-    private PlayerObjScript playerObj;
-    public PlayerObjScript PlayerObj {
-        get => playerObj ? playerObj : playerObj = GetComponentInChildren<PlayerObjScript>();
+    private PlayerObject playerObj;
+    public PlayerObject PlayerObj {
+        get => playerObj ? playerObj : playerObj = GetComponentInChildren<PlayerObject>();
     }
 }
