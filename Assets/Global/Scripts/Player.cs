@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public int doubleJumps = 1;
     public float glideDrag = 2f;
     public float dodgeRollSpeed = 10f;
+    public float dodgeRollDuration = 1f;
     
     [HideInInspector]
     public BaseState currentState;
