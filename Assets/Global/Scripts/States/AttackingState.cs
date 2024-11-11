@@ -29,10 +29,7 @@ public class AttackingState : BaseState
             {
                 return;
             }
-            if (rotation == 180.0f)
-            {
-                player.rotateLeft = !player.rotateLeft;
-            }
+            player.rotateLeft = rotation == 180.0f? !player.rotateLeft : player.rotateLeft;
             player.TransformTail.transform.RotateAround(player.TransformPlayer.position, Vector3.up, player.rotateLeft ? 1 : -1);
             rotation += 1;
         }
