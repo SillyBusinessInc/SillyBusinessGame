@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using System.Data;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -33,5 +34,10 @@ public class AttackingState : BaseState
             player.TransformTail.transform.RotateAround(player.TransformPlayer.position, Vector3.up, player.rotateLeft ? 1 : -1);
             rotation += 1;
         }
+    }
+    
+    public override void Enter()
+    {
+        rotation = 0.0f;
     }
 }
