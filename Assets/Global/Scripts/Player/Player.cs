@@ -10,7 +10,9 @@ public class Player : MonoBehaviour
     public float airBornMovementFactor = 0.5f;
     public int doubleJumps = 1;
     public float glideDrag = 2f;
-    
+    public Transform TransformTail;
+    public float TurnSpeed;
+
     [Header("References")]
     [FormerlySerializedAs("playerRb")] 
     public Rigidbody rb;
