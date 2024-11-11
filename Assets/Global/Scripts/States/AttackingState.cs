@@ -33,14 +33,7 @@ public class AttackingState : BaseState
             {
                 player.rotateLeft = !player.rotateLeft;
             }
-            if (player.rotateLeft)
-            {
-                player.TransformTail.transform.RotateAround(player.TransformPlayer.position, Vector3.up, 1);
-            }
-            else
-            {
-                player.TransformTail.transform.RotateAround(player.TransformPlayer.position, Vector3.up, -1);
-            }
+            player.TransformTail.transform.RotateAround(player.TransformPlayer.position, Vector3.up, player.rotateLeft ? 1 : -1);
             rotation += 1;
         }
     }
