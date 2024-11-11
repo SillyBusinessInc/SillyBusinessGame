@@ -42,8 +42,8 @@ namespace FollowEnemyStates
 
             if (angleToPlayer < followEnemy.visionAngle / 2 && Vector3.Distance(followEnemy.transform.position, followEnemy.target.position) <= followEnemy.visionRange)
             {
-                if (Physics.Raycast(followEnemy.transform.position, 
-                        directionToPlayer, out var hit, 
+                if (Physics.Raycast(followEnemy.transform.position,
+                        directionToPlayer, out var hit,
                         followEnemy.visionRange))
                 {
                     if (hit.collider == followEnemy.playerObject)
