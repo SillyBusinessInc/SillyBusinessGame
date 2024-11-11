@@ -3,9 +3,8 @@ using UnityEngine;
 
 public class PlayerOrientation : MonoBehaviour
 {
-    public float sensitivityX = 200f;
-
-    public Rigidbody playerObject;
+    [SerializeField] private float sensitivityX = 200f;
+    [SerializeField] private Rigidbody playerRb;
 
     private float _yRotation;
 
@@ -21,7 +20,7 @@ public class PlayerOrientation : MonoBehaviour
         _yRotation += Input.GetAxis("Mouse X") * Time.deltaTime * sensitivityX;
         transform.localRotation = Quaternion.Euler(0f, _yRotation, 0f);
         
-        transform.position = playerObject.transform.position;
+        transform.position = playerRb.transform.position;
         transform.Translate(Vector3.forward);
     }
 

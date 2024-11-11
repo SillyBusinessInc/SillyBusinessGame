@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PickupHealth : PickupBase
+public class HealthPickup : PickupBase
 {
     protected override void OnTrigger()
     {

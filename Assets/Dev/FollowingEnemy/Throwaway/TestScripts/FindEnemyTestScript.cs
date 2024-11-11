@@ -18,7 +18,7 @@ public class TestFindEnemy : MonoBehaviour
     [ContextMenu("Check for Enemies")]
     public void CheckEnemy()
     {
-        EnemyScript[] enemy = FindObjectsByType<EnemyScript>(FindObjectsSortMode.None);
+        EnemyBase[] enemy = FindObjectsByType<EnemyBase>(FindObjectsSortMode.None);
 
         if (enemy.Length < 1) return;
         Debug.Log(enemy[0].name, enemy[0]);
@@ -27,7 +27,7 @@ public class TestFindEnemy : MonoBehaviour
     [ContextMenu("List all Enemies")]
     public void ListEnemies()
     {
-        EnemyScript[] enemies = FindObjectsByType<EnemyScript>(FindObjectsSortMode.None);
+        EnemyBase[] enemies = FindObjectsByType<EnemyBase>(FindObjectsSortMode.None);
 
         if (enemies.Length < 1)
         {
@@ -35,7 +35,7 @@ public class TestFindEnemy : MonoBehaviour
             return;
         }
 
-        foreach (EnemyScript enemy in enemies)
+        foreach (EnemyBase enemy in enemies)
         {
             Debug.Log(enemy.name, enemy);
         }
