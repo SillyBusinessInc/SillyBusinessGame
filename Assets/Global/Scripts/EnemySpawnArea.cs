@@ -2,22 +2,22 @@ using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawnArea : MonoBehaviour
 {
     [Header("Spawner Settings")]
     [Tooltip("Prefab of the enemy to spawn")]
-    public GameObject enemyPrefab;
+    [SerializeField] private GameObject enemyPrefab;
 
     [Tooltip("Spawn interval in seconds")]
     [Range(0, 30)]
-    public float spawnInterval = 3f;
+    [SerializeField] private float spawnInterval = 3f;
 
     [Tooltip("Maximum number of enemies that can be active at one time")]
-    public int maxSpawnedEnemies = 5;
+    [SerializeField] private int maxSpawnedEnemies = 5;
 
     [Header("Spawn Area Settings")]
     [Tooltip("Reference to a Transform object representing the spawn area")]
-    public Transform spawnArea;
+    [SerializeField] private Transform spawnArea;
 
     private List<GameObject> activeEnemies = new List<GameObject>();
     private float nextSpawnTime;
