@@ -1,11 +1,12 @@
 using UnityEngine;
 
-public abstract class BaseState
+public abstract class StateBase
 {
-    public Player player;
-    public BaseState(Player player)
+    protected readonly Player Player;
+
+    protected StateBase(Player player)
     {
-        this.player = player;
+        this.Player = player;
     }
 
     public virtual void Enter()

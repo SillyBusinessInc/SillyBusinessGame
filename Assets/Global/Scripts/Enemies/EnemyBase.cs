@@ -1,9 +1,9 @@
 using UnityEngine;
 
 // Base enemy class
-public class EnemyScript : MonoBehaviour
+public abstract class EnemyBase : MonoBehaviour
 {
-    // Base enemy fields
+    [Header("Base Enemy Fields")]
     [SerializeField]
     [Range(0, 250)]
     public float health = 100; // private -> public, int -> float
