@@ -9,14 +9,14 @@ public class GlidingState : BaseState
     }
     public override void Update()
     {
-        if (!Input.GetKey(KeyCode.LeftShift))
+        if (!Input.GetKey(KeyCode.LeftShift) && !player.canDodgeRoll)
         {
             player.SetState(new FallingState(player));
         }
         player.transform.Translate(0.5f * Vector3.forward * Time.deltaTime * player.speed * player.horizontalInput);
         player.transform.Translate(0.5f * Vector3.left * Time.deltaTime * player.speed * player.verticalInput);
        
-        if(Input.GetKeyDown(KeyCode.Space) && player.doubleJumps > player.currentJumps)
+        if(Input.GetKeyDown(KeyCode.Space) && player.doubleJumps > player.currentJumps && player.canDodgeRoll)
         {
             player.SetState(new JumpingState(player));
             player.currentJumps += 1; 

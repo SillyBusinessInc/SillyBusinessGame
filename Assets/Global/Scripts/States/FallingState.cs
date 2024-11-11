@@ -11,13 +11,13 @@ public class FallingState : BaseState
 
         player.playerRb.AddForce(player.GetDirection() * player.speed * 0.5f, ForceMode.Force);
 
-        if(Input.GetKeyDown(KeyCode.Space) && player.doubleJumps > player.currentJumps)
+        if(Input.GetKeyDown(KeyCode.Space) && player.doubleJumps > player.currentJumps && player.canDodgeRoll)
         {
             player.SetState(new JumpingState(player));
             player.currentJumps += 1; 
         }
 
-        if(Input.GetKey(KeyCode.LeftShift) && player.playerRb.linearVelocity.y < 0)
+        if(Input.GetKey(KeyCode.LeftShift) && player.playerRb.linearVelocity.y < 0 && player.canDodgeRoll)
         {
             player.SetState(new GlidingState(player));
         }
