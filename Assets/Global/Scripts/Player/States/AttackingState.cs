@@ -19,22 +19,41 @@ public class AttackingState : StateBase
         Turn();
     }
 
+    private bool isReturning;
+
     void Turn()
     {
-        if(rotate >= 360)
+        if (!isReturning)
         {
-            Player.SetState(Player.states.Idle);
-            return;
+            if (rotate < 180)
+            {
+                Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, Player.TurnSpeed);
+                rotate += Player.TurnSpeed;
+            }
+            else
+            {
+                rotate = 0;
+                isReturning = true;
+            }
         }
-        rotateLeft = Player.TransformTail.rotation.eulerAngles.y >= 180? !rotateLeft : rotateLeft;
-        Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, rotateLeft ? Player.TurnSpeed : -Player.TurnSpeed);
-        rotate += Player.TurnSpeed;
-        Debug.Log(rotate);        
+        else
+        {
+            if (rotate < 180)
+            {
+                Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, -Player.TurnSpeed);
+                rotate += Player.TurnSpeed;
+            }
+            else
+            {
+                Player.SetState(Player.states.Idle);
+            }
+        }
     }
 
     public override void Enter()
     {
         rotate = 0;
+        isReturning = false;
     }
 
     public override void Exit()
