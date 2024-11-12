@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     public float glideDrag = 2f;
     public Transform TransformTail;
     public float TurnSpeed;
+    public bool isSlamming;
+
+    public int attackCounter;
 
     [Header("References")]
     [FormerlySerializedAs("playerRb")] 

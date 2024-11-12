@@ -5,20 +5,26 @@ public class FallingState : StateBase
     public FallingState(Player player) : base(player)
     {
     }
-    
+
     public override void Update()
     {
         Player.rb.AddForce(Player.GetDirection() * (Player.speed * Player.airBornMovementFactor), ForceMode.Force);
 
-        if(Input.GetKeyDown(KeyCode.Space) && Player.doubleJumps > Player.currentJumps)
+        if (Input.GetKeyDown(KeyCode.Space) && Player.doubleJumps > Player.currentJumps)
         {
             Player.SetState(Player.states.Jumping);
-            Player.currentJumps += 1; 
+            Player.currentJumps += 1;
         }
 
-        if(Input.GetKey(KeyCode.LeftShift) && Player.rb.linearVelocity.y < 0)
+        if (Input.GetKey(KeyCode.LeftShift) && Player.rb.linearVelocity.y < 0)
         {
             Player.SetState(Player.states.Gliding);
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            Player.attackCounter = 2;
+            Player.isSlamming = true;
+            Player.SetState(Player.states.Attacking);
         }
     }
 
