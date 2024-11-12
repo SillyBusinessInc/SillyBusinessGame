@@ -1036,7 +1036,10 @@ MonoBehaviour:
   visionAngle: 45
   visionRange: 10
   attackDamage: 25
-  attackRange: 5
+  attackRange: 1
+  attackCooldown: 5
+  canAttack: 1
+  attackTimeElapsed: 0
   currentStateName: none
 --- !u!136 &768190350
 CapsuleCollider:
