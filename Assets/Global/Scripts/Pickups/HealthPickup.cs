@@ -6,6 +6,6 @@ public class HealthPickup : PickupBase
     {
         // GlobalReference.Get<PlayerReference>().GetComponent<Player>().Heal(5);
         
-        GlobalReference.AttemptInvoke("pickup");
+        GlobalReference.AttemptInvoke(Events.PICKUP_COLLECTED);
     }
 }

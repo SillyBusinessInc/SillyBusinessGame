@@ -16,7 +16,12 @@ public class ScreenShiftTest : MonoBehaviour
         Debug.Log("AAAAAAAAAAAAAAAAAH");
     }
 
+    public void Warn() {
+        Debug.LogWarning("something");
+    }
+
     void Start() {
-        GlobalReference.SubscribeTo("pickup", Scream);
+        GlobalReference.SubscribeTo(Events.PICKUP_COLLECTED, Scream);
+        GlobalReference.SubscribeTo(Events.PICKUP_COLLECTED, Warn);
     }
 }

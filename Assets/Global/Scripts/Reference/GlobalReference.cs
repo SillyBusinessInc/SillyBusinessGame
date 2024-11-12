@@ -62,24 +62,24 @@ public static class GlobalReference
     }
 
     // Event Logic
-    public static Dictionary<string, UnityEvent> eventList = new();
+    public static Dictionary<Events, UnityEvent> eventList = new();
 
-    public static void SubscribeTo(string eventName, UnityAction action) {
+    public static void SubscribeTo(Events eventName, UnityAction action) {
         Debug.Log($"Object Subscribed ({eventName})");
         TryGetEvent(eventName).AddListener(action);
     }
 
-    public static void UnsubscribeTo(string eventName, UnityAction action) {
+    public static void UnsubscribeTo(Events eventName, UnityAction action) {
         Debug.Log($"Object Unsubscribed ({eventName})");
         TryGetEvent(eventName).RemoveListener(action);
     }
 
-    public static void AttemptInvoke(string eventName) {
+    public static void AttemptInvoke(Events eventName) {
         Debug.Log($"Object Invoked ({eventName})");
         TryGetEvent(eventName).Invoke();
     }
 
-    private static UnityEvent TryGetEvent(string eventName) {
+    private static UnityEvent TryGetEvent(Events eventName) {
         return eventList.ContainsKey(eventName) ? eventList[eventName] : eventList[eventName] = new();
     }
 }
