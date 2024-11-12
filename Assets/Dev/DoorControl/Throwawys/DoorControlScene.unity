@@ -1299,7 +1299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1089174853191178708, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.51
+      value: 2.47
       objectReference: {fileID: 0}
     - target: {fileID: 1089174853191178708, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1333,9 +1333,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3160561710621501260, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3578709650434774329, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 8173491819385383276, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
       propertyPath: m_Name
-      value: Door
+      value: RoomTransitionDoor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
