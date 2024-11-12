@@ -10,4 +10,13 @@ public class ScreenShiftTest : MonoBehaviour
     public void Shift() {
         SceneManager.LoadScene(scene);
     }
+
+
+    public void Scream() {
+        Debug.Log("AAAAAAAAAAAAAAAAAH");
+    }
+
+    void Start() {
+        GlobalReference.SubscribeTo("pickup", Scream);
+    }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem.Utilities;
 
 public static class GlobalReference
@@ -20,7 +21,7 @@ public static class GlobalReference
     // GameObject reference logic
     public static Dictionary<string, Reference> referenceList = new();
 
-    public static void Register(Reference ref_) {
+    public static void RegisterReference(Reference ref_) {
         if (!ref_) {
             Debug.LogWarning("Could not register object because no reference was given");
             return;
@@ -35,7 +36,7 @@ public static class GlobalReference
         referenceList.Add(name ,ref_);
     }
 
-    public static void Unregister(Reference ref_) {
+    public static void UnregisterReference(Reference ref_) {
         if (!ref_) {
             Debug.LogWarning("Could not unregister object because no reference was given");
             return;
@@ -58,5 +59,27 @@ public static class GlobalReference
         string name = typeof(T).Name;
         if (referenceList[name] is T t) return t;
         return default;
+    }
+
+    // Event Logic
+    public static Dictionary<string, UnityEvent> eventList = new();
+
+    public static void SubscribeTo(string eventName, UnityAction action) {
+        Debug.Log($"Object Subscribed ({eventName})");
+        TryGetEvent(eventName).AddListener(action);
+    }
+
+    public static void UnsubscribeTo(string eventName, UnityAction action) {
+        Debug.Log($"Object Unsubscribed ({eventName})");
+        TryGetEvent(eventName).RemoveListener(action);
+    }
+
+    public static void AttemptInvoke(string eventName) {
+        Debug.Log($"Object Invoked ({eventName})");
+        TryGetEvent(eventName).Invoke();
+    }
+
+    private static UnityEvent TryGetEvent(string eventName) {
+        return eventList.ContainsKey(eventName) ? eventList[eventName] : eventList[eventName] = new();
     }
 }

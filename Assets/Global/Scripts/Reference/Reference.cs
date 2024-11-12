@@ -3,10 +3,10 @@ using UnityEngine;
 public abstract class Reference : MonoBehaviour
 {
     void Awake() {
-        GlobalReference.Register(this);
+        GlobalReference.RegisterReference(this);
     }
 
     void OnDestroy() {
-        GlobalReference.Unregister(this);
+        GlobalReference.UnregisterReference(this);
     }
 }
