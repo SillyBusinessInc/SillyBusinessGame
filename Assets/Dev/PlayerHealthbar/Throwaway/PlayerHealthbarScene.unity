@@ -690,7 +690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4811859323897289456, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.23
+      value: -1.37
       objectReference: {fileID: 0}
     - target: {fileID: 4811859323897289456, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1035,6 +1035,8 @@ MonoBehaviour:
   target: {fileID: 0}
   visionAngle: 45
   visionRange: 10
+  attackDamage: 25
+  attackRange: 5
   currentStateName: none
 --- !u!136 &768190350
 CapsuleCollider:
