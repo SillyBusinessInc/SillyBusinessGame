@@ -1285,6 +1285,11 @@ Transform:
   - {fileID: 316398237}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &2060739876 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 657158424722739070, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
+  m_PrefabInstance: {fileID: 2441927668679667032}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2441927668679667032
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1299,7 +1304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1089174853191178708, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.47
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 1089174853191178708, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1333,14 +1338,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3160561710621501260, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3578709650434774329, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
-      propertyPath: m_TagString
-      value: Ground
-      objectReference: {fileID: 0}
+    - target: {fileID: 1164370792912209937, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
+      propertyPath: doorMesh
+      value: 
+      objectReference: {fileID: 2060739876}
+    - target: {fileID: 1164370792912209937, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
+      propertyPath: connectingRoom
+      value: 
+      objectReference: {fileID: 102900000, guid: 55fad539838032345a645cbc8da00b51, type: 3}
+    - target: {fileID: 1164370792912209937, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
+      propertyPath: lockedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 8d429115e01de0040adcdcb2bb01ed12, type: 2}
+    - target: {fileID: 1164370792912209937, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
+      propertyPath: unlockedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: c08e6cbf88284514db1e9c554bcb21e0, type: 2}
     - target: {fileID: 8173491819385383276, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
       propertyPath: m_Name
       value: RoomTransitionDoor

@@ -213,6 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectingRoom: {fileID: 0}
+  animator: {fileID: 7719880940827678336}
 --- !u!1001 &6705270016759117282
 PrefabInstance:
   m_ObjectHideFlags: 0
