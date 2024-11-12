@@ -212,8 +212,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39ae39b75215ff4b9cfe7a22739380c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lockedMaterial: {fileID: 2100000, guid: 8d429115e01de0040adcdcb2bb01ed12, type: 2}
+  unlockedMaterial: {fileID: 2100000, guid: c08e6cbf88284514db1e9c554bcb21e0, type: 2}
   connectingRoom: {fileID: 0}
   animator: {fileID: 7719880940827678336}
+  doorMesh: {fileID: 657158424722739070}
 --- !u!1001 &6705270016759117282
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -365,6 +368,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3cb1a924910e0c4c95ecc9c34ba06b7, type: 3}
+--- !u!23 &657158424722739070 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 9077926073120308842, guid: e3cb1a924910e0c4c95ecc9c34ba06b7, type: 3}
+  m_PrefabInstance: {fileID: 8423411020455129364}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8317953678513002239 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e3cb1a924910e0c4c95ecc9c34ba06b7, type: 3}
