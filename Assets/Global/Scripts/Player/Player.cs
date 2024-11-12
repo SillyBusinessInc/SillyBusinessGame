@@ -12,13 +12,13 @@ public class Player : MonoBehaviour
     public float glideDrag = 2f;
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
-    public bool canDodgeRoll = true;
     
     [Header("References")]
     [FormerlySerializedAs("playerRb")] 
     public Rigidbody rb;
     public Transform orientation;
     
+    [HideInInspector] public bool canDodgeRoll = true;
     [HideInInspector] public int currentJumps = 0;
     [HideInInspector] public float horizontalInput;
     [HideInInspector] public float verticalInput;

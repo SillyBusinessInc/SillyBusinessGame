@@ -33,11 +33,11 @@ public class DodgeRollState : StateBase
         {
             if (Player.isGrounded)
             {
-                Player.SetState(new IdleState(Player));
+                Player.SetState(Player.states.Idle);
             }
             else
             {
-                Player.SetState(new FallingState(Player));
+                Player.SetState(Player.states.Falling);
             }
         }
     }

@@ -13,7 +13,7 @@ public class JumpingState : StateBase
         Player.SetState(Player.states.Falling);
         if(Input.GetKeyDown(KeyCode.E) && Player.canDodgeRoll)
         {
-            Player.SetState(new DodgeRollState(Player));
+            Player.SetState(Player.states.DodgeRoll);
         }
     }
 }
