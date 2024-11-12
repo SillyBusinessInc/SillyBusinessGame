@@ -9,10 +9,10 @@ EditorBuildSettings:
     path: Assets/Production/Scenes/Game.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Dev/Fabio/TestingScene.unity
+    path: Assets/Dev/Fabio/Pickups/TestingScene.unity
     guid: 92df9f6a80cd7db44a6d20a1e8b2d46b
   - enabled: 1
-    path: Assets/Dev/Fabio/TestingScene1.unity
+    path: Assets/Dev/Fabio/ScreenShift/TestingScene1.unity
     guid: 5a876d45012ba9e48bc03026163440f9
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
