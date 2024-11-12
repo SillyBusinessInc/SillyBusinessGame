@@ -23,6 +23,10 @@ public class IdleState : StateBase
         {
             Player.SetState(Player.states.Falling);
         }
+        if(Input.GetKeyDown(KeyCode.E) && Player.canDodgeRoll)
+        {
+            Player.SetState(Player.states.DodgeRoll);
+        }
     }
 
 }
