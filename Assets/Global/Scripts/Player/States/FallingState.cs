@@ -16,9 +16,13 @@ public class FallingState : StateBase
             Player.currentJumps += 1; 
         }
 
-        if(Input.GetKey(KeyCode.LeftShift) && Player.rb.linearVelocity.y < 0)
+        if(Input.GetKey(KeyCode.LeftShift) && Player.rb.linearVelocity.y < 0 && Player.canDodgeRoll)
         {
             Player.SetState(Player.states.Gliding);
+        }
+        if(Input.GetKeyDown(KeyCode.E) && Player.canDodgeRoll)
+        {
+            Player.SetState(Player.states.DodgeRoll);
         }
     }
 
