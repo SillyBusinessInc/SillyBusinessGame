@@ -25,6 +25,14 @@ public class FallingState : StateBase
             Player.attackCounter = 2;
             Player.isSlamming = true;
             Player.SetState(Player.states.Attacking);
+            
+        if(Input.GetKey(KeyCode.LeftShift) && Player.rb.linearVelocity.y < 0 && Player.canDodgeRoll)
+        {
+            Player.SetState(Player.states.Gliding);
+        }
+        if(Input.GetKeyDown(KeyCode.E) && Player.canDodgeRoll)
+        {
+            Player.SetState(Player.states.DodgeRoll);
         }
     }
 

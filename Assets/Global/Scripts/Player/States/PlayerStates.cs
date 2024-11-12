@@ -6,6 +6,7 @@
     public readonly StateBase Walking;
     public readonly StateBase Gliding;
     public readonly StateBase Attacking;
+    public readonly StateBase DodgeRoll;
     
     public PlayerStates(Player player)
     {
@@ -15,5 +16,6 @@
         Walking = new WalkingState(player);
         Gliding = new GlidingState(player);
         Attacking = new AttackingState(player);
+        DodgeRoll = new DodgeRollState(player);
     }
 }

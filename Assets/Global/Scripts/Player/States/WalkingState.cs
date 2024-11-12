@@ -31,5 +31,9 @@ public class WalkingState : StateBase
         {
             Player.SetState(Player.states.Attacking);
         }
+        if(Input.GetKeyDown(KeyCode.E) && Player.canDodgeRoll)
+        {
+            Player.SetState(Player.states.DodgeRoll);
+        }
     }
 }
