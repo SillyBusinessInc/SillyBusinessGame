@@ -1,25 +1,27 @@
-using JetBrains.Annotations;
-using System.Data;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class AttackingState : StateBase
 {
-    public bool rotateLeft;
+    private bool rotateLeft;
 
-    public float rotate;
+    private float rotate;
+
+    private bool isReturning;
 
     public AttackingState(Player player) : base(player)
     {
+    }
+    
+    public override void Enter()
+    {
+        rotate = 0;
+        isReturning = false;
     }
 
     public override void FixedUpdate()
     {
         Turn();
     }
-
-    private bool isReturning;
 
     void Turn()
     {
@@ -48,12 +50,6 @@ public class AttackingState : StateBase
                 Player.SetState(Player.states.Idle);
             }
         }
-    }
-
-    public override void Enter()
-    {
-        rotate = 0;
-        isReturning = false;
     }
 
     public override void Exit()
