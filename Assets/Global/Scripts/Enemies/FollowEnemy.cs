@@ -29,7 +29,7 @@ public class FollowEnemy : EnemyBase
     public float attackRange = 1f;
     public float attackCooldown = 2f;
     public bool canAttack = true;
-    private float attackTimeElapsed = 0f;
+    public float attackTimeElapsed = 0f;
 
     [Header("Debugging")]
     [SerializeField] private string currentStateName = "none";
@@ -49,14 +49,6 @@ public class FollowEnemy : EnemyBase
 
     private void Update()
     {
-        if (!canAttack)
-        {
-            attackTimeElapsed += Time.deltaTime;
-            if (attackTimeElapsed >= attackCooldown)
-            {
-                toggleCanAttack();
-            }
-        }
         if (currentState != null)
         {
             currentState.Update();
@@ -71,9 +63,9 @@ public class FollowEnemy : EnemyBase
         currentStateName = state.GetType().Name;
     }
 
-    public void toggleCanAttack()
+    public void toggleCanAttack(bool v)
     {
-        canAttack = !canAttack;
+        canAttack = v;
         if (canAttack) attackTimeElapsed = 0f;
     }
 

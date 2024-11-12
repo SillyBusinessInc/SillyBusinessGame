@@ -1,3 +1,4 @@
+using UnityEditor.Search;
 using UnityEngine;
 
 namespace FollowEnemyStates
@@ -7,11 +8,9 @@ namespace FollowEnemyStates
         public AttackingState(FollowEnemy followEnemy) : base(followEnemy)
         {
         }
-
         public override void Enter()
         {
             Attack();
-            followEnemy.ChangeState(followEnemy.states["Following"]);
         }
 
         public override void Exit()
@@ -20,13 +19,21 @@ namespace FollowEnemyStates
 
         public override void Update()
         {
+            followEnemy.attackTimeElapsed += Time.deltaTime;
+            if (followEnemy.attackTimeElapsed >= followEnemy.attackCooldown)
+            {
+                followEnemy.attackTimeElapsed = 0f;
+                followEnemy.toggleCanAttack(true);
+                followEnemy.ChangeState(followEnemy.states["Following"]);
+
+            }
         }
         private void Attack()
         {
             if (followEnemy.canAttack)
             {
                 followEnemy.target.root.GetComponent<Player>().OnHit(followEnemy.attackDamage); // TODO: replace this when using EventSystem
-                followEnemy.toggleCanAttack();
+                followEnemy.toggleCanAttack(false);
             }
         }
     }
