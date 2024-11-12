@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FallingState : StateBase
 {
@@ -10,17 +11,16 @@ public class FallingState : StateBase
     {
         Player.rb.AddForce(Player.GetDirection() * (Player.speed * Player.airBornMovementFactor), ForceMode.Force);
 
-        if(Input.GetKeyDown(KeyCode.Space) && Player.doubleJumps > Player.currentJumps)
+        if(Player.inputActions.actions["Jump"].triggered && Player.doubleJumps > Player.currentJumps)
         {
             Player.SetState(Player.states.Jumping);
             Player.currentJumps += 1; 
         }
-
-        if(Input.GetKey(KeyCode.LeftShift) && Player.rb.linearVelocity.y < 0 && Player.canDodgeRoll)
+        if(Player.inputActions.actions["Glide"].ReadValue<float>() != 0 && Player.rb.linearVelocity.y < 0 && Player.canDodgeRoll)
         {
             Player.SetState(Player.states.Gliding);
         }
-        if(Input.GetKeyDown(KeyCode.E) && Player.canDodgeRoll)
+        if(Player.inputActions.actions["Dodge"].triggered && Player.canDodgeRoll)
         {
             Player.SetState(Player.states.DodgeRoll);
         }

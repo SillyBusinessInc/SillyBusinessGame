@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GlidingState : StateBase
 {
@@ -8,21 +9,25 @@ public class GlidingState : StateBase
     }
     public override void Update()
     {
-        if (!Input.GetKey(KeyCode.LeftShift))
+        
+        if (Player.inputActions.actions["Glide"].ReadValue<float>() == 0)
         {
-            Player.SetState(Player.states.Falling);
+            Player.SetState(Player.states.Falling);  // When movement ends (e.g., released)
         }
+
+        
         Player.rb.AddForce(Player.GetDirection() * Player.speed, ForceMode.Force);
         
-        if(Input.GetKeyDown(KeyCode.Space) && Player.doubleJumps > Player.currentJumps && Player.canDodgeRoll)
+        if(Player.inputActions.actions["Jump"].triggered && Player.doubleJumps > Player.currentJumps && Player.canDodgeRoll)
         {
             Player.SetState(Player.states.Jumping);
             Player.currentJumps += 1; 
         }
-        if(Input.GetKeyDown(KeyCode.E) && Player.canDodgeRoll)
+        if(Player.inputActions.actions["Dodge"].triggered && Player.canDodgeRoll)
         {
             Player.SetState(Player.states.DodgeRoll);
         }
+        
 
     }
 

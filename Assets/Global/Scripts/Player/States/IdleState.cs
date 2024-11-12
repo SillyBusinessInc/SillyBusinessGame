@@ -9,13 +9,16 @@ public class IdleState : StateBase
 
     public override void Update()
     {
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || 
-            Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        // if (Player.inputActions.actions["Move"].triggered)
+        // {
+        //     Player.SetState(Player.states.Walking);
+        // }
+        if (Player.inputActions.actions["Move"].ReadValue<Vector2>() != Vector2.zero)
         {
             Player.SetState(Player.states.Walking);
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Player.inputActions.actions["Jump"].triggered)
         {
             Player.SetState(Player.states.Jumping);
         }
@@ -23,7 +26,7 @@ public class IdleState : StateBase
         {
             Player.SetState(Player.states.Falling);
         }
-        if(Input.GetKeyDown(KeyCode.E) && Player.canDodgeRoll)
+        if (Player.inputActions.actions["Dodge"].triggered && Player.canDodgeRoll)
         {
             Player.SetState(Player.states.DodgeRoll);
         }

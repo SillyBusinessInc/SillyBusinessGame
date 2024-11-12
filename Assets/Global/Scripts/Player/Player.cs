@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
@@ -12,6 +13,7 @@ public class Player : MonoBehaviour
     public float glideDrag = 2f;
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
+
     
     [Header("References")]
     [FormerlySerializedAs("playerRb")] 
@@ -29,10 +31,15 @@ public class Player : MonoBehaviour
     [Header("Debugging")]
     [SerializeField] private string currentStateName = "none";
 
+    public PlayerInput inputActions;
+    // private PlayerInputActions inputActions;
+
+
     void Start()
     {
         states = new PlayerStates(this);
         SetState(states.Idle);
+        inputActions = GetComponent<PlayerInput>();
     }
 
     void Update()
@@ -46,6 +53,10 @@ public class Player : MonoBehaviour
             canDodgeRoll = true;
         }
     }
+
+    
+    
+
     
     void FixedUpdate() => currentState.FixedUpdate();
 
@@ -68,13 +79,11 @@ public class Player : MonoBehaviour
     }
 
     public Vector3 GetDirection() {
-        // go forward/back
-        Vector3 forwardMovement = orientation.forward * verticalInput;
+        Vector2 input = inputActions.actions["Move"].ReadValue<Vector2>();
 
-        // go left/right
-        Vector3 rightMovement = Vector3.Cross(orientation.forward * horizontalInput, Vector3.down);
+        Vector3 moveDirection = orientation.forward * input.y + orientation.right * input.x;
 
-        return (forwardMovement + rightMovement).normalized;
+        return moveDirection.normalized;
     }
 
     private void RotatePlayerObj()
