@@ -10,8 +10,6 @@ public class AttackingState : StateBase
 
     public float rotate;
 
-    private bool isReturning;
-
     public AttackingState(Player player) : base(player)
     {
     }
@@ -20,6 +18,8 @@ public class AttackingState : StateBase
     {
         Turn();
     }
+
+    private bool isReturning;
 
     void Turn()
     {
