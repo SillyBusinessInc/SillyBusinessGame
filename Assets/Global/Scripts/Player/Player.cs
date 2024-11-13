@@ -118,17 +118,15 @@ public class Player : MonoBehaviour
     // If we go the event route this should change right?
     public void OnHit(float damage)
     {
-        var health = playerStatistic.health - damage;
-        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), health);
-        playerStatistic.health = health;
-        if (health <= 0) OnDeath();
+        playerStatistic.health -= damage;
+        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
+        if (playerStatistic.health <= 0) OnDeath();
     }
 
     public void Heal(float reward)
     {
-        var health = playerStatistic.health + reward;
-        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), health);
-        playerStatistic.health = health;
+        playerStatistic.health += reward;
+        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
     }
 
     public void IncreaseMaxHealth(float reward)

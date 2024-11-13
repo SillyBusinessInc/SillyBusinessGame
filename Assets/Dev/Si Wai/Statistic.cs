@@ -31,7 +31,6 @@ public class Statistic
        
         value *= baseMultiplier;
         
-
         // then, add the static modifiers
         modifiers?.ForEach(pair => value += pair.Value);
 
