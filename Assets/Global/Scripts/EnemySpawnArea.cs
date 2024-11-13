@@ -6,23 +6,26 @@ public class EnemySpawnArea : MonoBehaviour
 {
     [Header("Spawner Settings")]
     [Tooltip("Prefab of the enemy to spawn")]
-    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] public GameObject enemyPrefab;
 
     [Tooltip("Spawn interval in seconds")]
     [Range(0, 30)]
-    [SerializeField] private float spawnInterval = 3f;
+    [SerializeField] public float spawnInterval = 1f;
 
     [Tooltip("Maximum number of enemies that can be active at one time")]
-    [SerializeField] private int maxSpawnedEnemies = 5;
+    [SerializeField] public int maxSpawnedEnemies = 5;
 
     [Header("Spawn Area Settings")]
     [Tooltip("Reference to a Transform object representing the spawn area")]
-    [SerializeField] private Transform spawnArea;
+    [SerializeField] public Transform spawnArea;
 
     private List<GameObject> activeEnemies = new List<GameObject>();
     private float nextSpawnTime;
 
     private bool startSpawning = false;
+    public bool center = false;
+
+    private bool waveDone = false;
 
     private void Start()
     {
@@ -31,16 +34,14 @@ public class EnemySpawnArea : MonoBehaviour
 
     private void Update()
     {
-        // Clean up destroyed enemies from the list
-        // activeEnemies.RemoveAll(enemy => enemy == null);
-        
         if (Time.time >= nextSpawnTime && activeEnemies.Count < maxSpawnedEnemies &&startSpawning)
         {
             SpawnEnemy();
             nextSpawnTime = Time.time + spawnInterval;
-        }else if(activeEnemies.Count == maxSpawnedEnemies && activeEnemies.TrueForAll(enemy => enemy == null))
+        }else if(activeEnemies.Count == maxSpawnedEnemies && activeEnemies.TrueForAll(enemy => enemy == null) &&waveDone)
         {
-            GlobalReference.AttemptInvoke(Events.ALL_ENEMIES_DEAD);
+            waveDone = false;
+            GlobalReference.AttemptInvoke(Events.WAVE_DONE);
             Debug.Log("All enemies are dead");
         }
     }
@@ -64,17 +65,21 @@ public class EnemySpawnArea : MonoBehaviour
     //listen to event
     private void Awake()
     {
-        GlobalReference.SubscribeTo(Events.WAVE_DONE, () => startSpawning = true);
+        GlobalReference.SubscribeTo(Events.SPAWN_WAVE, startWaveInitials);
     }
 
-    //unity system button to call event wave dont
-    
-    [ContextMenu("Wave Done")]
-    public void WaveDone()
+    //stop listening to event
+    private void OnDestroy()
     {
-        GlobalReference.AttemptInvoke(Events.WAVE_DONE);
+        GlobalReference.UnsubscribeTo(Events.SPAWN_WAVE, startWaveInitials);
     }
-    
+
+    private void startWaveInitials()
+    {
+        activeEnemies.Clear();
+        waveDone = true;
+        startSpawning = true;
+    }    
 
     private void SpawnEnemy()
     {
@@ -93,6 +98,10 @@ public class EnemySpawnArea : MonoBehaviour
         Vector3 areaCenter = spawnArea.position;
         Vector3 areaSize = spawnArea.localScale;
 
+        if (center)
+        {
+            return areaCenter;
+        }
         // Randomize a point within the spawn area's bounds
         float xPos = Random.Range(-(areaSize.x / 2), (areaSize.x / 2));
         float zPos = Random.Range(-(areaSize.z / 2), (areaSize.z / 2));
