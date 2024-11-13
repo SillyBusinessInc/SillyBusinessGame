@@ -23,6 +23,10 @@ namespace FollowEnemyStates
                 followEnemy.target = null;
                 followEnemy.ChangeState(followEnemy.states["Roaming"]);
             }
+            if (followEnemy.target && IsPlayerInSight() && IsPlayerInAttackRange())
+            {
+                followEnemy.ChangeState(followEnemy.states["Attacking"]);
+            }
         }
         private void Following()
         {
@@ -32,7 +36,7 @@ namespace FollowEnemyStates
             }
         }
 
-        // Checks if the player is still in sight
+        // Check if the player is still in sight
         protected bool IsPlayerInSight()
         {
             if (followEnemy.target == null) return false;
@@ -42,8 +46,8 @@ namespace FollowEnemyStates
 
             if (angleToPlayer < followEnemy.visionAngle / 2 && Vector3.Distance(followEnemy.transform.position, followEnemy.target.position) <= followEnemy.visionRange)
             {
-                if (Physics.Raycast(followEnemy.transform.position, 
-                        directionToPlayer, out var hit, 
+                if (Physics.Raycast(followEnemy.transform.position,
+                        directionToPlayer, out var hit,
                         followEnemy.visionRange))
                 {
                     if (hit.collider == followEnemy.playerObject)
@@ -53,6 +57,15 @@ namespace FollowEnemyStates
                 }
             }
             return false;
+        }
+
+        // Check if player is within attackrange
+        protected bool IsPlayerInAttackRange()
+        {
+            if (followEnemy.target == null) return false;
+
+            float distanceToTarget = Vector3.Distance(followEnemy.transform.position, followEnemy.target.position);
+            return distanceToTarget <= followEnemy.attackRange;
         }
     }
 }
