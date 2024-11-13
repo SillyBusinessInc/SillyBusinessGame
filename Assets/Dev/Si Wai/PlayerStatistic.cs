@@ -5,5 +5,6 @@ using UnityEngine;
 public class PlayerStatistic : ScriptableObject
 {
     public float speed = 5f;
-    public Statistic health;
+    public Statistic maxHealth;
+    public float health;
 }

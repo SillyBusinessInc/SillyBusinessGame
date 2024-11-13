@@ -25,9 +25,9 @@ public class Statistic
     public float GetValue()
     {
         float value = baseValue;
-
         // first, apply the base multipliers
         float baseMultiplier = baseMultipliers.Any() ? baseMultipliers.Sum(pair => pair.Value) : 1;
+        
         value *= baseMultiplier;
 
         // then, add the static modifiers
@@ -39,6 +39,8 @@ public class Statistic
 
         return value;
     }
+
+    public float GetValueRaw() => baseValue;
 
     // Add new modifier  
     public void AddModifier(string key, float modifier)
@@ -73,5 +75,9 @@ public class Statistic
             baseMultipliers.RemoveAll(pair => pair.Key == key);
         else
             finalMultipliers.RemoveAll(pair => pair.Key == key);
+    }
+
+    public void UpdateBaseValue(float newBaseValue) {
+        baseValue = newBaseValue;
     }
 }

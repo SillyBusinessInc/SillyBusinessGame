@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: PlayerStatistic
   m_EditorClassIdentifier: 
   speed: 5
-  health:
-    baseValue: 0
-  damage:
-    baseValue: 0
+  maxHealth:
+    baseValue: 100
+  health: 100

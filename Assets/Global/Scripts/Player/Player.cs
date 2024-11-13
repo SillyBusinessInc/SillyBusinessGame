@@ -9,8 +9,6 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [Header("Settings")]
-    [Range(0, 250)]
-    [SerializeField] private int maxHealth = 100; // this will likely be done through the stats class soon
     public float jumpForce = 2f;
     public float airBornMovementFactor = 0.5f;
     public int doubleJumps = 1;
@@ -44,7 +42,6 @@ public class Player : MonoBehaviour
     private StateBase currentState;
 
     public Healthbar healthBar;
-    private float health; // this will likely be done through the stats class soon
 
     [Header("Debugging")]
     [SerializeField] private string currentStateName = "none";
@@ -58,8 +55,7 @@ public class Player : MonoBehaviour
         states = new PlayerStates(this);
         SetState(states.Idle);
         inputActions = GetComponent<PlayerInput>();
-        health = maxHealth;
-        healthBar.UpdateHealthBar(0f, maxHealth, health);
+        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValueRaw(), playerStatistic.health);
     }
 
     void Update()
@@ -116,24 +112,20 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage) {
-        float currentValue = playerStatistic.health.GetValue();
-
-        currentValue -= damage;
-
-        if (currentValue < 0)
-        {
-            currentValue = 0;
-        }
-        
-    }
     // If we go the event route this should change right?
     public void OnHit(float damage)
     {
-        health -= damage;
-        healthBar.UpdateHealthBar(0f, maxHealth, health);
-
+        var health = playerStatistic.health - damage;
+        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValueRaw(), health);
+        playerStatistic.health = health;
         if (health <= 0) OnDeath();
+    }
+
+    public void Heal(float reward)
+    {
+        var health = playerStatistic.health + reward;
+        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValueRaw(), health);
+        playerStatistic.health = health;
     }
 
     // If we go the event route this should change right?
