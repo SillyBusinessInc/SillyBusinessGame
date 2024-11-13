@@ -12,7 +12,7 @@ public class GlidingState : StateBase
         {
             Player.SetState(Player.states.Falling);
         }
-        Player.rb.AddForce(Player.GetDirection() * Player.speed, ForceMode.Force);
+        Player.rb.AddForce(Player.GetDirection() * Player.playerStatistic.speed, ForceMode.Force);
         
         if(Input.GetKeyDown(KeyCode.Space) && Player.doubleJumps > Player.currentJumps && Player.canDodgeRoll)
         {

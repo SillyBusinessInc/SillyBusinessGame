@@ -6,12 +6,14 @@ public class Player : MonoBehaviour
 {
     [Header("Settings")]
     public float jumpForce = 2f;
-    public float speed = 5f;
     public float airBornMovementFactor = 0.5f;
     public int doubleJumps = 1;
     public float glideDrag = 2f;
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
+
+    [Header("Stats")]
+    public PlayerStatistic playerStatistic;
     
     [Header("References")]
     [FormerlySerializedAs("playerRb")] 
@@ -83,6 +85,17 @@ public class Player : MonoBehaviour
         { 
             var direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized; 
             rb.MoveRotation(Quaternion.LookRotation(direction));
+        }
+    }
+
+    public void TakeDamage(float damage) {
+        float currentValue = playerStatistic.health.GetValue();
+
+        currentValue -= damage;
+
+        if (currentValue < 0)
+        {
+            currentValue = 0;
         }
     }
 }

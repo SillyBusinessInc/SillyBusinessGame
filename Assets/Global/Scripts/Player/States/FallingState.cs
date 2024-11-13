@@ -8,7 +8,7 @@ public class FallingState : StateBase
     
     public override void Update()
     {
-        Player.rb.AddForce(Player.GetDirection() * (Player.speed * Player.airBornMovementFactor), ForceMode.Force);
+        Player.rb.AddForce(Player.GetDirection() * (Player.playerStatistic.speed * Player.airBornMovementFactor), ForceMode.Force);
 
         if(Input.GetKeyDown(KeyCode.Space) && Player.doubleJumps > Player.currentJumps)
         {
