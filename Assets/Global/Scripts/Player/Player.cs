@@ -55,6 +55,9 @@ public class Player : MonoBehaviour
         states = new PlayerStates(this);
         SetState(states.Idle);
         inputActions = GetComponent<PlayerInput>();
+
+        // health and maxHealth should be the same value at the start of game
+        playerStatistic.health = playerStatistic.maxHealth.GetValue();
         healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
     }
 
