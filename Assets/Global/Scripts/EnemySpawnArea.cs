@@ -22,6 +22,8 @@ public class EnemySpawnArea : MonoBehaviour
     private List<GameObject> activeEnemies = new List<GameObject>();
     private float nextSpawnTime;
 
+    private bool startSpawning = false;
+
     private void Start()
     {
         nextSpawnTime = Time.time + spawnInterval;
@@ -30,15 +32,49 @@ public class EnemySpawnArea : MonoBehaviour
     private void Update()
     {
         // Clean up destroyed enemies from the list
-        activeEnemies.RemoveAll(enemy => enemy == null);
+        // activeEnemies.RemoveAll(enemy => enemy == null);
         
-        if (Time.time >= nextSpawnTime && activeEnemies.Count < maxSpawnedEnemies)
+        if (Time.time >= nextSpawnTime && activeEnemies.Count < maxSpawnedEnemies &&startSpawning)
         {
             SpawnEnemy();
             nextSpawnTime = Time.time + spawnInterval;
+        }else if(activeEnemies.Count == maxSpawnedEnemies && activeEnemies.TrueForAll(enemy => enemy == null))
+        {
+            GlobalReference.AttemptInvoke(Events.ALL_ENEMIES_DEAD);
+            Debug.Log("All enemies are dead");
         }
-
     }
+
+    //function for how many died vs the max spawned enemies like (1/5) it needs to be string
+    [ContextMenu("Get Enemy Count")]
+    public string GetEnemyCount()
+    {
+        int deadEnemies = 0;
+        foreach (GameObject enemy in activeEnemies)
+        {
+            if (enemy == null)
+            {
+                deadEnemies++;
+            }
+        }
+        Debug.Log(deadEnemies + "/" + activeEnemies.Count);
+        return deadEnemies + "/" + activeEnemies.Count;
+    }
+
+    //listen to event
+    private void Awake()
+    {
+        GlobalReference.SubscribeTo(Events.WAVE_DONE, () => startSpawning = true);
+    }
+
+    //unity system button to call event wave dont
+    
+    [ContextMenu("Wave Done")]
+    public void WaveDone()
+    {
+        GlobalReference.AttemptInvoke(Events.WAVE_DONE);
+    }
+    
 
     private void SpawnEnemy()
     {
