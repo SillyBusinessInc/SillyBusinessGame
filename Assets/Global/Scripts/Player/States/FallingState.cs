@@ -11,16 +11,16 @@ public class FallingState : StateBase
     {
         Player.rb.AddForce(Player.GetDirection() * (Player.speed * Player.airBornMovementFactor), ForceMode.Force);
 
-        if(Player.inputActions.actions["Jump"].triggered && Player.doubleJumps > Player.currentJumps)
-        {
-            Player.SetState(Player.states.Jumping);
-            Player.currentJumps += 1; 
-        }
         if(Player.inputActions.actions["Glide"].ReadValue<float>() != 0 && Player.rb.linearVelocity.y < 0 && Player.canDodgeRoll)
         {
             Player.SetState(Player.states.Gliding);
         }
-        if(Player.inputActions.actions["Dodge"].triggered && Player.canDodgeRoll)
+        else if(Player.inputActions.actions["Jump"].triggered && Player.doubleJumps > Player.currentJumps)
+        {
+            Player.SetState(Player.states.Jumping);
+            Player.currentJumps += 1; 
+        }
+        else if(Player.inputActions.actions["Dodge"].triggered && Player.canDodgeRoll)
         {
             Player.SetState(Player.states.DodgeRoll);
         }

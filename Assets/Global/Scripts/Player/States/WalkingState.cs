@@ -11,8 +11,6 @@ public class WalkingState : StateBase
     public override void Update()
     {
         // add force to the player object for movement
-        Debug.Log(Player.speed);
-        Debug.Log(Player.GetDirection());
         Player.rb.AddForce(Player.GetDirection() * Player.speed, ForceMode.Force);
         if (Player.inputActions.actions["Move"].ReadValue<Vector2>() == Vector2.zero)
         {
