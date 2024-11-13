@@ -16,6 +16,7 @@ public class WalkingState : StateBase
         {
             Player.SetState(Player.states.Idle);
         }
+
         if(Player.inputActions.actions["Jump"].triggered)
         {
             Player.SetState(Player.states.Jumping);
@@ -24,6 +25,10 @@ public class WalkingState : StateBase
         if (!Player.isGrounded)
         {
             Player.SetState(Player.states.Falling);
+        }
+        if (Input.GetMouseButtonDown(0)) // TODO: replace this with the new event system thing
+        {
+            Player.SetState(Player.states.Attacking);
         }
         if(Player.inputActions.actions["Dodge"].triggered && Player.canDodgeRoll)
         {

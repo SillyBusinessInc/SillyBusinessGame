@@ -8,6 +8,11 @@ public abstract class EnemyBase : MonoBehaviour
     [Range(0, 250)]
     private int health = 100;
 
+    private void Start()
+    {
+        GlobalReference.AttemptInvoke(Events.ENEMY_SPAWNED);
+    }
+
     void Update()
     {
         // Base enemy update
@@ -34,7 +39,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     void OnDeath()
     {
-        // Base enemy OnDeath-function
-        Debug.Log($"{this.name} OnDeath() triggered", this);
+        GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
+        //Debug.Log($"{this.name} OnDeath() triggered", this);
     }
 }

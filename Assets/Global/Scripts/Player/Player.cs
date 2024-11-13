@@ -1,11 +1,16 @@
 using System;
+using System.Runtime.CompilerServices;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     [Header("Settings")]
+    [Range(0, 250)]
+    [SerializeField] private int maxHealth = 100; // this will likely be done through the stats class soon
     public float jumpForce = 2f;
     public float speed = 5f;
     public float airBornMovementFactor = 0.5f;
@@ -13,12 +18,20 @@ public class Player : MonoBehaviour
     public float glideDrag = 2f;
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
-
+    
+    [Header("Attack")]
+    public float attackResettingTime = 2f;
+    public float TailTurnSpeed = 40f;
+    public BoxCollider TransformTail;
 
     [Header("References")]
     [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
     public Transform orientation;
+
+    [HideInInspector] public int attackCounter;
+    [HideInInspector] public bool isSlamming;
+    [HideInInspector] public float activeAttackCooldown;
 
     [HideInInspector] public bool canDodgeRoll = true;
     [HideInInspector] public int currentJumps = 0;
@@ -27,6 +40,9 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public PlayerStates states;
     private StateBase currentState;
+
+    public Healthbar healthBar;
+    private float health; // this will likely be done through the stats class soon
 
     [Header("Debugging")]
     [SerializeField] private string currentStateName = "none";
@@ -40,21 +56,25 @@ public class Player : MonoBehaviour
         states = new PlayerStates(this);
         SetState(states.Idle);
         inputActions = GetComponent<PlayerInput>();
+        health = maxHealth;
+        healthBar.UpdateHealthBar(0f, maxHealth, health);
     }
 
     void Update()
     {
         currentState.Update();
         RotatePlayerObj();
+        activeAttackCooldown = currentState.GetType().Name != "AttackingState" ? activeAttackCooldown + Time.deltaTime : 0.0f;
+        if(activeAttackCooldown >= this.attackResettingTime)
+        {
+            attackCounter = 0;
+            activeAttackCooldown = 0.0f;
+        }
         if (isGrounded)
         {
             canDodgeRoll = true;
         }
     }
-
-
-
-
 
     void FixedUpdate() => currentState.FixedUpdate();
 
@@ -92,5 +112,20 @@ public class Player : MonoBehaviour
             var direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
             rb.MoveRotation(Quaternion.LookRotation(direction));
         }
+    }
+
+    // If we go the event route this should change right?
+    public void OnHit(float damage)
+    {
+        health -= damage;
+        healthBar.UpdateHealthBar(0f, maxHealth, health);
+
+        if (health <= 0) OnDeath();
+    }
+
+    // If we go the event route this should change right?
+    private void OnDeath()
+    {
+        Debug.Log("Player died", this);
     }
 }
