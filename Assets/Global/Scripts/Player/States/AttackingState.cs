@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using NUnit.Framework;
 using System.Data;
 using UnityEditor;
 using UnityEngine;
@@ -20,7 +21,6 @@ public class AttackingState : StateBase
 
     public override void FixedUpdate()
     {
-        Debug.Log(Player.isGrounded);
         Attack(Player.attackCounter);
     }
     void Attack(int attackCounter)
@@ -50,8 +50,6 @@ public class AttackingState : StateBase
         {
             Player.rb.AddForce(Vector3.down * Player.jumpForce, ForceMode.Impulse);
         }
-        //Player.SetState(Player.states.Idle);
-
     }
     void Slash()
     {
@@ -86,6 +84,14 @@ public class AttackingState : StateBase
     public override void Enter()
     {
         ++Player.attackCounter;
+        if (Player.attackCounter == 1)
+        {
+            turnLeft = false;
+        }
+        if (Player.attackCounter == 2)
+        {
+            turnLeft = true;
+        }
         rotate = 0;
         isReturning = false;
     }

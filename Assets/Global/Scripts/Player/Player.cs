@@ -18,12 +18,16 @@ public class Player : MonoBehaviour
 
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
-    
+
+    public float attackCooldown;
+
+    public float activeAttackCooldown;
+
     [Header("References")]
-    [FormerlySerializedAs("playerRb")] 
+    [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
     public Transform orientation;
-    
+
     [HideInInspector] public bool canDodgeRoll = true;
     [HideInInspector] public int currentJumps = 0;
     [HideInInspector] public float horizontalInput;
@@ -31,7 +35,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public PlayerStates states;
     private StateBase currentState;
-    
+
     [Header("Debugging")]
     [SerializeField] private string currentStateName = "none";
 
@@ -47,12 +51,18 @@ public class Player : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
         currentState.Update();
         RotatePlayerObj();
+        activeAttackCooldown = currentState.GetType().Name != "AttackingState" ? activeAttackCooldown + Time.deltaTime : 0.0f;
+        if(activeAttackCooldown >= attackCooldown)
+        {
+            attackCounter = 0;
+            activeAttackCooldown = 0.0f;
+        }
         if (isGrounded)
         {
             canDodgeRoll = true;
         }
     }
-    
+
     void FixedUpdate() => currentState.FixedUpdate();
 
     public void OnCollisionEnter(Collision collision)
@@ -64,7 +74,7 @@ public class Player : MonoBehaviour
     {
         isGrounded = !collision.gameObject.CompareTag("Ground");
     }
-    
+
     public void SetState(StateBase newState)
     {
         currentState?.Exit();
@@ -73,7 +83,8 @@ public class Player : MonoBehaviour
         currentStateName = newState.GetType().Name;
     }
 
-    public Vector3 GetDirection() {
+    public Vector3 GetDirection()
+    {
         // go forward/back
         Vector3 forwardMovement = orientation.forward * verticalInput;
 
@@ -86,8 +97,8 @@ public class Player : MonoBehaviour
     private void RotatePlayerObj()
     {
         if (rb.linearVelocity.magnitude > 0.1f)
-        { 
-            var direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized; 
+        {
+            var direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
             rb.MoveRotation(Quaternion.LookRotation(direction));
         }
     }
