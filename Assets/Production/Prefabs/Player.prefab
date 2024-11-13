@@ -182,7 +182,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4811859323897289456}
   - component: {fileID: 9169223613212550927}
-  - component: {fileID: 1914524919524521441}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -228,26 +227,20 @@ MonoBehaviour:
   glideDrag: 2
   TransformTail: {fileID: 7738848895938559428}
   TurnSpeed: 40
+  isSlamming: 0
+  attackCounter: 0
+  dodgeRollSpeed: 10
+  dodgeRollDuration: 1
+  attackCooldown: 2
+  activeAttackCooldown: 0
   rb: {fileID: 4479891375412012469}
   orientation: {fileID: 8661837782861090297}
+  canDodgeRoll: 1
   currentJumps: 0
   horizontalInput: 0
   verticalInput: 0
   isGrounded: 0
   currentStateName: none
---- !u!114 &1914524919524521441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637936633501757367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef78de7b77daef64188f496f806c2aea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 10
 --- !u!1 &2503413153551277579
 GameObject:
   m_ObjectHideFlags: 0
