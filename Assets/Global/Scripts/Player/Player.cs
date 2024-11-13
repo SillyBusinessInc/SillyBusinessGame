@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
         states = new PlayerStates(this);
         SetState(states.Idle);
         inputActions = GetComponent<PlayerInput>();
-        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValueRaw(), playerStatistic.health);
+        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
     }
 
     void Update()
@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         var health = playerStatistic.health - damage;
-        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValueRaw(), health);
+        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), health);
         playerStatistic.health = health;
         if (health <= 0) OnDeath();
     }
@@ -124,8 +124,14 @@ public class Player : MonoBehaviour
     public void Heal(float reward)
     {
         var health = playerStatistic.health + reward;
-        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValueRaw(), health);
+        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), health);
         playerStatistic.health = health;
+    }
+
+    public void IncreaseMaxHealth(float reward)
+    {
+        playerStatistic.maxHealth.AddMultiplier("reward", reward, true);
+        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
     }
 
     // If we go the event route this should change right?

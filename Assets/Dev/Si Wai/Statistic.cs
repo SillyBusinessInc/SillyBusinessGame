@@ -11,9 +11,9 @@ public class Statistic
     private float baseValue;  // Starting value, read-only
 
     // Lists of multipliers and modifiers with their associated keys
-    private List<KeyValuePair<string, float>> baseMultipliers = new List<KeyValuePair<string, float>>();
-    private List<KeyValuePair<string, float>> finalMultipliers = new List<KeyValuePair<string, float>>();
-    private List<KeyValuePair<string, float>> modifiers = new List<KeyValuePair<string, float>>();
+    private List<KeyValuePair<string, float>> baseMultipliers = new();
+    private List<KeyValuePair<string, float>> finalMultipliers = new();
+    private List<KeyValuePair<string, float>> modifiers = new();
 
     // Constructor that takes a base value
     public Statistic(float baseValue)
@@ -26,21 +26,21 @@ public class Statistic
     {
         float value = baseValue;
         // first, apply the base multipliers
-        float baseMultiplier = baseMultipliers.Any() ? baseMultipliers.Sum(pair => pair.Value) : 1;
-        
+        // add the parameters with the question mark because list can be null
+        float baseMultiplier = (baseMultipliers?.Any() == true) ? baseMultipliers.Sum(pair => pair.Value) : 1;
+       
         value *= baseMultiplier;
+        
 
         // then, add the static modifiers
-        modifiers.ForEach(pair => value += pair.Value);
+        modifiers?.ForEach(pair => value += pair.Value);
 
         // lastly, combine the final multipliers
-        float finalMultiplier = finalMultipliers.Any() ? finalMultipliers.Sum(pair => pair.Value) : 1;
+        float finalMultiplier = (finalMultipliers?.Any() == true) ? finalMultipliers.Sum(pair => pair.Value) : 1;
         value *= finalMultiplier;
 
         return value;
     }
-
-    public float GetValueRaw() => baseValue;
 
     // Add new modifier  
     public void AddModifier(string key, float modifier)
@@ -75,9 +75,5 @@ public class Statistic
             baseMultipliers.RemoveAll(pair => pair.Key == key);
         else
             finalMultipliers.RemoveAll(pair => pair.Key == key);
-    }
-
-    public void UpdateBaseValue(float newBaseValue) {
-        baseValue = newBaseValue;
     }
 }
