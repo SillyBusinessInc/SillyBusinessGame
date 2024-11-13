@@ -225,16 +225,16 @@ MonoBehaviour:
   airBornMovementFactor: 0.5
   doubleJumps: 1
   glideDrag: 2
-  TransformTail: {fileID: 7738848895938559428}
-  TurnSpeed: 40
-  isSlamming: 0
-  attackCounter: 0
   dodgeRollSpeed: 10
   dodgeRollDuration: 1
-  attackCooldown: 2
-  activeAttackCooldown: 0
+  attackResettingTime: 2
+  TailTurnSpeed: 40
+  TransformTail: {fileID: 1010998894840028502}
   rb: {fileID: 4479891375412012469}
   orientation: {fileID: 8661837782861090297}
+  attackCounter: 0
+  isSlamming: 0
+  activeAttackCooldown: 0
   canDodgeRoll: 1
   currentJumps: 0
   horizontalInput: 0

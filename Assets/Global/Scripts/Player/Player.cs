@@ -10,24 +10,22 @@ public class Player : MonoBehaviour
     public float airBornMovementFactor = 0.5f;
     public int doubleJumps = 1;
     public float glideDrag = 2f;
-    public Transform TransformTail;
-    public float TurnSpeed;
-    public bool isSlamming;
-
-    public int attackCounter;
-
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
-
-    public float attackCooldown;
-
-    public float activeAttackCooldown;
+    
+    [Header("Attack")]
+    public float attackResettingTime = 2f;
+    public float TailTurnSpeed = 40f;
+    public BoxCollider TransformTail;
 
     [Header("References")]
     [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
     public Transform orientation;
 
+    [HideInInspector] public int attackCounter;
+    [HideInInspector] public bool isSlamming;
+    [HideInInspector] public float activeAttackCooldown;
     [HideInInspector] public bool canDodgeRoll = true;
     [HideInInspector] public int currentJumps = 0;
     [HideInInspector] public float horizontalInput;
@@ -52,7 +50,7 @@ public class Player : MonoBehaviour
         currentState.Update();
         RotatePlayerObj();
         activeAttackCooldown = currentState.GetType().Name != "AttackingState" ? activeAttackCooldown + Time.deltaTime : 0.0f;
-        if(activeAttackCooldown >= attackCooldown)
+        if(activeAttackCooldown >= this.attackResettingTime)
         {
             attackCounter = 0;
             activeAttackCooldown = 0.0f;

@@ -57,8 +57,8 @@ public class AttackingState : StateBase
         {
             if (rotate < 180)
             {
-                Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, turnLeft ? Player.TurnSpeed : -Player.TurnSpeed);
-                rotate += Player.TurnSpeed;
+                Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, turnLeft ? Player.TailTurnSpeed : -Player.TailTurnSpeed);
+                rotate += Player.TailTurnSpeed;
             }
             else
             {
@@ -71,8 +71,8 @@ public class AttackingState : StateBase
         {
             if (rotate < 180)
             {
-                Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, turnLeft ? Player.TurnSpeed : -Player.TurnSpeed);
-                rotate += Player.TurnSpeed;
+                Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, turnLeft ? Player.TailTurnSpeed : -Player.TailTurnSpeed);
+                rotate += Player.TailTurnSpeed;
             }
             else
             {
