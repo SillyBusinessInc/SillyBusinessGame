@@ -18,11 +18,11 @@ public class Player : MonoBehaviour
     public float glideDrag = 2f;
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
-    
+    public bool tailCanDoDamage;
     [Header("Attack")]
     public float attackResettingTime = 2f;
     public float TailTurnSpeed = 40f;
-    public BoxCollider TransformTail;
+    public GameObject Tail;
 
     [Header("References")]
     [FormerlySerializedAs("playerRb")]
