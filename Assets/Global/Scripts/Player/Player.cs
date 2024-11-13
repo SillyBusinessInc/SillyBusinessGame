@@ -17,12 +17,20 @@ public class Player : MonoBehaviour
     public float glideDrag = 2f;
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
+    
+    [Header("Attack")]
+    public float attackResettingTime = 2f;
+    public float TailTurnSpeed = 40f;
+    public BoxCollider TransformTail;
 
     [Header("References")]
     [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
     public Transform orientation;
-    public Healthbar healthBar;
+
+    [HideInInspector] public int attackCounter;
+    [HideInInspector] public bool isSlamming;
+    [HideInInspector] public float activeAttackCooldown;
 
     [HideInInspector] public bool canDodgeRoll = true;
     [HideInInspector] public int currentJumps = 0;
@@ -31,6 +39,8 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public PlayerStates states;
     private StateBase currentState;
+
+    public Healthbar healthBar;
     private float health; // this will likely be done through the stats class soon
 
     [Header("Debugging")]
@@ -50,6 +60,12 @@ public class Player : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
         currentState.Update();
         RotatePlayerObj();
+        activeAttackCooldown = currentState.GetType().Name != "AttackingState" ? activeAttackCooldown + Time.deltaTime : 0.0f;
+        if(activeAttackCooldown >= this.attackResettingTime)
+        {
+            attackCounter = 0;
+            activeAttackCooldown = 0.0f;
+        }
         if (isGrounded)
         {
             canDodgeRoll = true;

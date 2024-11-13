@@ -13,17 +13,22 @@ public class GlidingState : StateBase
             Player.SetState(Player.states.Falling);
         }
         Player.rb.AddForce(Player.GetDirection() * Player.speed, ForceMode.Force);
-        
-        if(Input.GetKeyDown(KeyCode.Space) && Player.doubleJumps > Player.currentJumps && Player.canDodgeRoll)
+
+        if (Input.GetKeyDown(KeyCode.Space) && Player.doubleJumps > Player.currentJumps && Player.canDodgeRoll)
         {
             Player.SetState(Player.states.Jumping);
-            Player.currentJumps += 1; 
+            Player.currentJumps += 1;
         }
-        if(Input.GetKeyDown(KeyCode.E) && Player.canDodgeRoll)
+        if (Input.GetKeyDown(KeyCode.E) && Player.canDodgeRoll)
         {
             Player.SetState(Player.states.DodgeRoll);
         }
-
+        if (Input.GetMouseButtonDown(0))
+        {
+            Player.attackCounter = 2;
+            Player.isSlamming = true;
+            Player.SetState(Player.states.Attacking);
+        }
     }
 
     public override void Enter()
