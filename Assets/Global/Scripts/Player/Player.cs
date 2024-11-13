@@ -1,10 +1,15 @@
 using System;
+using System.Runtime.CompilerServices;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     [Header("Settings")]
+    [Range(0, 250)]
+    [SerializeField] private int maxHealth = 100; // this will likely be done through the stats class soon
     public float jumpForce = 2f;
     public float speed = 5f;
     public float airBornMovementFactor = 0.5f;
@@ -26,6 +31,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public int attackCounter;
     [HideInInspector] public bool isSlamming;
     [HideInInspector] public float activeAttackCooldown;
+
     [HideInInspector] public bool canDodgeRoll = true;
     [HideInInspector] public int currentJumps = 0;
     [HideInInspector] public float horizontalInput;
@@ -34,6 +40,9 @@ public class Player : MonoBehaviour
     [HideInInspector] public PlayerStates states;
     private StateBase currentState;
 
+    public Healthbar healthBar;
+    private float health; // this will likely be done through the stats class soon
+
     [Header("Debugging")]
     [SerializeField] private string currentStateName = "none";
 
@@ -41,6 +50,8 @@ public class Player : MonoBehaviour
     {
         states = new PlayerStates(this);
         SetState(states.Idle);
+        health = maxHealth;
+        healthBar.UpdateHealthBar(0f, maxHealth, health);
     }
 
     void Update()
@@ -99,5 +110,20 @@ public class Player : MonoBehaviour
             var direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
             rb.MoveRotation(Quaternion.LookRotation(direction));
         }
+    }
+
+    // If we go the event route this should change right?
+    public void OnHit(float damage)
+    {
+        health -= damage;
+        healthBar.UpdateHealthBar(0f, maxHealth, health);
+
+        if (health <= 0) OnDeath();
+    }
+
+    // If we go the event route this should change right?
+    private void OnDeath()
+    {
+        Debug.Log("Player died", this);
     }
 }
