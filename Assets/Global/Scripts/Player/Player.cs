@@ -2,6 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -46,18 +47,21 @@ public class Player : MonoBehaviour
     [Header("Debugging")]
     [SerializeField] private string currentStateName = "none";
 
+    public PlayerInput inputActions;
+    // private PlayerInputActions inputActions;
+
+
     void Start()
     {
         states = new PlayerStates(this);
         SetState(states.Idle);
+        inputActions = GetComponent<PlayerInput>();
         health = maxHealth;
         healthBar.UpdateHealthBar(0f, maxHealth, health);
     }
 
     void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
         currentState.Update();
         RotatePlayerObj();
         activeAttackCooldown = currentState.GetType().Name != "AttackingState" ? activeAttackCooldown + Time.deltaTime : 0.0f;
@@ -94,13 +98,11 @@ public class Player : MonoBehaviour
 
     public Vector3 GetDirection()
     {
-        // go forward/back
-        Vector3 forwardMovement = orientation.forward * verticalInput;
+        Vector2 input = inputActions.actions["Move"].ReadValue<Vector2>();
 
-        // go left/right
-        Vector3 rightMovement = Vector3.Cross(orientation.forward * horizontalInput, Vector3.down);
+        Vector3 moveDirection = orientation.forward * input.y + orientation.right * input.x;
 
-        return (forwardMovement + rightMovement).normalized;
+        return moveDirection.normalized;
     }
 
     private void RotatePlayerObj()
