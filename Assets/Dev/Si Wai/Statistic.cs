@@ -26,7 +26,7 @@ public class Statistic
     {
         float value = baseValue;
         // first, apply the base multipliers
-        // add the parameters with the question mark because list can be null
+        // add the parenthesis with the question mark because list can be null
         float baseMultiplier = (baseMultipliers?.Any() == true) ? baseMultipliers.Sum(pair => pair.Value) : 1;
        
         value *= baseMultiplier;
