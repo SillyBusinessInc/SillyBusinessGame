@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
         SetState(states.Idle);
         inputActions = GetComponent<PlayerInput>();
         health = maxHealth;
-        healthBar.UpdateHealthBar(0f, maxHealth, health);
+        if (healthBar != null) healthBar.UpdateHealthBar(0f, maxHealth, health);
     }
 
     void Update()
@@ -118,7 +118,7 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         health -= damage;
-        healthBar.UpdateHealthBar(0f, maxHealth, health);
+        if (healthBar != null) healthBar.UpdateHealthBar(0f, maxHealth, health);
 
         if (health <= 0) OnDeath();
     }
