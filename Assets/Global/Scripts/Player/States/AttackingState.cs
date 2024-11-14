@@ -37,6 +37,7 @@ public class AttackingState : StateBase
                 GroundPound();
                 break;
         }
+
     }
 
     void GroundPound()
@@ -50,6 +51,7 @@ public class AttackingState : StateBase
         {
             Player.rb.AddForce(Vector3.down * Player.jumpForce, ForceMode.Impulse);
         }
+        Player.SetState(Player.states.Idle);
     }
     void Slash()
     {

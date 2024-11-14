@@ -1,27 +1,49 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerOrientation : MonoBehaviour
 {
-    [SerializeField] private float sensitivityX = 200f;
     [SerializeField] private Rigidbody playerRb;
+    [SerializeField] PlayerInput input;
+    [SerializeField] private Transform cameraTransform;
 
-    private float _yRotation;
+    private Vector2 _rotation;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        input = GetComponentInParent<PlayerInput>();
     }
 
     private void Update()
     {
- 
-        _yRotation += Input.GetAxis("Mouse X") * Time.deltaTime * sensitivityX;
-        transform.localRotation = Quaternion.Euler(0f, _yRotation, 0f);
-        
-        transform.position = playerRb.transform.position;
-        transform.Translate(Vector3.forward);
+        // Check if the player has pressed the forward movement input
+        Vector2 movementInput = input.actions["Move"].ReadValue<Vector2>();
+
+        if (movementInput.y > 0)
+        {
+            // Align the player with the camera's forward direction if forward movement is initiated
+            AlignPlayerWithCamera();
+            transform.position = playerRb.transform.position;
+        }
+    }
+
+    private void AlignPlayerWithCamera()
+    {
+        // Get the forward direction of the camera and ignore the Y component
+        Vector3 cameraForward = cameraTransform.forward;
+        cameraForward.y = 0;
+        cameraForward.Normalize();
+
+        // Update the player's rotation to face the camera's horizontal direction
+        if (cameraForward != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
+            transform.rotation = targetRotation;
+        }
     }
 
     private void OnDrawGizmos()
