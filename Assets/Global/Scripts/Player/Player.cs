@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     public float dodgeRollDuration = 1f;
 
     [Header("Stats")]
-    public PlayerStatistic playerStatistic;
+    public PlayerStatistic playerStatistic = new();
     
     [Header("Attack")]
     public float attackResettingTime = 2f;

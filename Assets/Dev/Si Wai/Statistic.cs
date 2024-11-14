@@ -15,12 +15,6 @@ public class Statistic
     private List<KeyValuePair<string, float>> finalMultipliers = new();
     private List<KeyValuePair<string, float>> modifiers = new();
 
-    // Constructor that takes a base value
-    public Statistic(float baseValue)
-    {
-        this.baseValue = baseValue;
-    }
-
     // Get the final value after applying modifiers
     public float GetValue()
     {
