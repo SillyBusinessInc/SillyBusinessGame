@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     [Header("Attack")]
     public float attackResettingTime = 2f;
     public float TailTurnSpeed = 40f;
+    public int firstTailDamage = 10;
+    public int secondTailDamage = 15;
     public BoxCollider TransformTail;
 
     [Header("References")]
@@ -30,6 +32,7 @@ public class Player : MonoBehaviour
     public Transform orientation;
 
     [HideInInspector] public int attackCounter;
+    [HideInInspector] public int tailDoDamage;
     [HideInInspector] public bool isSlamming;
     [HideInInspector] public float activeAttackCooldown;
 
@@ -38,9 +41,9 @@ public class Player : MonoBehaviour
     [HideInInspector] public float horizontalInput;
     [HideInInspector] public float verticalInput;
     [HideInInspector] public bool isGrounded;
+    [HideInInspector] public bool tailCanDoDamage = false;
     [HideInInspector] public PlayerStates states;
     private StateBase currentState;
-
     public Healthbar healthBar;
 
     [Header("Debugging")]
