@@ -25,7 +25,7 @@ public class EnemySpawnArea : MonoBehaviour
     private bool startSpawning = false;
     public bool center = false;
 
-    private bool waveDone = false;
+    public bool waveDone = false;
 
     private void Start()
     {
@@ -81,7 +81,7 @@ public class EnemySpawnArea : MonoBehaviour
         startSpawning = true;
     }    
 
-    private void SpawnEnemy()
+    public void SpawnEnemy()
     {
         Vector3 spawnPosition = GetRandomPointInSpawnArea();
 
