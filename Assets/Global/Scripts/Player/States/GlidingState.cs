@@ -9,14 +9,13 @@ public class GlidingState : StateBase
     }
     public override void Update()
     {
-        
         if (Player.inputActions.actions["Glide"].ReadValue<float>() == 0)
         {
             Player.SetState(Player.states.Falling);  // When movement ends (e.g., released)
         }
 
         
-        Player.rb.AddForce(Player.GetDirection() * Player.speed, ForceMode.Force);
+        Player.rb.AddForce(Player.GetDirection() * Player.playerStatistic.speed, ForceMode.Force);
 
         
         if(Player.inputActions.actions["Jump"].triggered && Player.doubleJumps > Player.currentJumps && Player.canDodgeRoll)
