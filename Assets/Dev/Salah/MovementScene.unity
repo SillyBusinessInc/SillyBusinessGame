@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &39371486 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+  m_PrefabInstance: {fileID: 1010089814}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8727f22fc89cd54b9e87543dfb8dca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &47667144
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,6 +142,7 @@ GameObject:
   - component: {fileID: 47667148}
   - component: {fileID: 47667147}
   - component: {fileID: 47667146}
+  - component: {fileID: 47667149}
   m_Layer: 0
   m_Name: SlamObj
   m_TagString: Untagged
@@ -227,6 +239,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 47667144}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &47667149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47667144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5cb9377999d034489ef06f30d78777, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 39371486}
 --- !u!1 &346795089
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,6 +750,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1867164756694761301, guid: 092a25468af9247448566d920992a541, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2983649851661643625, guid: 092a25468af9247448566d920992a541, type: 3}
       propertyPath: m_Name
       value: Enemy 1
