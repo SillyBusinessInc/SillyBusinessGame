@@ -96,6 +96,10 @@ public class AttackingState : StateBase
             Player.tailDoDamage = Player.secondTailDamage;
             turnLeft = true;
         }
+        if (Player.attackCounter == 3)
+        {
+            Player.slamCanDoDamage = true;
+        }
         rotate = 0;
         isReturning = false;
     }
@@ -103,6 +107,7 @@ public class AttackingState : StateBase
     public override void Exit()
     {
         Player.tailCanDoDamage = false;
+        Player.slamCanDoDamage = false;
         Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, 0);
         Player.attackCounter = Player.attackCounter == 3 ? 0 : Player.attackCounter;
     }
