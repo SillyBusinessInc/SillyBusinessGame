@@ -28,9 +28,10 @@ public abstract class EnemyBase : MonoBehaviour
         // Base enemy Attack-function
     }
 
-    protected void OnHit(int damage)
+    public void OnHit(int damage)
     {
         health -= damage;
+        Debug.Log(health);
         if (health <= 0)
         {
             OnDeath();

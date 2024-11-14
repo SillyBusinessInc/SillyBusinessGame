@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5879418160867296726}
   - component: {fileID: 5330160376149713047}
   - component: {fileID: 5053070146915870433}
+  - component: {fileID: 1867164756694761301}
   m_Layer: 0
   m_Name: Enemy 1
   m_TagString: Enemy
@@ -52,8 +53,8 @@ MonoBehaviour:
   agent: {fileID: 0}
   roamingRadius: 5
   roamingAngleRange: 90
-  target: {fileID: 0}
   playerObject: {fileID: 0}
+  target: {fileID: 0}
   visionAngle: 45
   visionRange: 10
   attackDamage: 25
@@ -111,6 +112,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!136 &1867164756694761301
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2983649851661643625}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3584018197205300151
 GameObject:
   m_ObjectHideFlags: 0
