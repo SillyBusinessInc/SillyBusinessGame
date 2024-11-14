@@ -114,7 +114,7 @@ public class RoomTransitionDoor : MonoBehaviour
     }
 
     [ContextMenu("Invoke room finish event")]
-    void InvoteRoomFinishedEvent()
+    void InvokeRoomFinishedEvent()
     {
         GlobalReference.AttemptInvoke(Events.ROOM_FINISHED);
     }
