@@ -19,15 +19,18 @@ public class EnemyWaveManager : MonoBehaviour
     [SerializeField]private int wavesDone = 0;
     public int maxWaves;
     private bool nextWave = true;
+    public bool immediateStart = false;
 
     private void Start()
     {
-        GlobalReference.AttemptInvoke(Events.WAVE_START);
+        if (immediateStart){
+            GlobalReference.AttemptInvoke(Events.WAVE_START);
+        }
     }
     private void Update()
     {
         // Debug.Log(deadEnemies+"/"+totalEnemies);
-        if (deadEnemies >= totalEnemies && nextWave)
+        if (deadEnemies >= totalEnemies && nextWave && immediateStart)
         {
             WaveCompleted();
             // Debug.Log("test");
@@ -51,11 +54,12 @@ public class EnemyWaveManager : MonoBehaviour
     {
         Debug.Log("Starting wave");
         nextWave = false;
+        immediateStart = true;
         
         deadEnemies = 0;
         totalEnemies = 0;
         
-        var spawner = spawnArea.GetComponent<EnemySpawnArea>();
+        var spawner = spawnArea.GetComponent<WaveSpawnArea>();
         totalEnemies = waves[currentWave].waveParts.Sum(wavePart => wavePart.enemyPrefabs.Sum(enemy => enemy.amount));
 
         foreach (var wavePart in waves[currentWave].waveParts) // Access waveParts within each Wave

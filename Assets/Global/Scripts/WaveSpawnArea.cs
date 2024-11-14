@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
-public class EnemySpawnArea : MonoBehaviour
+public class WaveSpawnArea : MonoBehaviour
 {
     [Header("Spawner Settings")]
     [Tooltip("Prefab of the enemy to spawn")]
