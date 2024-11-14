@@ -11,19 +11,17 @@ public class RoomTransitionDoor : MonoBehaviour
     [SerializeField] private Material lockedMaterial;
     [SerializeField] private Material unlockedMaterial;
     [Header("References")]
-    [SerializeField] private SceneAsset connectingRoom;
     [SerializeField] private Animator animator;
     [SerializeField] private MeshRenderer doorMesh;
-
+    [SerializeField] private string nextRoomName;
+    
     private bool isLocked = true;
     private bool isTransitioning = false;
-    public string nextRoomName; 
+     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // disable this door when there is no connected room
-        this.gameObject.SetActive(connectingRoom ? true : false);
         toggleLock(true);
     }
 
@@ -32,12 +30,12 @@ public class RoomTransitionDoor : MonoBehaviour
     }
 
     private void RoomFinished() {
-        isLocked = false;
+        toggleLock(false);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !isTransitioning && isLocked) 
+        if (other.CompareTag("Player") && !isTransitioning && !isLocked) 
         {
             Debug.Log("OnTriggerEnter Happend");
             isTransitioning = true;
@@ -113,5 +111,11 @@ public class RoomTransitionDoor : MonoBehaviour
     void LockDoorTest()
     {
         toggleLock(true);
+    }
+
+    [ContextMenu("Invoke room finish event")]
+    void InvoteRoomFinishedEvent()
+    {
+        GlobalReference.AttemptInvoke(Events.ROOM_FINISHED);
     }
 }
