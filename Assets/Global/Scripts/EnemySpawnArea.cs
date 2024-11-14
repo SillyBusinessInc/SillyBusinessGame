@@ -74,7 +74,7 @@ public class EnemySpawnArea : MonoBehaviour
         GlobalReference.UnsubscribeTo(Events.SPAWN_WAVE, startWaveInitials);
     }
 
-    private void startWaveInitials()
+    public void startWaveInitials()
     {
         activeEnemies.Clear();
         waveDone = true;
@@ -90,6 +90,8 @@ public class EnemySpawnArea : MonoBehaviour
         {
             GameObject newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
             activeEnemies.Add(newEnemy);
+            GlobalReference.AttemptInvoke(Events.ENEMY_SPAWNED);
+
         }
     }
 

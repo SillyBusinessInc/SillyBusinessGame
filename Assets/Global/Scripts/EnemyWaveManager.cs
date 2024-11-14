@@ -1,13 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using Random = UnityEngine.Random;
 
 public class EnemyWaveManager : MonoBehaviour
 {
-    public List<GameObject> enemyPrefabs;
+    public List<Wave> waves;
+    // public List<GameObject> enemyPrefabs;
     public List<Transform> spawnAreaTransforms;
     public GameObject spawnArea;
-    public int enemiesPerWave = 5;
+    // public int enemiesPerWave = 5;
     private int totalEnemies;
     private int deadEnemies;
 
@@ -16,13 +18,13 @@ public class EnemyWaveManager : MonoBehaviour
 
     //serialized for testing
     [SerializeField]private int wavesDone = 0;
-    public int maxWaves = 3;
+    public int maxWaves;
     private bool nextWave = true;
 
-    // private void Start()
-    // {
-    //     StartWave();
-    // }
+    private void Start()
+    {
+        GlobalReference.AttemptInvoke(Events.WAVE_START);
+    }
     private void Update()
     {
         if (deadEnemies >= totalEnemies && nextWave)
@@ -33,11 +35,11 @@ public class EnemyWaveManager : MonoBehaviour
     }
     private void Awake()
     {
+        maxWaves = waves.Count;
         GlobalReference.SubscribeTo(Events.WAVE_START, StartWave);
         GlobalReference.SubscribeTo(Events.WAVE_DONE, WaveCompleted);
         GlobalReference.SubscribeTo(Events.ENEMY_KILLED, OnEnemyDeath);
         GlobalReference.SubscribeTo(Events.ENEMY_SPAWNED, () => totalEnemies++);
-
     }
 
     private void OnDestroy()
@@ -52,15 +54,38 @@ public class EnemyWaveManager : MonoBehaviour
         nextWave = false;
         currentWave++;
         deadEnemies = 0;
-        totalEnemies = enemiesPerWave;
+        //count all the enemies in the wave part
         //take a random spawn area
+        var spawner = spawnArea.GetComponent<EnemySpawnArea>();
 
-        
-        spawnArea.GetComponent<EnemySpawnArea>().enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
-        spawnArea.GetComponent<EnemySpawnArea>().spawnArea = spawnAreaTransforms[Random.Range(0, spawnAreaTransforms.Count)];
-        spawnArea.GetComponent<EnemySpawnArea>().maxSpawnedEnemies = enemiesPerWave;           
-        GlobalReference.AttemptInvoke(Events.SPAWN_WAVE);
-        
+        foreach (var wave in waves) // Loop through each wave in the list
+        {
+            foreach (var wavePart in wave.waveParts) // Access waveParts within each Wave
+            {
+                totalEnemies = wavePart.enemyPrefabs.Sum(enemy => enemy.amount);
+                Debug.Log("Total enemies: " + totalEnemies);
+                Debug.Log("Spawn area: " + wavePart.spawnArea);
+                if (wavePart.spawnArea >= 0)
+                {
+                    Debug.Log("ghellooooo");
+                    spawner.spawnArea = spawnAreaTransforms[wavePart.spawnArea];
+                    foreach (var enemy in wavePart.enemyPrefabs) // Loop through each enemy in wavePart
+                    {
+                        Debug.Log("ghiiiiiii");
+                        // Access the spawn area component and set the enemy properties
+                        spawner.enemyPrefab = enemy.enemyPrefab;
+                        spawner.maxSpawnedEnemies = enemy.amount; // Use 'count' if that's the property name
+                        spawner.startWaveInitials();
+                        // GlobalReference.AttemptInvoke(Events.SPAWN_WAVE);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("No spawn area found");
+                }
+            }
+        }
+
        
     }
 
@@ -74,10 +99,12 @@ public class EnemyWaveManager : MonoBehaviour
     }
 
     private void WaveCompleted()
-    {
+    {   
+        totalEnemies = 0;
         if (wavesDone >= maxWaves)
         {
             GlobalReference.AttemptInvoke(Events.ALL_WAVES_DONE);
+            nextWave = false;
         }
         else
         {
