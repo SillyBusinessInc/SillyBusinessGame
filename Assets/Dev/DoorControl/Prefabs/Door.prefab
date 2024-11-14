@@ -177,6 +177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1089174853191178708}
   - component: {fileID: 1164370792912209937}
+  - component: {fileID: 2813727325042965563}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -217,6 +218,28 @@ MonoBehaviour:
   connectingRoom: {fileID: 0}
   animator: {fileID: 7719880940827678336}
   doorMesh: {fileID: 657158424722739070}
+  nextRoomName: 
+--- !u!65 &2813727325042965563
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8173491819385383276}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.2009602, y: 4.787862, z: 4.3874426}
+  m_Center: {x: -4.559475, y: 0.10987699, z: -4.664393}
 --- !u!1001 &6705270016759117282
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+
 
 public class RoomTransitionDoor : MonoBehaviour
 {
@@ -14,7 +16,8 @@ public class RoomTransitionDoor : MonoBehaviour
     [SerializeField] private MeshRenderer doorMesh;
 
     private bool isLocked = true;
-
+    private bool isTransitioning = false;
+    public string nextRoomName; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,6 +26,48 @@ public class RoomTransitionDoor : MonoBehaviour
         this.gameObject.SetActive(connectingRoom ? true : false);
         toggleLock(true);
     }
+
+    private void Awake() {
+        GlobalReference.SubscribeTo(Events.ROOM_FINISHED, RoomFinished);
+    }
+
+    private void RoomFinished() {
+        isLocked = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && !isTransitioning && isLocked) 
+        {
+            Debug.Log("OnTriggerEnter Happend");
+            isTransitioning = true;
+            LoadNextRoom();
+        }
+    }
+
+    private void LoadNextRoom()
+    {
+        StartCoroutine(LoadRoomCoroutine());
+    }
+
+    private System.Collections.IEnumerator LoadRoomCoroutine()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextRoomName, LoadSceneMode.Additive);
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.UnloadSceneAsync(currentScene);
+
+        Scene newScene = SceneManager.GetSceneByName(nextRoomName);
+        SceneManager.SetActiveScene(newScene);
+
+        isTransitioning = false;
+    }
+
 
     void toggleLock(bool v)
     {
