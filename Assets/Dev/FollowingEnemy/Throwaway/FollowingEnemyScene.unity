@@ -552,7 +552,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 1750da2794b791c40a6b629862335926, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: a40c631d08335c74a866e10d6c30d6aa, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &319971211
 GameObject:
@@ -2061,6 +2061,14 @@ PrefabInstance:
     - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: airBornMovementFactor
       value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: playerStatistic.speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: playerStatistic.maxHealth.baseValue
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5420928983913619597, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}

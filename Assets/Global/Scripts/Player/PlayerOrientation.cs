@@ -5,10 +5,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerOrientation : MonoBehaviour
 {
-    //     [Range(0f, 1000f)]
-    //     [SerializeField] private float sensitivityX = 200f;
-    //     [Range(0f, 1000f)]
-    //     [SerializeField] private float sensitivityY = 200f;
     [SerializeField] private Rigidbody playerRb;
     [SerializeField] PlayerInput input;
     [SerializeField] private Transform cameraTransform;
