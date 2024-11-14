@@ -1,10 +1,7 @@
 using System;
-using System.Runtime.CompilerServices;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -18,7 +15,7 @@ public class Player : MonoBehaviour
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
-    
+
     [Header("Attack")]
     public float attackResettingTime = 2f;
     public float TailTurnSpeed = 40f;
@@ -69,7 +66,7 @@ public class Player : MonoBehaviour
         currentState.Update();
         RotatePlayerObj();
         activeAttackCooldown = currentState.GetType().Name != "AttackingState" ? activeAttackCooldown + Time.deltaTime : 0.0f;
-        if(activeAttackCooldown >= this.attackResettingTime)
+        if (activeAttackCooldown >= this.attackResettingTime)
         {
             attackCounter = 0;
             activeAttackCooldown = 0.0f;
