@@ -5,12 +5,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerOrientation : MonoBehaviour
 {
-    [Range(0f, 1000f)]
-    [SerializeField] private float sensitivityX = 200f;
-    [Range(0f, 1000f)]
-    [SerializeField] private float sensitivityY = 200f;
+    //     [Range(0f, 1000f)]
+    //     [SerializeField] private float sensitivityX = 200f;
+    //     [Range(0f, 1000f)]
+    //     [SerializeField] private float sensitivityY = 200f;
     [SerializeField] private Rigidbody playerRb;
     [SerializeField] PlayerInput input;
+    [SerializeField] private Transform cameraTransform;
 
     private Vector2 _rotation;
 
@@ -21,19 +22,33 @@ public class PlayerOrientation : MonoBehaviour
         input = GetComponentInParent<PlayerInput>();
     }
 
-    // private void Update()
-    // {
-    //     Vector2 inputValue = input.actions["Look"].ReadValue<Vector2>();
-    //     _rotation.x += inputValue.x * Time.deltaTime * sensitivityX;
-    //     _rotation.y += inputValue.y * Time.deltaTime * sensitivityY;
+    private void Update()
+    {
+        // Check if the player has pressed the forward movement input
+        Vector2 movementInput = input.actions["Move"].ReadValue<Vector2>();
 
-    //     _rotation.y = math.clamp(_rotation.y, -90f, 90f);
+        if (movementInput.y > 0)
+        {
+            // Align the player with the camera's forward direction if forward movement is initiated
+            AlignPlayerWithCamera();
+            transform.position = playerRb.transform.position;
+        }
+    }
 
-    //     transform.localRotation = Quaternion.Euler(_rotation.y, _rotation.x, 0f);
+    private void AlignPlayerWithCamera()
+    {
+        // Get the forward direction of the camera and ignore the Y component
+        Vector3 cameraForward = cameraTransform.forward;
+        cameraForward.y = 0;
+        cameraForward.Normalize();
 
-    //     transform.position = playerRb.transform.position;
-    //     transform.Translate(Vector3.forward);
-    // }
+        // Update the player's rotation to face the camera's horizontal direction
+        if (cameraForward != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
+            transform.rotation = targetRotation;
+        }
+    }
 
     private void OnDrawGizmos()
     {
