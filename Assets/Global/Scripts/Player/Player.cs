@@ -55,10 +55,9 @@ public class Player : MonoBehaviour
         states = new PlayerStates(this);
         SetState(states.Idle);
         inputActions = GetComponent<PlayerInput>();
-
         // health and maxHealth should be the same value at the start of game
         playerStatistic.health = playerStatistic.maxHealth.GetValue();
-        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
+        if (healthBar != null) healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
     }
 
     void Update()
@@ -119,7 +118,7 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         playerStatistic.health -= damage;
-        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
+        if (healthBar != null) healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
         if (playerStatistic.health <= 0) OnDeath();
     }
 
