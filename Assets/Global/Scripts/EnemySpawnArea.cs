@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
+using System.Threading;
 
 public class EnemySpawnArea : MonoBehaviour
 {
@@ -109,5 +110,8 @@ public class EnemySpawnArea : MonoBehaviour
         // You can adjust this if you want to spawn on a specific surface (e.g., ground level)
         // Debug.Log(new Vector3(areaCenter.x + xPos, areaCenter.y, areaCenter.z + zPos));
         return new Vector3(areaCenter.x + xPos, areaCenter.y, areaCenter.z + zPos);
+    }
+
+    private void RoomFinished() {
     }
 }
