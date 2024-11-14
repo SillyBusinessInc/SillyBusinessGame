@@ -222,14 +222,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8727f22fc89cd54b9e87543dfb8dca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
   jumpForce: 10
-  speed: 15
   airBornMovementFactor: 0.5
   doubleJumps: 1
   glideDrag: 2
   dodgeRollSpeed: 10
   dodgeRollDuration: 1
+  playerStatistic: {fileID: 11400000, guid: bf2702a7f8f5a1a4d815ba4254b5a79d, type: 2}
   attackResettingTime: 2
   TailTurnSpeed: 40
   TransformTail: {fileID: 1010998894840028502}
