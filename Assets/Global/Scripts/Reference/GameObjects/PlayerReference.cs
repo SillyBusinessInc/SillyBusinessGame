@@ -11,4 +11,9 @@ public class PlayerReference : Reference
     public PlayerObject PlayerObj {
         get => playerObj ? playerObj : playerObj = GetComponentInChildren<PlayerObject>();
     }
+
+    private Camera playerCamera;
+    public Camera PlayerCamera {
+        get => playerCamera ? playerCamera : playerCamera = GetComponentInChildren<Camera>();
+    }
 }
