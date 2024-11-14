@@ -34,9 +34,14 @@ public class FollowEnemy : EnemyBase
     [Header("Debugging")]
     [SerializeField] private string currentStateName = "none";
 
-    private void Start()
+    private new void Start()
     {
+        base.Start();
         agent = GetComponent<NavMeshAgent>();
+        try {
+            playerObject = GlobalReference.GetReference<PlayerReference>().PlayerObj.GetComponent<Collider>();
+        }
+        catch {}
         states = new Dictionary<string, FollowEnemyStates.StateBase>
             {
                 {"Roaming", new RoamingState(this)},
@@ -83,5 +88,10 @@ public class FollowEnemy : EnemyBase
         Gizmos.DrawLine(transform.position, transform.position + rightBoundary);
     }
 
+    // Debug
+    [ContextMenu("DIE")]
+    public void Die() {
+        OnHit(100);
+    }
 }
 

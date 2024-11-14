@@ -9,7 +9,7 @@ public class FallingState : StateBase
 
     public override void Update()
     {
-        Player.rb.AddForce(Player.GetDirection() * (Player.speed * Player.airBornMovementFactor), ForceMode.Force);
+        Player.rb.AddForce(Player.GetDirection() * (Player.playerStatistic.speed * Player.airBornMovementFactor), ForceMode.Force);
         
         if(Player.inputActions.actions["Glide"].ReadValue<float>() != 0 && Player.rb.linearVelocity.y < 0 && Player.canDodgeRoll)
         {

@@ -424,6 +424,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: PlayerStatistic
+      value: 
+      objectReference: {fileID: 11400000, guid: bf2702a7f8f5a1a4d815ba4254b5a79d, type: 2}
     m_RemovedComponents:
     - {fileID: 7381533430093062579, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
     - {fileID: 4926589023627480149, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
