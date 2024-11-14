@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
         SetState(states.Idle);
         inputActions = GetComponent<PlayerInput>();
         health = maxHealth;
-        healthBar.UpdateHealthBar(0f, maxHealth, health);
+        //healthBar.UpdateHealthBar(0f, maxHealth, health);
     }
 
     void Update()

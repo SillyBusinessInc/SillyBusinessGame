@@ -4,11 +4,11 @@ public class Tail : MonoBehaviour
 {
     public Player player;
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider Collider)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (Collider.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("Onground");
+            Debug.Log("Tail hit enemy");
         }
     }
 }
