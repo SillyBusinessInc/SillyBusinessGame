@@ -23,7 +23,7 @@ public class PlayerOrientation : MonoBehaviour
         // Check if the player has pressed the forward movement input
         Vector2 movementInput = input.actions["Move"].ReadValue<Vector2>();
 
-        if (movementInput.y > 0)
+        if (movementInput.magnitude > 0)
         {
             // Align the player with the camera's forward direction if forward movement is initiated
             AlignPlayerWithCamera();
