@@ -1046,7 +1046,7 @@ GameObject:
   - component: {fileID: 5847730146766068450}
   - component: {fileID: 8834768059525608663}
   m_Layer: 0
-  m_Name: SlamObj
+  m_Name: GroundObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1061,8 +1061,8 @@ Transform:
   m_GameObject: {fileID: 8060724883143408077}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0127, y: -0.868, z: 0}
-  m_LocalScale: {x: 1.0253, y: 0.21473125, z: 1}
+  m_LocalPosition: {x: 0.0127, y: -0.98, z: 0}
+  m_LocalScale: {x: 0.21127553, y: 0.14160055, z: 0.4467342}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7144557316705380180}
