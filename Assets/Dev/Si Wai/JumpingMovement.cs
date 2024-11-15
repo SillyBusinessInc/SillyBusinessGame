@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class JumpingMovement : MonoBehaviour
 {
-    public float bounceForceUp = 5.0f;
-    public float bounceForceForward = 2.0f;
-    public float topAngleThreshold = 105.0f;
+    [SerializeField] private float bounceForceUp = 5.0f;
+    [SerializeField] private float bounceForceForward = 2.0f;
+    [SerializeField] private float topAngleThreshold = 105.0f;
     
     void OnCollisionEnter(Collision collision)
     {
