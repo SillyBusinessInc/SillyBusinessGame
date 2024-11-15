@@ -45,13 +45,13 @@ public class Table
         if (row.depth == targetDepth) return;
 
         // population
-        int branchesToApply = random.Next(1, maxBranchCount+1);
+        int branchesToApply = random.Next(2, maxBranchCount+1);
         List<Row> existingBranches = GetRowsAtDepth(row.depth+1);
         int roomForNewBranches = maxObjectPerDepth - existingBranches.Count();
         int roomForOldBranches = existingBranches.Count();
 
-        int newBranchesToApply = random.Next(0, Math.Min(roomForNewBranches+1, branchesToApply+1));
-        int oldBranchesToApply = existingBranches.Count() != 0 ? Math.Min(roomForOldBranches, branchesToApply - newBranchesToApply) : 0;
+        int newBranchesToApply = random.Next(0, Math.Min(roomForNewBranches, branchesToApply) + 1);
+        int oldBranchesToApply = existingBranches.Count() != 0 ? Math.Min(roomForOldBranches, branchesToApply - newBranchesToApply + 1) : 0;
 
         // Debug.Log($"row: {row.id} | total: {branchesToApply} | new: {newBranchesToApply} | old: {oldBranchesToApply} | room: {roomForNewBranches}");
 
