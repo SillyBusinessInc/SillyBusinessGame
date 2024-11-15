@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
         inputActions = GetComponent<PlayerInput>();
         // health and maxHealth should be the same value at the start of game
         playerStatistic.health = playerStatistic.maxHealth.GetValue();
-        if (healthBar != null) healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
+        if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
     }
 
     void Update()
