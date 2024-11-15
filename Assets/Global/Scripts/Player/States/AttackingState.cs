@@ -41,6 +41,7 @@ public class AttackingState : StateBase
 
     void GroundPound()
     {
+        Debug.Log(Player.isSlamming);
         if (Player.isGrounded)
         {
             Player.isSlamming = true;
@@ -108,19 +109,9 @@ public class AttackingState : StateBase
     {
         Player.tailCanDoDamage = false;
         Player.slamCanDoDamage = false;
+        Player.isSlamming = false;
         Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, 0);
         Player.attackCounter = Player.attackCounter == 3 ? 0 : Player.attackCounter;
     }
 
-    public override void OnCollision(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            if (Player.isSlamming)
-            {
-                Player.isSlamming = false;
-                Player.SetState(Player.states.Idle);
-            }
-        }
-    }
 }

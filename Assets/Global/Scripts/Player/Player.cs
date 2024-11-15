@@ -84,12 +84,11 @@ public class Player : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        isGrounded = collision.gameObject.CompareTag("Ground");
         currentState.OnCollision(collision);
     }
     public void OnCollisionExit(Collision collision)
     {
-        isGrounded = !collision.gameObject.CompareTag("Ground");
+
     }
 
     public void SetState(StateBase newState)
