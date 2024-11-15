@@ -22,14 +22,18 @@ public class Player : MonoBehaviour
     [Header("Attack")]
     public float attackResettingTime = 2f;
     public float TailTurnSpeed = 40f;
+    public int slamDamage = 10;
+    public int firstTailDamage = 10;
+    public int secondTailDamage = 15;
     public BoxCollider TransformTail;
 
     [Header("References")]
     [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
     public Transform orientation;
-
+    [HideInInspector] public bool slamCanDoDamage = false;
     [HideInInspector] public int attackCounter;
+    [HideInInspector] public int tailDoDamage;
     [HideInInspector] public bool isSlamming;
     [HideInInspector] public float activeAttackCooldown;
 
@@ -38,9 +42,9 @@ public class Player : MonoBehaviour
     [HideInInspector] public float horizontalInput;
     [HideInInspector] public float verticalInput;
     [HideInInspector] public bool isGrounded;
+    [HideInInspector] public bool tailCanDoDamage = false;
     [HideInInspector] public PlayerStates states;
     private StateBase currentState;
-
     public Healthbar healthBar;
 
     [Header("Debugging")]
@@ -55,10 +59,9 @@ public class Player : MonoBehaviour
         states = new PlayerStates(this);
         SetState(states.Idle);
         inputActions = GetComponent<PlayerInput>();
-
         // health and maxHealth should be the same value at the start of game
         playerStatistic.health = playerStatistic.maxHealth.GetValue();
-        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
+        if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
     }
 
     void Update()
@@ -119,7 +122,7 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         playerStatistic.health -= damage;
-        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
+        if (healthBar != null) healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
         if (playerStatistic.health <= 0) OnDeath();
     }
 

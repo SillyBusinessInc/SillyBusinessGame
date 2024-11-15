@@ -57,7 +57,7 @@ public static class GlobalReference
     /// </summary>
     public static T GetReference<T>() {
         string name = typeof(T).Name;
-        if (referenceList[name] is T t) return t;
+        if (referenceList.ContainsKey(name) && referenceList[name] is T t) return t;
         return default;
     }
 
