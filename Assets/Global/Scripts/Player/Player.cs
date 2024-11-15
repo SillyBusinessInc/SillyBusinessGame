@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
         inputActions = GetComponent<PlayerInput>();
         // health and maxHealth should be the same value at the start of game
         playerStatistic.health = playerStatistic.maxHealth.GetValue();
-        if (healthBar != null) healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
+        if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
     }
 
     void Update()
@@ -111,7 +111,7 @@ public class Player : MonoBehaviour
         if (rb.linearVelocity.magnitude > 0.1f)
         {
             var direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
-            rb.MoveRotation(Quaternion.LookRotation(direction));
+            if (direction != Vector3.zero) rb.MoveRotation(Quaternion.LookRotation(direction));
         }
     }
 
