@@ -3,34 +3,62 @@ using UnityEngine.InputSystem;
 
 public class FallingState : StateBase
 {
-    public FallingState(Player player) : base(player)
+    public FallingState(Player player) : base(player) { }
+
+    public override void Enter()
     {
+        // Subscribe to input action events for Jump, Glide, Dodge, and Attack
+        Player.inputActions.actions["Glide"].performed += OnGlide;
+        Player.inputActions.actions["Jump"].performed += OnJump;
+        Player.inputActions.actions["Dodge"].performed += OnDodge;
+        Player.inputActions.actions["Attack"].performed += OnAttack;
+    }
+
+    public override void Exit()
+    {
+        // Unsubscribe from input action events to avoid multiple subscriptions
+        Player.inputActions.actions["Glide"].performed -= OnGlide;
+        Player.inputActions.actions["Jump"].performed -= OnJump;
+        Player.inputActions.actions["Dodge"].performed -= OnDodge;
+        Player.inputActions.actions["Attack"].performed -= OnAttack;
     }
 
     public override void Update()
     {
-        Player.rb.AddForce(Player.GetDirection() * (Player.speed * Player.airBornMovementFactor), ForceMode.Force);
-        
-        if(Player.inputActions.actions["Glide"].ReadValue<float>() != 0 && Player.rb.linearVelocity.y < 0 && Player.canDodgeRoll)
-        {
-            Player.SetState(Player.states.Gliding);
-        }
-        else if(Player.inputActions.actions["Jump"].triggered && Player.doubleJumps > Player.currentJumps)
+        // Apply horizontal movement in the air
+        Player.rb.AddForce(Player.GetDirection() * (Player.playerStatistic.speed * Player.airBornMovementFactor), ForceMode.Force);
+    }
+
+    private void OnJump(InputAction.CallbackContext context)
+    {
+        if (Player.doubleJumps > Player.currentJumps)
         {
             Player.SetState(Player.states.Jumping);
             Player.currentJumps += 1;
         }
+    }
 
-        else if(Player.inputActions.actions["Dodge"].triggered && Player.canDodgeRoll)
+    private void OnGlide(InputAction.CallbackContext context)
+    {
+        // if (Player.rb.linearVelocity.y < 0 && Player.canDodgeRoll)
+        // {
+        Player.SetState(Player.states.Gliding);
+        // }
+    }
+
+    private void OnDodge(InputAction.CallbackContext context)
+    {
+        if (Player.canDodgeRoll)
         {
             Player.SetState(Player.states.DodgeRoll);
         }
-        if (Input.GetMouseButtonDown(0)) // TODO: replace this with the new event system thing
-        {
-            Player.attackCounter = 2;
-            Player.isSlamming = true;
-            Player.SetState(Player.states.Attacking);
-        }
+    }
+
+    private void OnAttack(InputAction.CallbackContext context)
+    {
+        Player.attackCounter = 2;
+        Player.isSlamming = true;
+        Player.SetState(Player.states.Attacking);
     }
 
     public override void OnCollision(Collision collision)

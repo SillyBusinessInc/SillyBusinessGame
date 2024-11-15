@@ -11,13 +11,13 @@ public class WalkingState : StateBase
     public override void Update()
     {
         // add force to the player object for movement
-        Player.rb.AddForce(Player.GetDirection() * Player.speed, ForceMode.Force);
+        Player.rb.AddForce(Player.GetDirection() * Player.playerStatistic.speed, ForceMode.Acceleration);
         if (Player.inputActions.actions["Move"].ReadValue<Vector2>() == Vector2.zero)
         {
             Player.SetState(Player.states.Idle);
         }
 
-        if(Player.inputActions.actions["Jump"].triggered)
+        if (Player.inputActions.actions["Jump"].triggered)
         {
             Player.SetState(Player.states.Jumping);
         }
@@ -30,10 +30,10 @@ public class WalkingState : StateBase
         {
             Player.SetState(Player.states.Attacking);
         }
-        if(Player.inputActions.actions["Dodge"].triggered && Player.canDodgeRoll)
+        if (Player.inputActions.actions["Dodge"].triggered && Player.canDodgeRoll)
         {
             Player.SetState(Player.states.DodgeRoll);
         }
-        
+
     }
 }

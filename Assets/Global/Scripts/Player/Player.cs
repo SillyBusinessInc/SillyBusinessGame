@@ -1,35 +1,36 @@
 using System;
-using System.Runtime.CompilerServices;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     [Header("Settings")]
-    [Range(0, 250)]
-    [SerializeField] private int maxHealth = 100; // this will likely be done through the stats class soon
     public float jumpForce = 2f;
-    public float speed = 5f;
     public float airBornMovementFactor = 0.5f;
     public int doubleJumps = 1;
     public float glideDrag = 2f;
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
-    
+
+    [Header("Stats")]
+    public PlayerStatistic playerStatistic = new();
+
     [Header("Attack")]
     public float attackResettingTime = 2f;
     public float TailTurnSpeed = 40f;
+    public int slamDamage = 10;
+    public int firstTailDamage = 10;
+    public int secondTailDamage = 15;
     public BoxCollider TransformTail;
 
     [Header("References")]
     [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
     public Transform orientation;
-
+    [HideInInspector] public bool slamCanDoDamage = false;
     [HideInInspector] public int attackCounter;
+    [HideInInspector] public int tailDoDamage;
     [HideInInspector] public bool isSlamming;
     [HideInInspector] public float activeAttackCooldown;
 
@@ -38,11 +39,10 @@ public class Player : MonoBehaviour
     [HideInInspector] public float horizontalInput;
     [HideInInspector] public float verticalInput;
     [HideInInspector] public bool isGrounded;
+    [HideInInspector] public bool tailCanDoDamage = false;
     [HideInInspector] public PlayerStates states;
     private StateBase currentState;
-
     public Healthbar healthBar;
-    private float health; // this will likely be done through the stats class soon
 
     [Header("Debugging")]
     [SerializeField] private string currentStateName = "none";
@@ -56,8 +56,9 @@ public class Player : MonoBehaviour
         states = new PlayerStates(this);
         SetState(states.Idle);
         inputActions = GetComponent<PlayerInput>();
-        health = maxHealth;
-        healthBar.UpdateHealthBar(0f, maxHealth, health);
+        // health and maxHealth should be the same value at the start of game
+        playerStatistic.health = playerStatistic.maxHealth.GetValue();
+        if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
     }
 
     void Update()
@@ -65,7 +66,7 @@ public class Player : MonoBehaviour
         currentState.Update();
         RotatePlayerObj();
         activeAttackCooldown = currentState.GetType().Name != "AttackingState" ? activeAttackCooldown + Time.deltaTime : 0.0f;
-        if(activeAttackCooldown >= this.attackResettingTime)
+        if (activeAttackCooldown >= this.attackResettingTime)
         {
             attackCounter = 0;
             activeAttackCooldown = 0.0f;
@@ -110,17 +111,28 @@ public class Player : MonoBehaviour
         if (rb.linearVelocity.magnitude > 0.1f)
         {
             var direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
-            rb.MoveRotation(Quaternion.LookRotation(direction));
+            if (direction != Vector3.zero) rb.MoveRotation(Quaternion.LookRotation(direction));
         }
     }
 
     // If we go the event route this should change right?
     public void OnHit(float damage)
     {
-        health -= damage;
-        healthBar.UpdateHealthBar(0f, maxHealth, health);
+        playerStatistic.health -= damage;
+        if (healthBar != null) healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
+        if (playerStatistic.health <= 0) OnDeath();
+    }
 
-        if (health <= 0) OnDeath();
+    public void Heal(float reward)
+    {
+        playerStatistic.health += reward;
+        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
+    }
+
+    public void IncreaseMaxHealth(float reward)
+    {
+        playerStatistic.maxHealth.AddMultiplier("reward", reward, true);
+        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
     }
 
     // If we go the event route this should change right?
