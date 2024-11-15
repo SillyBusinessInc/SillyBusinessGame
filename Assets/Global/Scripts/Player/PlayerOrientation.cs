@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerOrientation : MonoBehaviour
 {
     [SerializeField] private Rigidbody playerRb;
-    [SerializeField] PlayerInput input;
+    [SerializeField] private PlayerInput input;
     [SerializeField] private Transform cameraTransform;
 
     private Vector2 _rotation;
