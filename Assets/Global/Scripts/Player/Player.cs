@@ -111,7 +111,7 @@ public class Player : MonoBehaviour
         if (rb.linearVelocity.magnitude > 0.1f)
         {
             var direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
-            rb.MoveRotation(Quaternion.LookRotation(direction));
+            if (direction != Vector3.zero) rb.MoveRotation(Quaternion.LookRotation(direction));
         }
     }
 
