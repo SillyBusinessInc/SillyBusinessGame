@@ -21,15 +21,15 @@ public class Statistic
         float value = baseValue;
         // first, apply the base multipliers
         // add the parenthesis with the question mark because list can be null
-        float baseMultiplier = (baseMultipliers?.Any() == true) ? baseMultipliers.Sum(pair => pair.Value) : 1;
+        float baseMultiplier = baseMultipliers.Any() ? baseMultipliers.Sum(pair => pair.Value) : 1;
        
         value *= baseMultiplier;
         
         // then, add the static modifiers
-        modifiers?.ForEach(pair => value += pair.Value);
+        modifiers.ForEach(pair => value += pair.Value);
 
         // lastly, combine the final multipliers
-        float finalMultiplier = (finalMultipliers?.Any() == true) ? finalMultipliers.Sum(pair => pair.Value) : 1;
+        float finalMultiplier = finalMultipliers.Any() ? finalMultipliers.Sum(pair => pair.Value) : 1;
         value *= finalMultiplier;
 
         return value;

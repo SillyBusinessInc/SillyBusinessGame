@@ -23,13 +23,13 @@ public static class GlobalReference
 
     public static void RegisterReference(Reference ref_) {
         if (!ref_) {
-            Debug.LogWarning("Could not register object because no reference was given");
+            // Debug.LogWarning("Could not register object because no reference was given");
             return;
         }
 
         string name = ref_.GetType().Name;
         if (referenceList.ContainsKey(name)) {
-            Debug.LogError($"{name} is already assigned and can not be assigned multiple times. Please ensure there is only one {name} in this scene");
+            // Debug.LogError($"{name} is already assigned and can not be assigned multiple times. Please ensure there is only one {name} in this scene");
             return;
         }
 
@@ -38,13 +38,13 @@ public static class GlobalReference
 
     public static void UnregisterReference(Reference ref_) {
         if (!ref_) {
-            Debug.LogWarning("Could not unregister object because no reference was given");
+            // Debug.LogWarning("Could not unregister object because no reference was given");
             return;
         }
 
         string name = ref_.GetType().Name;
         if (!referenceList.ContainsKey(name)) {
-            Debug.LogWarning($"{name} cannot be unassigned because it has not been assigned in the first place");
+            // Debug.LogWarning($"{name} cannot be unassigned because it has not been assigned in the first place");
             return;
         }
 
@@ -65,17 +65,17 @@ public static class GlobalReference
     public static Dictionary<Events, UnityEvent> eventList = new();
 
     public static void SubscribeTo(Events eventName, UnityAction action) {
-        Debug.Log($"Object Subscribed ({eventName})");
+        // Debug.Log($"Object Subscribed ({eventName})");
         TryGetEvent(eventName).AddListener(action);
     }
 
     public static void UnsubscribeTo(Events eventName, UnityAction action) {
-        Debug.Log($"Object Unsubscribed ({eventName})");
+        // Debug.Log($"Object Unsubscribed ({eventName})");
         TryGetEvent(eventName).RemoveListener(action);
     }
 
     public static void AttemptInvoke(Events eventName) {
-        Debug.Log($"Object Invoked ({eventName})");
+        // Debug.Log($"Object Invoked ({eventName})");
         TryGetEvent(eventName).Invoke();
     }
 

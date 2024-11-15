@@ -1546,18 +1546,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7615088cb3ec2844588a0cb87ae7e4f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 687787090267813157, guid: 0e343a81b99fcef488548a3267853a9f, type: 3}
-  - {fileID: 687787090267813157, guid: 8bfbd8ccc954ff74e97026755a2f4b10, type: 3}
+  waves:
+  - {fileID: 11400000, guid: 58e6477715246174fa32f906a1a729fa, type: 2}
+  - {fileID: 11400000, guid: 718db408b3eeea34dba0a4146952055e, type: 2}
   spawnAreaTransforms:
+  - {fileID: 850408227}
   - {fileID: 58201069}
   - {fileID: 1387553830}
-  - {fileID: 850408227}
   spawnArea: {fileID: 1323749385}
-  enemiesPerWave: 5
   currentWave: 0
   wavesDone: 0
   maxWaves: 3
+  immediateStart: 0
 --- !u!4 &942061639
 Transform:
   m_ObjectHideFlags: 0
@@ -2017,10 +2017,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 0}
-  spawnInterval: 0.3
   maxSpawnedEnemies: 5
   spawnArea: {fileID: 0}
   center: 0
+  waveDone: 0
 --- !u!4 &1323749387
 Transform:
   m_ObjectHideFlags: 0
