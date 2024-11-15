@@ -5,7 +5,7 @@ public class MaxHealthReward : Reward
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Name = "Max health up";
+        Title = "Max health up";
         Weight = 20.0f;
     }
 

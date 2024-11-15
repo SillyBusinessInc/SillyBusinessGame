@@ -5,7 +5,7 @@ public class RandomUpgradeReward : Reward
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Name = "Random upgrade choice";
+        Title = "Random upgrade choice";
         Weight = 45.0f;
     }
 
