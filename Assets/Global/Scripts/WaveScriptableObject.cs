@@ -20,6 +20,6 @@ public class WavePart
 public class Wave : ScriptableObject
 {
     public List<WavePart> waveParts; // List of enemy types and counts
-    public float interfal = 1; // delay interfal for the enemies
+    public float interval = 1; // delay interfal for the enemies
 
 }

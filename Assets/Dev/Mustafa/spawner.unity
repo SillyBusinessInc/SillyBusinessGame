@@ -1548,6 +1548,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - {fileID: 11400000, guid: 58e6477715246174fa32f906a1a729fa, type: 2}
+  - {fileID: 11400000, guid: 718db408b3eeea34dba0a4146952055e, type: 2}
   spawnAreaTransforms:
   - {fileID: 850408227}
   - {fileID: 58201069}
@@ -1556,6 +1557,7 @@ MonoBehaviour:
   currentWave: 0
   wavesDone: 0
   maxWaves: 3
+  immediateStart: 0
 --- !u!4 &942061639
 Transform:
   m_ObjectHideFlags: 0
@@ -2015,10 +2017,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 0}
-  spawnInterval: 0.3
   maxSpawnedEnemies: 5
   spawnArea: {fileID: 0}
   center: 0
+  waveDone: 0
 --- !u!4 &1323749387
 Transform:
   m_ObjectHideFlags: 0

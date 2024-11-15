@@ -33,15 +33,10 @@ public class WaveSpawnArea : MonoBehaviour
     public void SpawnEnemy()
     {
         Vector3 spawnPosition = GetRandomPointInSpawnArea();
-
-        // Ensure the spawn position is on the ground by raycasting downward
-        if (spawnPosition != Vector3.zero)
-        {
-            GameObject newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
-            activeEnemies.Add(newEnemy);
-            GlobalReference.AttemptInvoke(Events.ENEMY_SPAWNED);
-
-        }
+        
+        GameObject newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        activeEnemies.Add(newEnemy);
+        GlobalReference.AttemptInvoke(Events.ENEMY_SPAWNED);
     }
 
     private Vector3 GetRandomPointInSpawnArea()

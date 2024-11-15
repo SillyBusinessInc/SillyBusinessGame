@@ -29,11 +29,9 @@ public class EnemyWaveManager : MonoBehaviour
     }
     private void Update()
     {
-        // Debug.Log(deadEnemies+"/"+totalEnemies);
         if (deadEnemies >= totalEnemies && nextWave && immediateStart)
         {
             WaveCompleted();
-            // Debug.Log("test");
         }
     }
     private void Awake()
@@ -52,7 +50,6 @@ public class EnemyWaveManager : MonoBehaviour
     }
     public IEnumerator StartWave()
     {
-        Debug.Log("Starting wave");
         nextWave = false;
         immediateStart = true;
         
@@ -76,7 +73,7 @@ public class EnemyWaveManager : MonoBehaviour
                     foreach (var _ in Enumerable.Range(0, enemy.amount))
                     {
                         spawner.SpawnEnemy();
-                        yield return new WaitForSeconds(waves[currentWave].interfal);
+                        yield return new WaitForSeconds(waves[currentWave].interval);
                     }
                 }
             }
@@ -108,7 +105,6 @@ public class EnemyWaveManager : MonoBehaviour
         else
         {
 
-            Debug.Log("Wave Completed");
             nextWave = true;
             currentWave++;
             GlobalReference.AttemptInvoke(Events.WAVE_START);
