@@ -53,6 +53,17 @@ public class Table
         int newBranchesToApply = random.Next(0, Math.Min(roomForNewBranches, branchesToApply) + 1);
         int oldBranchesToApply = existingBranches.Count() != 0 ? Math.Min(roomForOldBranches, branchesToApply - newBranchesToApply + 1) : 0;
 
+        if (row.depth+1 == targetDepth ) {
+            if (existingBranches.Count() == 0) {
+                newBranchesToApply = 1;
+                oldBranchesToApply = 0;
+            }
+            else {
+                newBranchesToApply = 0;
+                oldBranchesToApply = 1;
+            }
+        }
+
         // Debug.Log($"row: {row.id} | total: {branchesToApply} | new: {newBranchesToApply} | old: {oldBranchesToApply} | room: {roomForNewBranches}");
 
         for (int i = 0; i < newBranchesToApply; i++ ) {
