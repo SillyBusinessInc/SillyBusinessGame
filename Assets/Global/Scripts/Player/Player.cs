@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
-    
+
     [Header("Attack")]
     public float attackResettingTime = 2f;
     public float TailTurnSpeed = 40f;
@@ -31,26 +31,51 @@ public class Player : MonoBehaviour
     [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
     public Transform orientation;
-    [HideInInspector] public bool slamCanDoDamage = false;
-    [HideInInspector] public int attackCounter;
-    [HideInInspector] public int tailDoDamage;
-    [HideInInspector] public bool isSlamming;
-    [HideInInspector] public float activeAttackCooldown;
 
-    [HideInInspector] public bool canDodgeRoll = true;
-    [HideInInspector] public int currentJumps = 0;
-    [HideInInspector] public float horizontalInput;
-    [HideInInspector] public float verticalInput;
-    [HideInInspector] public bool isGrounded;
-    [HideInInspector] public bool tailCanDoDamage = false;
-    [HideInInspector] public PlayerStates states;
+    [HideInInspector]
+    public bool slamCanDoDamage = false;
+
+    [HideInInspector]
+    public int attackCounter;
+
+    [HideInInspector]
+    public int tailDoDamage;
+
+    [HideInInspector]
+    public bool isSlamming;
+
+    [HideInInspector]
+    public float activeAttackCooldown;
+
+    [HideInInspector]
+    public bool canDodgeRoll = true;
+
+    [HideInInspector]
+    public int currentJumps = 0;
+
+    [HideInInspector]
+    public float horizontalInput;
+
+    [HideInInspector]
+    public float verticalInput;
+
+    [HideInInspector]
+    public bool isGrounded;
+
+    [HideInInspector]
+    public bool tailCanDoDamage = false;
+
+    [HideInInspector]
+    public PlayerStates states;
     private StateBase currentState;
     public Healthbar healthBar;
 
     [Header("Debugging")]
-    [SerializeField] private string currentStateName = "none";
+    [SerializeField]
+    private string currentStateName = "none";
 
     public PlayerInput inputActions;
+
     // private PlayerInputActions inputActions;
 
 
@@ -61,15 +86,23 @@ public class Player : MonoBehaviour
         inputActions = GetComponent<PlayerInput>();
         // health and maxHealth should be the same value at the start of game
         playerStatistic.health = playerStatistic.maxHealth.GetValue();
-        if (healthBar != null) healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
+        if (healthBar != null)
+            healthBar.UpdateHealthBar(
+                0f,
+                playerStatistic.maxHealth.GetValue(),
+                playerStatistic.health
+            );
     }
 
     void Update()
     {
         currentState.Update();
         RotatePlayerObj();
-        activeAttackCooldown = currentState.GetType().Name != "AttackingState" ? activeAttackCooldown + Time.deltaTime : 0.0f;
-        if(activeAttackCooldown >= this.attackResettingTime)
+        activeAttackCooldown =
+            currentState.GetType().Name != "AttackingState"
+                ? activeAttackCooldown + Time.deltaTime
+                : 0.0f;
+        if (activeAttackCooldown >= this.attackResettingTime)
         {
             attackCounter = 0;
             activeAttackCooldown = 0.0f;
@@ -84,11 +117,21 @@ public class Player : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
+        if (collision.contacts[0].normal.y == 1.0f)
+        {
+            isGrounded = true;
+        }
+        if (isSlamming)
+        {
+            isSlamming = false;
+            SetState(states.Idle);
+        }
         currentState.OnCollision(collision);
     }
+
     public void OnCollisionExit(Collision collision)
     {
-
+        isGrounded = false;
     }
 
     public void SetState(StateBase newState)
@@ -121,8 +164,14 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         playerStatistic.health -= damage;
-        if (healthBar != null) healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
-        if (playerStatistic.health <= 0) OnDeath();
+        if (healthBar != null)
+            healthBar.UpdateHealthBar(
+                0f,
+                playerStatistic.maxHealth.GetValue(),
+                playerStatistic.health
+            );
+        if (playerStatistic.health <= 0)
+            OnDeath();
     }
 
     public void Heal(float reward)
