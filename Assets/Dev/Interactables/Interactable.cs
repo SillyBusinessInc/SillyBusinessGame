@@ -4,16 +4,26 @@ using UnityEngine.Events;
 public class Interactable : MonoBehaviour
 {
 
-    [SerializeField] private float interactDistance = 2.0f;
+    [Range(0, 5)]
+    [SerializeField] private float interactDistance = 5.0f;
     [SerializeField] private string interactionPrompt = "E - Interact";
     [SerializeField] private string disabledPrompt = "Cannot interact";
     private Camera playerCamera;
 
     [SerializeField]
-    [Range(0, 10f)]
+    [Range(-10f, 10f)]
     private float promptYOffset = 1.5f;
 
-    public bool isDisabled = false;
+    private bool isDisabled = false;
+    public bool IsDisabled
+    {
+        get => isDisabled;
+        set
+        {
+            isDisabled = value;
+            SetBillboardText();
+        }
+    }
 
     private GameObject hudElement;
 
@@ -42,7 +52,6 @@ public class Interactable : MonoBehaviour
         {
             hudElement.transform.position = transform.position + Vector3.up * promptYOffset;
             RotateBillboardTowardsCamera();
-
             SetBillboardText();
         }
     }
@@ -59,16 +68,6 @@ public class Interactable : MonoBehaviour
     }
 
     public virtual void OnInteract() { }
-
-    public void EnableInteraction()
-    {
-        isDisabled = false;
-    }
-
-    public void DisableInteraction()
-    {
-        isDisabled = true;
-    }
 
     private void SetBillboardText()
     {
