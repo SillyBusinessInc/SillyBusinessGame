@@ -51,7 +51,7 @@ public class AttackingState : StateBase
         {
             Player.rb.AddForce(Vector3.down * Player.jumpForce, ForceMode.Impulse);
         }
-        Player.SetState(Player.states.Idle);
+        Player.SetState(movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
     }
     void Slash()
     {
@@ -78,7 +78,7 @@ public class AttackingState : StateBase
             }
             else
             {
-                Player.SetState(Player.states.Idle);
+                Player.SetState(movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
             }
         }
     }
@@ -121,7 +121,7 @@ public class AttackingState : StateBase
             if (Player.isSlamming)
             {
                 Player.isSlamming = false;
-                Player.SetState(Player.states.Idle);
+                Player.SetState(movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
             }
         }
     }

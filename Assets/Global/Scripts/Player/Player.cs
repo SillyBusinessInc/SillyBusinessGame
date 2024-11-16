@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public bool tailCanDoDamage = false;
     [HideInInspector] public PlayerStates states;
-    private StateBase currentState;
+    public StateBase currentState;
     public Healthbar healthBar;
 
     [Header("Debugging")]
@@ -82,6 +82,7 @@ public class Player : MonoBehaviour
     public void OnCollisionEnter(Collision collision)
     {
         isGrounded = collision.gameObject.CompareTag("Ground");
+        currentJumps = 0;
         currentState.OnCollision(collision);
     }
     public void OnCollisionExit(Collision collision)
@@ -108,7 +109,7 @@ public class Player : MonoBehaviour
 
     private void RotatePlayerObj()
     {
-        
+
         if (rb.linearVelocity.magnitude > 0.1f)
         {
             var direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;

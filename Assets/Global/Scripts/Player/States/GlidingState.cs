@@ -9,22 +9,16 @@ public class GlidingState : StateBase
     }
     public override void Update()
     {
-        if (Player.inputActions.actions["Glide"].ReadValue<float>() == 0)
-        {
-            Player.SetState(Player.states.Falling);  // When movement ends (e.g., released)
-        }
-
-        
         Player.rb.AddForce(Player.GetDirection() * Player.playerStatistic.speed, ForceMode.Force);
 
-        
-        if(Player.inputActions.actions["Jump"].triggered && Player.doubleJumps > Player.currentJumps && Player.canDodgeRoll)
+
+        if (Player.inputActions.actions["Jump"].triggered && Player.doubleJumps > Player.currentJumps && Player.canDodgeRoll)
         {
             Player.SetState(Player.states.Jumping);
             Player.currentJumps += 1;
         }
 
-        if(Player.inputActions.actions["Dodge"].triggered && Player.canDodgeRoll)
+        if (Player.inputActions.actions["Dodge"].triggered && Player.canDodgeRoll)
         {
             Player.SetState(Player.states.DodgeRoll);
         }
@@ -51,8 +45,7 @@ public class GlidingState : StateBase
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Player.SetState(Player.states.Idle);
-            Player.currentJumps = 0;
+            Player.SetState(movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
         }
     }
 }
