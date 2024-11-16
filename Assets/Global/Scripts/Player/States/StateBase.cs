@@ -37,7 +37,6 @@ public abstract class StateBase
     }
 
     // Input handling
-
     public virtual void Move(InputAction.CallbackContext ctx)
     {
         movementInput = ctx.ReadValue<Vector2>();

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class IdleState : StateBase
 {
     public IdleState(Player player) : base(player)
