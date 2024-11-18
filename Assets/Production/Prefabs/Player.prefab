@@ -51,12 +51,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8727f22fc89cd54b9e87543dfb8dca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 5
+  jumpForce: 10
   airBornMovementFactor: 0.5
   doubleJumps: 1
   glideDrag: 2
   dodgeRollSpeed: 10
   dodgeRollDuration: 1
+  degreesToRotate: 50
   playerStatistic:
     speed: 10
     maxHealth:
@@ -77,11 +78,14 @@ MonoBehaviour:
   activeAttackCooldown: 0
   canDodgeRoll: 1
   currentJumps: 0
-  movementInput: {x: 0, y: 0}
+  horizontalInput: 0
+  verticalInput: 0
   isGrounded: 0
   tailCanDoDamage: 0
+  movementInput: {x: 0, y: 0}
   healthBar: {fileID: 0}
   currentStateName: none
+  groundCheckDistance: 0
 --- !u!114 &2974869042834182435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -961,7 +965,7 @@ GameObject:
   - component: {fileID: 2433743845863343982}
   m_Layer: 0
   m_Name: CustomTail
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1083,7 +1087,7 @@ GameObject:
   - component: {fileID: 8834768059525608663}
   m_Layer: 0
   m_Name: SlamObj
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
