@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Reward
+public abstract class Reward : MonoBehaviour
 {
     public string Title;
     public float Weight;
