@@ -6,10 +6,10 @@ public class PlayerInteraction : MonoBehaviour
     private Interactable currentInteractable;
     private Player player;
 
-    [SerializeField] private float rayRadius = 1.5f;       // Radius of the sphere cast
+    [SerializeField] private float rayRadius = 1.0f;       // Radius of the sphere cast
     [Range(0, 10)]
-    [SerializeField] private float rayDistance = 4f;         // Maximum detection distance
-    [SerializeField] private float maxInteractionAngle = 45f; // Desired field of view 
+    [SerializeField] private float rayDistance = 5f;         // Maximum detection distance
+    [SerializeField] private float maxInteractionAngle = 180f; // Desired field of view  
     private void Start()
     {
         player = GlobalReference.GetReference<PlayerReference>().Player;
@@ -27,16 +27,16 @@ public class PlayerInteraction : MonoBehaviour
     }
     private void DetectInteractable()
     {
-        // Slight offset to avoid clipping with the player's collider
-        Ray ray = new Ray(transform.position + transform.forward * 0.1f + Vector3.up * 0.1f, transform.forward);
+        Vector3 offset = transform.forward * 0.1f + Vector3.up * 0.1f; // Slight offset
+        Ray ray = new Ray(transform.position + offset, transform.forward);
         RaycastHit hit;
 
-        // Use SphereCast to check for interactables within the radius
+        // Check for nearby objects
         if (Physics.SphereCast(ray, rayRadius, out hit, rayDistance, interactableLayer))
         {
             var interactable = hit.collider.GetComponent<Interactable>();
 
-            if (interactable != null && !interactable.IsDisabled) && interactable.IsWithinInteractionRange(transform.position)
+            if (interactable != null && !interactable.IsDisabled && interactable.IsWithinInteractionRange(transform.position))
             {
                 // Calculate the direction to the interactable and the angle between the player's forward direction
                 Vector3 directionToInteractable = (interactable.transform.position - transform.position).normalized;

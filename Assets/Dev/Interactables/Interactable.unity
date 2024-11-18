@@ -349,11 +349,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e25c6fd8a55de438cd8181f8547483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactDistance: 2
+  interactDistance: 3
   interactionPrompt: E - Interact
   disabledPrompt: Cannot interact
   promptYOffset: 1.5
-  isDisabled: 0
 --- !u!4 &1019306406 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6505893237244659488, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
@@ -473,9 +472,10 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 64
-  rayRadius: 20
-  rayDistance: 20
-  maxInteractionAngle: 350
+  rayRadius: 1.5
+  rayDistance: 1.5
+  maxInteractionAngle: 180
+  debugMode: 0
 --- !u!1 &1952545544
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,11 +597,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e25c6fd8a55de438cd8181f8547483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactDistance: 2
+  interactDistance: 3
   interactionPrompt: E - Interact
   disabledPrompt: Cannot interact
   promptYOffset: 1.5
-  isDisabled: 0
 --- !u!1 &1968757622
 GameObject:
   m_ObjectHideFlags: 0
