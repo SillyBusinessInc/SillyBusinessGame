@@ -54,6 +54,10 @@ public class AttackingState : StateBase
 
     void Slash()
     {
+        float speed = turnLeft ?
+            Player.playerStatistic.AttackSpeedMultiplier.GetValue() :
+            -Player.playerStatistic.AttackSpeedMultiplier.GetValue();
+            
         if (!isReturning)
         {
             if (rotate < 180)
@@ -61,9 +65,9 @@ public class AttackingState : StateBase
                 Player.TransformTail.transform.RotateAround(
                     Player.rb.position,
                     Vector3.up,
-                    turnLeft ? Player.playerStatistic.AttackSpeedMultiplier.GetValue() : -Player.playerStatistic.AttackSpeedMultiplier.GetValue()
+                    Player.TailTurnSpeed * speed 
                 );
-                rotate += Player.playerStatistic.AttackSpeedMultiplier.GetValue();
+                rotate += Player.TailTurnSpeed;
             }
             else
             {
@@ -79,9 +83,9 @@ public class AttackingState : StateBase
                 Player.TransformTail.transform.RotateAround(
                     Player.rb.position,
                     Vector3.up,
-                    turnLeft ? Player.playerStatistic.AttackSpeedMultiplier.GetValue() : -Player.playerStatistic.AttackSpeedMultiplier.GetValue()
+                    Player.TailTurnSpeed * speed
                 );
-                rotate += Player.playerStatistic.AttackSpeedMultiplier.GetValue();
+                rotate += Player.TailTurnSpeed;
             }
             else
             {

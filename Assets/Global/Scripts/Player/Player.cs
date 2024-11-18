@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
 
     [Header("Attack")]
     public float attackResettingTime = 2f;
-    // public float TailTurnSpeed = 40f; // use playerstatistic.AttackSpeedMultiplier
+    public float TailTurnSpeed = 40f;
     public int slamDamage = 10;
     public int firstTailDamage = 10;
     public int secondTailDamage = 15;
@@ -73,7 +73,6 @@ public class Player : MonoBehaviour
     private string currentStateName = "none";
 
     // private PlayerInputActions inputActions;
-
 
     void Start()
     {

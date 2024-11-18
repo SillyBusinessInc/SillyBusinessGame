@@ -131,13 +131,14 @@ GameObject:
   - component: {fileID: 77878614}
   - component: {fileID: 77878613}
   - component: {fileID: 77878612}
+  - component: {fileID: 77878615}
   m_Layer: 0
-  m_Name: RewardMaxHealth
+  m_Name: RandomUpgradeAward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &77878611
 Transform:
   m_ObjectHideFlags: 0
@@ -227,6 +228,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 77878610}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &77878615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77878610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e70fb1a24593af0499cdbda5b010b22c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Title: 
+  Weight: 0
 --- !u!1 &202998998
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,13 +363,14 @@ GameObject:
   - component: {fileID: 227029790}
   - component: {fileID: 227029789}
   - component: {fileID: 227029788}
+  - component: {fileID: 227029792}
   m_Layer: 0
   m_Name: RewardMaxHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &227029788
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -444,6 +460,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1109362124}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &227029792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227029787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 002682e1c0a7ee54e977e561fde9bf94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Title: 
+  Weight: 0
 --- !u!1 &1109362123
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,6 +521,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35226763837bd3b4bb7f6a0382230c21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Rewards:
+  - {fileID: 227029792}
+  - {fileID: 1544909636}
+  - {fileID: 77878615}
 --- !u!1001 &1142733713
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -576,13 +610,14 @@ GameObject:
   - component: {fileID: 1544909635}
   - component: {fileID: 1544909634}
   - component: {fileID: 1544909633}
+  - component: {fileID: 1544909636}
   m_Layer: 0
   m_Name: RewardCrumb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1544909632
 Transform:
   m_ObjectHideFlags: 0
@@ -672,6 +707,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1544909631}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1544909636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544909631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf43270d7dbc14448b021a660dda60c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Title: 
+  Weight: 0
 --- !u!1 &1895656751
 GameObject:
   m_ObjectHideFlags: 0
