@@ -163,7 +163,7 @@ Transform:
   m_LocalScale: {x: 1.0253, y: 0.21473125, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1834010165}
+  m_Father: {fileID: 1691973686}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &47667146
 BoxCollider:
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 346795090}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -737,11 +737,16 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7144557316705380180, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4811859323897289456, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       insertIndex: -1
       addedObject: {fileID: 47667145}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+--- !u!4 &1691973686 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4811859323897289456, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+  m_PrefabInstance: {fileID: 1010089814}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1765924508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -803,11 +808,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 092a25468af9247448566d920992a541, type: 3}
---- !u!4 &1834010165 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7144557316705380180, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
-  m_PrefabInstance: {fileID: 1010089814}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2133673003
 GameObject:
   m_ObjectHideFlags: 0
