@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -18,13 +19,16 @@ public class PlayerInteraction : MonoBehaviour
     private void Update()
     {
         DetectInteractable();
+    }
 
-        // Trigger interaction if a valid interactable is within range 
-        if (currentInteractable != null && player.inputActions.actions["Interact"].triggered)
+    public void Interact(InputAction.CallbackContext ctx)
+    {
+        if (currentInteractable != null && ctx.started)
         {
-            TriggerInteraction();
+            currentInteractable.OnInteract();
         }
     }
+
     private void DetectInteractable()
     {
         Vector3 offset = transform.forward * 0.1f + Vector3.up * 0.1f; // Slight offset
@@ -65,13 +69,4 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-
-
-    private void TriggerInteraction()
-    {
-        if (currentInteractable != null && !currentInteractable.IsDisabled)
-        {
-            currentInteractable.OnInteract();
-        }
-    }
 }
