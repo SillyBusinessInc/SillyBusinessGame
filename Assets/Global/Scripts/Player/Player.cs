@@ -1,6 +1,5 @@
-using System;
+
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
@@ -36,26 +35,21 @@ public class Player : MonoBehaviour
 
     [HideInInspector] public bool canDodgeRoll = true;
     [HideInInspector] public int currentJumps = 0;
-    [HideInInspector] public float horizontalInput;
-    [HideInInspector] public float verticalInput;
+    [HideInInspector] public Vector2 movementInput;
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public bool tailCanDoDamage = false;
     [HideInInspector] public PlayerStates states;
-    private StateBase currentState;
+    public StateBase currentState;
     public Healthbar healthBar;
 
     [Header("Debugging")]
     [SerializeField] private string currentStateName = "none";
-
-    public PlayerInput inputActions;
-    // private PlayerInputActions inputActions;
 
 
     void Start()
     {
         states = new PlayerStates(this);
         SetState(states.Idle);
-        inputActions = GetComponent<PlayerInput>();
         // health and maxHealth should be the same value at the start of game
         playerStatistic.health = playerStatistic.maxHealth.GetValue();
         if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
@@ -82,6 +76,7 @@ public class Player : MonoBehaviour
     public void OnCollisionEnter(Collision collision)
     {
         isGrounded = collision.gameObject.CompareTag("Ground");
+        currentJumps = 0;
         currentState.OnCollision(collision);
     }
     public void OnCollisionExit(Collision collision)
@@ -99,16 +94,14 @@ public class Player : MonoBehaviour
 
     public Vector3 GetDirection()
     {
-        Vector2 input = inputActions.actions["Move"].ReadValue<Vector2>();
-
-        Vector3 moveDirection = orientation.forward * input.y + orientation.right * input.x;
+        Vector3 moveDirection = orientation.forward * movementInput.y + orientation.right * movementInput.x;
 
         return moveDirection.normalized;
     }
 
     private void RotatePlayerObj()
     {
-        
+
         if (rb.linearVelocity.magnitude > 0.1f)
         {
             var direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
