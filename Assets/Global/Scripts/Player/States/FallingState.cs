@@ -32,6 +32,7 @@ public class FallingState : StateBase
     {
         if (Player.isGrounded)
         {
+            Player.currentJumps = 0;
             Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
         }
     }
