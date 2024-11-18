@@ -33,7 +33,7 @@ public class DodgeRollState : StateBase
         {
             if (Player.isGrounded)
             {
-                Player.SetState(movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
+                Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
             }
             else
             {

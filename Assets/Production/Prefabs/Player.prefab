@@ -77,13 +77,11 @@ MonoBehaviour:
   activeAttackCooldown: 0
   canDodgeRoll: 1
   currentJumps: 0
-  horizontalInput: 0
-  verticalInput: 0
+  movementInput: {x: 0, y: 0}
   isGrounded: 0
   tailCanDoDamage: 0
   healthBar: {fileID: 0}
   currentStateName: none
-  inputActions: {fileID: 2974869042834182435}
 --- !u!114 &2974869042834182435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -914,8 +912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 785e70c0a23a3ca4ba305b9841196530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRb: {fileID: 8218035431276073872}
-  input: {fileID: 2974869042834182435}
+  player: {fileID: 9169223613212550927}
   cameraTransform: {fileID: 6505893237244659488}
 --- !u!1 &5867138334220634699
 GameObject:

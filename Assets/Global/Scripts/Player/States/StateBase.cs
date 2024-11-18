@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 public abstract class StateBase
 {
     protected readonly Player Player;
-    protected Vector2 movementInput;
 
     protected StateBase(Player player)
     {
@@ -39,7 +38,7 @@ public abstract class StateBase
     // Input handling
     public virtual void Move(InputAction.CallbackContext ctx)
     {
-        movementInput = ctx.ReadValue<Vector2>();
+        Player.movementInput = ctx.ReadValue<Vector2>();
         if (ctx.performed && Player.currentState != Player.states.Walking)
         {
             Player.SetState(Player.states.Walking);

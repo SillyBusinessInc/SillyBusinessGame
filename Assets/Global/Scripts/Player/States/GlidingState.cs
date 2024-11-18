@@ -8,7 +8,7 @@ public class GlidingState : StateBase
     }
     public override void Update()
     {
-        Player.rb.AddForce(Player.GetDirection() * Player.playerStatistic.speed, ForceMode.Force);
+        Player.rb.AddForce(Player.GetDirection() * Player.playerStatistic.speed, ForceMode.Acceleration);
     }
 
     public override void Enter()
@@ -26,7 +26,7 @@ public class GlidingState : StateBase
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Player.SetState(movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
+            Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
         }
     }
 }

@@ -8,7 +8,7 @@ public class FallingState : StateBase
     public override void Update()
     {
         // Apply horizontal movement in the air
-        Player.rb.AddForce(Player.GetDirection() * (Player.playerStatistic.speed * Player.airBornMovementFactor), ForceMode.Force);
+        Player.rb.AddForce(Player.GetDirection() * (Player.playerStatistic.speed * Player.airBornMovementFactor), ForceMode.Acceleration);
     }
 
     public override void Jump(InputAction.CallbackContext ctx)
@@ -32,7 +32,7 @@ public class FallingState : StateBase
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Player.SetState(movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
+            Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
         }
     }
 }
