@@ -93,26 +93,10 @@ public class Player : MonoBehaviour
                 playerStatistic.health
             );
     }
-
+    
     void Update()
     {
-        groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
-        RaycastHit hit;
-        Vector3 raycastPosition = new Vector3(rb.position.x, rb.position.y, rb.position.z);
-        if (Physics.Raycast(raycastPosition, Vector3.down, out hit, groundCheckDistance))
-        {
-            if (!(hit.collider.gameObject.CompareTag("Player")))
-            {
-                if (Vector3.Angle(Vector3.up, hit.normal) < degreesToRotate)
-                {
-                    isGrounded = true;
-                }
-            }
-        }
-        else
-        {
-            isGrounded = false;
-        }
+        RaycastDown();
         currentState.Update();
         RotatePlayerObj();
         activeAttackCooldown =
@@ -143,6 +127,27 @@ public class Player : MonoBehaviour
     }
 
     public void OnCollisionExit(Collision collision) { }
+    
+    private void RaycastDown()
+    {
+        groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
+        RaycastHit hit;
+        Vector3 raycastPosition = new Vector3(rb.position.x, rb.position.y, rb.position.z);
+        if (Physics.Raycast(raycastPosition, Vector3.down, out hit, groundCheckDistance))
+        {
+            if (!(hit.collider.gameObject.CompareTag("Player")))
+            {
+                if (Vector3.Angle(Vector3.up, hit.normal) < degreesToRotate)
+                {
+                    isGrounded = true;
+                }
+            }
+        }
+        else
+        {
+            isGrounded = false;
+        }
+    }
 
     public void SetState(StateBase newState)
     {
