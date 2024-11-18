@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class AttackingState : StateBase
 {
@@ -85,7 +85,7 @@ public class AttackingState : StateBase
             }
             else
             {
-                Player.SetState(Player.states.Idle);
+                Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
             }
         }
     }

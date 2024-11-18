@@ -5,68 +5,34 @@ public class FallingState : StateBase
 {
     public FallingState(Player player) : base(player) { }
 
-    public override void Enter()
-    {
-        // Subscribe to input action events for Jump, Glide, Dodge, and Attack
-        Player.inputActions.actions["Glide"].performed += OnGlide;
-        Player.inputActions.actions["Jump"].performed += OnJump;
-        Player.inputActions.actions["Dodge"].performed += OnDodge;
-        Player.inputActions.actions["Attack"].performed += OnAttack;
-    }
-
-    public override void Exit()
-    {
-        // Unsubscribe from input action events to avoid multiple subscriptions
-        Player.inputActions.actions["Glide"].performed -= OnGlide;
-        Player.inputActions.actions["Jump"].performed -= OnJump;
-        Player.inputActions.actions["Dodge"].performed -= OnDodge;
-        Player.inputActions.actions["Attack"].performed -= OnAttack;
-    }
-
     public override void Update()
     {
         // Apply horizontal movement in the air
-        Player.rb.AddForce(Player.GetDirection() * (Player.playerStatistic.speed * Player.airBornMovementFactor), ForceMode.Force);
+        Player.rb.AddForce(Player.GetDirection() * (Player.playerStatistic.speed * Player.airBornMovementFactor), ForceMode.Acceleration);
     }
 
-    private void OnJump(InputAction.CallbackContext context)
+    public override void Jump(InputAction.CallbackContext ctx)
     {
-        if (Player.doubleJumps > Player.currentJumps)
+        if (ctx.started && Player.doubleJumps > Player.currentJumps)
         {
-            Player.SetState(Player.states.Jumping);
             Player.currentJumps += 1;
+            Player.SetState(Player.states.Jumping);
         }
     }
 
-    private void OnGlide(InputAction.CallbackContext context)
+    public override void Glide(InputAction.CallbackContext ctx)
     {
-        // if (Player.rb.linearVelocity.y < 0 && Player.canDodgeRoll)
-        // {
-        Player.SetState(Player.states.Gliding);
-        // }
-    }
-
-    private void OnDodge(InputAction.CallbackContext context)
-    {
-        if (Player.canDodgeRoll)
+        if (ctx.performed && Player.rb.linearVelocity.y < 0)
         {
-            Player.SetState(Player.states.DodgeRoll);
+            Player.SetState(Player.states.Gliding);
         }
-    }
-
-    private void OnAttack(InputAction.CallbackContext context)
-    {
-        Player.attackCounter = 2;
-        Player.isSlamming = true;
-        Player.SetState(Player.states.Attacking);
     }
 
     public override void OnCollision(Collision collision)
     {
         if (Player.isGrounded)
         {
-            Player.SetState(Player.states.Idle);
-            Player.currentJumps = 0;
+            Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
         }
     }
 }
