@@ -52,15 +52,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   agent: {fileID: 0}
+  animator: {fileID: 0}
   roamingRadius: 5
   roamingAngleRange: 90
   playerObject: {fileID: 0}
   target: {fileID: 0}
   visionAngle: 45
   visionRange: 10
+  memoryDuration: 2
+  lastSeenTime: 0
+  lastSeenLocation: {x: 0, y: 0, z: 0}
   attackDamage: 25
   attackRange: 2
-  attackCooldown: 5
+  attackCooldown: 3
   canAttack: 1
   attackTimeElapsed: 0
   currentStateName: none
