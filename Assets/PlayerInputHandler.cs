@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour
 {
     [SerializeField] private Player player;
+    [SerializeField] private PlayerInteraction interactor;
 
     // Handling the Input for the player.
     public void OnMove(InputAction.CallbackContext ctx)
@@ -39,5 +40,10 @@ public class PlayerInputHandler : MonoBehaviour
     public void OnDodge(InputAction.CallbackContext ctx)
     {
         player.currentState.Dodge(ctx);
+    }
+
+    public void OnInteract(InputAction.CallbackContext ctx)
+    {
+        interactor.Interact(ctx);
     }
 }
