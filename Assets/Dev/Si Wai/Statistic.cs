@@ -16,11 +16,15 @@ public class Statistic
     private List<KeyValuePair<string, float>> modifiers = new();
 
     // Get the final value after applying modifiers
+
+    public Statistic(float bv) {
+        baseValue = bv;
+    }
+
     public float GetValue()
     {
         float value = baseValue;
         // first, apply the base multipliers
-        // add the parenthesis with the question mark because list can be null
         float baseMultiplier = baseMultipliers.Any() ? baseMultipliers.Sum(pair => pair.Value) : 1;
        
         value *= baseMultiplier;
@@ -34,6 +38,8 @@ public class Statistic
 
         return value;
     }
+
+    public int GetValueInt() => (int)MathF.Round(GetValue(), 0);
 
     // Add new modifier  
     public void AddModifier(string key, float modifier)

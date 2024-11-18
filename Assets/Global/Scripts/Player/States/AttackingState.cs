@@ -45,11 +45,11 @@ public class AttackingState : StateBase
         if (Player.isGrounded)
         {
             Player.isSlamming = true;
-            Player.rb.AddForce(Vector3.up * Player.jumpForce, ForceMode.Impulse);
+            Player.rb.AddForce(Vector3.up * Player.playerStatistic.JumpForce.GetValue(), ForceMode.Impulse);
         }
         else if (Player.rb.linearVelocity.y < 0 && Player.isSlamming)
         {
-            Player.rb.AddForce(Vector3.down * Player.jumpForce, ForceMode.Impulse);
+            Player.rb.AddForce(Vector3.down * Player.playerStatistic.JumpForce.GetValue(), ForceMode.Impulse);
         }
         Player.SetState(Player.states.Idle);
     }
@@ -59,8 +59,8 @@ public class AttackingState : StateBase
         {
             if (rotate < 180)
             {
-                Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, turnLeft ? Player.TailTurnSpeed : -Player.TailTurnSpeed);
-                rotate += Player.TailTurnSpeed;
+                Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, turnLeft ? Player.playerStatistic.AttackSpeedMultiplier.GetValue() : -Player.playerStatistic.AttackSpeedMultiplier.GetValue());
+                rotate += Player.playerStatistic.AttackSpeedMultiplier.GetValue();
             }
             else
             {
@@ -73,8 +73,8 @@ public class AttackingState : StateBase
         {
             if (rotate < 180)
             {
-                Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, turnLeft ? Player.TailTurnSpeed : -Player.TailTurnSpeed);
-                rotate += Player.TailTurnSpeed;
+                Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, turnLeft ? Player.playerStatistic.AttackSpeedMultiplier.GetValue() : -Player.playerStatistic.AttackSpeedMultiplier.GetValue());
+                rotate += Player.playerStatistic.AttackSpeedMultiplier.GetValue();
             }
             else
             {

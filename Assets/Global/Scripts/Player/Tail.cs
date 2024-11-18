@@ -10,7 +10,9 @@ public class Tail : MonoBehaviour
         {
             if(player.tailCanDoDamage)
             {
-                Collider.GetComponent<EnemyBase>().OnHit(player.tailDoDamage);
+                player.playerStatistic.AttackDamageMultiplier.AddMultiplier("damage", player.tailDoDamage, false);
+                Collider.GetComponent<EnemyBase>().OnHit(player.playerStatistic.AttackDamageMultiplier.GetValueInt());
+                // Collider.GetComponent<EnemyBase>().OnHit(player.tailDoDamage);
             }
         }
     }

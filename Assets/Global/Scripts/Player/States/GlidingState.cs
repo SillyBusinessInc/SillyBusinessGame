@@ -15,10 +15,10 @@ public class GlidingState : StateBase
         }
 
         
-        Player.rb.AddForce(Player.GetDirection() * Player.playerStatistic.speed, ForceMode.Force);
+        Player.rb.AddForce(Player.GetDirection() * Player.playerStatistic.Speed.GetValue(), ForceMode.Force);
 
         
-        if(Player.inputActions.actions["Jump"].triggered && Player.doubleJumps > Player.currentJumps && Player.canDodgeRoll)
+        if(Player.inputActions.actions["Jump"].triggered && Player.playerStatistic.DoubleJumpsCount.GetValueInt() > Player.currentJumps && Player.canDodgeRoll)
         {
             Player.SetState(Player.states.Jumping);
             Player.currentJumps += 1;
