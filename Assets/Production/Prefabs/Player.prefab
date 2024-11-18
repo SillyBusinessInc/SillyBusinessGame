@@ -51,14 +51,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8727f22fc89cd54b9e87543dfb8dca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 6
+  jumpForce: 10
   airBornMovementFactor: 0.6
   doubleJumps: 1
   glideDrag: 5
   dodgeRollSpeed: 10
   dodgeRollDuration: 1
+  degreesToRotate: 50
   playerStatistic:
-    speed: 4
+    speed: 6
     maxHealth:
       baseValue: 0
     health: 0
@@ -77,9 +78,11 @@ MonoBehaviour:
   activeAttackCooldown: 0
   canDodgeRoll: 1
   currentJumps: 0
-  movementInput: {x: 0, y: 0}
+  horizontalInput: 0
+  verticalInput: 0
   isGrounded: 0
   tailCanDoDamage: 0
+  movementInput: {x: 0, y: 0}
   healthBar: {fileID: 0}
   currentStateName: none
 --- !u!114 &2974869042834182435
