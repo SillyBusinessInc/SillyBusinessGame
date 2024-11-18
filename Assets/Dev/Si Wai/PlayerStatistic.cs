@@ -13,5 +13,10 @@ public class PlayerStatistic //: ScriptableObject
 {
     public float speed = 5f;
     public Statistic maxHealth = new();
-    public float health;
+
+    private float health;
+    public float Health { 
+        get => health = Mathf.Min(health, maxHealth.GetValue());
+        set => health = value; 
+    }
 }

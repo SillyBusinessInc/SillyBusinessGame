@@ -82,13 +82,8 @@ public class Player : MonoBehaviour
         states = new PlayerStates(this);
         SetState(states.Idle);
         // health and maxHealth should be the same value at the start of game
-        playerStatistic.health = playerStatistic.maxHealth.GetValue();
-        if (healthBar)
-            healthBar.UpdateHealthBar(
-                0f,
-                playerStatistic.maxHealth.GetValue(),
-                playerStatistic.health
-            );
+        playerStatistic.Health = playerStatistic.maxHealth.GetValue();
+        if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.Health);
     }
 
     void Update()
@@ -160,27 +155,27 @@ public class Player : MonoBehaviour
     // If we go the event route this should change right?
     public void OnHit(float damage)
     {
-        playerStatistic.health -= damage;
-        if (healthBar != null)
-            healthBar.UpdateHealthBar(
-                0f,
-                playerStatistic.maxHealth.GetValue(),
-                playerStatistic.health
-            );
-        if (playerStatistic.health <= 0)
-            OnDeath();
+        playerStatistic.Health -= damage;
+        if (healthBar != null) healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.Health);
+        if (playerStatistic.Health <= 0) OnDeath();
     }
 
     public void Heal(float reward)
     {
-        playerStatistic.health += reward;
-        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
+        playerStatistic.Health += reward;
+        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.Health);
+    }
+
+    public void MultiplyMaxHealth(float reward)
+    {
+        playerStatistic.maxHealth.AddMultiplier("reward", reward, true);
+        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.Health);
     }
 
     public void IncreaseMaxHealth(float reward)
     {
-        playerStatistic.maxHealth.AddMultiplier("reward", reward, true);
-        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
+        playerStatistic.maxHealth.AddModifier("reward", reward);
+        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.Health);
     }
 
     // If we go the event route this should change right?
