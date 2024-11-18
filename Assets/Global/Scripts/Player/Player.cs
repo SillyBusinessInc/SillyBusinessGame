@@ -134,19 +134,15 @@ public class Player : MonoBehaviour
         healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
     }
 
+    public void DecreaseMaxHealth()
+    {
+        playerStatistic.MaxHealth.RemoveMultiplier("reward", true);
+        healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+    }
+
     // If we go the event route this should change right?
     private void OnDeath()
     {
         Debug.Log("Player died", this);
-    }
-
-    [ContextMenu("remove multiplier for max health")]
-    public void RemoveModifierModifier()
-    {
-        Debug.Log(playerStatistic.JumpForce.GetValue());
-        playerStatistic.JumpForce.AddModifier("maxHealth", 2.0f); // Delegate to Statistic
-        Debug.Log(playerStatistic.JumpForce.GetValue());
-        playerStatistic.JumpForce.RemoveModifier("maxHealth"); // Delegate to Statistic
-        Debug.Log(playerStatistic.JumpForce.GetValue());
     }
 }
