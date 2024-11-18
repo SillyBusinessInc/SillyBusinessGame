@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -76,6 +77,8 @@ public class Player : MonoBehaviour
 
     // private PlayerInputActions inputActions;
 
+    public float groundCheckDistance;
+    private float bufferCheckDistance = 0.1f;
 
     void Start()
     {
@@ -93,6 +96,30 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
+        RaycastHit hit;
+        Debug.DrawLine(
+            rb.position,
+            rb.position - transform.up * groundCheckDistance,
+            Color.red,
+            1,
+            true
+        );
+        Vector3 raycastPosition = new Vector3(rb.position.x, rb.position.y, rb.position.z);
+        if (Physics.Raycast(raycastPosition, Vector3.down, out hit, groundCheckDistance))
+        {
+            if (!(hit.collider.gameObject.CompareTag("Player")))
+            {
+                if (Vector3.Angle(Vector3.up, hit.normal) < degreesToRotate)
+                {
+                    isGrounded = true;
+                }
+            }
+        }
+        else
+        {
+            isGrounded = false;
+        }
         currentState.Update();
         RotatePlayerObj();
         activeAttackCooldown =
@@ -114,10 +141,6 @@ public class Player : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (Vector3.Angle(Vector3.up, collision.contacts[0].normal) < degreesToRotate)
-        {
-            isGrounded = true;
-        }
         if (isSlamming)
         {
             isSlamming = false;
@@ -126,10 +149,7 @@ public class Player : MonoBehaviour
         currentState.OnCollision(collision);
     }
 
-    public void OnCollisionExit(Collision collision)
-    {
-        isGrounded = false;
-    }
+    public void OnCollisionExit(Collision collision) { }
 
     public void SetState(StateBase newState)
     {
