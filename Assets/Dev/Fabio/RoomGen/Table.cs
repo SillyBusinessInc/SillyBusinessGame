@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 using SRandom = System.Random;
@@ -40,6 +41,38 @@ public class Table
 
         Populate(GetFirstUnpopulatedRow());
     }
+
+    // private void Populate(Row row, int iteration = 0) {
+    //     // base cases
+    //     if (iteration >= maxBranchCount) return;
+    //     if (row.depth >= targetDepth-1) {
+    //         row.branches.Add(GetIdFromOldRow(GetRowsAtDepth(row.depth+1)));
+    //         Populate(table[0], iteration+1);
+    //         return;
+    //     }
+
+    //     // init
+    //     if (row.depth == 0 && iteration == 0) {
+    //         table.Add(new(GetNextId(), targetDepth-1));
+    //     }
+
+    //     // get random next chamber
+    //     int column = random.Next(0, maxBranchCount);
+
+    //     Row target = GetRowsAtDepth(row.depth+1).Where((x) => x.column == column).FirstOrDefault();
+    //     try {
+    //         int _ = target.column;
+    //     } 
+    //     catch {
+    //         target = new(GetNextId(), row.depth+1);
+    //         table.Add(target);
+    //     }
+    //     row.branches ??= new();
+    //     row.branches.Add(target.id);
+
+    //     // recursion
+    //     Populate(target, iteration);
+    // }
     private void Populate(Row row) {
         // base cases
         if (row.depth == targetDepth) return;
@@ -92,11 +125,13 @@ public class Table
 public struct Row {
     public int id;
     public int depth;
+    public int column;
     public List<int> branches;
 
-    public Row(int id_, int depth_) {
+    public Row(int id_, int depth_, int column_ = -1) {
         id = id_;
         depth = depth_;
+        column = column_;
         branches = new List<int>();
     }
 }
