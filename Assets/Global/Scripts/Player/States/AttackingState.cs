@@ -1,9 +1,5 @@
-using JetBrains.Annotations;
-using NUnit.Framework;
-using System.Data;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class AttackingState : StateBase
 {
@@ -51,7 +47,7 @@ public class AttackingState : StateBase
         {
             Player.rb.AddForce(Vector3.down * Player.jumpForce, ForceMode.Impulse);
         }
-        Player.SetState(Player.states.Idle);
+        Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
     }
     void Slash()
     {
@@ -78,7 +74,7 @@ public class AttackingState : StateBase
             }
             else
             {
-                Player.SetState(Player.states.Idle);
+                Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
             }
         }
     }
@@ -121,7 +117,7 @@ public class AttackingState : StateBase
             if (Player.isSlamming)
             {
                 Player.isSlamming = false;
-                Player.SetState(Player.states.Idle);
+                Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
             }
         }
     }
