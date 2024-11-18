@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -11,6 +10,8 @@ public class Player : MonoBehaviour
     public float glideDrag = 2f;
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
+
+    public float degreesToRotate = 50.0f;
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
@@ -65,13 +66,13 @@ public class Player : MonoBehaviour
     public PlayerStates states;
     public StateBase currentState;
 
-    [HideInInspector] public Vector2 movementInput;
+    [HideInInspector]
+    public Vector2 movementInput;
     public Healthbar healthBar;
 
     [Header("Debugging")]
     [SerializeField]
     private string currentStateName = "none";
-
 
     // private PlayerInputActions inputActions;
 
@@ -92,7 +93,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(isGrounded);
         currentState.Update();
         RotatePlayerObj();
         activeAttackCooldown =
@@ -114,7 +114,7 @@ public class Player : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.contacts[0].normal.y == 1.0f)
+        if (Vector3.Angle(Vector3.up, collision.contacts[0].normal) < degreesToRotate)
         {
             isGrounded = true;
         }
@@ -130,6 +130,7 @@ public class Player : MonoBehaviour
     {
         isGrounded = false;
     }
+
     public void SetState(StateBase newState)
     {
         currentState?.Exit();
@@ -140,14 +141,14 @@ public class Player : MonoBehaviour
 
     public Vector3 GetDirection()
     {
-        Vector3 moveDirection = orientation.forward * movementInput.y + orientation.right * movementInput.x;
+        Vector3 moveDirection =
+            orientation.forward * movementInput.y + orientation.right * movementInput.x;
 
         return moveDirection.normalized;
     }
 
     private void RotatePlayerObj()
     {
-
         if (rb.linearVelocity.magnitude > 0.1f)
         {
             var direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
