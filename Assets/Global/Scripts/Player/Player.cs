@@ -98,13 +98,6 @@ public class Player : MonoBehaviour
     {
         groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
         RaycastHit hit;
-        Debug.DrawLine(
-            rb.position,
-            rb.position - transform.up * groundCheckDistance,
-            Color.red,
-            1,
-            true
-        );
         Vector3 raycastPosition = new Vector3(rb.position.x, rb.position.y, rb.position.z);
         if (Physics.Raycast(raycastPosition, Vector3.down, out hit, groundCheckDistance))
         {

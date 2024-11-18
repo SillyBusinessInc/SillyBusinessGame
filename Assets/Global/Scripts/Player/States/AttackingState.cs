@@ -1,9 +1,10 @@
 using System.Data;
+using System.Runtime.InteropServices.WindowsRuntime;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 
 public class AttackingState : StateBase
 {
@@ -85,7 +86,9 @@ public class AttackingState : StateBase
             }
             else
             {
-                Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
+                Player.SetState(
+                    Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle
+                );
             }
         }
     }
@@ -121,4 +124,31 @@ public class AttackingState : StateBase
         Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, 0);
         Player.attackCounter = Player.attackCounter == 3 ? 0 : Player.attackCounter;
     }
+
+    public override void Jump(InputAction.CallbackContext ctx)
+    {
+        return;
+    }
+
+    public override void Glide(InputAction.CallbackContext ctx)
+    {
+        return;
+    }
+
+    public override void Dodge(InputAction.CallbackContext ctx)
+    {
+        return;
+    }
+
+    public override void Move(InputAction.CallbackContext ctx)
+    {
+        return;
+    }
+
+    public override void Sprint(InputAction.CallbackContext ctx)
+    {
+        return;
+    }
+
+    public override void Attack(InputAction.CallbackContext ctx){}
 }
