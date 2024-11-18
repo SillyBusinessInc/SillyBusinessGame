@@ -69,7 +69,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void TriggerInteraction()
     {
-        if (currentInteractable != null && !interactable.IsDisabled)
+        if (currentInteractable != null && !currentInteractable.IsDisabled)
         {
             currentInteractable.OnInteract();
         }
