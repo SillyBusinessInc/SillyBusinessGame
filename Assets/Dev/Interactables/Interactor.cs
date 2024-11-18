@@ -36,7 +36,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             var interactable = hit.collider.GetComponent<Interactable>();
 
-            if (interactable != null && !interactable.IsDisabled && interactable.IsWithinInteractionRange(transform.position))
+            if (interactable != null && interactable.IsWithinInteractionRange(transform.position))
             {
                 // Calculate the direction to the interactable and the angle between the player's forward direction
                 Vector3 directionToInteractable = (interactable.transform.position - transform.position).normalized;
@@ -69,7 +69,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void TriggerInteraction()
     {
-        if (currentInteractable != null)
+        if (currentInteractable != null && !interactable.IsDisabled)
         {
             currentInteractable.OnInteract();
         }
