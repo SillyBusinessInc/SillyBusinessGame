@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -9,6 +8,8 @@ public class Player : MonoBehaviour
     public float glideDrag = 2f;
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
+
+    public float degreesToRotate = 50.0f;
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
@@ -25,23 +26,53 @@ public class Player : MonoBehaviour
     [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
     public Transform orientation;
-    [HideInInspector] public bool slamCanDoDamage = false;
-    [HideInInspector] public int attackCounter;
-    [HideInInspector] public int tailDoDamage;
-    [HideInInspector] public bool isSlamming;
-    [HideInInspector] public float activeAttackCooldown;
 
-    [HideInInspector] public bool canDodgeRoll = true;
-    [HideInInspector] public int currentJumps = 0;
-    [HideInInspector] public Vector2 movementInput;
-    [HideInInspector] public bool isGrounded;
-    [HideInInspector] public bool tailCanDoDamage = false;
-    [HideInInspector] public PlayerStates states;
+    [HideInInspector]
+    public bool slamCanDoDamage = false;
+
+    [HideInInspector]
+    public int attackCounter;
+
+    [HideInInspector]
+    public int tailDoDamage;
+
+    [HideInInspector]
+    public bool isSlamming;
+
+    [HideInInspector]
+    public float activeAttackCooldown;
+
+    [HideInInspector]
+    public bool canDodgeRoll = true;
+
+    [HideInInspector]
+    public int currentJumps = 0;
+
+    [HideInInspector]
+    public float horizontalInput;
+
+    [HideInInspector]
+    public float verticalInput;
+
+    [HideInInspector]
+    public bool isGrounded;
+
+    [HideInInspector]
+    public bool tailCanDoDamage = false;
+
+    [HideInInspector]
+    public PlayerStates states;
     public StateBase currentState;
+
+    [HideInInspector]
+    public Vector2 movementInput;
     public Healthbar healthBar;
 
     [Header("Debugging")]
-    [SerializeField] private string currentStateName = "none";
+    [SerializeField]
+    private string currentStateName = "none";
+
+    // private PlayerInputActions inputActions;
 
 
     void Start()
@@ -57,7 +88,10 @@ public class Player : MonoBehaviour
     {
         currentState.Update();
         RotatePlayerObj();
-        activeAttackCooldown = currentState.GetType().Name != "AttackingState" ? activeAttackCooldown + Time.deltaTime : 0.0f;
+        activeAttackCooldown =
+            currentState.GetType().Name != "AttackingState"
+                ? activeAttackCooldown + Time.deltaTime
+                : 0.0f;
         if (activeAttackCooldown >= this.attackResettingTime)
         {
             attackCounter = 0;
@@ -73,13 +107,21 @@ public class Player : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        isGrounded = collision.gameObject.CompareTag("Ground");
-        currentJumps = 0;
+        if (Vector3.Angle(Vector3.up, collision.contacts[0].normal) < degreesToRotate)
+        {
+            isGrounded = true;
+        }
+        if (isSlamming)
+        {
+            isSlamming = false;
+            SetState(states.Idle);
+        }
         currentState.OnCollision(collision);
     }
+
     public void OnCollisionExit(Collision collision)
     {
-        isGrounded = !collision.gameObject.CompareTag("Ground");
+        isGrounded = false;
     }
 
     public void SetState(StateBase newState)
@@ -92,18 +134,19 @@ public class Player : MonoBehaviour
 
     public Vector3 GetDirection()
     {
-        Vector3 moveDirection = orientation.forward * movementInput.y + orientation.right * movementInput.x;
+        Vector3 moveDirection =
+            orientation.forward * movementInput.y + orientation.right * movementInput.x;
 
         return moveDirection.normalized;
     }
 
     private void RotatePlayerObj()
     {
-
         if (rb.linearVelocity.magnitude > 0.1f)
         {
             var direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
-            if (direction != Vector3.zero) rb.MoveRotation(Quaternion.LookRotation(direction));
+            if (direction != Vector3.zero)
+                rb.MoveRotation(Quaternion.LookRotation(direction));
         }
     }
 
@@ -111,7 +154,7 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         playerStatistic.Health -= damage;
-        if (healthBar != null) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
         if (playerStatistic.Health <= 0) OnDeath();
     }
 

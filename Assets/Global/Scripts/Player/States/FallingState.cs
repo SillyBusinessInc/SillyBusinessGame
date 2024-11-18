@@ -30,8 +30,9 @@ public class FallingState : StateBase
 
     public override void OnCollision(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (Player.isGrounded)
         {
+            Player.currentJumps = 0;
             Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
         }
     }
