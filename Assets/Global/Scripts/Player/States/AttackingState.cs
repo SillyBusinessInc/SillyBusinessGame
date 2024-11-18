@@ -1,9 +1,9 @@
+using System.Data;
 using JetBrains.Annotations;
 using NUnit.Framework;
-using System.Data;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class AttackingState : StateBase
 {
@@ -15,14 +15,14 @@ public class AttackingState : StateBase
 
     private bool turnLeft;
 
-    public AttackingState(Player player) : base(player)
-    {
-    }
+    public AttackingState(Player player)
+        : base(player) { }
 
     public override void FixedUpdate()
     {
         Attack(Player.attackCounter);
     }
+
     void Attack(int attackCounter)
     {
         switch (attackCounter)
@@ -37,7 +37,6 @@ public class AttackingState : StateBase
                 GroundPound();
                 break;
         }
-
     }
 
     void GroundPound()
@@ -51,15 +50,19 @@ public class AttackingState : StateBase
         {
             Player.rb.AddForce(Vector3.down * Player.jumpForce, ForceMode.Impulse);
         }
-        Player.SetState(Player.states.Idle);
     }
+
     void Slash()
     {
         if (!isReturning)
         {
             if (rotate < 180)
             {
-                Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, turnLeft ? Player.TailTurnSpeed : -Player.TailTurnSpeed);
+                Player.TransformTail.transform.RotateAround(
+                    Player.rb.position,
+                    Vector3.up,
+                    turnLeft ? Player.TailTurnSpeed : -Player.TailTurnSpeed
+                );
                 rotate += Player.TailTurnSpeed;
             }
             else
@@ -73,12 +76,16 @@ public class AttackingState : StateBase
         {
             if (rotate < 180)
             {
-                Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, turnLeft ? Player.TailTurnSpeed : -Player.TailTurnSpeed);
+                Player.TransformTail.transform.RotateAround(
+                    Player.rb.position,
+                    Vector3.up,
+                    turnLeft ? Player.TailTurnSpeed : -Player.TailTurnSpeed
+                );
                 rotate += Player.TailTurnSpeed;
             }
             else
             {
-                Player.SetState(Player.states.Idle);
+                Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
             }
         }
     }
@@ -110,19 +117,8 @@ public class AttackingState : StateBase
     {
         Player.tailCanDoDamage = false;
         Player.slamCanDoDamage = false;
+        Player.isSlamming = false;
         Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, 0);
         Player.attackCounter = Player.attackCounter == 3 ? 0 : Player.attackCounter;
-    }
-
-    public override void OnCollision(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            if (Player.isSlamming)
-            {
-                Player.isSlamming = false;
-                Player.SetState(Player.states.Idle);
-            }
-        }
     }
 }
