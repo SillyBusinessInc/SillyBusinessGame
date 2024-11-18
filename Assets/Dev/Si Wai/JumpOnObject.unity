@@ -199,6 +199,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 10756, guid: 0000000000000000e000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -240,8 +241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e70fb1a24593af0499cdbda5b010b22c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Title: 
-  Weight: 0
+  Title: Random upgrade choice
+  Weight: 45
 --- !u!1 &202998998
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,8 +473,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 002682e1c0a7ee54e977e561fde9bf94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Title: 
-  Weight: 0
+  Title: Max health up
+  Weight: 20
 --- !u!1 &1109362123
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,7 +501,7 @@ Transform:
   m_GameObject: {fileID: 1109362123}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.14, y: 0.493, z: -8.39}
+  m_LocalPosition: {x: 8.14, y: 0.492, z: -8.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -536,18 +537,6 @@ PrefabInstance:
     - target: {fileID: 637936633501757367, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1034164388570683902, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1034164388570683902, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4041941074647016892, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4811859323897289456, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.x
@@ -588,10 +577,6 @@ PrefabInstance:
     - target: {fileID: 4811859323897289456, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8497580373513693235, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -678,6 +663,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -719,8 +705,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf43270d7dbc14448b021a660dda60c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Title: 
-  Weight: 0
+  Title: 30 crumbs up
+  Weight: 35
 --- !u!1 &1895656751
 GameObject:
   m_ObjectHideFlags: 0

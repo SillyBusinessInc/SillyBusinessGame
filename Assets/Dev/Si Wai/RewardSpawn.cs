@@ -18,26 +18,20 @@ public class RewardSpawn : MonoBehaviour
 
     [ContextMenu("Spawn reward")]
     void SpawnReward() {
+        // list reward: grey = max health reward, pink = crumb reward, black = random upgrade reward
         Reward = GetRandomReward();
         Reward.gameObject.SetActive(true);
     }
 
     Reward GetRandomReward() {
         float[] thresholds = new float[Rewards.Count];
+        float totalWeight = 0;
         for (int i = 0; i < thresholds.Length; i++) {
-            float totalWeight = 0;
-            for (int j = 0; j < i; j++) {
-                totalWeight += Rewards[j].Weight;
-            }
+            totalWeight += Rewards[i].Weight;
             thresholds[i] = totalWeight;
         }
 
         int randomNumber = Random.Range(0, 100);
-        foreach (var t in thresholds) {
-            Debug.Log(t);
-        }
-        Debug.Log("------");
-        Debug.Log(randomNumber);
         if (randomNumber < thresholds[0]) {
             return Rewards[0];
         } else if (randomNumber < thresholds[1]) {

@@ -15,4 +15,15 @@ public abstract class Reward : MonoBehaviour
     {
         
     }
+
+    void OnTriggerEnter(Collider collider) {
+        PlayerObject playerObj = collider.gameObject.GetComponent<PlayerObject>();
+        if (playerObj) {
+            ActivateReward(playerObj.player);
+            this.gameObject.SetActive(false);
+        }
+    }
+
+    public virtual void ActivateReward(Player player) {
+    }
 }

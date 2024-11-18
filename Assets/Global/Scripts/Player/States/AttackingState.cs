@@ -65,7 +65,7 @@ public class AttackingState : StateBase
                 Player.TransformTail.transform.RotateAround(
                     Player.rb.position,
                     Vector3.up,
-                    Player.TailTurnSpeed * speed 
+                    Player.TailTurnSpeed * speed
                 );
                 rotate += Player.TailTurnSpeed;
             }

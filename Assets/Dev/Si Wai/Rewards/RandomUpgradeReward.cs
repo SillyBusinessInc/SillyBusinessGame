@@ -2,19 +2,14 @@ using UnityEngine;
 
 public class RandomUpgradeReward : Reward
 {
-    public RandomUpgradeReward() {
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Awake()
+    {
         Title = "Random upgrade choice";
         Weight = 45.0f;
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public override void ActivateReward(Player player) {
+        Debug.Log("U got the random upgrade choice reward!");
     }
 }
