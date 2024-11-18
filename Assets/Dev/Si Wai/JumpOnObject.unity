@@ -240,7 +240,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 2473783696953831446, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+    - target: {fileID: 1034164388570683902, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1034164388570683902, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4041941074647016892, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -284,25 +292,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5559707000031844645, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
-      propertyPath: sensitivityX
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
-      propertyPath: speed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
-      propertyPath: jumpForce
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+    - target: {fileID: 8497580373513693235, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7381533430093062579, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
-    - {fileID: 4926589023627480149, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -411,13 +405,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895656751}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.34152752, w: 0.9398718}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.61, y: 0.5314, z: -0.5}
   m_LocalScale: {x: 1, y: 0.6114, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 39.94}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1895656756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,8 +424,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ac98e4f916186468307f45a275d0c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceForceUp: 10
-  bounceForceForward: 0
+  bounceForceUp: 5
+  bounceForceForward: 1
   topAngleThreshold: 105
 --- !u!1 &1968757622
 GameObject:
