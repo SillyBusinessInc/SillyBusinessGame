@@ -8,7 +8,7 @@ public class GlidingState : StateBase
     }
     public override void Update()
     {
-        Player.rb.AddForce(Player.GetDirection() * Player.playerStatistic.speed, ForceMode.Acceleration);
+        Player.rb.AddForce(Player.GetDirection() * Player.playerStatistic.Speed.GetValue(), ForceMode.Acceleration);
     }
 
     public override void Enter()

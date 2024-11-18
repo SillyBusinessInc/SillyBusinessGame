@@ -1,12 +1,11 @@
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
     [Header("Settings")]
-    public float jumpForce = 2f;
     public float airBornMovementFactor = 0.5f;
-    public int doubleJumps = 1;
     public float glideDrag = 2f;
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
@@ -75,24 +74,22 @@ public class Player : MonoBehaviour
     private string currentStateName = "none";
 
     // private PlayerInputActions inputActions;
-
+    [HideInInspector]
+    public float groundCheckDistance;
+    private float bufferCheckDistance = 0.1f;
 
     void Start()
     {
         states = new PlayerStates(this);
         SetState(states.Idle);
         // health and maxHealth should be the same value at the start of game
-        playerStatistic.health = playerStatistic.maxHealth.GetValue();
-        if (healthBar)
-            healthBar.UpdateHealthBar(
-                0f,
-                playerStatistic.maxHealth.GetValue(),
-                playerStatistic.health
-            );
+        playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
+        if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
     }
-
+    
     void Update()
     {
+        RaycastDown();
         currentState.Update();
         RotatePlayerObj();
         activeAttackCooldown =
@@ -114,10 +111,6 @@ public class Player : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (Vector3.Angle(Vector3.up, collision.contacts[0].normal) < degreesToRotate)
-        {
-            isGrounded = true;
-        }
         if (isSlamming)
         {
             isSlamming = false;
@@ -126,9 +119,27 @@ public class Player : MonoBehaviour
         currentState.OnCollision(collision);
     }
 
-    public void OnCollisionExit(Collision collision)
+    public void OnCollisionExit(Collision collision) { }
+    
+    private void RaycastDown()
     {
-        isGrounded = false;
+        groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
+        RaycastHit hit;
+        Vector3 raycastPosition = new Vector3(rb.position.x, rb.position.y, rb.position.z);
+        if (Physics.Raycast(raycastPosition, Vector3.down, out hit, groundCheckDistance))
+        {
+            if (!(hit.collider.gameObject.CompareTag("Player")))
+            {
+                if (Vector3.Angle(Vector3.up, hit.normal) < degreesToRotate)
+                {
+                    isGrounded = true;
+                }
+            }
+        }
+        else
+        {
+            isGrounded = false;
+        }
     }
 
     public void SetState(StateBase newState)
@@ -160,27 +171,27 @@ public class Player : MonoBehaviour
     // If we go the event route this should change right?
     public void OnHit(float damage)
     {
-        playerStatistic.health -= damage;
-        if (healthBar != null)
-            healthBar.UpdateHealthBar(
-                0f,
-                playerStatistic.maxHealth.GetValue(),
-                playerStatistic.health
-            );
-        if (playerStatistic.health <= 0)
-            OnDeath();
+        playerStatistic.Health -= damage;
+        if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        if (playerStatistic.Health <= 0) OnDeath();
     }
 
     public void Heal(float reward)
     {
-        playerStatistic.health += reward;
-        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
+        playerStatistic.Health += reward;
+        healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
     }
 
     public void IncreaseMaxHealth(float reward)
     {
-        playerStatistic.maxHealth.AddMultiplier("reward", reward, true);
-        healthBar.UpdateHealthBar(0f, playerStatistic.maxHealth.GetValue(), playerStatistic.health);
+        playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
+        healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+    }
+
+    public void DecreaseMaxHealth()
+    {
+        playerStatistic.MaxHealth.RemoveMultiplier("reward", true);
+        healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
     }
 
     // If we go the event route this should change right?
