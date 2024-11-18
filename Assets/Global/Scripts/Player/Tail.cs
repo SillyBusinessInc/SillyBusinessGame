@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Tail : MonoBehaviour
@@ -10,7 +11,8 @@ public class Tail : MonoBehaviour
         {
             if(player.tailCanDoDamage)
             {
-                Collider.GetComponent<EnemyBase>().OnHit(player.tailDoDamage);
+                float actualDamage = player.tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
+                Collider.GetComponent<EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
             }
         }
     }

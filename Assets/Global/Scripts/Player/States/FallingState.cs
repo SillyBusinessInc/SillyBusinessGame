@@ -8,12 +8,12 @@ public class FallingState : StateBase
     public override void Update()
     {
         // Apply horizontal movement in the air
-        Player.rb.AddForce(Player.GetDirection() * (Player.playerStatistic.speed * Player.airBornMovementFactor), ForceMode.Acceleration);
+        Player.rb.AddForce(Player.GetDirection() * (Player.playerStatistic.Speed.GetValue() * Player.airBornMovementFactor), ForceMode.Acceleration);
     }
 
     public override void Jump(InputAction.CallbackContext ctx)
     {
-        if (ctx.started && Player.doubleJumps > Player.currentJumps)
+        if (ctx.started && Player.playerStatistic.DoubleJumpsCount.GetValueInt() > Player.currentJumps)
         {
             Player.currentJumps += 1;
             Player.SetState(Player.states.Jumping);
