@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
 
     [HideInInspector]
     public PlayerStates states;
-    private StateBase currentState;
+    public StateBase currentState;
 
     [HideInInspector] public Vector2 movementInput;
     public Healthbar healthBar;
