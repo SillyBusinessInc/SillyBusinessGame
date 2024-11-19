@@ -1,20 +1,31 @@
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour
 {
 
-    [Range(0, 5)]
-    [SerializeField] private float interactDistance = 5.0f;
+    [Header("Interaction Settings")]
     [SerializeField] private string interactionPrompt = "E - Interact";
     [SerializeField] private string disabledPrompt = "Cannot interact";
-    private Camera playerCamera;
 
     [SerializeField]
     [Range(-10f, 10f)]
     private float promptYOffset = 1.5f;
 
+    [Range(0, 5)]
+    [SerializeField] private float interactDistance = 5.0f;
+
+
+    [Header("Initial State")]
+    [SerializeField]
     private bool isDisabled = false;
+    private Camera playerCamera;
+
+    // list of scriptable objects that will be invoked when the interactable is triggered 
+    [Header("Actions")]
+    [SerializeField] private UnityEvent interactionActions;
+    [SerializeField] private UnityAction failedInteractionActions;
     public bool IsDisabled
     {
         get => isDisabled;
@@ -22,27 +33,52 @@ public class Interactable : MonoBehaviour
         {
             isDisabled = value;
             SetBillboardText();
+
+            if (isDisabled)
+            {
+                OnDisableInteraction();
+            }
+
+            if (!isDisabled)
+            {
+                OnEnableInteraction();
+            }
         }
     }
 
     private GameObject hudElement;
 
-    private void Start()
+    protected void Start()
     {
         playerCamera = GlobalReference.GetReference<PlayerReference>().PlayerCamera;
 
+        // Create a HUD element to display the interaction prompt
+        if (hudElement == null)
+        {
+            InstantiateHUD();
+        }
+
+        IsDisabled = isDisabled;
+    }
+
+    private void InstantiateHUD()
+    {
         // Create a HUD element to display the interaction prompt
         hudElement = new GameObject("HUDPrompt");
         hudElement.AddComponent<TextMesh>().text = interactionPrompt;
         hudElement.transform.localScale = Vector3.one * 0.2f;
         hudElement.SetActive(false);
-        hudElement.transform.SetParent(transform);
         hudElement.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;
+
+
+        // set right coordinates
+        hudElement.transform.SetParent(transform);
+
     }
 
-    public bool IsWithinInteractionRange(Vector3 playerPosition)
+    public bool IsWithinInteractionRange(float rayHitDistance)
     {
-        return Vector3.Distance(playerPosition, transform.position) <= interactDistance;
+        return rayHitDistance <= interactDistance;
     }
 
     public void ShowPrompt(bool show)
@@ -58,7 +94,8 @@ public class Interactable : MonoBehaviour
 
     private void Update()
     {
-        if (hudElement.activeSelf && playerCamera != null) RotateBillboardTowardsCamera();
+
+        if (hudElement != null && playerCamera != null) RotateBillboardTowardsCamera();
     }
 
     private void RotateBillboardTowardsCamera()
@@ -68,6 +105,28 @@ public class Interactable : MonoBehaviour
     }
 
     public virtual void OnInteract() { }
+
+    public virtual void OnFailedInteract() { }
+
+    public virtual void OnEnableInteraction() { }
+
+    public virtual void OnDisableInteraction() { }
+
+    public void TriggerInteraction()
+    {
+        if (!isDisabled)
+        {
+            OnInteract();
+            // Invoke all actions
+            interactionActions.Invoke();
+        }
+        else
+        {
+            OnFailedInteract();
+            failedInteractionActions.Invoke();
+        }
+    }
+
 
     private void SetBillboardText()
     {
