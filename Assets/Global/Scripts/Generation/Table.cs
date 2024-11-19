@@ -83,8 +83,7 @@ public class Table
                 oldBranchesToApply = 1;
             }
         }
-
-        if (row.depth+1 == shopDepth ) {
+        else if (row.depth+1 == shopDepth ) {
             roomType = RoomType.SHOP;
             if (existingBranches.Count() == 0) {
                 newBranchesToApply = 1;
@@ -94,6 +93,9 @@ public class Table
                 newBranchesToApply = 0;
                 oldBranchesToApply = 1;
             }
+        }
+        else {
+            roomType = RandomDistribution.GetRandom(Room.RoomDistribution, random);
         }
 
         // Debug.Log($"row: {row.id} | total: {branchesToApply} | new: {newBranchesToApply} | old: {oldBranchesToApply} | room: {roomForNewBranches}");

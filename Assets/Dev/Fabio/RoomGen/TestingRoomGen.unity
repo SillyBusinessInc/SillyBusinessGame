@@ -518,6 +518,8 @@ MonoBehaviour:
   MExit: {fileID: 2100000, guid: 97f7e2384e33ac44192f7db9657b9a5c, type: 2}
   MParkour: {fileID: 2100000, guid: 8804a3b815ad8e04db9ad9933ba13e16, type: 2}
   MShop: {fileID: 2100000, guid: 4f41b06850d4a0747904f32f6d0d4029, type: 2}
+  MMoldOrb: {fileID: 2100000, guid: efd9b6cd62120a14a9a41b125dcfc62d, type: 2}
+  MWaveSurvival: {fileID: 2100000, guid: 0126aa85cd5de194e81df15d6a4922ec, type: 2}
 --- !u!1 &363558373
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,13 +1,14 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 using SRandom = System.Random;
 
-public class RandomDistribution
+public static class RandomDistribution
 {
-    private readonly SRandom random_ = new();
-    public T GetRandom<T>(Dictionary<T, int> chances, SRandom rand = null) {
+    private static readonly SRandom random_ = new(Guid.NewGuid().GetHashCode());
+    public static T GetRandom<T>(Dictionary<T, int> chances, SRandom rand = null) {
         SRandom random = rand;
         random ??= random_;
         

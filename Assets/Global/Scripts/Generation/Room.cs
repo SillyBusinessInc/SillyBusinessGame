@@ -23,6 +23,13 @@ public class Room
     };
 }
 
+public class Foo {
+    public string name;
+    public int chance;
+
+    public static Dictionary<Foo, int> Get(List<Foo> list) => list.Select(x => new {x, x.chance}) as Dictionary<Foo, int>;
+}
+
 public enum RoomType {
     OTHER,      // anything non specified, preferably shouldn't be used
     ENTRANCE,   // entrance room, first room where the player starts the game
