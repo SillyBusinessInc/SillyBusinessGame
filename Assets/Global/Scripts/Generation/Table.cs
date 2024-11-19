@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 using SRandom = System.Random;
@@ -10,9 +9,11 @@ public class Table
 {
     // Settings
     public int maxObjectPerDepth = 3;
+    public int minBranchCount = 2;
     public int maxBranchCount = 3;
     public int targetDepth = 7;
     public int seed = -1;
+    public int shopDepth = 0;
     private SRandom random;
 
     // Content
@@ -37,56 +38,54 @@ public class Table
         if (seed < 0) random = new(Guid.NewGuid().GetHashCode());
         else random = new(seed);
 
-        table = new() {new(0, 0)};
+        shopDepth = random.Next(2, targetDepth-1);
+
+        GlobalReference.GetReference<GameManagerReference>().Reset();
+
+        table = new();
+        GetIdFromNewRow(0, RoomType.ENTRANCE);
 
         Populate(GetFirstUnpopulatedRow());
     }
-
-    // private void Populate(Row row, int iteration = 0) {
-    //     // base cases
-    //     if (iteration >= maxBranchCount) return;
-    //     if (row.depth >= targetDepth-1) {
-    //         row.branches.Add(GetIdFromOldRow(GetRowsAtDepth(row.depth+1)));
-    //         Populate(table[0], iteration+1);
-    //         return;
-    //     }
-
-    //     // init
-    //     if (row.depth == 0 && iteration == 0) {
-    //         table.Add(new(GetNextId(), targetDepth-1));
-    //     }
-
-    //     // get random next chamber
-    //     int column = random.Next(0, maxBranchCount);
-
-    //     Row target = GetRowsAtDepth(row.depth+1).Where((x) => x.column == column).FirstOrDefault();
-    //     try {
-    //         int _ = target.column;
-    //     } 
-    //     catch {
-    //         target = new(GetNextId(), row.depth+1);
-    //         table.Add(target);
-    //     }
-    //     row.branches ??= new();
-    //     row.branches.Add(target.id);
-
-    //     // recursion
-    //     Populate(target, iteration);
-    // }
+    
     private void Populate(Row row) {
         // base cases
         if (row.depth == targetDepth) return;
 
-        // population
-        int branchesToApply = random.Next(2, maxBranchCount+1);
+        // init
+        RoomType roomType = RoomType.OTHER;
+
+        // get total branches to apply
+        int branchesToApply = random.Next(minBranchCount, maxBranchCount+1);
+        // get list of all existing branches at target depth
         List<Row> existingBranches = GetRowsAtDepth(row.depth+1);
+        // calculate the room for new rooms taking into account the existing amount of branches and the max amount of branches
         int roomForNewBranches = maxObjectPerDepth - existingBranches.Count();
+        // calculating the amount of already existing rooms we can branch into
         int roomForOldBranches = existingBranches.Count();
 
+        // deciding the amount of new rooms to create
         int newBranchesToApply = random.Next(0, Math.Min(roomForNewBranches, branchesToApply) + 1);
-        int oldBranchesToApply = existingBranches.Count() != 0 ? Math.Min(roomForOldBranches, branchesToApply - newBranchesToApply + 1) : 0;
+        // deciding the amount of existing rooms to branch into
+        int oldBranchesToApply = existingBranches.Count() != 0 ? Math.Min(roomForOldBranches, branchesToApply - newBranchesToApply) : 0;
+        // destribute leftover branches
+        int leftoverBranchesToApply = branchesToApply - newBranchesToApply - oldBranchesToApply;
+        if (leftoverBranchesToApply > 0) newBranchesToApply = Mathf.Min(newBranchesToApply + leftoverBranchesToApply, roomForNewBranches);
 
         if (row.depth+1 == targetDepth ) {
+            roomType = RoomType.EXIT;
+            if (existingBranches.Count() == 0) {
+                newBranchesToApply = 1;
+                oldBranchesToApply = 0;
+            }
+            else {
+                newBranchesToApply = 0;
+                oldBranchesToApply = 1;
+            }
+        }
+
+        if (row.depth+1 == shopDepth ) {
+            roomType = RoomType.SHOP;
             if (existingBranches.Count() == 0) {
                 newBranchesToApply = 1;
                 oldBranchesToApply = 0;
@@ -100,7 +99,7 @@ public class Table
         // Debug.Log($"row: {row.id} | total: {branchesToApply} | new: {newBranchesToApply} | old: {oldBranchesToApply} | room: {roomForNewBranches}");
 
         for (int i = 0; i < newBranchesToApply; i++ ) {
-            row.branches.Add(GetIdFromNewRow(row.depth+1));
+            row.branches.Add(GetIdFromNewRow(row.depth+1, roomType));
         }
         for (int i = 0; i < oldBranchesToApply; i++ ) {
             row.branches.Add(GetIdFromOldRow(existingBranches));
@@ -110,9 +109,10 @@ public class Table
         Populate(GetFirstUnpopulatedRow());
     }
 
-    private int GetIdFromNewRow(int depth) {
+    private int GetIdFromNewRow(int depth, RoomType roomType = RoomType.OTHER) {
         Row newRow = new(GetNextId(), depth);
         table.Add(newRow);
+        GlobalReference.GetReference<GameManagerReference>().Add(newRow.id, roomType);
         return newRow.id;
     }
     private int GetIdFromOldRow(List<Row> existingBranches) {
