@@ -1,30 +1,21 @@
 using UnityEngine;
 using System.Collections.Generic;
-using random = UnityEngine.Random;
 using System.Collections;
-
-[System.Serializable]
-public class EnemyChances
-{
-    public GameObject enemyPrefab; // The enemy type
-    public float chance;              // Number of this type to spawn
-}
 
 public class MoldCoreSpawner : MonoBehaviour
 {
     public float interfal = 1;
-    public List<EnemyPrefabCount> enemyChances;
+    public List<EnemyPrefabCount> enemyChanceList;
     private float health = 100;
-
-    //enemy spawn chance
-    public List<GameObject> enemies;
     private int enemyCurrent = 0;
     public Transform spawnArea;
     private SingleEnemySpawnArea spawner = new SingleEnemySpawnArea();
+    public float currentTime;
+    
     void Start()
     {
+        currentTime = Time.time;
         GlobalReference.AttemptInvoke(Events.MOLD_CORE_SPAWNED);
-        // StartCoroutine(SpawnEnemy());
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -49,15 +40,24 @@ public class MoldCoreSpawner : MonoBehaviour
 
     void Update()
     {
-        
+        if (Time.time >= interfal+currentTime)
+        {
+            currentTime = Time.time;
+            SpawnEnemy();
+        }
+
     }
 
     //spawn enemy function here with singleenemyspawner class
-    public IEnumerable SpawnEnemy()
+    public void SpawnEnemy()
     {
-        // spawner.SpawnEnemy(enemyChances, spawnArea, false);
+        spawner.SpawnEnemy(RandomDistribution.GetRandom(EnemyPrefabCount.GetDict(enemyChanceList)), spawnArea, false);
         GlobalReference.AttemptInvoke(Events.ENEMY_SPAWNED);
         Debug.Log("Enemy Spawned");
-        yield return new WaitForSeconds(interfal);
     }   
+
+    [ContextMenu("Test")]
+    public void test(){
+        Debug.Log(RandomDistribution.GetRandom(EnemyPrefabCount.GetDict(enemyChanceList)));
+    }
 }
