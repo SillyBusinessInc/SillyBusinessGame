@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     public int slamDamage = 10;
     public int firstTailDamage = 10;
     public int secondTailDamage = 15;
+
+    public float slamForce = 2.0f;
     public BoxCollider TransformTail;
 
     [Header("References")]
@@ -76,7 +78,6 @@ public class Player : MonoBehaviour
     // private PlayerInputActions inputActions;
     [HideInInspector]
     public float groundCheckDistance;
-    private float bufferCheckDistance = 0.1f;
 
     void Start()
     {

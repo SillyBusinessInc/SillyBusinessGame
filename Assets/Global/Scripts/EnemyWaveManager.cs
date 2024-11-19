@@ -8,17 +8,13 @@ public class EnemyWaveManager : MonoBehaviour
 {
     public List<Wave> waves;
     public List<Transform> spawnAreaTransforms;
-    public GameObject spawnArea;
+    public GameObject spawnerObject;
     private int totalEnemies;
     private int deadEnemies;
-
-    //serialized for testing
-    [SerializeField]private int currentWave = 0;
-
-    //serialized for testing
-    [SerializeField]private int wavesDone = 0;
-    public int maxWaves;
-    private bool nextWave = true;
+    private int currentWave = 0;
+    private int wavesDone = 0;
+    private int maxWaves;
+    private bool nextWave = false;
     public bool immediateStart = false;
 
     private void Start()
@@ -29,11 +25,20 @@ public class EnemyWaveManager : MonoBehaviour
     }
     private void Update()
     {
-        if (deadEnemies >= totalEnemies && nextWave && immediateStart)
+        if (deadEnemies >= totalEnemies && nextWave)
         {
             WaveCompleted();
         }
     }
+
+    //function that invokes wave start event
+
+    [ContextMenu("Start Wave")]
+    public void StartWaveTest()
+    {
+        GlobalReference.AttemptInvoke(Events.WAVE_START);
+    }
+
     private void Awake()
     {
         maxWaves = waves.Count;
@@ -51,13 +56,13 @@ public class EnemyWaveManager : MonoBehaviour
     public IEnumerator StartWave()
     {
         nextWave = false;
-        immediateStart = true;
         
         deadEnemies = 0;
         totalEnemies = 0;
         
-        var spawner = spawnArea.GetComponent<WaveSpawnArea>();
+        var spawner = spawnerObject.GetComponent<WaveSpawnArea>();
         totalEnemies = waves[currentWave].waveParts.Sum(wavePart => wavePart.enemyPrefabs.Sum(enemy => enemy.amount));
+        nextWave = true;
 
         foreach (var wavePart in waves[currentWave].waveParts) // Access waveParts within each Wave
         {
@@ -65,6 +70,7 @@ public class EnemyWaveManager : MonoBehaviour
             if (wavePart.spawnArea >= 0)
             {
                 spawner.spawnArea = spawnAreaTransforms[wavePart.spawnArea];
+                spawner.center = wavePart.center;
                 foreach (var enemy in wavePart.enemyPrefabs) // Loop through each enemy in wavePart
                 {
                     // Access the spawn area component and set the enemy properties
