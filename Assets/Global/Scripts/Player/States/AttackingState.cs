@@ -1,9 +1,10 @@
+using System.Data;
+using System.Runtime.InteropServices.WindowsRuntime;
 using JetBrains.Annotations;
 using NUnit.Framework;
-using System.Data;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 public class AttackingState : StateBase
 {
@@ -15,14 +16,14 @@ public class AttackingState : StateBase
 
     private bool turnLeft;
 
-    public AttackingState(Player player) : base(player)
-    {
-    }
+    public AttackingState(Player player)
+        : base(player) { }
 
     public override void FixedUpdate()
     {
         Attack(Player.attackCounter);
     }
+
     void Attack(int attackCounter)
     {
         switch (attackCounter)
@@ -37,7 +38,6 @@ public class AttackingState : StateBase
                 GroundPound();
                 break;
         }
-
     }
 
     void GroundPound()
@@ -45,21 +45,29 @@ public class AttackingState : StateBase
         if (Player.isGrounded)
         {
             Player.isSlamming = true;
-            Player.rb.AddForce(Vector3.up * Player.jumpForce, ForceMode.Impulse);
+            Player.rb.AddForce(Vector3.up * Player.playerStatistic.JumpForce.GetValue(), ForceMode.Impulse);
         }
         else if (Player.rb.linearVelocity.y < 0 && Player.isSlamming)
         {
-            Player.rb.AddForce(Vector3.down * Player.jumpForce, ForceMode.Impulse);
+            Player.rb.AddForce(Vector3.down * Player.playerStatistic.JumpForce.GetValue(), ForceMode.Impulse);
         }
-        Player.SetState(Player.states.Idle);
     }
+
     void Slash()
     {
+        float speed = turnLeft ?
+            Player.playerStatistic.AttackSpeedMultiplier.GetValue() :
+            -Player.playerStatistic.AttackSpeedMultiplier.GetValue();
+            
         if (!isReturning)
         {
             if (rotate < 180)
             {
-                Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, turnLeft ? Player.TailTurnSpeed : -Player.TailTurnSpeed);
+                Player.TransformTail.transform.RotateAround(
+                    Player.rb.position,
+                    Vector3.up,
+                    Player.TailTurnSpeed * speed 
+                );
                 rotate += Player.TailTurnSpeed;
             }
             else
@@ -73,12 +81,18 @@ public class AttackingState : StateBase
         {
             if (rotate < 180)
             {
-                Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, turnLeft ? Player.TailTurnSpeed : -Player.TailTurnSpeed);
+                Player.TransformTail.transform.RotateAround(
+                    Player.rb.position,
+                    Vector3.up,
+                    Player.TailTurnSpeed * speed
+                );
                 rotate += Player.TailTurnSpeed;
             }
             else
             {
-                Player.SetState(Player.states.Idle);
+                Player.SetState(
+                    Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle
+                );
             }
         }
     }
@@ -110,19 +124,35 @@ public class AttackingState : StateBase
     {
         Player.tailCanDoDamage = false;
         Player.slamCanDoDamage = false;
+        Player.isSlamming = false;
         Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, 0);
         Player.attackCounter = Player.attackCounter == 3 ? 0 : Player.attackCounter;
     }
 
-    public override void OnCollision(Collision collision)
+    public override void Jump(InputAction.CallbackContext ctx)
     {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            if (Player.isSlamming)
-            {
-                Player.isSlamming = false;
-                Player.SetState(Player.states.Idle);
-            }
-        }
+        return;
     }
+
+    public override void Glide(InputAction.CallbackContext ctx)
+    {
+        return;
+    }
+
+    public override void Dodge(InputAction.CallbackContext ctx)
+    {
+        return;
+    }
+
+    public override void Move(InputAction.CallbackContext ctx)
+    {
+        return;
+    }
+
+    public override void Sprint(InputAction.CallbackContext ctx)
+    {
+        return;
+    }
+
+    public override void Attack(InputAction.CallbackContext ctx){}
 }
