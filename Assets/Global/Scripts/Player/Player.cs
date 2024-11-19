@@ -85,9 +85,14 @@ public class Player : MonoBehaviour
         SetState(states.Idle);
         // health and maxHealth should be the same value at the start of game
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
-        if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        if (healthBar)
+            healthBar.UpdateHealthBar(
+                0f,
+                playerStatistic.MaxHealth.GetValue(),
+                playerStatistic.Health
+            );
     }
-    
+
     void Update()
     {
         RaycastDown();
@@ -121,26 +126,47 @@ public class Player : MonoBehaviour
     }
 
     public void OnCollisionExit(Collision collision) { }
-    
+
     private void RaycastDown()
     {
-        groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
-        RaycastHit hit;
-        Vector3 raycastPosition = new Vector3(rb.position.x, rb.position.y, rb.position.z);
-        if (Physics.Raycast(raycastPosition, Vector3.down, out hit, groundCheckDistance))
+        Collider collider = rb.GetComponent<Collider>();
+        Vector3 boundsExtents = collider.bounds.extents;
+
+        // Define the halfExtents for the BoxCast (half the size of the box).
+        Vector3 halfExtents = new Vector3(boundsExtents.x, 0.1f, boundsExtents.z);
+
+        // Define the center of the BoxCast slightly below the object's position.
+        Vector3 center = rb.position;
+
+        // Define the direction and maximum distance of the BoxCast.
+        Vector3 direction = Vector3.down;
+        float maxDistance = boundsExtents.y + 0.1f;
+
+        // Perform the BoxCast.
+        if (
+            Physics.BoxCast(
+                center,
+                halfExtents,
+                direction,
+                out RaycastHit hit,
+                Quaternion.identity,
+                maxDistance
+            )
+        )
         {
-            if (!(hit.collider.gameObject.CompareTag("Player")))
+            // Ensure the hit object is not tagged as "Player" and check the ground's angle.
+            if (!hit.collider.gameObject.CompareTag("Player"))
             {
                 if (Vector3.Angle(Vector3.up, hit.normal) < degreesToRotate)
                 {
                     isGrounded = true;
+                    return; // Exit early if grounded.
                 }
             }
         }
-        else
-        {
-            isGrounded = false;
-        }
+
+        // If no valid hit, set isGrounded to false.
+        isGrounded = false;
     }
 
     public void SetState(StateBase newState)
@@ -173,8 +199,14 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         playerStatistic.Health -= damage;
-        if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
-        if (playerStatistic.Health <= 0) OnDeath();
+        if (healthBar)
+            healthBar.UpdateHealthBar(
+                0f,
+                playerStatistic.MaxHealth.GetValue(),
+                playerStatistic.Health
+            );
+        if (playerStatistic.Health <= 0)
+            OnDeath();
     }
 
     public void Heal(float reward)
