@@ -45,11 +45,11 @@ public class AttackingState : StateBase
         if (Player.isGrounded)
         {
             Player.isSlamming = true;
-            Player.rb.AddForce(Vector3.up * Player.playerStatistic.JumpForce.GetValue(), ForceMode.Impulse);
+            Player.rb.AddForce(Vector3.up * Player.slamForce, ForceMode.Impulse);
         }
         else if (Player.rb.linearVelocity.y < 0 && Player.isSlamming)
         {
-            Player.rb.AddForce(Vector3.down * Player.playerStatistic.JumpForce.GetValue(), ForceMode.Impulse);
+            Player.rb.AddForce(Vector3.down * Player.slamForce, ForceMode.Impulse);
         }
     }
 
