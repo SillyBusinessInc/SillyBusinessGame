@@ -1,12 +1,12 @@
-using System;
 using UnityEngine;
+
 
 public class PlayerOrientation : MonoBehaviour
 {
-    [SerializeField] private float sensitivityX = 200f;
-    [SerializeField] private Rigidbody playerRb;
+    [SerializeField] private Player player;
+    [SerializeField] private Transform cameraTransform;
 
-    private float _yRotation;
+    private Vector2 _rotation;
 
     private void Start()
     {
@@ -16,12 +16,27 @@ public class PlayerOrientation : MonoBehaviour
 
     private void Update()
     {
- 
-        _yRotation += Input.GetAxis("Mouse X") * Time.deltaTime * sensitivityX;
-        transform.localRotation = Quaternion.Euler(0f, _yRotation, 0f);
-        
-        transform.position = playerRb.transform.position;
-        transform.Translate(Vector3.forward);
+        if (player.movementInput.magnitude > 0)
+        {
+            // Align the player with the camera's forward direction if forward movement is initiated
+            AlignPlayerWithCamera();
+            transform.position = player.rb.transform.position;
+        }
+    }
+
+    private void AlignPlayerWithCamera()
+    {
+        // Get the forward direction of the camera and ignore the Y component
+        Vector3 cameraForward = cameraTransform.forward;
+        cameraForward.y = 0;
+        cameraForward.Normalize();
+
+        // Update the player's rotation to face the camera's horizontal direction
+        if (cameraForward != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
+            transform.rotation = targetRotation;
+        }
     }
 
     private void OnDrawGizmos()

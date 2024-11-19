@@ -10,21 +10,11 @@ public class WalkingState : StateBase
     public override void Update()
     {
         // add force to the player object for movement
-        Player.rb.AddForce(Player.GetDirection() * Player.speed, ForceMode.Force);
-
-        if (!(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)))
-        {
-            Player.SetState(Player.states.Idle);
-        }
-
-        if(Input.GetKey(KeyCode.Space))
-        {
-            Player.SetState(Player.states.Jumping);
-        }
-
+        Player.rb.AddForce(Player.GetDirection() * Player.playerStatistic.Speed.GetValue(), ForceMode.Acceleration);
         if (!Player.isGrounded)
         {
             Player.SetState(Player.states.Falling);
         }
     }
+
 }

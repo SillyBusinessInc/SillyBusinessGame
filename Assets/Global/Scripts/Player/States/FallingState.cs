@@ -1,22 +1,28 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FallingState : StateBase
 {
-    public FallingState(Player player) : base(player)
-    {
-    }
-    
+    public FallingState(Player player) : base(player) { }
+
     public override void Update()
     {
-        Player.rb.AddForce(Player.GetDirection() * (Player.speed * Player.airBornMovementFactor), ForceMode.Force);
+        // Apply horizontal movement in the air
+        Player.rb.AddForce(Player.GetDirection() * (Player.playerStatistic.Speed.GetValue() * Player.airBornMovementFactor), ForceMode.Acceleration);
+    }
 
-        if(Input.GetKeyDown(KeyCode.Space) && Player.doubleJumps > Player.currentJumps)
+    public override void Jump(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started && Player.playerStatistic.DoubleJumpsCount.GetValueInt() > Player.currentJumps)
         {
+            Player.currentJumps += 1;
             Player.SetState(Player.states.Jumping);
-            Player.currentJumps += 1; 
         }
+    }
 
-        if(Input.GetKey(KeyCode.LeftShift) && Player.rb.linearVelocity.y < 0)
+    public override void Glide(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed && Player.rb.linearVelocity.y < 0)
         {
             Player.SetState(Player.states.Gliding);
         }
@@ -24,10 +30,10 @@ public class FallingState : StateBase
 
     public override void OnCollision(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (Player.isGrounded)
         {
-            Player.SetState(Player.states.Idle);
             Player.currentJumps = 0;
+            Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
         }
     }
 }

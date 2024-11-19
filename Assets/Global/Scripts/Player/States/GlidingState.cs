@@ -8,18 +8,7 @@ public class GlidingState : StateBase
     }
     public override void Update()
     {
-        if (!Input.GetKey(KeyCode.LeftShift))
-        {
-            Player.SetState(Player.states.Falling);
-        }
-        Player.rb.AddForce(Player.GetDirection() * Player.speed, ForceMode.Force);
-        
-        if(Input.GetKeyDown(KeyCode.Space) && Player.doubleJumps > Player.currentJumps)
-        {
-            Player.SetState(Player.states.Jumping);
-            Player.currentJumps += 1; 
-        }
-
+        Player.rb.AddForce(Player.GetDirection() * Player.playerStatistic.Speed.GetValue(), ForceMode.Acceleration);
     }
 
     public override void Enter()
@@ -37,8 +26,7 @@ public class GlidingState : StateBase
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Player.SetState(Player.states.Idle);
-            Player.currentJumps = 0;
+            Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
         }
     }
 }
