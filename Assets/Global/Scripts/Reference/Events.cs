@@ -12,5 +12,7 @@ public enum Events
     WAVE_START,
 
     SPAWN_WAVE,
-    ALL_WAVES_DONE
+    ALL_WAVES_DONE,
+    MOLD_CORE_SPAWNED,
+    MOLD_CORE_KILLED
 }

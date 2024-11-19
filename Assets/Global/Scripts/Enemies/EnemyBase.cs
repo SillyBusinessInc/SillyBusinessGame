@@ -44,4 +44,7 @@ public abstract class EnemyBase : MonoBehaviour
         Destroy(gameObject);
         //Debug.Log($"{this.name} OnDeath() triggered", this);
     }
+    void OnDestroy(){
+        OnDeath();
+    }
 }
