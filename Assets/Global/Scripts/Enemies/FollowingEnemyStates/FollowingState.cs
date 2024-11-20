@@ -7,65 +7,39 @@ namespace FollowEnemyStates
         public FollowingState(FollowEnemy followEnemy) : base(followEnemy)
         {
         }
-        public override void Enter()
-        {
-        }
-
-        public override void Exit()
-        {
-        }
 
         public override void Update()
         {
             Following();
-            if (followEnemy.target == null || !IsPlayerInSight())
+
+            // Check for sight and attack range
+            bool playerInSight = IsPlayerInSight();
+            bool playerInAttackRange = IsPlayerInAttackRange();
+
+            if (!playerInSight && Time.time - followEnemy.lastSeenTime > followEnemy.memoryDuration)
             {
-                followEnemy.target = null;
-                followEnemy.ChangeState(followEnemy.states["Roaming"]);
+                // No sight and memory expired, return to roaming
+                followEnemy.ChangeState(followEnemy.states.Roaming);
             }
-            if (followEnemy.target && IsPlayerInSight() && IsPlayerInAttackRange())
+            else if (playerInAttackRange)
             {
-                followEnemy.ChangeState(followEnemy.states["Attacking"]);
+                // In attack range, switch to attacking
+                followEnemy.ChangeState(followEnemy.states.Attacking);
             }
         }
+
         private void Following()
         {
             if (followEnemy.target != null)
             {
+                // Move towards the player's current position
                 followEnemy.agent.SetDestination(followEnemy.target.position);
             }
-        }
-
-        // Check if the player is still in sight
-        protected bool IsPlayerInSight()
-        {
-            if (followEnemy.target == null) return false;
-
-            Vector3 directionToPlayer = (followEnemy.target.position - followEnemy.transform.position).normalized;
-            float angleToPlayer = Vector3.Angle(followEnemy.transform.forward, directionToPlayer);
-
-            if (angleToPlayer < followEnemy.visionAngle / 2 && Vector3.Distance(followEnemy.transform.position, followEnemy.target.position) <= followEnemy.visionRange)
+            else if (Time.time - followEnemy.lastSeenTime <= followEnemy.memoryDuration)
             {
-                if (Physics.Raycast(followEnemy.transform.position,
-                        directionToPlayer, out var hit,
-                        followEnemy.visionRange))
-                {
-                    if (hit.collider == followEnemy.playerObject)
-                    {
-                        return true;
-                    }
-                }
+                // Move towards the last seen location
+                followEnemy.agent.SetDestination(followEnemy.lastSeenLocation);
             }
-            return false;
-        }
-
-        // Check if player is within attackrange
-        protected bool IsPlayerInAttackRange()
-        {
-            if (followEnemy.target == null) return false;
-
-            float distanceToTarget = Vector3.Distance(followEnemy.transform.position, followEnemy.target.position);
-            return distanceToTarget <= followEnemy.attackRange;
         }
     }
 }
