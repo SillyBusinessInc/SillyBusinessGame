@@ -136,8 +136,6 @@ public class Player : MonoBehaviour
             new Vector3(rb.GetComponent<Collider>().bounds.extents.x, 0, 0), 
             new Vector3(-rb.GetComponent<Collider>().bounds.extents.x,0,0) ,
         };
-        
-        isGrounded = false; 
 
         foreach (Vector3 offset in raycastOffsets)
         {
@@ -149,11 +147,12 @@ public class Player : MonoBehaviour
                     if (Vector3.Angle(Vector3.up, hit.normal) < degreesToRotate)
                     {
                         isGrounded = true;
-                        break;
+                        return;
                     }
                 }
             }
         }
+        isGrounded = false; 
     }
 
     public void SetState(StateBase newState)
