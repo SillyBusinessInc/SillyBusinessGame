@@ -4,11 +4,13 @@ using Random = UnityEngine.Random;
 
 public class SingleEnemySpawnArea : MonoBehaviour
 {
-    public void SpawnEnemy(GameObject enemyPrefab, Transform spawnArea, bool center)
+    public GameObject SpawnEnemy(GameObject enemyPrefab, Transform spawnArea, bool center)
     {
         Vector3 spawnPosition = GetRandomPointInSpawnArea(spawnArea, center);
         
-        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+
+        return enemy;
     }
 
     private Vector3 GetRandomPointInSpawnArea(Transform spawnArea, bool center)

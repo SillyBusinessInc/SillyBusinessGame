@@ -41,8 +41,8 @@ public class MoldCoreSpawner : EnemyBase
         GlobalReference.AttemptInvoke(Events.ENEMY_SPAWNED);
     }   
 
-    [ContextMenu("Test")]
-    public void test(){
-        Debug.Log(RandomDistribution.GetRandom(EnemyPrefabCount.GetDict(enemyChanceList)));
-    }
+    // [ContextMenu("Test")]
+    // public void test(){
+    //     Debug.Log(RandomDistribution.GetRandom(EnemyPrefabCount.GetDict(enemyChanceList)));
+    // }
 }
