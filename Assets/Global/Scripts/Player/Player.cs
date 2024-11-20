@@ -84,8 +84,10 @@ public class Player : MonoBehaviour
         states = new PlayerStates(this);
         SetState(states.Idle);
         // health and maxHealth should be the same value at the start of game
+
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
         if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+
     }
     
     void Update()
@@ -173,7 +175,8 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         playerStatistic.Health -= damage;
-        if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        if (healthBar != null) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+
         if (playerStatistic.Health <= 0) OnDeath();
     }
 
@@ -183,17 +186,18 @@ public class Player : MonoBehaviour
         healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
     }
 
-    public void IncreaseMaxHealth(float reward)
+    public void MultiplyMaxHealth(float reward)
     {
         playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
         healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
     }
 
-    public void DecreaseMaxHealth()
+    public void IncreaseMaxHealth(float reward)
     {
-        playerStatistic.MaxHealth.RemoveMultiplier("reward", true);
+        playerStatistic.MaxHealth.AddModifier("reward", reward);
         healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
     }
+
 
     // If we go the event route this should change right?
     private void OnDeath()
