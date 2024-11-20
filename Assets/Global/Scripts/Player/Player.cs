@@ -90,6 +90,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        currentJumps = isGrounded ? 0 : currentJumps;
         RaycastDown();
         currentState.Update();
         RotatePlayerObj();
