@@ -58,9 +58,6 @@ public class Player : MonoBehaviour
     public float verticalInput;
 
     [HideInInspector]
-    public bool isGrounded;
-
-    [HideInInspector]
     public bool tailCanDoDamage = false;
 
     [HideInInspector]
@@ -74,6 +71,7 @@ public class Player : MonoBehaviour
     [Header("Debugging")]
     [SerializeField]
     private string currentStateName = "none";
+    public bool isGrounded;
 
     // private PlayerInputActions inputActions;
     [HideInInspector]
@@ -129,44 +127,33 @@ public class Player : MonoBehaviour
 
     private void RaycastDown()
     {
-        Collider collider = rb.GetComponent<Collider>();
-        Vector3 boundsExtents = collider.bounds.extents;
-
-        // Define the halfExtents for the BoxCast (half the size of the box).
-        Vector3 halfExtents = new Vector3(boundsExtents.x, 0.1f, boundsExtents.z);
-
-        // Define the center of the BoxCast slightly below the object's position.
-        Vector3 center = rb.position;
-
-        // Define the direction and maximum distance of the BoxCast.
-        Vector3 direction = Vector3.down;
-        float maxDistance = boundsExtents.y + 0.1f;
-
-        // Perform the BoxCast.
-        if (
-            Physics.BoxCast(
-                center,
-                halfExtents,
-                direction,
-                out RaycastHit hit,
-                Quaternion.identity,
-                maxDistance
-            )
-        )
+        groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
+        Vector3[] raycastOffsets = new Vector3[]
         {
-            // Ensure the hit object is not tagged as "Player" and check the ground's angle.
-            if (!hit.collider.gameObject.CompareTag("Player"))
+            Vector3.zero, 
+            new Vector3(0, 0, rb.GetComponent<Collider>().bounds.extents.z), 
+            new Vector3(0, 0, -rb.GetComponent<Collider>().bounds.extents.z),
+            new Vector3(rb.GetComponent<Collider>().bounds.extents.x, 0, 0), 
+            new Vector3(-rb.GetComponent<Collider>().bounds.extents.x,0,0) ,
+        };
+        
+        isGrounded = false; 
+
+        foreach (Vector3 offset in raycastOffsets)
+        {
+            Vector3 raycastPosition = rb.position + offset;
+            if (Physics.Raycast(raycastPosition,Vector3.down,out RaycastHit hit,groundCheckDistance))
             {
-                if (Vector3.Angle(Vector3.up, hit.normal) < degreesToRotate)
+                if (!hit.collider.gameObject.CompareTag("Player"))
                 {
-                    isGrounded = true;
-                    return; // Exit early if grounded.
+                    if (Vector3.Angle(Vector3.up, hit.normal) < degreesToRotate)
+                    {
+                        isGrounded = true;
+                        break;
+                    }
                 }
             }
         }
-
-        // If no valid hit, set isGrounded to false.
-        isGrounded = false;
     }
 
     public void SetState(StateBase newState)
