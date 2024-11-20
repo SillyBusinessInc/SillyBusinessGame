@@ -4,6 +4,10 @@ using UnityEngine;
 public class ManualWave : MonoBehaviour
 {
     private int enemyCount = 0;
+    // Changeable event in the Inspector
+    [SerializeField]
+    private Events waveDoneEvent = Events.WAVE_DONE;
+
     
     void Awake()
     {
@@ -15,7 +19,7 @@ public class ManualWave : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("Enemy").Count() == 0) {
             GlobalReference.UnsubscribeTo(Events.ENEMY_SPAWNED, OnEnemySpawned);
             GlobalReference.UnsubscribeTo(Events.ENEMY_KILLED, OnEnemyKilled);
-            GlobalReference.AttemptInvoke(Events.WAVE_DONE);
+            InvokeEvent(waveDoneEvent);
         }
     }
 
@@ -31,6 +35,11 @@ public class ManualWave : MonoBehaviour
     private void OnEndWave() {
         GlobalReference.UnsubscribeTo(Events.ENEMY_SPAWNED, OnEnemySpawned);
         GlobalReference.UnsubscribeTo(Events.ENEMY_KILLED, OnEnemyKilled);
-        GlobalReference.AttemptInvoke(Events.WAVE_DONE);
+        InvokeEvent(waveDoneEvent);
+    }
+
+    private void InvokeEvent(Events eventToInvoke)
+    {
+        GlobalReference.AttemptInvoke(eventToInvoke);
     }
 }
