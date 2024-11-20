@@ -31,7 +31,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -41.339706, y: 3.58, z: 19.06305}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4764116892959088292}
   - {fileID: 8661837782861090297}
@@ -58,9 +58,9 @@ MonoBehaviour:
   degreesToRotate: 50
   playerStatistic:
     Speed:
-      baseValue: 15
+      baseValue: 10
     JumpForce:
-      baseValue: 6
+      baseValue: 8
     MaxHealth:
       baseValue: 10
     Health: 0
@@ -72,11 +72,12 @@ MonoBehaviour:
       baseValue: 1
     DoubleJumpsCount:
       baseValue: 2
-  attackResettingTime: 0.5
+  attackResettingTime: 10
   TailTurnSpeed: 40
-  slamDamage: 30
-  firstTailDamage: 15
-  secondTailDamage: 20
+  slamDamage: 10
+  firstTailDamage: 10
+  secondTailDamage: 15
+  slamForce: 2
   TransformTail: {fileID: 7578467244722651917}
   rb: {fileID: 8218035431276073872}
   orientation: {fileID: 8661837782861090297}
@@ -392,8 +393,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1034164388570683902}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.043587, y: 0.649, z: -0.32131}
+  m_LocalRotation: {x: -0, y: -0.95796543, z: -0, w: -0.28688377}
+  m_LocalPosition: {x: 0.07234846, y: 0.649, z: -0.73306495}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -402,7 +403,7 @@ Transform:
   - {fileID: 9160867564895113205}
   - {fileID: 2562900229708890194}
   m_Father: {fileID: 4811859323897289456}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -213.343, z: 0}
 --- !u!136 &3940277038179656397
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -512,8 +513,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2503413153551277579}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.017319553, y: 0.94931704, z: -0.053156503, w: 0.30930826}
-  m_LocalPosition: {x: 654.4344, y: 3.6555328, z: 353.53403}
+  m_LocalRotation: {x: -0.4489435, y: -0.50983024, z: -0.35698697, w: 0.64115775}
+  m_LocalPosition: {x: 4.869812, y: 1.7807591, z: -1.8422852}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -682,8 +683,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3831690697130644598}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.017319553, y: 0.94931704, z: -0.053156503, w: 0.30930826}
-  m_LocalPosition: {x: -2.7689934, y: 4.545533, z: 3.4170494}
+  m_LocalRotation: {x: -0.4489435, y: -0.50983024, z: -0.35698697, w: 0.64115775}
+  m_LocalPosition: {x: 4.869812, y: 1.7807591, z: -1.8422852}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -766,7 +767,7 @@ MonoBehaviour:
     SplineCurvature: 0.5
   RecenteringTarget: 1
   HorizontalAxis:
-    Value: 143.90651
+    Value: -76.98142
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -776,7 +777,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   VerticalAxis:
-    Value: 22.290733
+    Value: -10
     Center: 17.5
     Range: {x: -10, y: 45}
     Wrap: 0
@@ -810,7 +811,7 @@ MonoBehaviour:
   ReferenceFrame: 0
   RecenterTarget: 0
   PanAxis:
-    Value: 143.90651
+    Value: -76.98142
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -820,7 +821,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   TiltAxis:
-    Value: 6.4098
+    Value: -70
     Center: 0
     Range: {x: -70, y: 70}
     Wrap: 0
