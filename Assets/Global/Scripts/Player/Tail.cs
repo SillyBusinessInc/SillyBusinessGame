@@ -5,27 +5,15 @@ public class Tail : MonoBehaviour
 {
     public Player player;
 
-    private List<Collider> colliders;
-    public void Start()
-    {
-        colliders = new List<Collider>();
-    }
-    public void Update()
-    {
-        colliders = player.tailCanDoDamage? colliders : new List<Collider>();
-    }
     public void OnTriggerEnter(Collider Collider)
     {
         if (Collider.gameObject.CompareTag("Enemy"))
         {
-            if(!colliders.Contains(Collider))
-            {
-                colliders.Add(Collider);
-            }
-            else
+            if(player.collidersEnemy.Contains(Collider))
             {
                 return;
             }
+            player.collidersEnemy.Add(Collider);
             if(player.tailCanDoDamage)
             {
                 float actualDamage = player.tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
