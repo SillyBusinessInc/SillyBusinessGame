@@ -21,6 +21,7 @@ public class Interactable : MonoBehaviour
     [SerializeField]
     private bool isDisabled = false;
     private Camera playerCamera;
+    private GameObject hudElement;
 
     // list of scriptable objects that will be invoked when the interactable is triggered 
     [Header("Actions")]
@@ -46,8 +47,6 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    private GameObject hudElement;
-
     protected void Start()
     {
         playerCamera = GlobalReference.GetReference<PlayerReference>().PlayerCamera;
@@ -60,6 +59,16 @@ public class Interactable : MonoBehaviour
 
         IsDisabled = isDisabled;
     }
+
+
+
+    public virtual void OnInteract() { }
+
+    public virtual void OnFailedInteract() { }
+
+    public virtual void OnEnableInteraction() { }
+
+    public virtual void OnDisableInteraction() { }
 
     private void InstantiateHUD()
     {
@@ -76,11 +85,8 @@ public class Interactable : MonoBehaviour
 
     }
 
-    public bool IsWithinInteractionRange(float rayHitDistance)
-    {
-        return rayHitDistance <= interactDistance;
-    }
-
+    public bool IsWithinInteractionRange(float rayHitDistance)  rayHitDistance <= interactDistance;
+    
     public void ShowPrompt(bool show)
     {
         hudElement.SetActive(show);
@@ -103,14 +109,6 @@ public class Interactable : MonoBehaviour
         hudElement.transform.rotation = Quaternion.LookRotation(-directionToCamera);
     }
 
-    public virtual void OnInteract() { }
-
-    public virtual void OnFailedInteract() { }
-
-    public virtual void OnEnableInteraction() { }
-
-    public virtual void OnDisableInteraction() { }
-
     public void TriggerInteraction()
     {
         if (!isDisabled)
@@ -125,7 +123,6 @@ public class Interactable : MonoBehaviour
             failedInteractionActions.Invoke();
         }
     }
-
 
     private void SetBillboardText()
     {

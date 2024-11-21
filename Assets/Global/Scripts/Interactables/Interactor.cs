@@ -5,7 +5,6 @@ public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField] private LayerMask ignoreLayers;
     private Interactable currentInteractable;
-    private Player player;
 
     [Header("Raycast Settings [Debug]")]
     [SerializeField] private float rayDistance = 10f;         // Maximum detection distance  
@@ -13,11 +12,6 @@ public class PlayerInteraction : MonoBehaviour
 
 
     private bool isColliding = false;
-
-    private void Start()
-    {
-        player = GlobalReference.GetReference<PlayerReference>().Player;
-    }
 
     private void Update()
     {
