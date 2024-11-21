@@ -13,7 +13,7 @@ public class Interactable : MonoBehaviour
     [Range(-10f, 10f)]
     private float promptYOffset = 1.5f;
 
-    [Range(0, 5)]
+    [Range(0, 10)]
     [SerializeField] private float interactDistance = 5.0f;
 
 
@@ -94,7 +94,6 @@ public class Interactable : MonoBehaviour
 
     private void Update()
     {
-
         if (hudElement != null && playerCamera != null) RotateBillboardTowardsCamera();
     }
 
@@ -130,6 +129,13 @@ public class Interactable : MonoBehaviour
 
     private void SetBillboardText()
     {
+        // if no HUD element, send log message
+        if (hudElement == null)
+        {
+            Debug.Log("[Improper Configuration] No HUD element found, make sure the inherited class calls the base.Start() method [Interactable.cs]");
+            InstantiateHUD();
+        }
+
         hudElement.GetComponent<TextMesh>().text = isDisabled ? disabledPrompt : interactionPrompt;
 
         if (string.IsNullOrEmpty(hudElement.GetComponent<TextMesh>().text))
