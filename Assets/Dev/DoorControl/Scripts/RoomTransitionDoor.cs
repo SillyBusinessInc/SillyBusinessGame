@@ -20,8 +20,6 @@ public class RoomTransitionDoor : Interactable
     public CrossfadeController crossfadeController;
 
 
-    void Start()
-
     private void Awake()
     {
         GlobalReference.SubscribeTo(Events.ROOM_FINISHED, RoomFinished);
@@ -79,7 +77,7 @@ public class RoomTransitionDoor : Interactable
 
     private void OpenDoorAnimation()
     {
-        if (isLocked) return;
+        if (IsDisabled) return;
         animator.SetTrigger("TriggerDoorOpen");
     }
 

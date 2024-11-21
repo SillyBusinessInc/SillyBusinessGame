@@ -130,17 +130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ebabb1c12984a1f957891b4c3f1b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &255252574 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 29515307043888343, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
-  m_PrefabInstance: {fileID: 677040905}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6197816e955f0db409561e705c307c76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &372020557
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,9 +396,6 @@ MonoBehaviour:
   interactionActions:
     m_PersistentCalls:
       m_Calls: []
-  failedInteractionActions:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &677040905
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -421,7 +407,7 @@ PrefabInstance:
     - target: {fileID: 29515307043888343, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: obj
       value: 
-      objectReference: {fileID: 1200726103}
+      objectReference: {fileID: 0}
     - target: {fileID: 637936633501757367, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_Name
       value: Player
@@ -523,22 +509,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
---- !u!95 &864954926 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3897562453063601513, guid: 5e7833d33c9a64950955a9ed501a287b, type: 3}
-  m_PrefabInstance: {fileID: 1881070795944299503}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1200726103 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 546042556488619533, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
-  m_PrefabInstance: {fileID: 677040905}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da7430b38fabe854bb44c924a4893d76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1241432821
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -588,28 +558,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1164370792912209937, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
-      propertyPath: isDisabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1164370792912209937, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
-      propertyPath: nextRoomName
-      value: Room2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1164370792912209937, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
-      propertyPath: onInteractEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1164370792912209937, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
-      propertyPath: onInteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
+      propertyPath: crossfadeController
+      value: 
+      objectReference: {fileID: 32659895}
     - target: {fileID: 8173491819385383276, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
       propertyPath: m_Name
       value: Door
-      objectReference: {fileID: 0}
-    - target: {fileID: 8317953678513002239, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -945,9 +899,6 @@ MonoBehaviour:
   interactionActions:
     m_PersistentCalls:
       m_Calls: []
-  failedInteractionActions:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &2105864194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,3 +1080,4 @@ SceneRoots:
   - {fileID: 1241432821}
   - {fileID: 1952545549}
   - {fileID: 559740150}
+  - {fileID: 1339603598}
