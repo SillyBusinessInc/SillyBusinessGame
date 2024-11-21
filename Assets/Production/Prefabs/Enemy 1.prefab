@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d34f13b5369f1045938e93314f1d011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 60
+  health: 35
   agent: {fileID: 0}
   animator: {fileID: 0}
   roamingRadius: 5
