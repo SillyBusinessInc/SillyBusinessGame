@@ -5,15 +5,30 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Production/Scenes/Game.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Dev/Tessa/Room1.unity
     guid: d1a12b9e2f66a45f3a104cf441c764f7
-  - enabled: 1
+  - enabled: 0
     path: Assets/Dev/Tessa/Room2.unity
     guid: fd378d8f49b1e4865a82b5e667457a11
+  - enabled: 1
+    path: Assets/Production/Scenes/Combat rooms/CarloLevel1.unity
+    guid: d147b256a871f4a4e850f4691e9e2267
+  - enabled: 1
+    path: Assets/Production/Scenes/Combat rooms/LukeLevel1.unity
+    guid: 09a39c6fa0ddf0047864ae0c01ff7a91
+  - enabled: 1
+    path: Assets/Production/Scenes/Combat rooms/MarijnLevel1.unity
+    guid: 6a7a7651dded0c8488eee2ed4e3d1b4f
+  - enabled: 1
+    path: Assets/Production/Scenes/Combat rooms/MarijnLevel2.unity
+    guid: eb1a6e9f1d88413479e238ae7cf67788
+  - enabled: 1
+    path: Assets/Production/Scenes/Combat rooms/KevinLevel2.unity
+    guid: 7bdfc301af3848f4692d459de54ae25b
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5ee5558464c699340918ebc2380ce47a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

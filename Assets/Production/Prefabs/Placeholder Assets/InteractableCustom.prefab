@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3272585941159203157}
   - component: {fileID: 8256247101242528256}
-  - component: {fileID: 516375802860488466}
+  - component: {fileID: 1471179084853064141}
   m_Layer: 0
-  m_Name: CustomPickup
+  m_Name: InteractableCustom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &516375802860488466
+--- !u!114 &1471179084853064141
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,13 +72,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 607437902846116804}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27d5b069ae8246f48363bf80b85f0017, type: 3}
+  m_Script: {fileID: 11500000, guid: 079c63cc6ea94d7eaf442510311d9cbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupRange: 2
-  pickupSpeed: 0.1
-  isLocked: 0
-  isStatic: 0
+  interactDistance: 5
+  interactionPrompt: E - Interact
+  disabledPrompt: Cannot interact
+  promptYOffset: 1.5
   eventje: 1
   eventje2: 0
   eventje3: 0
