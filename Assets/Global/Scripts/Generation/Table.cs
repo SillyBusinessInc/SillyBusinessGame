@@ -8,16 +8,18 @@ using SRandom = System.Random;
 public class Table
 {
     // Settings
-    public int maxObjectPerDepth = 3;
-    public int minBranchCount = 2;
-    public int maxBranchCount = 3;
-    public int targetDepth = 7;
-    public int seed = -1;
-    public int shopDepth = 0;
-    private SRandom random;
+    private int maxObjectPerDepth;
+    private int minBranchCount;
+    private int maxBranchCount;
+    private int targetDepth;
+    private int bonusChance;
+    private int seed;
+    private int shopDepthOverride;
 
     // Content
+    private int shopDepth = -1;
     public List<Row> table;
+    private SRandom random;
 
     // Constructor
     public Table() => Generate();
@@ -28,17 +30,28 @@ public class Table
     public int GetNextId() => table?.Count ?? 0;
     public int GetIndexInDepth(Row row) => GetRowsAtDepth(row.depth).OrderBy(x => x.id).ToList().FindIndex(x => x.id == row.id);
     public List<int> GetDepthColumn() => table.Select(x => x.depth).ToList();
-    public List<Row> GetRowsAtDepth(int depth) => table.Where(x => x.depth == depth).ToList();
+    public List<Row> GetRowsAtDepth(int depth) => table.Where(x => x.depth == depth && GlobalReference.GetReference<GameManagerReference>().Get(x.id).roomType != RoomType.BONUS).ToList();
 
     // Reference
     public string RowReference(Row row) => $"Row: {row.id}, {row.depth}, [{string.Join(';', row.branches)}]";
 
     // Generation Logic
     public void Generate() {
+        // importing settings
+        maxObjectPerDepth = GlobalReference.DevSettings.Get<int>("maxObjectPerDepth");
+        minBranchCount = GlobalReference.DevSettings.Get<int>("minBranchCount");
+        maxBranchCount = GlobalReference.DevSettings.Get<int>("maxBranchCount");
+        targetDepth = GlobalReference.DevSettings.Get<int>("targetDepth");
+        bonusChance = GlobalReference.DevSettings.Get<int>("bonusChance");
+        seed = GlobalReference.DevSettings.Get<int>("seed");
+        shopDepthOverride = GlobalReference.DevSettings.Get<int>("shopDepthOverride");
+        // GlobalReference.DevSettings.ListAll<int>();
+
+        // initialization
         if (seed < 0) random = new(Guid.NewGuid().GetHashCode());
         else random = new(seed);
 
-        shopDepth = random.Next(2, targetDepth-1);
+        shopDepth = shopDepthOverride >= 1 ? shopDepth : random.Next(2, targetDepth);
 
         GlobalReference.GetReference<GameManagerReference>().Reset();
 
@@ -54,6 +67,7 @@ public class Table
 
         // init
         RoomType roomType = RoomType.OTHER;
+        if (GlobalReference.GetReference<GameManagerReference>().Get(row.id).IsStandard() && random.Next(0, 100) < bonusChance) AddBonusRoom(row);
 
         // get total branches to apply
         int branchesToApply = random.Next(minBranchCount, maxBranchCount+1);
@@ -72,6 +86,7 @@ public class Table
         int leftoverBranchesToApply = branchesToApply - newBranchesToApply - oldBranchesToApply;
         if (leftoverBranchesToApply > 0) newBranchesToApply = Mathf.Min(newBranchesToApply + leftoverBranchesToApply, roomForNewBranches);
 
+        // define room type
         if (row.depth+1 == targetDepth ) {
             roomType = RoomType.EXIT;
             if (existingBranches.Count() == 0) {
@@ -94,12 +109,10 @@ public class Table
                 oldBranchesToApply = 1;
             }
         }
-        else {
-            roomType = RandomDistribution.GetRandom(Room.RoomDistribution, random);
-        }
 
         // Debug.Log($"row: {row.id} | total: {branchesToApply} | new: {newBranchesToApply} | old: {oldBranchesToApply} | room: {roomForNewBranches}");
 
+        // create branches
         for (int i = 0; i < newBranchesToApply; i++ ) {
             row.branches.Add(GetIdFromNewRow(row.depth+1, roomType));
         }
@@ -110,10 +123,15 @@ public class Table
         // recursion
         Populate(GetFirstUnpopulatedRow());
     }
+    public void AddBonusRoom(Row targetRow) {
+        targetRow.branches.Add(GetIdFromNewRow(targetRow.depth, RoomType.BONUS, new() {targetRow.id}));
+    }
 
-    private int GetIdFromNewRow(int depth, RoomType roomType = RoomType.OTHER) {
-        Row newRow = new(GetNextId(), depth);
+    private int GetIdFromNewRow(int depth, RoomType roomType = RoomType.OTHER, List<int> branches = null) {
+        Row newRow = new(GetNextId(), depth, branches);
         table.Add(newRow);
+
+        if (roomType == RoomType.OTHER) roomType = RandomDistribution.GetRandom(Room.RoomDistribution, random);
         GlobalReference.GetReference<GameManagerReference>().Add(newRow.id, roomType);
         return newRow.id;
     }
@@ -130,10 +148,10 @@ public struct Row {
     public int column;
     public List<int> branches;
 
-    public Row(int id_, int depth_, int column_ = -1) {
+    public Row(int id_, int depth_, List<int> branches_, int column_ = -1) {
         id = id_;
         depth = depth_;
         column = column_;
-        branches = new List<int>();
+        branches = branches_ ?? new List<int>();
     }
 }

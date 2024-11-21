@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,7 +35,8 @@ public class RoomGenerator : MonoBehaviour
         foreach (Row row in table.table) {
             GameObject room = Instantiate(roomPrefab, RowPosition(row), Quaternion.identity);
             room.transform.SetParent(transform, true);
-            switch (GlobalReference.GetReference<GameManagerReference>().Get(row.id).roomType) {
+            RoomType type = GlobalReference.GetReference<GameManagerReference>().Get(row.id).roomType;
+            switch (type) {
                 case RoomType.BONUS:
                     room.GetComponent<MeshRenderer>().material = MBonus;
                     break;
@@ -62,7 +64,7 @@ public class RoomGenerator : MonoBehaviour
                 default:
                     break;
             }
-            room.name = table.RowReference(row);
+            room.name = table.RowReference(row) + $"| type: {type}";
             int i = 0;
             foreach (int branch in row.branches) {
                 // Debug.DrawLine(RowPosition(row), RowPosition(table.GetRow(branch)), Color.black, 100, true);
@@ -76,21 +78,40 @@ public class RoomGenerator : MonoBehaviour
 
     public void ChangeSeed(string value) {
         if (value == "") value = "-1";
-        table.seed = int.Parse(value);
+        GlobalReference.DevSettings.Set("seed", int.Parse(value));
+        GlobalReference.DevSettings.SaveAll();
     }
     public void ChangeMaxObjectPerDepth(string value) {
         if (value == "") value = "0";
-        table.maxObjectPerDepth = int.Parse(value);
+        GlobalReference.DevSettings.Set("maxObjectPerDepth", int.Parse(value));
+        GlobalReference.DevSettings.SaveAll();
     }
     public void ChangeMaxBranchCount(string value) {
         if (value == "") value = "0";
-        table.maxBranchCount = int.Parse(value);
+        GlobalReference.DevSettings.Set("maxBranchCount", int.Parse(value));
+        GlobalReference.DevSettings.SaveAll();
     }
     public void ChangeTargetDepth(string value) {
         if (value == "") value = "0";
-        table.targetDepth = int.Parse(value);
+        GlobalReference.DevSettings.Set("targetDepth", int.Parse(value));
+        GlobalReference.DevSettings.SaveAll();
     }
 
 
     public Vector3 RowPosition(Row row) => new(2 * row.depth, 1, -2 * table.GetIndexInDepth(row));
+
+    [ContextMenu("TestRandom")]
+    public void TestRandom() {
+        Dictionary<string, int> dict = new() {
+            {"common", 60},
+            {"uncommon", 20},
+            {"rare", 10},
+            {"epic", 7},
+            {"legendary", 3},
+        };
+
+        for (int i = 0; i < 10; i++) {
+            Debug.Log(RandomDistribution.GetRandom(dict));
+        }
+    }
 }

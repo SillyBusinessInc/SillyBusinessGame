@@ -14,6 +14,16 @@ public class Room
         roomType = roomType_;
     }
 
+    public bool IsStandard() {
+        return roomType switch {
+            RoomType.COMBAT => true,
+            RoomType.PARKOUR => true,
+            RoomType.MOLDORB => true,
+            RoomType.WAVESURVIVAL => true,
+            _ => false,
+        };
+    }
+
     // static info
     public static Dictionary<RoomType, int> RoomDistribution = new() {
         {RoomType.COMBAT, 40},
