@@ -11,10 +11,15 @@ using UnityEngine;
 //[CreateAssetMenu(fileName = "PlayerStatistic", menuName = "PlayerStatistic")]
 public class PlayerStatistic //: ScriptableObject
 {
+
     public Statistic Speed = new(10f);
     public Statistic JumpForce = new(2f);
     public Statistic MaxHealth = new(10f);
-    public float Health;
+    private float health;
+    public float Health { 
+        get => health = Mathf.Min(health, MaxHealth.GetValue());
+        set => health = value; 
+    }
     public float Crumbs;
     public Statistic AttackSpeedMultiplier = new(1f);
     public Statistic AttackDamageMultiplier = new(1f);

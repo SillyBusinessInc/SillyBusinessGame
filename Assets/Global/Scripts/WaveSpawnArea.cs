@@ -6,18 +6,18 @@ public class WaveSpawnArea : MonoBehaviour
 {
     [Header("Spawner Settings")]
     [Tooltip("Prefab of the enemy to spawn")]
-    [SerializeField] public GameObject enemyPrefab;
+    [HideInInspector] public GameObject enemyPrefab;
 
-    [SerializeField] public int maxSpawnedEnemies;
+    [HideInInspector] public int maxSpawnedEnemies;
 
     [Header("Spawn Area Settings")]
-    [SerializeField] public Transform spawnArea;
+    [HideInInspector] public Transform spawnArea;
 
     private List<GameObject> activeEnemies = new List<GameObject>();
 
-    public bool center = false;
+    [HideInInspector] public bool center = false;
 
-    public bool waveDone = false;
+    [HideInInspector] public bool waveDone = false;
 
     private void Update()
     {

@@ -6,5 +6,4 @@ A brief description on how to test what you made. Preferably a step by step. Or 
 **(only required for FEAT and FIX tickets)**
 
 ### links: 
-[Ticket](https://trello.com/b/xDZAVnEF/silly-business-dev-team)  
-[Documentation link](https://hrnl.sharepoint.com/:w:/r/sites/GameDesignDevelopment/_layouts/15/Doc.aspx?sourcedoc=%7BE7AE02C4-3CF2-49E8-9A49-653A1A85DC97%7D&file=Technical%20Documentation.docx&action=default&mobileredirect=true)  
+[Ticket](https://github.com/SillyBusinessInc/SillyBusinessGame/issues/1234) <-- Change the link to your ticket link

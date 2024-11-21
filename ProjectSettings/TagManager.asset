@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 3
   tags:
   - Ground
-  - SpawnPoint
   - Enemy
   layers:
   - Default
@@ -15,8 +14,8 @@ TagManager:
   - Water
   - UI
   - Interactables
-  - 
-  - 
+  - Player
+  - Enemies
   - 
   - 
   - 
