@@ -143,6 +143,7 @@ public class Player : MonoBehaviour
                 {
                     if (Vector3.Angle(Vector3.up, hit.normal) < degreesToRotate)
                     {
+                        currentJumps = 0;
                         isGrounded = true;
                         return;
                     }
