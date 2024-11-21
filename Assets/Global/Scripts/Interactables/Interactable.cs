@@ -83,8 +83,8 @@ public class Interactable : MonoBehaviour
         hudElement.transform.SetParent(transform);
     }
 
-    public bool IsWithinInteractionRange(float rayHitDistance)  rayHitDistance <= interactDistance;
-    
+    public bool IsWithinInteractionRange(float rayHitDistance) => rayHitDistance <= interactDistance;
+
     public void ShowPrompt(bool show)
     {
         if (hudElement == null)

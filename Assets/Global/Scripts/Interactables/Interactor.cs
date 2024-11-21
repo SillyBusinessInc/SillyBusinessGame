@@ -44,6 +44,31 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        var interactable = collision.collider.GetComponent<Interactable>();
+        if (interactable != null)
+        {
+            isColliding = true;
+            SetInteractable(interactable);
+        }
+        else
+        {
+            isColliding = false;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        isColliding = false;
+        var interactable = collision.collider.GetComponent<Interactable>();
+        if (interactable != null && interactable == currentInteractable)
+        {
+            currentInteractable.ShowPrompt(false);
+            currentInteractable = null;
+        }
+    }
+
     private bool RaycastFindInteractable(Vector3 origin, Vector3 direction)
     {
         Ray ray = new Ray(origin, direction);
