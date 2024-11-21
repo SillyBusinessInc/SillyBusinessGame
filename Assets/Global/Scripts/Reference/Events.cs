@@ -2,6 +2,8 @@ using UnityEngine;
 
 public enum Events
 {
+    NONE, 
+    
     PICKUP_COLLECTED,
     ENEMY_KILLED,
     ENEMY_SPAWNED,

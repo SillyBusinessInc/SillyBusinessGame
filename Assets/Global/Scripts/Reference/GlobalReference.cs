@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 
 public static class GlobalReference
@@ -81,7 +82,7 @@ public static class GlobalReference
 
     public static void AttemptInvoke(Events eventName)
     {
-        // Debug.Log($"Object Invoked ({eventName})");
+        Debug.Log($"Object Invoked ({eventName})");
         TryGetEvent(eventName).Invoke();
     }
 
