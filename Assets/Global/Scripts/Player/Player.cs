@@ -90,7 +90,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        currentJumps = isGrounded ? 0 : currentJumps;
         RaycastDown();
         currentState.Update();
         RotatePlayerObj();
@@ -144,6 +143,7 @@ public class Player : MonoBehaviour
                 {
                     if (Vector3.Angle(Vector3.up, hit.normal) < degreesToRotate)
                     {
+                        currentJumps = 0;
                         isGrounded = true;
                         return;
                     }
