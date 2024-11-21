@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,9 +19,9 @@ public class RoomTransitionDoor : MonoBehaviour
     
     private bool isLocked = true;
     private bool isTransitioning = false;
-     
+    public CrossfadeController crossfadeController;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+     
     void Start()
     {
         toggleLock(true);
@@ -39,17 +41,19 @@ public class RoomTransitionDoor : MonoBehaviour
         {
             Debug.Log("OnTriggerEnter Happend");
             isTransitioning = true;
-            LoadNextRoom();
+            StartCoroutine(LoadNextRoom());
         }
     }
 
-    private void LoadNextRoom()
+    private IEnumerator LoadNextRoom()
     {
-        StartCoroutine(LoadRoomCoroutine());
+        yield return StartCoroutine(crossfadeController.Crossfade());
+        yield return StartCoroutine(LoadRoomCoroutine());
     }
 
-    private System.Collections.IEnumerator LoadRoomCoroutine()
+    public IEnumerator LoadRoomCoroutine()
     {
+        GlobalReference.UnregisterReference(GlobalReference.GetReference<PlayerReference>());
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextRoomName, LoadSceneMode.Additive);
 
         while (!asyncLoad.isDone)
@@ -59,6 +63,8 @@ public class RoomTransitionDoor : MonoBehaviour
 
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.UnloadSceneAsync(currentScene);
+
+        // StartCoroutine(crossfadeController.Crossfade_end());
 
         Scene newScene = SceneManager.GetSceneByName(nextRoomName);
         SceneManager.SetActiveScene(newScene);
@@ -93,7 +99,6 @@ public class RoomTransitionDoor : MonoBehaviour
     void OpenDoor()
     {
         if (isLocked) return;
-        animator.SetTrigger("TriggerDoorOpen");
     }
 
     // TODO: Remove these test functions on merge

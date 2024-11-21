@@ -58,9 +58,6 @@ public class Player : MonoBehaviour
     public float verticalInput;
 
     [HideInInspector]
-    public bool isGrounded;
-
-    [HideInInspector]
     public bool tailCanDoDamage = false;
 
     [HideInInspector]
@@ -74,6 +71,7 @@ public class Player : MonoBehaviour
     [Header("Debugging")]
     [SerializeField]
     private string currentStateName = "none";
+    public bool isGrounded;
 
     // private PlayerInputActions inputActions;
     [HideInInspector]
@@ -84,10 +82,12 @@ public class Player : MonoBehaviour
         states = new PlayerStates(this);
         SetState(states.Idle);
         // health and maxHealth should be the same value at the start of game
+
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
+
         if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
     }
-    
+
     void Update()
     {
         RaycastDown();
@@ -121,26 +121,35 @@ public class Player : MonoBehaviour
     }
 
     public void OnCollisionExit(Collision collision) { }
-    
+
     private void RaycastDown()
     {
         groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
-        RaycastHit hit;
-        Vector3 raycastPosition = new Vector3(rb.position.x, rb.position.y, rb.position.z);
-        if (Physics.Raycast(raycastPosition, Vector3.down, out hit, groundCheckDistance))
+        Vector3[] raycastOffsets = new Vector3[]
         {
-            if (!(hit.collider.gameObject.CompareTag("Player")))
+            Vector3.zero, 
+            new Vector3(0, 0, rb.GetComponent<Collider>().bounds.extents.z), 
+            new Vector3(0, 0, -rb.GetComponent<Collider>().bounds.extents.z),
+            new Vector3(rb.GetComponent<Collider>().bounds.extents.x, 0, 0), 
+            new Vector3(-rb.GetComponent<Collider>().bounds.extents.x,0,0) ,
+        };
+
+        foreach (Vector3 offset in raycastOffsets)
+        {
+            Vector3 raycastPosition = rb.position + offset;
+            if (Physics.Raycast(raycastPosition,Vector3.down,out RaycastHit hit,groundCheckDistance))
             {
-                if (Vector3.Angle(Vector3.up, hit.normal) < degreesToRotate)
+                if (!hit.collider.gameObject.CompareTag("Player"))
                 {
-                    isGrounded = true;
+                    if (Vector3.Angle(Vector3.up, hit.normal) < degreesToRotate)
+                    {
+                        isGrounded = true;
+                        return;
+                    }
                 }
             }
         }
-        else
-        {
-            isGrounded = false;
-        }
+        isGrounded = false; 
     }
 
     public void SetState(StateBase newState)
@@ -173,7 +182,9 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         playerStatistic.Health -= damage;
-        if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+
+        if (healthBar != null) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+
         if (playerStatistic.Health <= 0) OnDeath();
     }
 
@@ -183,17 +194,18 @@ public class Player : MonoBehaviour
         healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
     }
 
-    public void IncreaseMaxHealth(float reward)
+    public void MultiplyMaxHealth(float reward)
     {
         playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
         healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
     }
 
-    public void DecreaseMaxHealth()
+    public void IncreaseMaxHealth(float reward)
     {
-        playerStatistic.MaxHealth.RemoveMultiplier("reward", true);
+        playerStatistic.MaxHealth.AddModifier("reward", reward);
         healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
     }
+
 
     // If we go the event route this should change right?
     private void OnDeath()
