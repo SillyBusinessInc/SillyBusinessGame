@@ -134,7 +134,7 @@ PrefabInstance:
     - target: {fileID: 2829735457462954250, guid: ec2b2699e7f06f84994f1afb6eb5af5a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1272a96bb9a1ecb45925f49475b53ec3, type: 2}
+      objectReference: {fileID: 2100000, guid: 1548e3c1ed0aa2d46bb398f0746a49a0, type: 2}
     - target: {fileID: 5426642088410102743, guid: ec2b2699e7f06f84994f1afb6eb5af5a, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -263,11 +263,11 @@ PrefabInstance:
     - target: {fileID: 5338248997505163630, guid: a956a9043d07b524d8a02763489edb20, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1272a96bb9a1ecb45925f49475b53ec3, type: 2}
+      objectReference: {fileID: 2100000, guid: 1548e3c1ed0aa2d46bb398f0746a49a0, type: 2}
     - target: {fileID: 6083842509473997233, guid: a956a9043d07b524d8a02763489edb20, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1272a96bb9a1ecb45925f49475b53ec3, type: 2}
+      objectReference: {fileID: 2100000, guid: 1548e3c1ed0aa2d46bb398f0746a49a0, type: 2}
     - target: {fileID: 6353760785454672312, guid: a956a9043d07b524d8a02763489edb20, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -1587,7 +1587,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1272a96bb9a1ecb45925f49475b53ec3, type: 2}
+  - {fileID: 2100000, guid: fb7a0957e958e544198b6cdee20aab5a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1784,27 +1784,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6505893237244659488, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.8953056
+      value: 4.861039
       objectReference: {fileID: 0}
     - target: {fileID: 6505893237244659488, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.358332
+      value: 1.7807592
       objectReference: {fileID: 0}
     - target: {fileID: 6505893237244659488, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.0493646
+      value: -1.8796223
       objectReference: {fileID: 0}
     - target: {fileID: 8159941675243024157, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.8953056
+      value: 4.861039
       objectReference: {fileID: 0}
     - target: {fileID: 8159941675243024157, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.358332
+      value: 1.7807592
       objectReference: {fileID: 0}
     - target: {fileID: 8159941675243024157, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.0493646
+      value: -1.8796223
       objectReference: {fileID: 0}
     - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: playerStatistic.speed

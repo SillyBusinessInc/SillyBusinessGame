@@ -743,6 +743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637dd08b74ffccb4b9fc0a9e12d97a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waveDoneEvent: 5
 --- !u!4 &461342373
 Transform:
   m_ObjectHideFlags: 0
@@ -1340,27 +1341,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6505893237244659488, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.768982
+      value: 4.869812
       objectReference: {fileID: 0}
     - target: {fileID: 6505893237244659488, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.5455327
+      value: 1.7807591
       objectReference: {fileID: 0}
     - target: {fileID: 6505893237244659488, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.4170532
+      value: -1.8422852
       objectReference: {fileID: 0}
     - target: {fileID: 8159941675243024157, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.768982
+      value: 4.869812
       objectReference: {fileID: 0}
     - target: {fileID: 8159941675243024157, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.5455327
+      value: 1.7807591
       objectReference: {fileID: 0}
     - target: {fileID: 8159941675243024157, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.4170532
+      value: -1.8422852
       objectReference: {fileID: 0}
     - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: jumpForce
@@ -1686,7 +1687,7 @@ Terrain:
   m_GameObject: {fileID: 1458223080}
   m_Enabled: 1
   serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: 555c032a211370d4892e42ff5ea0b87d, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 3cbeef37d69f024419e685cb4263c1b6, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -1726,7 +1727,7 @@ Transform:
   m_GameObject: {fileID: 1458223080}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -613.09467, y: -0.26, z: -369.967}
+  m_LocalPosition: {x: -613.09467, y: -12, z: -369.967}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
