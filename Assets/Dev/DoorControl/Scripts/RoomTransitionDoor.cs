@@ -56,7 +56,7 @@ public class RoomTransitionDoor : Interactable
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.UnloadSceneAsync(currentScene);
 
-        // StartCoroutine(crossfadeController.Crossfade_end());
+        StartCoroutine(crossfadeController.Crossfade_end());
 
         Scene newScene = SceneManager.GetSceneByName(nextRoomName);
         SceneManager.SetActiveScene(newScene);
