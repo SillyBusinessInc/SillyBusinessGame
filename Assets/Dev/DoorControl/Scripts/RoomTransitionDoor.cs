@@ -20,8 +20,10 @@ public class RoomTransitionDoor : MonoBehaviour
     private bool isLocked = true;
     private bool isTransitioning = false;
     public CrossfadeController crossfadeController;
+    public PlayerSpawnPoint playerSpawnPoint;
 
-     
+    private string currentScenename;
+ 
     void Start()
     {
         toggleLock(true);
@@ -29,6 +31,9 @@ public class RoomTransitionDoor : MonoBehaviour
 
     private void Awake() {
         GlobalReference.SubscribeTo(Events.ROOM_FINISHED, RoomFinished);
+    }
+
+    private void Update() {
     }
 
     private void RoomFinished() {
@@ -53,25 +58,35 @@ public class RoomTransitionDoor : MonoBehaviour
 
     public IEnumerator LoadRoomCoroutine()
     {
+
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+
+            if (scene.name != "BaseScene" && scene.isLoaded)
+            {
+                currentScenename = scene.name;
+            }
+        }
+
         GlobalReference.UnregisterReference(GlobalReference.GetReference<PlayerReference>());
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextRoomName, LoadSceneMode.Additive);
-
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
 
-        Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.UnloadSceneAsync(currentScene);
 
-        // StartCoroutine(crossfadeController.Crossfade_end());
+        AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(currentScenename);
+        while (!unloadOperation.isDone)
+        {
+            yield return null; 
+        }
 
         Scene newScene = SceneManager.GetSceneByName(nextRoomName);
         SceneManager.SetActiveScene(newScene);
-
         isTransitioning = false;
     }
-
 
     void toggleLock(bool v)
     {
