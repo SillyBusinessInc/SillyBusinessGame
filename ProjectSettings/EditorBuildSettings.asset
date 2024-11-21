@@ -15,5 +15,6 @@ EditorBuildSettings:
     path: Assets/Dev/Tessa/Room2.unity
     guid: fd378d8f49b1e4865a82b5e667457a11
   m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 5ee5558464c699340918ebc2380ce47a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

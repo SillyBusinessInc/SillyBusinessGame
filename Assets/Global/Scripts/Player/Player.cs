@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,6 +14,7 @@ public class Player : MonoBehaviour
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
+    public TMP_Text crumbAmountText;
 
     [Header("Attack")]
     public float attackResettingTime = 2f;
@@ -81,6 +83,7 @@ public class Player : MonoBehaviour
         // health and maxHealth should be the same value at the start of game
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
         if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        crumbAmountText.text = playerStatistic.Crumbs.ToString();
     }
 
     void Update()

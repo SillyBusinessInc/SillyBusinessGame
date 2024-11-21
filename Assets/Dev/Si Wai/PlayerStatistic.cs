@@ -15,6 +15,7 @@ public class PlayerStatistic //: ScriptableObject
     public Statistic JumpForce = new(2f);
     public Statistic MaxHealth = new(10f);
     public float Health;
+    public float Crumbs;
     public Statistic AttackSpeedMultiplier = new(1f);
     public Statistic AttackDamageMultiplier = new(1f);
     public Statistic DodgeCooldown = new(1f);
