@@ -16,5 +16,6 @@ public enum Events
     SPAWN_WAVE,
     ALL_WAVES_DONE,
     
-    OPEN_UPGRADE_MENU
+    OPEN_UPGRADE_MENU,
+    GET_EXTRA_HP
 }

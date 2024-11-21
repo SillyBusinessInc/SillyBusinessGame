@@ -27,15 +27,18 @@ public class UpgradeOptions : MonoBehaviour
     // TEMP HARDCODE:
     public void GlorbTactics() {
         HideOptions();
-        GlobalReference.GetReference<PlayerReference>().Player.IncreaseMaxHealth(25);
+        GlobalReference.GetReference<PlayerReference>().Player
+            .playerStatistic.DoubleJumpsCount.AddModifier("extra", 1);
     }
     public void NoonSupport() {
         HideOptions();
-        GlobalReference.GetReference<PlayerReference>().Player.Heal(50);
+        GlobalReference.GetReference<PlayerReference>().Player
+            .playerStatistic.AttackSpeedMultiplier.AddModifier("extra", 0.2f);
     }
     public void WalnutCurse() {
         HideOptions();
-        GlobalReference.GetReference<PlayerReference>().Player.MultiplyMaxHealth(0.5f);
+        GlobalReference.GetReference<PlayerReference>().Player
+            .playerStatistic.AttackDamageMultiplier.AddModifier("extra", 0.2f);
     }
 
     void Update()

@@ -15,8 +15,8 @@ public class Healthbar : MonoBehaviour
 
     public void UpdateHealthBar(float min, float max, float current)
     {
-        float fillAmount = math.lerp(min, max, current / max);
-        healthbarOverlay.fillAmount = fillAmount / 100;
-        healthbarUnderlay.fillAmount = max / 100;
+        // float fillAmount = math.lerp(min, max, current / max);
+        healthbarOverlay.fillAmount = current / 6;
+        healthbarUnderlay.fillAmount = max / 6;
     }
 }

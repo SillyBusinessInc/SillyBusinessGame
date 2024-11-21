@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 21300000, guid: f28efe13d57519a429beddfdee97a9d4, type: 3}
   name: Noon Support
-  description: Heals 50 HP
+  description: + 20% attackspeed

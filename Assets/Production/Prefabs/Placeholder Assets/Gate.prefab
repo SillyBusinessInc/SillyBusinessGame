@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 6130861100495324469}
   m_Layer: 0
   m_Name: Gate
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -600,8 +600,8 @@ MonoBehaviour:
   unlockedMaterial: {fileID: 2100000, guid: c08e6cbf88284514db1e9c554bcb21e0, type: 2}
   animator: {fileID: 0}
   doorMesh: {fileID: 6112488758689348054}
-  nextRoomName: 
-  crossfadeController: {fileID: 0}
+  nextRoomName: MarijnLevel1
+  crossfadeController: {fileID: 6393769111776084320, guid: 5e7833d33c9a64950955a9ed501a287b, type: 3}
 --- !u!65 &6130861100495324469
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 21300000, guid: f811d2d70eca96040940b9674e189958, type: 3}
   name: Glorb Tactics
-  description: Increase max HP by 25
+  description: Get 1 extra double jump

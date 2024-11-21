@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
@@ -13,7 +14,7 @@ public class Player : MonoBehaviour
     public float degreesToRotate = 50.0f;
 
     [Header("Stats")]
-    public PlayerStatistic playerStatistic = new();
+    public PlayerStatistic playerStatistic;
 
     [Header("Attack")]
     public float attackResettingTime = 2f;
