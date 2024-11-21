@@ -14,15 +14,15 @@ public class MultipleWaveTypes : MonoBehaviour
 
     private void Awake()
     {
-        GlobalReference.SubscribeTo(Events.NEXT_SPAWNER, nextType);
+        GlobalReference.SubscribeTo(Events.NEXT_SPAWNER, NextType);
     }
 
     private void OnDestroy()
     {
-        GlobalReference.UnsubscribeTo(Events.NEXT_SPAWNER, nextType);
+        GlobalReference.UnsubscribeTo(Events.NEXT_SPAWNER, NextType);
     }
     
-    private void nextType()
+    private void NextType()
     {
         if (currentType < waveTypes.Count)
         {
@@ -30,7 +30,7 @@ public class MultipleWaveTypes : MonoBehaviour
             {
                 if (waveTypes[currentType - 1] != null)
                 {
-                    waveTypes[currentType - 1].SetActive(false);   
+                    waveTypes[currentType - 1].SetActive(false);
                 }
             }
             waveTypes[currentType].SetActive(true);

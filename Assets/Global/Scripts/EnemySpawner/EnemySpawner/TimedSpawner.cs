@@ -9,9 +9,9 @@ public class TimedSpawner : MonoBehaviour
     public List<EnemyPrefabCount> enemyChanceList; // List of enemies and their spawn chances
     public Transform spawnArea; // Area to spawn enemies
 
-    private SingleEnemySpawnArea spawner = new SingleEnemySpawnArea();
+    private readonly SingleEnemySpawnArea spawner = new();
     private float startTime;
-    private List<GameObject> spawnedEnemies = new List<GameObject>();
+    private readonly List<GameObject> spawnedEnemies = new();
 
     void Start()
     {
