@@ -7,10 +7,9 @@ public class PlayerInteraction : MonoBehaviour
     private Interactable currentInteractable;
     private Player player;
 
-    [SerializeField] private float rayRadius = 1.0f;       // Radius of the sphere cast
-    [Range(0, 10)]
-    [SerializeField] private float rayDistance = 5f;         // Maximum detection distance
-    [SerializeField] private float maxInteractionAngle = 180f; // Desired field of view 
+    [Header("Raycast Settings [Debug]")]
+    [SerializeField] private float rayDistance = 10f;         // Maximum detection distance 
+    [SerializeField] private float rayOffset = 0.5f;         // offset
 
     private bool isColliding = false;
 
@@ -24,10 +23,51 @@ public class PlayerInteraction : MonoBehaviour
         DetectInteractable();
     }
 
-    private void OnCollision(Collision collision)
+    public void Interact(InputAction.CallbackContext ctx)
     {
-        if (isColliding) return;
+        if (currentInteractable != null && !currentInteractable.IsDisabled && ctx.started)
+        {
+            currentInteractable.TriggerInteraction();
+        }
+    }
 
+    private void DetectInteractable()
+    {
+        // move backwards from the player's position
+        Vector3 origin = transform.position + Vector3.up * 0.1f + transform.forward * -1.0f;
+        Vector3 forward = transform.forward;
+
+        Vector3[] offsets =
+        {
+            Vector3.zero,                        // center
+            transform.right * rayOffset,         // right
+            -transform.right * rayOffset,        // left
+            transform.up * rayOffset,            // up
+            -transform.up * rayOffset            // down
+        };
+
+        bool interactableFound = false;
+
+        foreach (Vector3 offset in offsets)
+        {
+            if (RaycastFindInteractable(origin + offset, forward))
+            {
+                interactableFound = true;
+                return;
+            }
+        }
+
+        // If no interactable was found, clear the current interactable
+        if (!interactableFound && currentInteractable != null && !isColliding)
+        {
+            Debug.Log("Clearing current interactable");
+            currentInteractable.ShowPrompt(false);
+            currentInteractable = null;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
 
         var interactable = collision.collider.GetComponent<Interactable>();
         if (interactable != null)
@@ -55,63 +95,35 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    public void Interact(InputAction.CallbackContext ctx)
+    private bool RaycastFindInteractable(Vector3 origin, Vector3 direction)
     {
-        if (currentInteractable != null && !currentInteractable.IsDisabled && ctx.started)
-        {
-            currentInteractable.TriggerInteraction();
-        }
-    }
-
-    private void DetectInteractable()
-    {
-        Vector3 offset = transform.forward * -1.3f + Vector3.up * 0.1f; // Slight offset
-        Ray ray = new Ray(transform.position + offset, transform.forward);
+        Ray ray = new Ray(origin, direction);
         RaycastHit hit;
 
-        Debug.DrawLine(ray.origin, ray.origin + ray.direction * rayDistance, Color.green, 2f);
+        // Debug visualization
+        Debug.DrawRay(origin, direction * rayDistance, Color.green, 0.1f);
 
-        // Draw the sphere at the end point
-        Debug.DrawRay(ray.origin + ray.direction * rayDistance, Vector3.up * rayRadius, Color.green, 2f);
-        // Check for nearby objects, prioritizing interactables that are in front of the player
-        if (Physics.SphereCast(ray, rayRadius, out hit, rayDistance, ~ignoreLayers))
+        if (Physics.Raycast(ray, out hit, rayDistance, ~ignoreLayers))
         {
             var interactable = hit.collider.GetComponent<Interactable>();
 
-            float rayHitDistance = Vector3.Distance(transform.position, hit.point);
-
-            if (interactable != null && interactable.IsWithinInteractionRange(rayHitDistance))
+            if (interactable != null)
             {
-                // Calculate the direction to the interactable and the angle between the player's forward direction
-                Vector3 directionToInteractable = (interactable.transform.position - transform.position).normalized;
-                float angleToInteractable = Vector3.Angle(transform.forward, directionToInteractable);
+                float rayHitDistance = Vector3.Distance(transform.position, hit.point);
 
-                // Check if the interactable is within the desired angle
-                if (angleToInteractable <= maxInteractionAngle)
+                if (interactable.IsWithinInteractionRange(rayHitDistance))
                 {
-                    // If we find a new interactable, update it
                     if (currentInteractable != interactable)
                     {
                         if (currentInteractable != null) currentInteractable.ShowPrompt(false);
                         currentInteractable = interactable;
                         currentInteractable.ShowPrompt(true);
                     }
-                    return;
+                    return true; // Interactable found
+
                 }
             }
         }
-
-        // If no valid interactable is found, clear the current interactable
-        if (currentInteractable != null && !isColliding)
-        {
-            Debug.Log("Clearing current interactable");
-            currentInteractable.ShowPrompt(false);
-            currentInteractable = null;
-        }
-    }
-
-    private void SetInteractableFromHitIfValid(RaycastHit hit)
-    {
-
+        return false; // No valid interactable detected
     }
 }

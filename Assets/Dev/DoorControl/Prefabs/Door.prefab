@@ -218,6 +218,9 @@ MonoBehaviour:
   promptYOffset: 1.5
   interactDistance: 5
   isDisabled: 0
+  interactionActions:
+    m_PersistentCalls:
+      m_Calls: []
   lockedMaterial: {fileID: 2100000, guid: 8d429115e01de0040adcdcb2bb01ed12, type: 2}
   unlockedMaterial: {fileID: 2100000, guid: c08e6cbf88284514db1e9c554bcb21e0, type: 2}
   animator: {fileID: 7719880940827678336}
@@ -352,7 +355,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e3cb1a924910e0c4c95ecc9c34ba06b7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e3cb1a924910e0c4c95ecc9c34ba06b7, type: 3}
       propertyPath: m_LocalRotation.w
