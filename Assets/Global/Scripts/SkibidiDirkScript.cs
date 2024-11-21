@@ -14,6 +14,7 @@ public class SkibidiDirkScript : MonoBehaviour
         GlobalReference.SubscribeTo(Events.ALL_ENEMIES_DEAD, OnWaveDone);
         GlobalReference.SubscribeTo(Events.OPEN_UPGRADE_MENU, OnUpgradeMenu);
         GlobalReference.SubscribeTo(Events.GET_EXTRA_HP, ExtraHp);
+        GlobalReference.SubscribeTo(Events.HEAL_PLAYER, HealPlayer);
     }
 
     private void OnUpgradeMenu()
@@ -40,5 +41,10 @@ public class SkibidiDirkScript : MonoBehaviour
         
         if (p.healthBar) p.healthBar.UpdateHealthBar(0f, 
             p.playerStatistic.MaxHealth.GetValue(), p.playerStatistic.Health);
+    }
+    
+    private void HealPlayer()
+    {
+        GlobalReference.GetReference<PlayerReference>().Player.Heal(2f);
     }
 }

@@ -17,5 +17,6 @@ public enum Events
     ALL_WAVES_DONE,
     
     OPEN_UPGRADE_MENU,
-    GET_EXTRA_HP
+    GET_EXTRA_HP,
+    HEAL_PLAYER
 }
