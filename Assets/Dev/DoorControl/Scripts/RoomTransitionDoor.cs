@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,6 +17,10 @@ public class RoomTransitionDoor : Interactable
     [SerializeField] private MeshRenderer doorMesh;
     [SerializeField] private string nextRoomName;
     private bool isTransitioning = false;
+    public CrossfadeController crossfadeController;
+
+
+    void Start()
 
     private void Awake()
     {
@@ -30,16 +36,18 @@ public class RoomTransitionDoor : Interactable
     {
         Debug.Log("OnTriggerEnter Happend");
         isTransitioning = true;
-        LoadNextRoom();
+        StartCoroutine(LoadNextRoom());
     }
 
-    private void LoadNextRoom()
+    private IEnumerator LoadNextRoom()
     {
-        StartCoroutine(LoadRoomCoroutine());
+        yield return StartCoroutine(crossfadeController.Crossfade());
+        yield return StartCoroutine(LoadRoomCoroutine());
     }
 
-    private System.Collections.IEnumerator LoadRoomCoroutine()
+    public IEnumerator LoadRoomCoroutine()
     {
+        GlobalReference.UnregisterReference(GlobalReference.GetReference<PlayerReference>());
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextRoomName, LoadSceneMode.Additive);
 
         while (!asyncLoad.isDone)
@@ -49,6 +57,8 @@ public class RoomTransitionDoor : Interactable
 
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.UnloadSceneAsync(currentScene);
+
+        // StartCoroutine(crossfadeController.Crossfade_end());
 
         Scene newScene = SceneManager.GetSceneByName(nextRoomName);
         SceneManager.SetActiveScene(newScene);
@@ -69,6 +79,7 @@ public class RoomTransitionDoor : Interactable
 
     private void OpenDoorAnimation()
     {
+        if (isLocked) return;
         animator.SetTrigger("TriggerDoorOpen");
     }
 
