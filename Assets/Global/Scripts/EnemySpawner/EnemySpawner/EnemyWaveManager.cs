@@ -103,19 +103,19 @@ public class EnemyWaveManager : MonoBehaviour
     private void WaveCompleted()
     {   
         totalEnemies = 0;
+        wavesDone++;
         if (wavesDone >= maxWaves)
         {
             GlobalReference.AttemptInvoke(Events.ALL_WAVES_DONE);
             nextWave = false;
+            GlobalReference.AttemptInvoke(Events.NEXT_SPAWNER);
         }
         else
         {
-
             nextWave = true;
             currentWave++;
             GlobalReference.AttemptInvoke(Events.WAVE_START);
         }
-        wavesDone++;
 
     }
 }

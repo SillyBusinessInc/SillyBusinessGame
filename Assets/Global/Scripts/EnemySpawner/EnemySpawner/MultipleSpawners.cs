@@ -2,18 +2,17 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
-public class MoldCoreSpawner : EnemyBase
+public class MultipleSpawners : EnemyBase
 {
     public float interfal = 1;
     public List<EnemyPrefabCount> enemyChanceList;
-    // [SerializeField] private float health = 100;
-    private int enemyCurrent = 0;
     public Transform spawnArea;
     private SingleEnemySpawnArea spawner = new SingleEnemySpawnArea();
     private float currentTime;
     
-    void Start()
+    new void Start()
     {
+        base.Start();
         currentTime = Time.time;
         GlobalReference.AttemptInvoke(Events.MOLD_CORE_SPAWNED);
     }
@@ -23,6 +22,7 @@ public class MoldCoreSpawner : EnemyBase
     {
         Destroy(gameObject);
         GlobalReference.AttemptInvoke(Events.MOLD_CORE_KILLED);
+        GlobalReference.AttemptInvoke(Events.NEXT_SPAWNER);
     }
     void Update()
     {

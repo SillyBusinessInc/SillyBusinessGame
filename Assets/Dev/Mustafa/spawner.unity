@@ -147,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 58201068}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.0000028461216}
-  m_LocalPosition: {x: -4.5, y: 4.7, z: 54.4}
+  m_LocalPosition: {x: -4.5, y: -3.33, z: 54.4}
   m_LocalScale: {x: 10, y: 1, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -514,7 +514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: playerStatistic.Speed.baseValue
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -937,6 +937,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &500066566
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 500066568}
+  - component: {fileID: 500066567}
+  m_Layer: 0
+  m_Name: SpawnerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &500066567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500066566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d118e8673cb893b4d87d55af7ec2f830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveTypes:
+  - {fileID: 942061637}
+  - {fileID: 1239514096}
+  - {fileID: 1090036383}
+  currentType: 0
+--- !u!4 &500066568
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500066566}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.102717, y: 3.829648, z: 34.18921}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &590950683
 GameObject:
   m_ObjectHideFlags: 0
@@ -1181,7 +1230,7 @@ Transform:
   m_GameObject: {fileID: 850408226}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.0000028461216}
-  m_LocalPosition: {x: -18, y: 4.7, z: 54.4}
+  m_LocalPosition: {x: -18, y: -3.33, z: 54.4}
   m_LocalScale: {x: 10, y: 1, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1293,12 +1342,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - {fileID: 11400000, guid: 58e6477715246174fa32f906a1a729fa, type: 2}
-  - {fileID: 11400000, guid: 718db408b3eeea34dba0a4146952055e, type: 2}
+  - {fileID: 11400000, guid: 58e6477715246174fa32f906a1a729fa, type: 2}
   spawnAreaTransforms:
   - {fileID: 850408227}
   - {fileID: 58201069}
   - {fileID: 1387553830}
   spawnerObject: {fileID: 942061637}
+  currentWave: 0
+  wavesDone: 0
+  maxWaves: 0
   immediateStart: 1
 --- !u!4 &942061639
 Transform:
@@ -1530,12 +1582,12 @@ GameObject:
   - component: {fileID: 1090036385}
   - component: {fileID: 1090036384}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: TimedSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1090036384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1801,7 +1853,7 @@ GameObject:
   - component: {fileID: 1239514098}
   - component: {fileID: 1239514097}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: MoldCore
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1944,7 +1996,7 @@ Transform:
   m_GameObject: {fileID: 1387553829}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.0000028461216}
-  m_LocalPosition: {x: 9.6, y: 4.7, z: 54.4}
+  m_LocalPosition: {x: 9.6, y: -3.33, z: 54.4}
   m_LocalScale: {x: 10, y: 1, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2558,5 +2610,6 @@ SceneRoots:
   - {fileID: 942061639}
   - {fileID: 1783215883}
   - {fileID: 1239514101}
-  - {fileID: 219747496}
   - {fileID: 1090036385}
+  - {fileID: 219747496}
+  - {fileID: 500066568}

@@ -54,5 +54,6 @@ public class TimedSpawner : MonoBehaviour
 
         // Destroy the spawner itself
         Destroy(gameObject);
+        GlobalReference.AttemptInvoke(Events.NEXT_SPAWNER);
     }
 }

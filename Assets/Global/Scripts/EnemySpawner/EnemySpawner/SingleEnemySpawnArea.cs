@@ -2,13 +2,13 @@ using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
-public class SingleEnemySpawnArea : MonoBehaviour
+public class SingleEnemySpawnArea 
 {
     public GameObject SpawnEnemy(GameObject enemyPrefab, Transform spawnArea, bool center)
     {
         Vector3 spawnPosition = GetRandomPointInSpawnArea(spawnArea, center);
         
-        GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        GameObject enemy = Object.Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
 
         return enemy;
     }

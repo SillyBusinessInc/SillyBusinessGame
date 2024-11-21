@@ -12,7 +12,9 @@ public class Tail : MonoBehaviour
             if(player.tailCanDoDamage)
             {
                 float actualDamage = player.tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
-                Collider.GetComponent<EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
+                if (Collider.GetComponent<EnemyBase>() != null){
+                    Collider.GetComponent<EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
+                }
             }
         }
     }
