@@ -1,16 +1,10 @@
 using UnityEngine;
 
-public class Statistics
+public class Statistics : SaveSystem
 {
-    private readonly string pre = "statistics_";
-    
-    public float DistanceWalked {
-        get => PlayerPrefs.GetFloat($"{pre}distanceWalked");
-        set => PlayerPrefs.SetFloat($"{pre}distanceWalked", value);
-    }
+    protected override string Prefix => "statistics";
 
-    public int TimesJumped {
-        get => PlayerPrefs.GetInt($"{pre}timesJumped");
-        set => PlayerPrefs.SetInt($"{pre}timesJumped", value);
+    public override void Init() {
+
     }
 }

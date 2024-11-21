@@ -14,15 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Wave
   waveParts:
   - enemyPrefabs:
-    - enemyPrefab: {fileID: 687787090267813157, guid: 0e343a81b99fcef488548a3267853a9f, type: 3}
+    - enemyPrefab: {fileID: 2983649851661643625, guid: 092a25468af9247448566d920992a541, type: 3}
       amount: 5
     spawnArea: 1
+    center: 0
   - enemyPrefabs:
-    - enemyPrefab: {fileID: 687787090267813157, guid: 0e343a81b99fcef488548a3267853a9f, type: 3}
+    - enemyPrefab: {fileID: 2983649851661643625, guid: 092a25468af9247448566d920992a541, type: 3}
       amount: 2
     - enemyPrefab: {fileID: 687787090267813157, guid: 8bfbd8ccc954ff74e97026755a2f4b10, type: 3}
       amount: 3
     - enemyPrefab: {fileID: 687787090267813157, guid: 8bfbd8ccc954ff74e97026755a2f4b10, type: 3}
       amount: 1
     spawnArea: 0
-  interfal: 0.1
+    center: 1
+  interval: 1
