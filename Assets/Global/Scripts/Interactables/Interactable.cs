@@ -79,16 +79,20 @@ public class Interactable : MonoBehaviour
         hudElement.SetActive(false);
         hudElement.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;
 
-
         // set right coordinates
         hudElement.transform.SetParent(transform);
-
     }
 
     public bool IsWithinInteractionRange(float rayHitDistance)  rayHitDistance <= interactDistance;
     
     public void ShowPrompt(bool show)
     {
+        if (hudElement == null)
+        {
+            Debug.Log("[Improper Configuration] No HUD element found, make sure the inherited class calls the base.Start() method [Interactable.cs]");
+            return;
+        }
+
         hudElement.SetActive(show);
         if (show)
         {
@@ -100,11 +104,12 @@ public class Interactable : MonoBehaviour
 
     private void Update()
     {
-        if (hudElement != null && playerCamera != null) RotateBillboardTowardsCamera();
+        RotateBillboardTowardsCamera();
     }
 
     private void RotateBillboardTowardsCamera()
     {
+        if (hudElement == null || playerCamera == null) return;
         Vector3 directionToCamera = playerCamera.transform.position - hudElement.transform.position;
         hudElement.transform.rotation = Quaternion.LookRotation(-directionToCamera);
     }
@@ -126,12 +131,7 @@ public class Interactable : MonoBehaviour
 
     private void SetBillboardText()
     {
-        // if no HUD element, send log message
-        if (hudElement == null)
-        {
-            Debug.Log("[Improper Configuration] No HUD element found, make sure the inherited class calls the base.Start() method [Interactable.cs]");
-            InstantiateHUD();
-        }
+        if (hudElement == null) return;
 
         hudElement.GetComponent<TextMesh>().text = isDisabled ? disabledPrompt : interactionPrompt;
 
