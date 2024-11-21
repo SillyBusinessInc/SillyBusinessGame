@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5053070146915870433}
   - component: {fileID: 1867164756694761301}
   - component: {fileID: 9108152404833000885}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9149005484153952018}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MeshCollection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8600561718990795109}
   - component: {fileID: 7889365372989369332}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   - component: {fileID: 3184244769601443692}
   - component: {fileID: 5500361788836728642}
   - component: {fileID: 3929967126557195213}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,6 +393,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arm Pivot
       objectReference: {fileID: 0}
+    - target: {fileID: 5806862606658649488, guid: f2a0ba29668106b468f5cee708b42af6, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783678459075784343, guid: f2a0ba29668106b468f5cee708b42af6, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -488,6 +496,14 @@ PrefabInstance:
     - target: {fileID: 5806862606658649488, guid: f2a0ba29668106b468f5cee708b42af6, type: 3}
       propertyPath: m_Name
       value: Arm Pivot (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5806862606658649488, guid: f2a0ba29668106b468f5cee708b42af6, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783678459075784343, guid: f2a0ba29668106b468f5cee708b42af6, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
