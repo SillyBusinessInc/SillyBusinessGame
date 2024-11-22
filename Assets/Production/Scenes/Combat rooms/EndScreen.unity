@@ -167,10 +167,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1815.7, y: 3094.5}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -190,7 +190,7 @@ Canvas:
   m_RenderMode: 1
   m_Camera: {fileID: 625303016}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -357,13 +357,19 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "You got some Calories! \n\nIn the full game, you can spend Calories to
-    purchase permanent upgrades in the Oven of Eternity to increase your odds of
-    reaching the source of the Mold.\n\nFor now, this is all. Thank you for playing
-    the first demo of Moldbreaker: Rise of the Loaf!"
+  m_text: 'You got some <b>Calories</b>!
+
+
+    In the full game, you can spend Calories
+    to purchase permanent upgrades in the <b>Oven of Eternity</b> to increase your
+    odds of reaching the source of the Mold.
+
+
+    For now, this is all. Thank you
+    for playing the first demo of <i><b>Moldbreaker: Rise of the Loaf!</i></b>'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7026fc90b230ce54cbdac6d11fc0e021, type: 2}
-  m_sharedMaterial: {fileID: 339798845425547441, guid: 7026fc90b230ce54cbdac6d11fc0e021, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 33a62fa98a0a37b4fa0dea4e240b9461, type: 2}
+  m_sharedMaterial: {fileID: -7808068810286442826, guid: 33a62fa98a0a37b4fa0dea4e240b9461, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -475,7 +481,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 25, y: -285}
+  m_AnchoredPosition: {x: 25, y: -137}
   m_SizeDelta: {x: 516.953, y: 118.67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &318791725
@@ -583,6 +589,7 @@ GameObject:
   - component: {fileID: 625303017}
   - component: {fileID: 625303016}
   - component: {fileID: 625303015}
+  - component: {fileID: 625303018}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -664,6 +671,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &625303018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625303014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &685064768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,7 +1342,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 25, y: -137}
+  m_AnchoredPosition: {x: 25, y: -282}
   m_SizeDelta: {x: 516.953, y: 118.67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2045321943
