@@ -25,7 +25,7 @@ public class Interactable : MonoBehaviour
 
     // list of scriptable objects that will be invoked when the interactable is triggered 
     [Header("Actions")]
-    [SerializeField] private UnityEvent interactionActions;
+    [SerializeField] private List<ActionParamPair> interactionActions;
     [SerializeField] private UnityAction failedInteractionActions;
     public bool IsDisabled
     {
@@ -120,7 +120,7 @@ public class Interactable : MonoBehaviour
         {
             OnInteract();
             // Invoke all actions
-            interactionActions.Invoke();
+          interactionActions.ForEach(action => action.InvokeAction());
         }
         else
         {

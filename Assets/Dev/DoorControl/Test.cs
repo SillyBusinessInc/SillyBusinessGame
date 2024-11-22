@@ -3,10 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Actions/LogAction")]
 public class LogAction : ActionScriptableObject
 {
-    [SerializeField] private string message;
-
-    public override void InvokeAction()
+    public override void InvokeAction(string param)
     {
-        Debug.Log($"Interactable msg - {message}");
+        Debug.Log($"Interactable msg - {param}");
     }
+    
 }
+
