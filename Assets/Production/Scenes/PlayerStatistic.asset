@@ -25,4 +25,4 @@ MonoBehaviour:
   DodgeCooldown:
     baseValue: 1
   DoubleJumpsCount:
-    baseValue: 2
+    baseValue: 1
