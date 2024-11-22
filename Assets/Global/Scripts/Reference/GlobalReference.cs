@@ -5,15 +5,25 @@ using UnityEngine.Events;
 public static class GlobalReference
 {
     // Non monobehavior singletons
-    // private static Statistics statistics;
-    // public static Statistics Statistics { 
-    //     get => statistics ??= new();
-    // }
+    private static Statistics statistics;
+    public static Statistics Statistics { 
+        get => statistics ??= new();
+    }
 
-    // private static Settings settings;
-    // public static Settings Settings { 
-    //     get => settings ??= new();
-    // }
+    private static Settings settings;
+    public static Settings Settings { 
+        get => settings ??= new();
+    }
+    private static DevSettings devSettings;
+    public static DevSettings DevSettings { 
+        get => devSettings ??= new();
+    }
+
+    public static void Save() {
+        statistics.SaveAll();
+        settings.SaveAll();
+        devSettings.SaveAll();
+    }
 
     // GameObject reference logic
     public static Dictionary<string, Reference> referenceList = new();
@@ -62,6 +72,7 @@ public static class GlobalReference
     {
         string name = typeof(T).Name;
         if (referenceList.ContainsKey(name) && referenceList[name] is T t) return t;
+        Debug.LogWarning($"Object '{name}' could not be found. Make sure to add this object to the scene exactly once");
         return default;
     }
 

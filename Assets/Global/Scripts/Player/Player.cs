@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
-
+using System.Collections.Generic;
 public class Player : MonoBehaviour
 {
     [Header("Settings")]
@@ -22,7 +22,6 @@ public class Player : MonoBehaviour
     public int slamDamage = 10;
     public int firstTailDamage = 10;
     public int secondTailDamage = 15;
-
     public float slamForce = 2.0f;
     public BoxCollider TransformTail;
 
@@ -67,6 +66,10 @@ public class Player : MonoBehaviour
 
     [HideInInspector]
     public Vector2 movementInput;
+
+    [HideInInspector]
+
+    public List<Collider> collidersEnemy;
     public Healthbar healthBar;
 
     [Header("Debugging")]
@@ -83,7 +86,7 @@ public class Player : MonoBehaviour
         states = new PlayerStates(this);
         SetState(states.Idle);
         // health and maxHealth should be the same value at the start of game
-
+        collidersEnemy = new List<Collider>();
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
 
         if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
