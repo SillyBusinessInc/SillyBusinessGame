@@ -822,19 +822,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2983649851661643625, guid: 092a25468af9247448566d920992a541, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4649877972386002139, guid: 092a25468af9247448566d920992a541, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -97.05109
+      value: -110.05109
       objectReference: {fileID: 0}
     - target: {fileID: 4649877972386002139, guid: 092a25468af9247448566d920992a541, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 107.2481
+      value: 115.2481
       objectReference: {fileID: 0}
     - target: {fileID: 4649877972386002139, guid: 092a25468af9247448566d920992a541, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.913574
+      value: 17.913574
       objectReference: {fileID: 0}
     - target: {fileID: 4649877972386002139, guid: 092a25468af9247448566d920992a541, type: 3}
       propertyPath: m_LocalRotation.w
@@ -864,6 +864,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5879418160867296726, guid: 092a25468af9247448566d920992a541, type: 3}
+      propertyPath: playerObject
+      value: 
+      objectReference: {fileID: 1535808511}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -883,19 +887,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2983649851661643625, guid: 092a25468af9247448566d920992a541, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4649877972386002139, guid: 092a25468af9247448566d920992a541, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -131.34372
+      value: -128.34372
       objectReference: {fileID: 0}
     - target: {fileID: 4649877972386002139, guid: 092a25468af9247448566d920992a541, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 107.2481
+      value: 119.14
       objectReference: {fileID: 0}
     - target: {fileID: 4649877972386002139, guid: 092a25468af9247448566d920992a541, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 45.693146
+      value: 24.693146
       objectReference: {fileID: 0}
     - target: {fileID: 4649877972386002139, guid: 092a25468af9247448566d920992a541, type: 3}
       propertyPath: m_LocalRotation.w
@@ -925,6 +929,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5879418160867296726, guid: 092a25468af9247448566d920992a541, type: 3}
+      propertyPath: playerObject
+      value: 
+      objectReference: {fileID: 1535808511}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -944,7 +952,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2983649851661643625, guid: 092a25468af9247448566d920992a541, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4649877972386002139, guid: 092a25468af9247448566d920992a541, type: 3}
       propertyPath: m_LocalPosition.x
@@ -986,6 +994,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5879418160867296726, guid: 092a25468af9247448566d920992a541, type: 3}
+      propertyPath: playerObject
+      value: 
+      objectReference: {fileID: 1535808511}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2492,6 +2504,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5879418160867296726, guid: 092a25468af9247448566d920992a541, type: 3}
+      propertyPath: playerObject
+      value: 
+      objectReference: {fileID: 1535808511}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3047,6 +3063,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4649877972386002139, guid: 092a25468af9247448566d920992a541, type: 3}
   m_PrefabInstance: {fileID: 1216438288}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1535808511 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 3940277038179656397, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+  m_PrefabInstance: {fileID: 1211096304}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1613869793 stripped
 GameObject:
