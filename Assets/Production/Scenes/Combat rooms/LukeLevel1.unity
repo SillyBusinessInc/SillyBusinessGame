@@ -1341,7 +1341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ac98e4f916186468307f45a275d0c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceForceUp: 10
+  bounceForceUp: 15
   bounceForceForward: 2
   topAngleThreshold: 105
 --- !u!1 &1074270095
@@ -1581,7 +1581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5426642088410102743, guid: ec2b2699e7f06f84994f1afb6eb5af5a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8879342
+      value: 1.41
       objectReference: {fileID: 0}
     - target: {fileID: 5426642088410102743, guid: ec2b2699e7f06f84994f1afb6eb5af5a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1978,7 +1978,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5426642088410102743, guid: ec2b2699e7f06f84994f1afb6eb5af5a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8879342
+      value: 1.41
       objectReference: {fileID: 0}
     - target: {fileID: 5426642088410102743, guid: ec2b2699e7f06f84994f1afb6eb5af5a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2578,7 +2578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ac98e4f916186468307f45a275d0c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceForceUp: 10
+  bounceForceUp: 15
   bounceForceForward: 2
   topAngleThreshold: 105
 --- !u!1 &1671062264
