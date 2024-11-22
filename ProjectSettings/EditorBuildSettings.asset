@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Production/Scenes/Combat rooms/KevinLevel2.unity
     guid: 7bdfc301af3848f4692d459de54ae25b
+  - enabled: 1
+    path: Assets/Production/Scenes/Combat rooms/EndScreen.unity
+    guid: d9e6c5b98102abb44a12fe0108070de5
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5ee5558464c699340918ebc2380ce47a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
