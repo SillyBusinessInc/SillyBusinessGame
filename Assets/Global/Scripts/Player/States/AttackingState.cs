@@ -122,6 +122,7 @@ public class AttackingState : StateBase
 
     public override void Exit()
     {
+        Player.collidersEnemy.Clear();
         Player.tailCanDoDamage = false;
         Player.slamCanDoDamage = false;
         Player.isSlamming = false;
