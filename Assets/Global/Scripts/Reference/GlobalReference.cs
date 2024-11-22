@@ -43,14 +43,15 @@ public static class GlobalReference
             // Debug.LogWarning("Could not unregister object because no reference was given");
             return;
         }
-
+    
         string name = ref_.GetType().Name;
         if (!referenceList.ContainsKey(name))
         {
             // Debug.LogWarning($"{name} cannot be unassigned because it has not been assigned in the first place");
             return;
         }
-
+        if (referenceList[name] != ref_) return;
+        
         referenceList.Remove(name);
     }
 
