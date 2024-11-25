@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 
-public class RoomTransitionDoor : MonoBehaviour
+public class RoomTransitionDoor : Interactable
 {
     [Header("Materials")]
     [SerializeField] private Material lockedMaterial;
@@ -16,33 +16,25 @@ public class RoomTransitionDoor : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private MeshRenderer doorMesh;
     [SerializeField] private string nextRoomName;
-    
-    private bool isLocked = true;
     private bool isTransitioning = false;
     public CrossfadeController crossfadeController;
 
-     
-    void Start()
-    {
-        toggleLock(true);
-    }
 
-    private void Awake() {
+    private void Awake()
+    {
         GlobalReference.SubscribeTo(Events.ROOM_FINISHED, RoomFinished);
     }
 
-    private void RoomFinished() {
-        toggleLock(false);
+    private void RoomFinished()
+    {
+        IsDisabled = false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public override void OnInteract()
     {
-        if (other.CompareTag("Player") && !isTransitioning && !isLocked) 
-        {
-            Debug.Log("OnTriggerEnter Happend");
-            isTransitioning = true;
-            StartCoroutine(LoadNextRoom());
-        }
+        Debug.Log("OnTriggerEnter Happend");
+        isTransitioning = true;
+        StartCoroutine(LoadNextRoom());
     }
 
     private IEnumerator LoadNextRoom()
@@ -73,49 +65,37 @@ public class RoomTransitionDoor : MonoBehaviour
     }
 
 
-    void toggleLock(bool v)
-    {
-        isLocked = v;
-        if (isLocked)
-        {
-            OnLock();
-        }
-        else
-        {
-            OnUnlock();
-        }
-    }
-
-    void OnLock()
+    public override void OnDisableInteraction()
     {
         doorMesh.SetMaterials(new List<Material> { lockedMaterial });
     }
 
-    void OnUnlock()
+    public override void OnEnableInteraction()
     {
         doorMesh.SetMaterials(new List<Material> { unlockedMaterial });
     }
 
-    void OpenDoor()
+    private void OpenDoorAnimation()
     {
-        if (isLocked) return;
+        if (IsDisabled) return;
+        animator.SetTrigger("TriggerDoorOpen");
     }
 
-    // TODO: Remove these test functions on merge
-    [ContextMenu("Open Door")]
-    void OpenDoorTest()
-    {
-        OpenDoor();
-    }
+
     [ContextMenu("Unlock Door")]
     void UnlockDoorTest()
     {
-        toggleLock(false);
+        IsDisabled = false;
     }
     [ContextMenu("Lock Door")]
     void LockDoorTest()
     {
-        toggleLock(true);
+        IsDisabled = true;
+    }
+    [ContextMenu("Open Door")]
+    void OpenDoorTest()
+    {
+        OpenDoorAnimation();
     }
 
     [ContextMenu("Invoke room finish event")]
