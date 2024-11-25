@@ -8,7 +8,6 @@ public class EnemyWaveManager : MonoBehaviour
 {
     public List<Wave> waves;
     public List<Transform> spawnAreaTransforms;
-    public GameObject spawnerObject;
     private int totalEnemies;
     private int deadEnemies;
     private int currentWave = 0;
@@ -60,7 +59,7 @@ public class EnemyWaveManager : MonoBehaviour
         deadEnemies = 0;
         totalEnemies = 0;
         
-        var spawner = spawnerObject.GetComponent<WaveSpawnArea>();
+        var spawner = gameObject.GetComponent<WaveSpawnArea>();
         totalEnemies = waves[currentWave].waveParts.Sum(wavePart => wavePart.enemyPrefabs.Sum(enemy => enemy.amount));
         nextWave = true;
 
