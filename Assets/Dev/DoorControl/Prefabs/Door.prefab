@@ -217,15 +217,13 @@ MonoBehaviour:
   disabledPrompt: Cannot interact
   promptYOffset: 1.5
   interactDistance: 5
-  isDisabled: 0
-  interactionActions:
-    m_PersistentCalls:
-      m_Calls: []
+  isDisabled: 1
+  interactionActions: []
   lockedMaterial: {fileID: 2100000, guid: 8d429115e01de0040adcdcb2bb01ed12, type: 2}
   unlockedMaterial: {fileID: 2100000, guid: c08e6cbf88284514db1e9c554bcb21e0, type: 2}
   animator: {fileID: 7719880940827678336}
   doorMesh: {fileID: 657158424722739070}
-  nextRoomName: 
+  nextRoomName: SubScene2
   crossfadeController: {fileID: 0}
   playerSpawnPoint: {fileID: 0}
 --- !u!65 &2813727325042965563
