@@ -25,7 +25,6 @@ public class WaveSpawnArea : MonoBehaviour
         {
             waveDone = false;
             GlobalReference.AttemptInvoke(Events.WAVE_DONE);
-            Debug.Log("All enemies are dead");
         }
     }
 

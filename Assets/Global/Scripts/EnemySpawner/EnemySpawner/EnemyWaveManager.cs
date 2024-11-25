@@ -109,6 +109,7 @@ public class EnemyWaveManager : MonoBehaviour
             GlobalReference.AttemptInvoke(Events.ALL_WAVES_DONE);
             nextWave = false;
             GlobalReference.AttemptInvoke(Events.NEXT_SPAWNER);
+            Destroy(gameObject);
         }
         else
         {

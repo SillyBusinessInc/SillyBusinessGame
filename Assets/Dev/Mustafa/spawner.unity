@@ -1348,9 +1348,6 @@ MonoBehaviour:
   - {fileID: 58201069}
   - {fileID: 1387553830}
   spawnerObject: {fileID: 942061637}
-  currentWave: 0
-  wavesDone: 0
-  maxWaves: 0
   immediateStart: 1
 --- !u!4 &942061639
 Transform:
@@ -1608,6 +1605,7 @@ MonoBehaviour:
   - enemyPrefab: {fileID: 687787090267813157, guid: 8bfbd8ccc954ff74e97026755a2f4b10, type: 3}
     amount: 50
   spawnArea: {fileID: 1387553830}
+  enemyLimit: 10
 --- !u!4 &1090036385
 Transform:
   m_ObjectHideFlags: 0
@@ -1879,6 +1877,7 @@ MonoBehaviour:
   - enemyPrefab: {fileID: 687787090267813157, guid: 8bfbd8ccc954ff74e97026755a2f4b10, type: 3}
     amount: 90
   spawnArea: {fileID: 58201069}
+  limit: 10
 --- !u!135 &1239514098
 SphereCollider:
   m_ObjectHideFlags: 0

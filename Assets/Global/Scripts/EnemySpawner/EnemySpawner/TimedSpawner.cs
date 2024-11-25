@@ -12,6 +12,7 @@ public class TimedSpawner : MonoBehaviour
     private readonly SingleEnemySpawnArea spawner = new();
     private float startTime;
     private readonly List<GameObject> spawnedEnemies = new();
+    [SerializeField] private int enemyLimit = 10;
 
     void Start()
     {
@@ -23,10 +24,14 @@ public class TimedSpawner : MonoBehaviour
     {
         while (Time.time < spawnDuration + startTime)
         {
-            SpawnEnemy();
+            spawnedEnemies.RemoveAll(item => item == null);
+
+            if (spawnedEnemies.Count < enemyLimit)
+            {
+                SpawnEnemy();
+            }
             yield return new WaitForSeconds(spawnInterval);
         }
-
         EndSpawning();
     }
 

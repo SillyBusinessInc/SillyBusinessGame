@@ -31,18 +31,17 @@ public abstract class EnemyBase : MonoBehaviour
     public void OnHit(int damage)
     {
         health -= damage;
-        Debug.Log(health);
         if (health <= 0)
         {
             OnDeath();
         }
     }
 
-    void OnDeath()
+    virtual public void OnDeath()
     {
+        
         GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
         Destroy(gameObject);
-        //Debug.Log($"{this.name} OnDeath() triggered", this);
     }
     void OnDestroy(){
         OnDeath();

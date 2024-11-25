@@ -34,7 +34,6 @@ public class ManualWave : MonoBehaviour
         GlobalReference.UnsubscribeTo(Events.ENEMY_SPAWNED, OnEnemySpawned);
         GlobalReference.UnsubscribeTo(Events.ENEMY_KILLED, OnEnemyKilled);
         InvokeEvent(waveDoneEvent);
-        Debug.Log("All enemies are dead");
     }
 
     private void InvokeEvent(Events eventToInvoke)
