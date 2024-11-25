@@ -17,20 +17,19 @@ public class Healthbar : MonoBehaviour
         originalWidth = HealthbarUnderlayTransform.sizeDelta.x;
         player = GlobalReference.GetReference<PlayerReference>().Player;
 
-        IntializeHealth();
+        UpdateHealthBar();
     }
 
-    void IntializeHealth() {
-        UpdateMaxHealth();
-        HealthbarOverlayTransform.sizeDelta = new Vector2(
-            originalWidth * (player.playerStatistic.MaxHealth.GetValue() / 2), 
-            HealthbarOverlayTransform.sizeDelta.y
-        );
-    }
 
     public void UpdateHealthBar()
     {
-        float currentHealth = GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.Health;
+        UpdateMaxHealth();
+        UpdateCurrentHealth();
+    }
+    
+    public void UpdateCurrentHealth()
+    {
+        float currentHealth = player.playerStatistic.Health;
         HealthbarOverlayTransform.sizeDelta = new Vector2(
             originalWidth * (currentHealth / 2), 
             HealthbarOverlayTransform.sizeDelta.y
@@ -39,8 +38,9 @@ public class Healthbar : MonoBehaviour
 
     public void UpdateMaxHealth() {
         // doing maxHealth / 2 because 1hp is a half heart
+        float maxHealth = player.playerStatistic.MaxHealth.GetValue();
         HealthbarUnderlayTransform.sizeDelta = new Vector2(
-            originalWidth * (player.playerStatistic.MaxHealth.GetValue() / 2), 
+            originalWidth * (maxHealth / 2), 
             HealthbarUnderlayTransform.sizeDelta.y
         );
     }
