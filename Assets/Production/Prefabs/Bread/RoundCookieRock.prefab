@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5118392135677857060
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: d00694b4e8ed3584d9b137478068b944, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 164.26237
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d00694b4e8ed3584d9b137478068b944, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.22000009
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d00694b4e8ed3584d9b137478068b944, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 97.45472
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d00694b4e8ed3584d9b137478068b944, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d00694b4e8ed3584d9b137478068b944, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d00694b4e8ed3584d9b137478068b944, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d00694b4e8ed3584d9b137478068b944, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d00694b4e8ed3584d9b137478068b944, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d00694b4e8ed3584d9b137478068b944, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d00694b4e8ed3584d9b137478068b944, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d00694b4e8ed3584d9b137478068b944, type: 3}
+      propertyPath: m_Name
+      value: RoundCookieRock
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -5117700066308340382, guid: d00694b4e8ed3584d9b137478068b944, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7373077501182470642}
+  m_SourcePrefab: {fileID: 100100000, guid: d00694b4e8ed3584d9b137478068b944, type: 3}
+--- !u!1 &9219546152541194310 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -5117700066308340382, guid: d00694b4e8ed3584d9b137478068b944, type: 3}
+  m_PrefabInstance: {fileID: 5118392135677857060}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &7373077501182470642
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9219546152541194310}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.013760333
+  m_Center: {x: -0.0002879095, y: -0.0010460317, z: 0.013656149}
