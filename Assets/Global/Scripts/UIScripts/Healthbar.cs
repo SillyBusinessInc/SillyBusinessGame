@@ -17,6 +17,10 @@ public class Healthbar : MonoBehaviour
         originalWidth = HealthbarUnderlayTransform.sizeDelta.x;
         player = GlobalReference.GetReference<PlayerReference>().Player;
 
+        IntializeHealth();
+    }
+
+    void IntializeHealth() {
         UpdateMaxHealth();
         HealthbarOverlayTransform.sizeDelta = new Vector2(
             originalWidth * (player.playerStatistic.MaxHealth.GetValue() / 2), 
