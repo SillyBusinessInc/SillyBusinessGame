@@ -5,9 +5,7 @@ public class ManualWave : MonoBehaviour
 {
     private int enemyCount = 0;
     // Changeable event in the Inspector
-    [SerializeField]
-    private Events waveDoneEvent = Events.WAVE_DONE;
-
+    [SerializeField] private Events waveDoneEvent = Events.NEXT_SPAWNER;
     
     void Awake()
     {
@@ -34,6 +32,7 @@ public class ManualWave : MonoBehaviour
         GlobalReference.UnsubscribeTo(Events.ENEMY_SPAWNED, OnEnemySpawned);
         GlobalReference.UnsubscribeTo(Events.ENEMY_KILLED, OnEnemyKilled);
         InvokeEvent(waveDoneEvent);
+        Destroy(gameObject);
     }
 
     private void InvokeEvent(Events eventToInvoke)

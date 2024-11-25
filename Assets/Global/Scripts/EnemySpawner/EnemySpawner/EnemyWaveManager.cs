@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
-using Random = UnityEngine.Random;
 
 public class EnemyWaveManager : MonoBehaviour
 {
@@ -38,7 +37,7 @@ public class EnemyWaveManager : MonoBehaviour
         GlobalReference.AttemptInvoke(Events.WAVE_START);
     }
 
-    private void Awake()
+    private void OnEnable()
     {
         maxWaves = waves.Count;
         GlobalReference.SubscribeTo(Events.WAVE_START, () => StartCoroutine(StartWave()));
