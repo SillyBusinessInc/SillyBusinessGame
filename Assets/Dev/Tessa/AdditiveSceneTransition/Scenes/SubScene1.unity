@@ -287,6 +287,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1164370792912209937, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
+      propertyPath: isDisabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1164370792912209937, guid: 63cf90ec088fff0499c4034f1c5006ef, type: 3}
       propertyPath: nextRoomName
       value: SubScene2
       objectReference: {fileID: 0}

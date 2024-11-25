@@ -51,8 +51,8 @@ public abstract class SaveSystem
 
     // debug
     public void ListAll<T>() {
-        foreach (var save in saveables) {
-            Debug.Log((save.Value as Saveable<T>).Value);
+        foreach (KeyValuePair<string, ISaveable> saveable in saveables) {
+            Debug.Log((saveable.Value as Saveable<T>).Value);
         }
     }
 }
