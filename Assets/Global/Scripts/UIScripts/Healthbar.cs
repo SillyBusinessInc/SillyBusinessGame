@@ -4,19 +4,44 @@ using UnityEngine.UI;
 
 public class Healthbar : MonoBehaviour
 {
-    private Image healthbarOverlay;
-    private Image healthbarUnderlay;
+    private RectTransform HealthbarUnderlayTransform;
+    private RectTransform HealthbarOverlayTransform;
+    private float originalWidth;
+    private Player player;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
-        healthbarOverlay = transform.GetChild(1).GetComponent<Image>();
-        healthbarUnderlay = transform.GetChild(0).GetComponent<Image>();
+        HealthbarUnderlayTransform = transform.GetChild(0) as RectTransform;
+        HealthbarOverlayTransform = transform.GetChild(1) as RectTransform;
+
+        originalWidth = HealthbarUnderlayTransform.sizeDelta.x;
+        player = GlobalReference.GetReference<PlayerReference>().Player;
+
+        UpdateHealthBar();
     }
 
-    public void UpdateHealthBar(float min, float max, float current)
+
+    public void UpdateHealthBar()
     {
-        float fillAmount = math.lerp(min, max, current / max);
-        healthbarOverlay.fillAmount = fillAmount / 100;
-        healthbarUnderlay.fillAmount = max / 100;
+        UpdateMaxHealth();
+        UpdateCurrentHealth();
+    }
+    
+    public void UpdateCurrentHealth()
+    {
+        float currentHealth = player.playerStatistic.Health;
+        HealthbarOverlayTransform.sizeDelta = new Vector2(
+            originalWidth * (currentHealth / 2), 
+            HealthbarOverlayTransform.sizeDelta.y
+        );
+    }
+
+    public void UpdateMaxHealth() {
+        // doing maxHealth / 2 because 1hp is a half heart
+        float maxHealth = player.playerStatistic.MaxHealth.GetValue();
+        HealthbarUnderlayTransform.sizeDelta = new Vector2(
+            originalWidth * (maxHealth / 2), 
+            HealthbarUnderlayTransform.sizeDelta.y
+        );
     }
 }
