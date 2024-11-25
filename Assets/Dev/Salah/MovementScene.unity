@@ -549,6 +549,11 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &701475280 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5867138334220634699, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+  m_PrefabInstance: {fileID: 1010089814}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1010089814
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -561,6 +566,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1367837106214492311, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14.795774
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367837106214492311, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 102.9064
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367837106214492311, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 17.139332
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433743845863343982, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: combo.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433743845863343982, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'combo.Array.data[0]'
+      value: 
+      objectReference: {fileID: 7929348380001065860, guid: 9f9b42fb158b34e4095b63429a7bb54a, type: 3}
+    - target: {fileID: 2433743845863343982, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'combo.Array.data[1]'
+      value: 
+      objectReference: {fileID: 7929348380001065860, guid: eaa3261ae8fa71244a28b108bde486ea, type: 3}
+    - target: {fileID: 2433743845863343982, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'combo.Array.data[2]'
+      value: 
+      objectReference: {fileID: 7929348380001065860, guid: eaa3261ae8fa71244a28b108bde486ea, type: 3}
+    - target: {fileID: 2433743845863343982, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'combo.Array.data[3]'
+      value: 
+      objectReference: {fileID: 7929348380001065860, guid: eaa3261ae8fa71244a28b108bde486ea, type: 3}
     - target: {fileID: 4811859323897289456, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 428.04
@@ -601,8 +638,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: Tail
+      value: 
+      objectReference: {fileID: 701475280}
+    - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: currentCombo
+      value: 
+      objectReference: {fileID: 3417949815410660653, guid: c6e4c6b226128ba49a8006b39d82211c, type: 3}
+    - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: tailTurnDuration
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: combos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'combos.Array.data[0]'
+      value: 
+      objectReference: {fileID: 3417949815410660653, guid: c6e4c6b226128ba49a8006b39d82211c, type: 3}
+    - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'combos.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1215218998156744577, guid: cdd86dbd8b9b67043882025520d3fd62, type: 3}
+    - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: playerStatistic.Speed.baseValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: playerStatistic.JumpForce.baseValue
+      value: 16
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4165611511525211442, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}

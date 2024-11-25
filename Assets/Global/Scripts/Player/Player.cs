@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
@@ -17,13 +18,14 @@ public class Player : MonoBehaviour
 
     [Header("Attack")]
     public float attackResettingTime = 2f;
-    public float TailTurnSpeed = 40f;
+    public float tailTurnDuration = 0.1f;
     public int slamDamage = 10;
     public int firstTailDamage = 10;
     public int secondTailDamage = 15;
 
     public float slamForce = 2.0f;
-    public BoxCollider TransformTail;
+
+    public GameObject Tail;
 
     [Header("References")]
     [FormerlySerializedAs("playerRb")]
@@ -34,7 +36,7 @@ public class Player : MonoBehaviour
     public bool slamCanDoDamage = false;
 
     [HideInInspector]
-    public int attackCounter;
+    public int attackIndex;
 
     [HideInInspector]
     public int tailDoDamage;
@@ -90,6 +92,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(attackIndex);
         RaycastDown();
         currentState.Update();
         RotatePlayerObj();
@@ -99,7 +102,7 @@ public class Player : MonoBehaviour
                 : 0.0f;
         if (activeAttackCooldown >= this.attackResettingTime)
         {
-            attackCounter = 0;
+            attackIndex = 0;
             activeAttackCooldown = 0.0f;
         }
         if (isGrounded)
@@ -112,11 +115,6 @@ public class Player : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (isSlamming)
-        {
-            isSlamming = false;
-            SetState(states.Idle);
-        }
         currentState.OnCollision(collision);
     }
 

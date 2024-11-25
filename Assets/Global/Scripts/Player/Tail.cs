@@ -1,9 +1,13 @@
 using System;
 using UnityEngine;
-
+using System.Collections.Generic;
+using NUnit.Framework;
 public class Tail : MonoBehaviour
 {
     public Player player;
+
+    public List<GameObject> combo = new(); 
+
 
     public void OnTriggerEnter(Collider Collider)
     {
