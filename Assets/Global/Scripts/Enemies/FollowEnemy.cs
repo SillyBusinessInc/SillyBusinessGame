@@ -30,7 +30,7 @@ public class FollowEnemy : EnemyBase
 
 
     [Header("Attacking behavior")]
-    public float attackDamage = 25f;
+    public float attackDamage = 1f; // hp damage
     public float attackRange = 5f;
     public float attackCooldown = 2f;
     public bool canAttack = true;
