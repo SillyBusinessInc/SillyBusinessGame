@@ -1128,7 +1128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ac98e4f916186468307f45a275d0c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceForceUp: 10
+  bounceForceUp: 15
   bounceForceForward: 2
   topAngleThreshold: 105
 --- !u!1 &1074270095
@@ -2149,31 +2149,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.542984
+      value: 11.683711
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 100.33353
+      value: 100.30824
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 14.93255
+      value: 14.388346
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.44066617
+      value: -0.7777772
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.13746324
+      value: -0.20445824
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.83897763
+      value: 0.562965
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.28815585
+      value: -0.19060431
       objectReference: {fileID: 0}
     - target: {fileID: 4811859323897289456, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2216,20 +2216,32 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5260001915288532325, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17.55679
+      objectReference: {fileID: 0}
+    - target: {fileID: 5260001915288532325, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 102.255486
+      objectReference: {fileID: 0}
+    - target: {fileID: 5260001915288532325, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 12.445609
+      objectReference: {fileID: 0}
+    - target: {fileID: 5260001915288532325, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.44066617
+      value: -0.7777772
       objectReference: {fileID: 0}
     - target: {fileID: 5260001915288532325, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.13746324
+      value: -0.20445824
       objectReference: {fileID: 0}
     - target: {fileID: 5260001915288532325, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.83897763
+      value: 0.562965
       objectReference: {fileID: 0}
     - target: {fileID: 5260001915288532325, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.28815585
+      value: -0.19060431
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2361,7 +2373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ac98e4f916186468307f45a275d0c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceForceUp: 10
+  bounceForceUp: 15
   bounceForceForward: 2
   topAngleThreshold: 105
 --- !u!1 &1671062264
