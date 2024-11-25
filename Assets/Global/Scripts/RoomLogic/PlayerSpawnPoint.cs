@@ -3,8 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerSpawnPoint : MonoBehaviour
 {
-    private Player player;
-
     public void Awake() {
         SpawnPoint();
     }
@@ -20,7 +18,7 @@ public class PlayerSpawnPoint : MonoBehaviour
                     if (child.CompareTag("Player"))
                     {
                         child.transform.position = this.transform.position;
-                        Debug.Log("child.name : " + child.name);
+                        // Debug.Log("child.name : " + child.name);
                         Debug.Log("spawnPoint position = " + this.transform.position);
                         Debug.Log("child position = " + child.transform.position);
                         break;
