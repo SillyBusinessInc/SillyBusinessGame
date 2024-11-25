@@ -1,17 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Settings
+public class Settings : SaveSystem
 {
-    private readonly string pre = "settings_";
-    
-    public float MasterVolume {
-        get => PlayerPrefs.GetFloat($"{pre}masterVolume");
-        set => PlayerPrefs.SetFloat($"{pre}masterVolume", Mathf.Clamp(value, 0f, 100f));
-    }
+    protected override string Prefix => "settings";
 
-    public bool FullScreen {
-        get => PlayerPrefs.GetInt($"{pre}fullscreen") == 1;
-        set => PlayerPrefs.SetInt($"{pre}fullscreen", value ? 1 : 0);
+    public override void Init() {
+        // volume settings
+        Add("master_volume", 100);
+        Add("music_volume", 100);
+        Add("sfx_volume", 100);
+
+        // screen settings
+        Add("fullscreen", true);
+
+        // keybinds
     }
 }

@@ -91,6 +91,7 @@ MonoBehaviour:
   verticalInput: 0
   tailCanDoDamage: 0
   movementInput: {x: 0, y: 0}
+  collidersEnemy: []
   healthBar: {fileID: 0}
   currentStateName: none
   isGrounded: 0
@@ -943,8 +944,8 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8857500744521078035, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
-      propertyPath: HorizontalAxis.Value
-      value: -52.131874
+      propertyPath: HorizontalAxis.Recentering.Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
