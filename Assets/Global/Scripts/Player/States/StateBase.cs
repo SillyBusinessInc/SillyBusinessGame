@@ -12,7 +12,7 @@ public abstract class StateBase
 
     public virtual void Enter()
     {
-
+        
     }
 
     public virtual void Update()

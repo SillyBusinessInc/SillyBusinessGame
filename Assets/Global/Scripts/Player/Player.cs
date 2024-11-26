@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
         collidersEnemy = new List<Collider>();
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
 
-        if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        healthBar?.UpdateHealthBar();
     }
 
     void Update()
@@ -187,7 +187,7 @@ public class Player : MonoBehaviour
     {
         playerStatistic.Health -= damage;
 
-        if (healthBar != null) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        healthBar?.UpdateCurrentHealth();
 
         if (playerStatistic.Health <= 0) OnDeath();
     }
@@ -195,19 +195,19 @@ public class Player : MonoBehaviour
     public void Heal(float reward)
     {
         playerStatistic.Health += reward;
-        healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        healthBar.UpdateCurrentHealth();
     }
 
     public void MultiplyMaxHealth(float reward)
     {
         playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
-        healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        healthBar.UpdateMaxHealth();
     }
 
     public void IncreaseMaxHealth(float reward)
     {
         playerStatistic.MaxHealth.AddModifier("reward", reward);
-        healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        healthBar.UpdateMaxHealth();
     }
 
 
