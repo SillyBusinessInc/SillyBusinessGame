@@ -20,8 +20,8 @@ public class Player : MonoBehaviour
     public float attackResettingTime = 2f;
     public float tailTurnDuration = 0.1f;
     public int slamDamage = 10;
-    public int firstTailDamage = 10;
-    public int secondTailDamage = 15;
+    public int leftTailDamage = 10;
+    public int rightTailDamage = 15;
 
     public float slamForce = 2.0f;
 
@@ -92,7 +92,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(attackIndex);
         RaycastDown();
         currentState.Update();
         RotatePlayerObj();

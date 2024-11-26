@@ -6,8 +6,10 @@ public class Tail : MonoBehaviour
 {
     public Player player;
 
-    public List<GameObject> combo = new(); 
-
+    public List<GameObject> groundCombo = new();
+    public List<GameObject> airCombo = new(); 
+    [HideInInspector]
+    public List<GameObject> currentCombo = new();
 
     public void OnTriggerEnter(Collider Collider)
     {

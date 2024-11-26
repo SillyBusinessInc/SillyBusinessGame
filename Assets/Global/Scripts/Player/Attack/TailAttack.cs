@@ -1,37 +1,28 @@
+using System;
 using System.Collections;
-using Unity.VisualScripting;
+using NUnit.Framework;
 using UnityEngine;
 
 public class TailAttack : Attack
 {
-    protected Transform tailTransform;
-    protected Rigidbody playerRb;
+    public Player player;
 
-    protected Player player;
-
-    protected void Enter()
+    public void Awake()
     {
         player = GlobalReference.GetReference<PlayerReference>().GetComponent<Player>();
-        playerRb = GlobalReference
-            .GetReference<PlayerReference>()
-            .PlayerObj.GetComponent<Rigidbody>();
-        tailTransform = GlobalReference
-            .GetReference<PlayerReference>()
-            .GetComponent<Player>()
-            .Tail.transform;
-        player.tailCanDoDamage = true;
     }
 
-    public void Turn(float degrees)
+    public IEnumerator canDoDamageCoroutine(float time)
     {
-        tailTransform.RotateAround(playerRb.position, Vector3.up, degrees);
-    }
-    public void Exit()
-    {
-        player.SetState(
-            player.movementInput.magnitude > 0 ? player.states.Walking : player.states.Idle
-        );
-        player.tailCanDoDamage = false;
+        // move this up after testing
+        player.SetState(player.states.Idle);
+        yield return new WaitForSeconds(time);
         Destroy(gameObject);
+        //player.SetState(player.states.Idle);
+    }
+
+    public void canDoDamage(float time)
+    {
+        StartCoroutine(canDoDamageCoroutine(time));
     }
 }
