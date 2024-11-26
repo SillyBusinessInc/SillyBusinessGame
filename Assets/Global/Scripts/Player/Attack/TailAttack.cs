@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class TailAttack : Attack
 {
+    [HideInInspector]
     public Player player;
 
     public void Awake()
