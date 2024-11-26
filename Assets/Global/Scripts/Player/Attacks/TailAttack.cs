@@ -15,11 +15,9 @@ public class TailAttack : Attack
 
     public IEnumerator canDoDamageCoroutine(float time)
     {
-        // move this up after testing
-        player.SetState(player.states.Idle);
         yield return new WaitForSeconds(time);
+        player.SetState(player.states.Idle);
         Destroy(gameObject);
-        //player.SetState(player.states.Idle);
     }
 
     public void canDoDamage(float time)
