@@ -11,7 +11,7 @@ public class Tail : MonoBehaviour
     [HideInInspector]
     public List<GameObject> currentCombo = new();
     public Animator animatorLeftAttack;
-
+    public Animator animatorRightAttack;
 
     public void OnTriggerEnter(Collider Collider)
     {
