@@ -16,6 +16,6 @@ public class LeftTailAttack : TailAttack
             .Tail.GetComponent<Tail>()
             .animator;
         animatorTailAttack.SetTrigger("LeftAttack");
-        canDoDamage(0.5f);
+        canDoDamage(1.0f);
     }
 }
