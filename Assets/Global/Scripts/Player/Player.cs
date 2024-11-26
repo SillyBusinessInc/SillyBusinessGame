@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
     public int leftTailDamage = 10;
     public int rightTailDamage = 15;
 
+    public int flipDamage = 20;
+
     public float slamForce = 2.0f;
 
     public GameObject Tail;
