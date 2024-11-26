@@ -5,8 +5,7 @@ using System.Linq;
 using System;
 
 [Serializable]
-public class Statistic 
-// : SaveSystem
+public class Statistic
 {
     [SerializeField]
     private float baseValue;  // Starting value, read-only
@@ -18,11 +17,6 @@ public class Statistic
 
     // Event to notify listeners about changes
     public event Action OnChange;
-
-    // protected override string Prefix => "statistics";
-
-    // public override void Init() {
-    // }
 
     public Statistic(float bv) {
         baseValue = bv;
