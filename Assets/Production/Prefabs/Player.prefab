@@ -76,6 +76,7 @@ MonoBehaviour:
   slamDamage: 30
   leftTailDamage: 10
   rightTailDamage: 15
+  flipDamage: 20
   slamForce: 2
   Tail: {fileID: 5867138334220634699}
   rb: {fileID: 8218035431276073872}
@@ -700,12 +701,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 9169223613212550927}
   groundCombo:
-  - {fileID: 7929348380001065860, guid: 9f9b42fb158b34e4095b63429a7bb54a, type: 3}
-  - {fileID: 7929348380001065860, guid: eaa3261ae8fa71244a28b108bde486ea, type: 3}
+  - {fileID: 7929348380001065860, guid: a23bda3932e835a498b4c631a12a52c4, type: 3}
   airCombo:
   - {fileID: 7929348380001065860, guid: eaa3261ae8fa71244a28b108bde486ea, type: 3}
-  - {fileID: 7929348380001065860, guid: 9f9b42fb158b34e4095b63429a7bb54a, type: 3}
   currentCombo: []
+  animatorTailAttack: {fileID: 6655933081070539201}
 --- !u!95 &5287728138756257481
 Animator:
   serializedVersion: 7
@@ -737,6 +737,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 291553938830926261}
+  - component: {fileID: 6655933081070539201}
   m_Layer: 7
   m_Name: TailHolder
   m_TagString: Untagged
@@ -760,6 +761,28 @@ Transform:
   - {fileID: 9160867564895113205}
   m_Father: {fileID: 4764116892959088292}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &6655933081070539201
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6770734137585760780}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0f385079ff646b04084f603f2aa262bd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8412525925314618546
 GameObject:
   m_ObjectHideFlags: 0
