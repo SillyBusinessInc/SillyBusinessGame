@@ -10,6 +10,8 @@ public class Tail : MonoBehaviour
     public List<GameObject> airCombo = new(); 
     [HideInInspector]
     public List<GameObject> currentCombo = new();
+    public Animator animatorLeftAttack;
+
 
     public void OnTriggerEnter(Collider Collider)
     {
