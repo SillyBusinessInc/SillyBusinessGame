@@ -3,19 +3,19 @@ using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
 
-public class FlipAttack : TailAttack
+public class LeftTailAttack : TailAttack
 {
     public void Start()
     {
-        //Debug.Log("In rightTail attack class");
-        player.tailDoDamage = player.flipDamage;
+        //Debug.Log("In lefttail attack class");
+        player.tailDoDamage = player.leftTailDamage;
         player.tailCanDoDamage = true;
         Animator animatorTailAttack = GlobalReference
             .GetReference<PlayerReference>()
             .GetComponent<Player>()
             .Tail.GetComponent<Tail>()
-            .animatorTailAttack;
-        animatorTailAttack.SetTrigger("FlipAttack");
+            .animator;
+        animatorTailAttack.SetTrigger("LeftAttack");
         canDoDamage(0.5f);
     }
 }

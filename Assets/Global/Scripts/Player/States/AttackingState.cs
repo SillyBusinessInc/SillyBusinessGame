@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using System.Linq;
 public class AttackingState : StateBase
 {
     public AttackingState(Player player)
@@ -10,46 +10,47 @@ public class AttackingState : StateBase
     public void IncreaseIndex()
     {
         Player.attackIndex =
-            Player.attackIndex >= Player.Tail.GetComponent<Tail>().currentCombo.Count - 1
+            Player.attackIndex >= Player.Tail.GetComponent<Tail>().currentTail.currentCombo.Count - 1
                 ? 0
                 : ++Player.attackIndex;
     }
 
     public override void Enter()
     {
-        if(Player.Tail.GetComponent<Tail>().currentCombo != Player.Tail.GetComponent<Tail>().groundCombo && Player.Tail.GetComponent<Tail>().currentCombo != Player.Tail.GetComponent<Tail>().groundCombo)
+        var tail = Player.Tail.GetComponent<Tail>().currentTail;
+        if(tail.currentCombo.Count == 0) 
         {
             if(Player.isGrounded)
             {
-                Player.Tail.GetComponent<Tail>().currentCombo = Player.Tail.GetComponent<Tail>().groundCombo;
+                tail.currentCombo = tail.groundCombo;
             }
             else
             {
-                Player.Tail.GetComponent<Tail>().currentCombo = Player.Tail.GetComponent<Tail>().airCombo;
+                tail.currentCombo = tail.airCombo;
             }
         }
-        if(Player.isGrounded)
+        else if(Player.isGrounded)
         {
-            if(Player.Tail.GetComponent<Tail>().currentCombo == Player.Tail.GetComponent<Tail>().airCombo)
+            if(tail.currentCombo == tail.airCombo)
             {
                 Player.attackIndex = 0;
             }
-            Player.Tail.GetComponent<Tail>().currentCombo = Player.Tail.GetComponent<Tail>().groundCombo;
+            tail.currentCombo = tail.groundCombo;
         }
         else
         {
-            if(Player.Tail.GetComponent<Tail>().currentCombo == Player.Tail.GetComponent<Tail>().groundCombo)
+            if(tail.currentCombo == tail.groundCombo)
             {
                 Player.attackIndex = 0;
             }
-            Player.Tail.GetComponent<Tail>().currentCombo = Player.Tail.GetComponent<Tail>().airCombo;
+            tail.currentCombo = tail.airCombo;
         }
-        if(Player.Tail.GetComponent<Tail>().currentCombo.Count == 0)
+        if(tail.currentCombo.Count == 0)
         {
             Player.SetState(Player.states.Idle);
             return;
         }
-        Object.Instantiate(Player.Tail.GetComponent<Tail>().currentCombo[Player.attackIndex]);
+        Object.Instantiate(tail.currentCombo[Player.attackIndex]);
         IncreaseIndex();
     }
 

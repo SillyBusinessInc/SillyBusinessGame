@@ -590,7 +590,6 @@ GameObject:
   - component: {fileID: 7914000636823765198}
   - component: {fileID: 7578467244722651917}
   - component: {fileID: 2433743845863343982}
-  - component: {fileID: 5287728138756257481}
   m_Layer: 2
   m_Name: CustomTail
   m_TagString: Player
@@ -700,34 +699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 9169223613212550927}
-  groundCombo:
-  - {fileID: 7929348380001065860, guid: a23bda3932e835a498b4c631a12a52c4, type: 3}
-  airCombo:
-  - {fileID: 7929348380001065860, guid: eaa3261ae8fa71244a28b108bde486ea, type: 3}
-  currentCombo: []
-  animatorTailAttack: {fileID: 6655933081070539201}
---- !u!95 &5287728138756257481
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5867138334220634699}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a7484f96fdc997e429b668a293c18051, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  currentTail: {fileID: 0}
 --- !u!1 &6770734137585760780
 GameObject:
   m_ObjectHideFlags: 0
