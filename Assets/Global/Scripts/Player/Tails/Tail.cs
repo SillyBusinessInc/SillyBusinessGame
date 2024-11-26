@@ -10,6 +10,12 @@ public class Tail : MonoBehaviour
 
     public Animator animator;
 
+    public void ChangeTail(BaseTail newtail, Animator animator)
+    {
+        currentTail = newtail;
+        this.animator = animator;
+    }
+
     public void OnTriggerEnter(Collider Collider)
     {
         if (Collider.gameObject.CompareTag("Enemy"))
