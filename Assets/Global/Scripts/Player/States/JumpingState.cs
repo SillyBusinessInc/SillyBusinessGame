@@ -2,11 +2,9 @@ using UnityEngine;
 
 public class JumpingState : StateBase
 {
-    public JumpingState(Player player) : base(player)
-    {
-    }
+    public JumpingState(Player player) : base(player) {}
 
-    public override void Update()
+    public override void Enter()
     {
         Player.rb.linearVelocity = new Vector3(Player.rb.linearVelocity.x, 0, Player.rb.linearVelocity.z);
         Player.rb.AddForce(Vector3.up * Player.playerStatistic.JumpForce.GetValue(), ForceMode.Impulse);

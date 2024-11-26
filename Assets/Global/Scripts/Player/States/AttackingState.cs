@@ -16,8 +16,7 @@ public class AttackingState : StateBase
 
     private bool turnLeft;
 
-    public AttackingState(Player player)
-        : base(player) { }
+    public AttackingState(Player player) : base(player) {}
 
     public override void FixedUpdate()
     {

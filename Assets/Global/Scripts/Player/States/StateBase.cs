@@ -3,37 +3,19 @@ using UnityEngine.InputSystem;
 
 public abstract class StateBase
 {
-    protected readonly Player Player;
+    protected Player Player { get; private set; }
 
     protected StateBase(Player player)
     {
-        this.Player = player;
+        Player = player;
     }
 
-    public virtual void Enter()
-    {
-        
-    }
-
-    public virtual void Update()
-    {
-
-    }
-
-    public virtual void FixedUpdate()
-    {
-
-    }
-
-    public virtual void Exit()
-    {
-
-    }
-
-    public virtual void OnCollision(Collision collision)
-    {
-
-    }
+    public virtual void Enter() {}
+    public virtual void Exit() {}
+    public virtual void Update() {}
+    public virtual void FixedUpdate() {}
+    public virtual void OnCollisionEnter(Collision collision) {}
+    public virtual void OnCollisionExit(Collision collision) {}
 
     // Input handling
     public virtual void Move(InputAction.CallbackContext ctx)

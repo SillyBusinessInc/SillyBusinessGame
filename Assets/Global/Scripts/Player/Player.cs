@@ -2,10 +2,11 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
+// using System.Numerics;
 public class Player : MonoBehaviour
 {
     [Header("Settings")]
-    public float airBornMovementFactor = 0.5f;
+    public float airBorneMovementFactor = 0.5f;
     public float glideDrag = 2f;
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
@@ -28,57 +29,29 @@ public class Player : MonoBehaviour
     [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
     public Transform orientation;
-
-    [HideInInspector]
-    public bool slamCanDoDamage = false;
-
-    [HideInInspector]
-    public int attackCounter;
-
-    [HideInInspector]
-    public int tailDoDamage;
-
-    [HideInInspector]
-    public bool isSlamming;
-
-    [HideInInspector]
-    public float activeAttackCooldown;
-
-    [HideInInspector]
-    public bool canDodgeRoll = true;
-
-    [HideInInspector]
-    public int currentJumps = 0;
-
-    [HideInInspector]
-    public float horizontalInput;
-
-    [HideInInspector]
-    public float verticalInput;
-
-    [HideInInspector]
-    public bool tailCanDoDamage = false;
-
-    [HideInInspector]
-    public PlayerStates states;
-    public StateBase currentState;
-
-    [HideInInspector]
-    public Vector2 movementInput;
-
-    [HideInInspector]
-
-    public List<Collider> collidersEnemy;
     public Healthbar healthBar;
 
-    [Header("Debugging")]
-    [SerializeField]
-    private string currentStateName = "none";
-    public bool isGrounded;
+    [HideInInspector] public bool slamCanDoDamage = false;
+    [HideInInspector] public int attackCounter;
+    [HideInInspector] public int tailDoDamage;
+    [HideInInspector] public bool isSlamming;
+    [HideInInspector] public float activeAttackCooldown;
+    [HideInInspector] public bool canDodgeRoll = true;
+    [HideInInspector] public int currentJumps = 0;
+    [HideInInspector] public float horizontalInput;
+    [HideInInspector] public float verticalInput;
+    [HideInInspector] public bool tailCanDoDamage = false;
+    [HideInInspector] public PlayerStates states;
+    [HideInInspector] public StateBase currentState;
+    [HideInInspector] public Vector2 movementInput;
+    [HideInInspector] public List<Collider> collidersEnemy;
+    [HideInInspector] public float groundCheckDistance;
+    [HideInInspector] public Vector3 targetVelocity;
 
+    [Header("Debugging")]
+    [SerializeField] public bool isGrounded;
+    [SerializeField] private string currentStateName = "none";
     // private PlayerInputActions inputActions;
-    [HideInInspector]
-    public float groundCheckDistance;
 
     void Start()
     {
@@ -88,30 +61,31 @@ public class Player : MonoBehaviour
         collidersEnemy = new List<Collider>();
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
 
-        healthBar?.UpdateHealthBar();
+        if (healthBar != null) healthBar.UpdateHealthBar();
     }
 
     void Update()
     {
-        RaycastDown();
+        GroundCheck();
         currentState.Update();
         RotatePlayerObj();
-        activeAttackCooldown =
-            currentState.GetType().Name != "AttackingState"
-                ? activeAttackCooldown + Time.deltaTime
-                : 0.0f;
-        if (activeAttackCooldown >= this.attackResettingTime)
+
+        activeAttackCooldown = currentState != states.Attacking ? activeAttackCooldown + Time.deltaTime : 0.0f;
+
+        if (activeAttackCooldown >= attackResettingTime)
         {
             attackCounter = 0;
             activeAttackCooldown = 0.0f;
         }
-        if (isGrounded)
-        {
-            canDodgeRoll = true;
-        }
+
+        if (isGrounded) canDodgeRoll = true;
+        Debug.DrawLine(rb.position, rb.position + targetVelocity, Color.yellow, 1, true);
     }
 
-    void FixedUpdate() => currentState.FixedUpdate();
+    void FixedUpdate() {
+        currentState.FixedUpdate();
+        ApproachTargetVelocity();
+    }
 
     public void OnCollisionEnter(Collision collision)
     {
@@ -120,27 +94,29 @@ public class Player : MonoBehaviour
             isSlamming = false;
             SetState(states.Idle);
         }
-        currentState.OnCollision(collision);
+        currentState.OnCollisionEnter(collision);
     }
 
-    public void OnCollisionExit(Collision collision) { }
+    public void OnCollisionExit(Collision collision) {
+        currentState.OnCollisionExit(collision);
+    }
 
-    private void RaycastDown()
+    private void GroundCheck()
     {
         groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
         Vector3[] raycastOffsets = new Vector3[]
         {
             Vector3.zero, 
-            new Vector3(0, 0, rb.GetComponent<Collider>().bounds.extents.z), 
-            new Vector3(0, 0, -rb.GetComponent<Collider>().bounds.extents.z),
-            new Vector3(rb.GetComponent<Collider>().bounds.extents.x, 0, 0), 
-            new Vector3(-rb.GetComponent<Collider>().bounds.extents.x,0,0) ,
+            new (0, 0, rb.GetComponent<Collider>().bounds.extents.z), 
+            new (0, 0, -rb.GetComponent<Collider>().bounds.extents.z),
+            new (rb.GetComponent<Collider>().bounds.extents.x, 0, 0), 
+            new (-rb.GetComponent<Collider>().bounds.extents.x,0,0) ,
         };
 
         foreach (Vector3 offset in raycastOffsets)
         {
             Vector3 raycastPosition = rb.position + offset;
-            if (Physics.Raycast(raycastPosition,Vector3.down,out RaycastHit hit,groundCheckDistance))
+            if (Physics.Raycast(raycastPosition, Vector3.down, out RaycastHit hit, groundCheckDistance))
             {
                 if (!hit.collider.gameObject.CompareTag("Player"))
                 {
@@ -161,14 +137,14 @@ public class Player : MonoBehaviour
         currentState?.Exit();
         currentState = newState;
         currentState.Enter();
-        currentStateName = newState.GetType().Name;
+
+        // storing current name for debugging
+        currentStateName = currentState.GetType().Name;
     }
 
     public Vector3 GetDirection()
     {
-        Vector3 moveDirection =
-            orientation.forward * movementInput.y + orientation.right * movementInput.x;
-
+        Vector3 moveDirection = orientation.forward * movementInput.y + orientation.right * movementInput.x;
         return moveDirection.normalized;
     }
 
@@ -177,17 +153,21 @@ public class Player : MonoBehaviour
         if (rb.linearVelocity.magnitude > 0.1f)
         {
             var direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
-            if (direction != Vector3.zero)
-                rb.MoveRotation(Quaternion.LookRotation(direction));
+            if (direction != Vector3.zero) rb.MoveRotation(Quaternion.LookRotation(direction));
         }
     }
 
+    private void ApproachTargetVelocity() {
+        rb.AddForce(targetVelocity, ForceMode.Force);
+    }
+
+    // TO BE CHANGED ===============================================================================================================================
     // If we go the event route this should change right?
     public void OnHit(float damage)
     {
         playerStatistic.Health -= damage;
 
-        healthBar?.UpdateCurrentHealth();
+        if (healthBar != null) healthBar.UpdateCurrentHealth();
 
         if (playerStatistic.Health <= 0) OnDeath();
     }
