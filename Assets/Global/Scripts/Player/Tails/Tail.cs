@@ -4,22 +4,9 @@ using UnityEngine;
 public class Tail : MonoBehaviour
 {
     public Player player;
-
     public BaseTail currentTail;
-
     public Animator animator;
-
-    public float tailTurnDuration = 0.1f;
-    public int leftTailDamage = 10;
-    public int rightTailDamage = 15;
-
-    public int flipDamage = 20;
-
-    public float slamForce = 2.0f;
-
-    [HideInInspector]
-    public bool slamCanDoDamage = false;
-
+    
     [HideInInspector]
     public int attackIndex;
 
