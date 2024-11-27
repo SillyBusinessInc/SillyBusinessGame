@@ -4,7 +4,7 @@ public class FlipAttack : TailAttack
 {
     public void Start()
     {
-        player.tailDoDamage = player.Tail.flipDamage;
+        player.Tail.tailDoDamage = player.Tail.flipDamage;
         player.tailCanDoDamage = true;
         Animator animatorTailAttack = GlobalReference
             .GetReference<PlayerReference>()

@@ -17,6 +17,15 @@ public class Tail : MonoBehaviour
 
     public float slamForce = 2.0f;
 
+    [HideInInspector]
+    public bool slamCanDoDamage = false;
+
+    [HideInInspector]
+    public int attackIndex;
+
+    [HideInInspector]
+    public int tailDoDamage;
+
     public void ChangeTail(BaseTail newtail, Animator animator)
     {
         currentTail = newtail;
@@ -35,7 +44,7 @@ public class Tail : MonoBehaviour
             if (player.tailCanDoDamage)
             {
                 float actualDamage =
-                    player.tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
+                    tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
                 Collider.GetComponent<EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
             }
         }

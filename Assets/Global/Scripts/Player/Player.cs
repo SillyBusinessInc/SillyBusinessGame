@@ -25,18 +25,6 @@ public class Player : MonoBehaviour
     public Transform orientation;
 
     [HideInInspector]
-    public bool slamCanDoDamage = false;
-
-    [HideInInspector]
-    public int attackIndex;
-
-    [HideInInspector]
-    public int tailDoDamage;
-
-    [HideInInspector]
-    public bool isSlamming;
-
-    [HideInInspector]
     public float activeAttackCooldown;
 
     [HideInInspector]
@@ -97,7 +85,7 @@ public class Player : MonoBehaviour
                 : 0.0f;
         if (activeAttackCooldown >= this.attackResettingTime)
         {
-            attackIndex = 0;
+            Tail.attackIndex = 0;
             activeAttackCooldown = 0.0f;
         }
         if (isGrounded)

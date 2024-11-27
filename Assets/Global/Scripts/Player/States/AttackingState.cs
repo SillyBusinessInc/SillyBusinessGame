@@ -7,10 +7,10 @@ public class AttackingState : StateBase
 
     public void IncreaseIndex()
     {
-        Player.attackIndex =
-            Player.attackIndex >= Player.Tail.currentTail.currentCombo.Count - 1
+        Player.Tail.attackIndex =
+            Player.Tail.attackIndex >= Player.Tail.currentTail.currentCombo.Count - 1
                 ? 0
-                : ++Player.attackIndex;
+                : ++Player.Tail.attackIndex;
     }
 
     public override void Enter()
@@ -31,7 +31,7 @@ public class AttackingState : StateBase
         {
             if(tail.currentCombo == tail.airCombo)
             {
-                Player.attackIndex = 0;
+                Player.Tail.attackIndex = 0;
             }
             tail.currentCombo = tail.groundCombo;
         }
@@ -39,7 +39,7 @@ public class AttackingState : StateBase
         {
             if(tail.currentCombo == tail.groundCombo)
             {
-                Player.attackIndex = 0;
+                Player.Tail.attackIndex = 0;
             }
             tail.currentCombo = tail.airCombo;
         }
@@ -48,7 +48,7 @@ public class AttackingState : StateBase
             Player.SetState(Player.states.Idle);
             return;
         }
-        Object.Instantiate(tail.currentCombo[Player.attackIndex]);
+        Object.Instantiate(tail.currentCombo[Player.Tail.attackIndex]);
         IncreaseIndex();
     }
 
