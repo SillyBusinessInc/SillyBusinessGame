@@ -19,6 +19,8 @@ public class WaveSpawnArea : MonoBehaviour
 
     [HideInInspector] public bool waveDone = false;
 
+    
+
     private void Update()
     {
         if(activeEnemies.Count == maxSpawnedEnemies && activeEnemies.TrueForAll(enemy => enemy == null) &&waveDone)
@@ -29,13 +31,14 @@ public class WaveSpawnArea : MonoBehaviour
     }
 
 
-    public void SpawnEnemy()
+    public GameObject SpawnEnemy()
     {
         Vector3 spawnPosition = GetRandomPointInSpawnArea();
         
         GameObject newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
         activeEnemies.Add(newEnemy);
         GlobalReference.AttemptInvoke(Events.ENEMY_SPAWNED);
+        return newEnemy;
     }
 
     private Vector3 GetRandomPointInSpawnArea()

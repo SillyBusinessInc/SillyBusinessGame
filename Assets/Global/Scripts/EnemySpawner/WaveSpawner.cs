@@ -7,38 +7,25 @@ public class EnemyWaveManager : MonoBehaviour
 {
     public List<Wave> waves;
     public List<Transform> spawnAreaTransforms;
-    private int totalEnemies;
-    private int deadEnemies;
+
+    private List<GameObject> activeEnemies = new List<GameObject>();
+    // private int totalEnemies;
+    // private int deadEnemies;
     private int currentWave = 0;
     private int wavesDone = 0;
     private int maxWaves;
     private bool nextWave = false;
-    // public bool immediateStart = false;
-
-    // private void Start()
-    // {
-    //     if (immediateStart){
-    //         GlobalReference.AttemptInvoke(Events.WAVE_START);
-    //     }
-    // }
     private void Update()
     {
-        if (deadEnemies >= totalEnemies && nextWave)
+        if (activeEnemies.Count() == 0 || activeEnemies.All(enemy => enemy == null) && nextWave)
         {
             WaveCompleted();
         }
     }
 
-    //function that invokes wave start event
-
-    // [ContextMenu("Start Wave")]
-    // public void StartWaveTest()
-    // {
-    //     GlobalReference.AttemptInvoke(Events.WAVE_START);
-    // }
-
     private void OnEnable()
     {
+        // deadEnemies = 0;
         maxWaves = waves.Count;
         GlobalReference.SubscribeTo(Events.WAVE_START, () => StartCoroutine(StartWave()));
         GlobalReference.SubscribeTo(Events.WAVE_DONE, WaveCompleted);
@@ -55,11 +42,11 @@ public class EnemyWaveManager : MonoBehaviour
     {
         nextWave = false;
         
-        deadEnemies = 0;
-        totalEnemies = 0;
+        // deadEnemies = 0;
+        // totalEnemies = 0;
         
         var spawner = gameObject.GetComponent<WaveSpawnArea>();
-        totalEnemies = waves[currentWave].waveParts.Sum(wavePart => wavePart.enemyPrefabs.Sum(enemy => enemy.amount));
+        var totalEnemies = waves[currentWave].waveParts.Sum(wavePart => wavePart.enemyPrefabs.Sum(enemy => enemy.amount));
         nextWave = true;
 
         foreach (var wavePart in waves[currentWave].waveParts) // Access waveParts within each Wave
@@ -76,7 +63,8 @@ public class EnemyWaveManager : MonoBehaviour
                     spawner.waveDone = true;
                     foreach (var _ in Enumerable.Range(0, enemy.amount))
                     {
-                        spawner.SpawnEnemy();
+                        var enemyObject =spawner.SpawnEnemy();
+                        activeEnemies.Add(enemyObject);
                         yield return new WaitForSeconds(waves[currentWave].interval);
                     }
                 }
@@ -91,8 +79,10 @@ public class EnemyWaveManager : MonoBehaviour
 
     private void OnEnemyDeath()
     {
-        deadEnemies++;
-        if (deadEnemies >= totalEnemies)
+        // deadEnemies++;
+        // Debug.Log("Dead enemies: " + deadEnemies);
+        // Debug.Log("Total enemies: " + totalEnemies);
+        if (activeEnemies.Count() == 0 || activeEnemies.All(enemy => enemy == null))
         {
             WaveCompleted();
         }
@@ -100,13 +90,14 @@ public class EnemyWaveManager : MonoBehaviour
 
     private void WaveCompleted()
     {   
-        totalEnemies = 0;
+        nextWave = false;
+        // totalEnemies = 0;
         wavesDone++;
         if (wavesDone >= maxWaves)
         {
             GlobalReference.AttemptInvoke(Events.ALL_WAVES_DONE);
-            nextWave = false;
             GlobalReference.AttemptInvoke(Events.NEXT_SPAWNER);
+            Debug.Log("waves manager done" );
             Destroy(gameObject);
         }
         else

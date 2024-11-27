@@ -12,16 +12,17 @@ public class MoldCoreSpawner : MonoBehaviour
     [SerializeField]private int limit = 10;
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     List<GameObject> toRemove = new();
+    private bool isDead = false;
 
     private void OnDeath()
     {
+        isDead = true;
         foreach (GameObject enemy in spawnedEnemies)
         {
             if (enemy != null)
             {
                 Destroy(enemy);
                 GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
-
             }
         }
         Destroy(gameObject);
@@ -37,7 +38,7 @@ public class MoldCoreSpawner : MonoBehaviour
             currentTime = Time.time;
             SpawnEnemy();
         }
-        if (cores.TrueForAll(core => core == null))
+        if (cores.TrueForAll(core => core == null) && !isDead)
         {
             OnDeath();
         }

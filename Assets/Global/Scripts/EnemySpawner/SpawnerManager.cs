@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MultipleWaveTypes : MonoBehaviour
+public class SpawnerManager : MonoBehaviour
 {
     public List<GameObject> waveTypes;
     private int currentType = 0;
@@ -38,6 +38,7 @@ public class MultipleWaveTypes : MonoBehaviour
         }else
         {
             GlobalReference.AttemptInvoke(Events.ALL_NEXT_SPAWNERS_DONE);
+            Debug.Log("All spawners done");
             Destroy(gameObject);
         }
         currentType++;

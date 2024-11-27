@@ -14,6 +14,7 @@ public class TimedSpawner : MonoBehaviour
     private float startTime;
     private readonly List<GameObject> spawnedEnemies = new();
     [SerializeField] private int enemyLimit = 10;
+    private bool isDead = false;
 
     void Start()
     {
@@ -33,7 +34,10 @@ public class TimedSpawner : MonoBehaviour
             }
             yield return new WaitForSeconds(spawnInterval);
         }
-        EndSpawning();
+        if (!isDead)
+        {
+            EndSpawning();
+        }
     }
 
     private void SpawnEnemy()
@@ -52,6 +56,7 @@ public class TimedSpawner : MonoBehaviour
 
     private void EndSpawning()
     {
+        isDead = true;
         // Destroy all spawned enemies
         foreach (GameObject enemy in spawnedEnemies)
         {
