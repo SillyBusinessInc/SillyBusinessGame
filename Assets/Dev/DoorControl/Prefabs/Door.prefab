@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 2813727325042965563}
   m_Layer: 0
   m_Name: Door
-  m_TagString: Untagged
+  m_TagString: DoorPrefab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -224,8 +224,9 @@ MonoBehaviour:
   animator: {fileID: 7719880940827678336}
   doorMesh: {fileID: 657158424722739070}
   nextRoomName: SubScene2
-  crossfadeController: {fileID: 0}
-  playerSpawnPoint: {fileID: 0}
+  nextRoomid: 0
+  crossfadeController: {fileID: 6393769111776084320, guid: 5e7833d33c9a64950955a9ed501a287b, type: 3}
+  playerSpawnPoint: {fileID: 6897691591088137484, guid: 6f26dc5aa3ee64c6785e6b303245e6ec, type: 3}
 --- !u!65 &2813727325042965563
 BoxCollider:
   m_ObjectHideFlags: 0
