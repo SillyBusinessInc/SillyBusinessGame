@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,12 +15,5 @@ public class CrossfadeController : MonoBehaviour
     public IEnumerator Crossfade() {
         animator.SetTrigger("start");
         yield return new WaitForSeconds(transitionTime);
-        Debug.Log("Start");
     }
-
-    // public IEnumerator Crossfade_end() {
-    //     animator.SetTrigger("end");
-    //     yield return new WaitForSeconds(transitionTime);
-    //     Debug.Log("End");
-    // }
 }

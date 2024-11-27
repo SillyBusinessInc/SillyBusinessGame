@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
-
+using System.Collections.Generic;
 public class Player : MonoBehaviour
 {
     [Header("Settings")]
@@ -70,6 +70,10 @@ public class Player : MonoBehaviour
 
     [HideInInspector]
     public Vector2 movementInput;
+
+    [HideInInspector]
+
+    public List<Collider> collidersEnemy;
     public Healthbar healthBar;
 
     [Header("Debugging")]
@@ -86,10 +90,10 @@ public class Player : MonoBehaviour
         states = new PlayerStates(this);
         SetState(states.Idle);
         // health and maxHealth should be the same value at the start of game
-
+        collidersEnemy = new List<Collider>();
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
 
-        if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        healthBar?.UpdateHealthBar();
     }
 
     void Update()
@@ -183,7 +187,7 @@ public class Player : MonoBehaviour
     {
         playerStatistic.Health -= damage;
 
-        if (healthBar != null) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        healthBar?.UpdateCurrentHealth();
 
         if (playerStatistic.Health <= 0) OnDeath();
     }
@@ -191,19 +195,19 @@ public class Player : MonoBehaviour
     public void Heal(float reward)
     {
         playerStatistic.Health += reward;
-        healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        healthBar.UpdateCurrentHealth();
     }
 
     public void MultiplyMaxHealth(float reward)
     {
         playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
-        healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        healthBar.UpdateMaxHealth();
     }
 
     public void IncreaseMaxHealth(float reward)
     {
         playerStatistic.MaxHealth.AddModifier("reward", reward);
-        healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        healthBar.UpdateMaxHealth();
     }
 
 
