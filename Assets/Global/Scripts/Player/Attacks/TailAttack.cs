@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using NUnit.Framework;
 using UnityEngine;
 
 public class TailAttack : Attack

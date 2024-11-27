@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UIElements;
-using System.Collections.Generic;
 public class Player : MonoBehaviour
 {
     [Header("Settings")]
@@ -19,7 +17,7 @@ public class Player : MonoBehaviour
     [Header("Attack")]
     public float attackResettingTime = 2f;
 
-    public GameObject Tail;
+    public Tail Tail;
 
     [Header("References")]
     [FormerlySerializedAs("playerRb")]

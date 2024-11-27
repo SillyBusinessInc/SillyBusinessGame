@@ -1,7 +1,5 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Linq;
 public class AttackingState : StateBase
 {
     public AttackingState(Player player)
@@ -10,14 +8,14 @@ public class AttackingState : StateBase
     public void IncreaseIndex()
     {
         Player.attackIndex =
-            Player.attackIndex >= Player.Tail.GetComponent<Tail>().currentTail.currentCombo.Count - 1
+            Player.attackIndex >= Player.Tail.currentTail.currentCombo.Count - 1
                 ? 0
                 : ++Player.attackIndex;
     }
 
     public override void Enter()
     {
-        var tail = Player.Tail.GetComponent<Tail>().currentTail;
+        var tail = Player.Tail.currentTail;
         if(tail.currentCombo.Count == 0) 
         {
             if(Player.isGrounded)
