@@ -72,19 +72,9 @@ MonoBehaviour:
     DoubleJumpsCount:
       baseValue: 2
   attackResettingTime: 2
-  tailTurnDuration: 0.1
-  slamDamage: 30
-  leftTailDamage: 10
-  rightTailDamage: 15
-  flipDamage: 20
-  slamForce: 2
-  Tail: {fileID: 5867138334220634699}
+  Tail: {fileID: 2433743845863343982}
   rb: {fileID: 8218035431276073872}
   orientation: {fileID: 8661837782861090297}
-  slamCanDoDamage: 0
-  attackIndex: 0
-  tailDoDamage: 0
-  isSlamming: 0
   activeAttackCooldown: 0
   canDodgeRoll: 1
   currentJumps: 0
@@ -700,7 +690,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 9169223613212550927}
-  currentTail: {fileID: 0}
+  currentTail: {fileID: 11400000, guid: 4573dec063fc903468e001bdc9c403e6, type: 2}
+  animator: {fileID: 6655933081070539201}
+  tailTurnDuration: 0.1
+  leftTailDamage: 10
+  rightTailDamage: 15
+  flipDamage: 20
+  slamForce: 2
+  slamCanDoDamage: 0
+  attackIndex: 0
+  tailDoDamage: 0
 --- !u!1 &6770734137585760780
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,7 +767,6 @@ GameObject:
   - component: {fileID: 4999425495774882538}
   - component: {fileID: 6683943633786336541}
   - component: {fileID: 3387172323252006520}
-  - component: {fileID: 9073912769421093035}
   m_Layer: 2
   m_Name: SlamObj
   m_TagString: Player
@@ -867,19 +865,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &9073912769421093035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8412525925314618546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c5cb9377999d034489ef06f30d78777, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 9169223613212550927}
 --- !u!1001 &1960132140660597936
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -890,7 +875,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.795774
+      value: 17.55679
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -898,7 +883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 17.139332
+      value: 12.445608
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.w
