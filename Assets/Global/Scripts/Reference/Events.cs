@@ -15,5 +15,6 @@ public enum Events
     ALL_WAVES_DONE,
     
     CRUMBS_CHANGED,
-    HEALTH_CHANGED
+    HEALTH_CHANGED,
+    STATISTIC_CHANGED 
 }
