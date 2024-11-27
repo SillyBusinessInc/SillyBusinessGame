@@ -10,9 +10,12 @@ namespace EnemiesNS
         public override void Enter()
         {
             base.Enter();
+            enemy.agent.speed = enemy.roamingSpeed;
+            enemy.agent.acceleration = enemy.roamingAcceleration;
             // new Destination
             enemy.roamDestination = GetDestination();
             enemy.agent.SetDestination(enemy.roamDestination);
+
         }
 
         public override void Update()

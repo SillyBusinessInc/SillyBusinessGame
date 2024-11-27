@@ -32,6 +32,14 @@ namespace EnemiesNS
         [SerializeField]
         [Range(0f, 250f)]
         public float roamRange = 15f;
+        [Tooltip("Movement speed while roaming")]
+        [SerializeField]
+        [Range(0f, 250f)]
+        public float roamingSpeed = 3.5f;
+        [Tooltip("Acceleration while roaming")]
+        [SerializeField]
+        [Range(0f, 250f)]
+        public float roamingAcceleration = 8f;
         [HideInInspector]
         public Vector3 spawnPos;
         [HideInInspector]
@@ -42,32 +50,62 @@ namespace EnemiesNS
         [SerializeField]
         [Range(0f, 250f)]
         public float chaseRange = 25f;
+        [Tooltip("Movement speed while chasing")]
+        [SerializeField]
+        [Range(0f, 250f)]
+        public float chaseSpeed = 3.5f;
+        [Tooltip("Acceleration while chasing")]
+        [SerializeField]
+        [Range(0f, 250f)]
+        public float chaseAcceleration = 8f;
+        [Tooltip("the minimum distance to keep from the player.")]
+        [SerializeField]
+        [Range(0f, 5f)]
+
+        public float minDistanceToPlayer = 2f;
         [Tooltip("Time for the chasing enemy to hold position once it gets into attackingrange but still on attack cooldown. Used to keep the enemy from hugging the player.")]
         [SerializeField]
         [Range(0f, 5f)]
         public float chaseWaitTime = 1f;
+        [HideInInspector]
+        public float chaseWaitElapsed = 0;
         //[HideInInspector]
         public bool isChasing = false;
-        [HideInInspector]
+        // [HideInInspector]
         public bool isWaiting = false;
+        //[HideInInspector]
+        public float distanceToPlayer;
 
         [Header("Base attack settings | ignored on moldcores")]
         [Tooltip("The range of the attack")]
         [SerializeField]
-        [Range(5f, 250f)]
+        [Range(0f, 250f)]
         public float attackRange = 2f;
         [Tooltip("The time between attacking states")]
         [SerializeField]
-        [Range(5f, 300f)]
+        [Range(0f, 300f)]
         public float attackCooldown = 2f;
+        [Tooltip("The amount of time this character will have to recover from attacking, and be standing still before able to attack again")]
+        [SerializeField]
+        [Range(0f, 10f)]
+        public float attackRecoveryTime = 0.3f;
         [Tooltip("The base damage of the attack")]
         [SerializeField]
         [Range(0, 10)]
         public int attackDamage = 1;
+        [Tooltip("The amount of knockback this enemy's attacks will apply")]
+        [SerializeField]
+        [Range(0f, 10f)]
+        public float attackKnockback;
+
         //[HideInInspector]
         public bool canAttack = true;
         [HideInInspector]
+        public bool isRecovering = false;
+        [HideInInspector]
         public float attackCooldownElapsed = 0;
+        [HideInInspector]
+        public float attackRecoveryElapsed = 0;
 
         [Header("References")]
         [Tooltip("OPTIONAL: Reference to the target's Transform. Default: Player")]
@@ -94,16 +132,12 @@ namespace EnemiesNS
         [SerializeField]
         protected bool agentIsStopped = false;
 
-
-
         protected void Start()
         {
             spawnPos = this.transform.position;
             setReferences();
             SetupStateMachine();
             GlobalReference.AttemptInvoke(Events.ENEMY_SPAWNED);
-
-            if (target) Debug.Log("target", target); //TODO: Delete me
         }
 
         protected void Update()
@@ -164,10 +198,22 @@ namespace EnemiesNS
             if (canAttack) attackCooldownElapsed = 0f;
         }
 
+        public void toggleIsRecovering(bool v)
+        {
+            isRecovering = v;
+            if (!isRecovering) attackRecoveryElapsed = 0f;
+        }
+
         public void toggleIsIdling(bool v)
         {
             isIdling = v;
             if (!isIdling) idleWaitElapsed = 0f;
+        }
+
+        public void toggleIsWaiting(bool v)
+        {
+            isWaiting = v;
+            if (!isWaiting) chaseWaitElapsed = 0f;
         }
 
         public void FreezeMovement(bool v)
@@ -178,12 +224,17 @@ namespace EnemiesNS
         public void UpdateTimers()
         {
             // increment timers
-            if (!canAttack) attackCooldownElapsed += Time.deltaTime;
-            if (isIdling) idleWaitElapsed += Time.deltaTime;
+            float elapsedTime = Time.deltaTime;
+            if (isIdling) idleWaitElapsed += elapsedTime;
+            if (isWaiting) chaseWaitElapsed += elapsedTime;
+            if (!canAttack) attackCooldownElapsed += elapsedTime;
+            if (isRecovering) attackRecoveryElapsed += elapsedTime;
 
             // check flags
-            if (attackCooldownElapsed >= attackCooldown) toggleCanAttack(true);
             if (idleWaitElapsed >= idleWaitTime) toggleIsIdling(false);
+            if (chaseWaitElapsed >= chaseWaitTime) toggleIsWaiting(false);
+            if (attackCooldownElapsed >= attackCooldown) toggleCanAttack(true);
+            if (attackRecoveryElapsed >= attackRecoveryTime) toggleIsRecovering(false);
         }
 
         //
@@ -200,6 +251,10 @@ namespace EnemiesNS
             // Draw the Chase Range
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, chaseRange);
+
+            // Draw the Minimum Distance from Player
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireSphere(transform.position, minDistanceToPlayer);
 
             // Draw the Attack Range
             Gizmos.color = Color.red;

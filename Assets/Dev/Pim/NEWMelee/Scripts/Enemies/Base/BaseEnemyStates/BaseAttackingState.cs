@@ -16,7 +16,7 @@ namespace EnemiesNS
             if (enemy.target == null) enemy.ChangeState(enemy.states.Idle);
 
             // If the player is in range, attempt to face them
-            if (IsWithinAttackRange() && enemy.canAttack)
+            if (IsWithinAttackRange() && !enemy.isRecovering)
             {
                 FacePlayer();
                 if (IsFacingPlayer() && enemy.canAttack) Attack();
@@ -38,11 +38,11 @@ namespace EnemiesNS
                 {
                     enemy.animator.SetTrigger("TriggerAttackAnimation");
                     player.OnHit(enemy.attackDamage);
+                    enemy.toggleIsRecovering(true);
                 }
+                // After attacking, disable attacking until cooldown is over
+                enemy.toggleCanAttack(false);
             }
-
-            // After attacking, disable attacking until cooldown is over
-            enemy.toggleCanAttack(false);
         }
 
         private void FacePlayer()

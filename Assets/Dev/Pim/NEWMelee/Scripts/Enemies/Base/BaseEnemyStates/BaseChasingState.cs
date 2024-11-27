@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace EnemiesNS
 {
@@ -10,11 +11,23 @@ namespace EnemiesNS
         {
             base.Enter();
             enemy.isChasing = true;
+            enemy.agent.speed = enemy.chaseSpeed;
+            enemy.agent.acceleration = enemy.chaseAcceleration;
         }
 
         public override void Update()
         {
-            enemy.agent.SetDestination(enemy.target.transform.position);
+            if (!enemy.isWaiting)
+            {
+                if (enemy.distanceToPlayer <= enemy.minDistanceToPlayer)
+                {
+                    enemy.toggleIsWaiting(true);
+                    enemy.FreezeMovement(true);
+                    return;
+                }
+                if (enemy.agent.isStopped) enemy.FreezeMovement(false);
+                enemy.agent.SetDestination(enemy.target.transform.position);
+            }
 
             base.Update();
         }
