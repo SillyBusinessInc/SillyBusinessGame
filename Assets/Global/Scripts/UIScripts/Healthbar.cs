@@ -34,6 +34,8 @@ public class Healthbar : MonoBehaviour
             originalWidth * (currentHealth / 2), 
             HealthbarOverlayTransform.sizeDelta.y
         );
+        // GlobalReference.PlayerStatistic.Set("health", currentHealth);
+        // GlobalReference.PlayerStatistic.SaveAll();
     }
 
     public void UpdateMaxHealth() {
@@ -43,5 +45,7 @@ public class Healthbar : MonoBehaviour
             originalWidth * (maxHealth / 2), 
             HealthbarUnderlayTransform.sizeDelta.y
         );
+        // GlobalReference.PlayerStatistic.Set("maxHealth", maxHealth);
+        // GlobalReference.PlayerStatistic.SaveAll();
     }
 }

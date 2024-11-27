@@ -88,6 +88,8 @@ public class Player : MonoBehaviour
         collidersEnemy = new List<Collider>();
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
 
+        // playerStatistic.Health = GlobalReference.PlayerStatistic.Get<float>("health");
+
         healthBar?.UpdateHealthBar();
     }
 
@@ -190,6 +192,9 @@ public class Player : MonoBehaviour
         healthBar?.UpdateCurrentHealth();
 
         if (playerStatistic.Health <= 0) OnDeath();
+
+        Debug.Log(playerStatistic.Health);
+        Debug.Log(GlobalReference.PlayerStatistic.Get<float>("heath"));
     }
 
     public void Heal(float reward)

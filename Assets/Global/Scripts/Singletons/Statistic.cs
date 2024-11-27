@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 
-[System.Serializable]
+[Serializable]
 public class Statistic
 {
     [SerializeField]
@@ -15,12 +15,14 @@ public class Statistic
     private List<KeyValuePair<string, float>> finalMultipliers = new();
     private List<KeyValuePair<string, float>> modifiers = new();
 
-    // Get the final value after applying modifiers
+    // Event to notify listeners about changes
+    public event Action OnChange;
 
     public Statistic(float bv) {
         baseValue = bv;
     }
 
+    // Get the final value after applying modifiers
     public float GetValue()
     {
         float value = baseValue;
@@ -44,8 +46,10 @@ public class Statistic
     // Add new modifier  
     public void AddModifier(string key, float modifier)
     {
-        if (modifier != 0)
+        if (modifier != 0) {
             modifiers.Add(new KeyValuePair<string, float>(key, modifier));
+            TriggerOnChange();
+        }
     }
 
     // Add new multiplier 
@@ -58,21 +62,33 @@ public class Statistic
                 baseMultipliers.Add(pair);
             else
                 finalMultipliers.Add(pair);
+
+            TriggerOnChange();
         }
     }
 
     // Remove a modifier by key
     public void RemoveModifier(string key)
     {
-        modifiers.RemoveAll(pair => pair.Key == key);
+        if (modifiers.RemoveAll(pair => pair.Key == key) > 0)
+            TriggerOnChange();
     }
 
     // Remove a multiplier by key
     public void RemoveMultiplier(string key, bool isBase)
     {
-        if (isBase)
-            baseMultipliers.RemoveAll(pair => pair.Key == key);
-        else
-            finalMultipliers.RemoveAll(pair => pair.Key == key);
+        bool removed = isBase
+            ? baseMultipliers.RemoveAll(pair => pair.Key == key) > 0
+            : finalMultipliers.RemoveAll(pair => pair.Key == key) > 0;
+
+        if (removed) TriggerOnChange();
     }
+
+    private void TriggerOnChange()
+    {
+        OnChange?.Invoke();
+    }
+
+    public void Subscribe(Action callback) => OnChange += callback;
+    public void Unsubscribe(Action callback) => OnChange -= callback;
 }

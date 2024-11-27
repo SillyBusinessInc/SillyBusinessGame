@@ -5,9 +5,9 @@ using UnityEngine.Events;
 public static class GlobalReference
 {
     // Non monobehavior singletons
-    private static Statistics statistics;
-    public static Statistics Statistics { 
-        get => statistics ??= new();
+    private static PlayerStatistic playerStatistic;
+    public static PlayerStatistic PlayerStatistic { 
+        get => playerStatistic ??= new();
     }
 
     private static Settings settings;
@@ -20,7 +20,7 @@ public static class GlobalReference
     }
 
     public static void Save() {
-        statistics.SaveAll();
+        playerStatistic.SaveAll();
         settings.SaveAll();
         devSettings.SaveAll();
     }
