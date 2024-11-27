@@ -1,13 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using random = UnityEngine.Random;
 
 public class TimedSpawner : MonoBehaviour
 {
     public float spawnInterval = 1f; // Interval between spawns
     public float spawnDuration = 30f; // Total time to spawn enemies
     public List<EnemyPrefabCount> enemyChanceList; // List of enemies and their spawn chances
-    public Transform spawnArea; // Area to spawn enemies
+    public List<Transform> spawnAreas; // Area to spawn enemies
 
     private readonly SingleEnemySpawnArea spawner = new();
     private float startTime;
@@ -38,11 +39,14 @@ public class TimedSpawner : MonoBehaviour
     private void SpawnEnemy()
     {
         GameObject enemyprefab = RandomDistribution.GetRandom(EnemyPrefabCount.GetDict(enemyChanceList));
-        
-        GameObject spawnedEnemy = spawner.SpawnEnemy(enemyprefab, spawnArea, false);
-        if (spawnedEnemy != null)
+        Transform spawnArea = spawnAreas[random.Range(0, spawnAreas.Count)];
+        if (enemyprefab != null && spawnArea != null)
         {
-            spawnedEnemies.Add(spawnedEnemy);
+            GameObject spawnedEnemy = spawner.SpawnEnemy(enemyprefab, spawnArea, false);
+            if (spawnedEnemy != null)
+            {
+                spawnedEnemies.Add(spawnedEnemy);
+            }
         }
     }
 

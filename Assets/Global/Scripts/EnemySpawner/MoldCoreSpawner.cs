@@ -1,38 +1,30 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Collections;
-
-public class MoldCoreSpawner : EnemyBase
+using random = UnityEngine.Random;
+public class MoldCoreSpawner : MonoBehaviour
 {
     public float interfal = 1;
     public List<EnemyPrefabCount> enemyChanceList;
-    public Transform spawnArea;
+    // public Transform spawnArea;
+    [SerializeField] private List<MoldCore> cores = new();
     private SingleEnemySpawnArea spawner = new SingleEnemySpawnArea();
     private float currentTime;
     [SerializeField]private int limit = 10;
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     List<GameObject> toRemove = new();
 
-    
-    new void Start()
-    {
-        base.Start();
-        currentTime = Time.time;
-        GlobalReference.AttemptInvoke(Events.MOLD_CORE_SPAWNED);
-    }
-
-
-    public override void OnDeath()
+    private void OnDeath()
     {
         foreach (GameObject enemy in spawnedEnemies)
         {
             if (enemy != null)
             {
                 Destroy(enemy);
+                GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
+
             }
         }
         Destroy(gameObject);
-        GlobalReference.AttemptInvoke(Events.MOLD_CORE_KILLED);
         GlobalReference.AttemptInvoke(Events.NEXT_SPAWNER);
         
     }
@@ -45,7 +37,7 @@ public class MoldCoreSpawner : EnemyBase
             currentTime = Time.time;
             SpawnEnemy();
         }
-        if (health <= 0)
+        if (cores.TrueForAll(core => core == null))
         {
             OnDeath();
         }
@@ -68,7 +60,14 @@ public class MoldCoreSpawner : EnemyBase
     //spawn enemy function here with singleenemyspawner class
     public void SpawnEnemy()
     {   
-        GameObject enemy = spawner.SpawnEnemy(RandomDistribution.GetRandom(EnemyPrefabCount.GetDict(enemyChanceList)), spawnArea, false);
+        //try to get a new random core if the core is null with linq
+        MoldCore singleCore = cores[random.Range(0, cores.Count)];
+        while (singleCore == null)
+        {
+            singleCore = cores[random.Range(0, cores.Count)];
+        }
+        
+        GameObject enemy = spawner.SpawnEnemy(RandomDistribution.GetRandom(EnemyPrefabCount.GetDict(enemyChanceList)), singleCore.spawnArea, false);
         if (enemy != null)
         {
             spawnedEnemies.Add(enemy);

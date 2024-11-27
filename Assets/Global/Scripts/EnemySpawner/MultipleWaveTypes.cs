@@ -34,6 +34,7 @@ public class MultipleWaveTypes : MonoBehaviour
                 }
             }
             waveTypes[currentType].SetActive(true);
+            GlobalReference.AttemptInvoke(Events.WAVE_START);
         }else
         {
             GlobalReference.AttemptInvoke(Events.ALL_NEXT_SPAWNERS_DONE);

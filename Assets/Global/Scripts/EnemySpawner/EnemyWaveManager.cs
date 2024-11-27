@@ -13,14 +13,14 @@ public class EnemyWaveManager : MonoBehaviour
     private int wavesDone = 0;
     private int maxWaves;
     private bool nextWave = false;
-    public bool immediateStart = false;
+    // public bool immediateStart = false;
 
-    private void Start()
-    {
-        if (immediateStart){
-            GlobalReference.AttemptInvoke(Events.WAVE_START);
-        }
-    }
+    // private void Start()
+    // {
+    //     if (immediateStart){
+    //         GlobalReference.AttemptInvoke(Events.WAVE_START);
+    //     }
+    // }
     private void Update()
     {
         if (deadEnemies >= totalEnemies && nextWave)
@@ -31,11 +31,11 @@ public class EnemyWaveManager : MonoBehaviour
 
     //function that invokes wave start event
 
-    [ContextMenu("Start Wave")]
-    public void StartWaveTest()
-    {
-        GlobalReference.AttemptInvoke(Events.WAVE_START);
-    }
+    // [ContextMenu("Start Wave")]
+    // public void StartWaveTest()
+    // {
+    //     GlobalReference.AttemptInvoke(Events.WAVE_START);
+    // }
 
     private void OnEnable()
     {
