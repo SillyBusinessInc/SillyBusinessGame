@@ -7,25 +7,22 @@ namespace EnemiesNS
 
         public override void Enter()
         {
-            enemy.agent.isStopped = true;
-        }
-
-        public override void Exit()
-        {
-            enemy.agent.isStopped = false;
+            base.Enter();
+            enemy.FreezeMovement(true);
         }
 
         public override void Update()
         {
-            if (enemy.target == null) enemy.ChangeState(enemy.states.Roaming);
+            if (enemy.target == null) enemy.ChangeState(enemy.states.Idle);
 
             // If the player is in range, attempt to face them
-            if (IsWithinAttackRange())
+            if (IsWithinAttackRange() && enemy.canAttack)
             {
                 FacePlayer();
-
-                if (IsFacingPlayer()) Attack();
+                if (IsFacingPlayer() && enemy.canAttack) Attack();
+                return;
             }
+
             base.Update();
         }
 

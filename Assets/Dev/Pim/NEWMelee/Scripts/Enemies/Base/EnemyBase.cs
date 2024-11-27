@@ -90,6 +90,10 @@ namespace EnemiesNS
         [Tooltip("DO NOT SET | shows the current state's name")]
         [SerializeField]
         protected string currentStateName;
+        [Tooltip("DO NOT SET | shows the current state's name")]
+        [SerializeField]
+        protected bool agentIsStopped = false;
+
 
 
         protected void Start()
@@ -104,6 +108,7 @@ namespace EnemiesNS
 
         protected void Update()
         {
+            agentIsStopped = agent.isStopped;
             UpdateTimers();
             currentState?.Update();
         }
@@ -159,13 +164,26 @@ namespace EnemiesNS
             if (canAttack) attackCooldownElapsed = 0f;
         }
 
+        public void toggleIsIdling(bool v)
+        {
+            isIdling = v;
+            if (!isIdling) idleWaitElapsed = 0f;
+        }
+
+        public void FreezeMovement(bool v)
+        {
+            agent.isStopped = v;
+        }
+
         public void UpdateTimers()
         {
             // increment timers
             if (!canAttack) attackCooldownElapsed += Time.deltaTime;
+            if (isIdling) idleWaitElapsed += Time.deltaTime;
 
             // check flags
             if (attackCooldownElapsed >= attackCooldown) toggleCanAttack(true);
+            if (idleWaitElapsed >= idleWaitTime) toggleIsIdling(false);
         }
 
         //
@@ -180,12 +198,16 @@ namespace EnemiesNS
         void OnDrawGizmos()
         {
             // Draw the Chase Range
-            Gizmos.color = Color.yellow; // Set the Gizmo color for Chase Range
+            Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, chaseRange);
 
             // Draw the Attack Range
-            Gizmos.color = Color.red; // Set the Gizmo color for Attack Range
+            Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, attackRange);
+
+            // Draw the Roam Range around the spawn position
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(spawnPos, roamRange);
         }
     }
 }

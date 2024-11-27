@@ -14,7 +14,11 @@ namespace EnemiesNS
         {
             Debug.Log($"Entering state: {enemy.currentState.GetType().Name}");
         }
-        public virtual void Exit() { }
+        public virtual void Exit()
+        {
+            enemy.FreezeMovement(false);
+            Debug.Log($"Exiting state: {enemy.currentState.GetType().Name}");
+        }
         public virtual void Update()
         {
             CheckState();
@@ -40,7 +44,9 @@ namespace EnemiesNS
             }
             Debug.Log("Check to chase");
             // chase
-            if (enemy.currentState != enemy.states.Chasing)
+            if (enemy.currentState == enemy.states.Chasing && enemy.isChasing) return;
+            Debug.Log("first chase check passed, still checking for chase");
+            if (enemy.currentState != enemy.states.Chasing && (enemy.isChasing || IsWithinChaseRange()))
             {
                 if (!enemy.isChasing) enemy.ChangeState(enemy.states.Chasing);
                 return;

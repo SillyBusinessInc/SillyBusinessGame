@@ -9,25 +9,16 @@ namespace EnemiesNS
         public override void Enter()
         {
             base.Enter();
-            enemy.isIdling = true;
+
             enemy.idleWaitTime = GetIdleWaitValue();
-            enemy.idleWaitElapsed = 0;
-            Debug.Log($"idling for: {enemy.idleWaitTime}", enemy);
-            enemy.agent.isStopped = true;
+            enemy.toggleIsIdling(true);
+            enemy.FreezeMovement(true);
         }
 
         public override void Exit()
         {
+
             base.Exit();
-            enemy.agent.isStopped = false;
-        }
-
-        public override void Update()
-        {
-            enemy.idleWaitElapsed += Time.deltaTime;
-            if (enemy.idleWaitElapsed >= enemy.idleWaitTime) enemy.isIdling = false;
-            base.Update();
-
         }
 
         private float GetIdleWaitValue()
