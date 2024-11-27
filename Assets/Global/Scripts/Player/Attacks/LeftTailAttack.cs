@@ -7,8 +7,7 @@ public class LeftTailAttack : TailAttack
 {
     public void Start()
     {
-        //Debug.Log("In lefttail attack class");
-        player.tailDoDamage = player.leftTailDamage;
+        player.tailDoDamage = player.Tail.GetComponent<Tail>().leftTailDamage;
         player.tailCanDoDamage = true;
         Animator animatorTailAttack = GlobalReference
             .GetReference<PlayerReference>()

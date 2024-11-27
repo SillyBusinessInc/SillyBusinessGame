@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using System.Collections.Generic;
+
 public class Tail : MonoBehaviour
 {
     public Player player;
@@ -8,6 +8,14 @@ public class Tail : MonoBehaviour
     public BaseTail currentTail;
 
     public Animator animator;
+
+    public float tailTurnDuration = 0.1f;
+    public int leftTailDamage = 10;
+    public int rightTailDamage = 15;
+
+    public int flipDamage = 20;
+
+    public float slamForce = 2.0f;
 
     public void ChangeTail(BaseTail newtail, Animator animator)
     {
@@ -19,14 +27,15 @@ public class Tail : MonoBehaviour
     {
         if (Collider.gameObject.CompareTag("Enemy"))
         {
-            if(player.collidersEnemy.Contains(Collider))
+            if (player.collidersEnemy.Contains(Collider))
             {
                 return;
             }
             player.collidersEnemy.Add(Collider);
-            if(player.tailCanDoDamage)
+            if (player.tailCanDoDamage)
             {
-                float actualDamage = player.tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
+                float actualDamage =
+                    player.tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
                 Collider.GetComponent<EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
             }
         }

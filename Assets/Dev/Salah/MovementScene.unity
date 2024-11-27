@@ -618,6 +618,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1367837106214492311, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17.55681
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367837106214492311, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 102.25549
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367837106214492311, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 12.445601
+      objectReference: {fileID: 0}
     - target: {fileID: 2433743845863343982, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: animator
       value: 
@@ -665,6 +677,10 @@ PrefabInstance:
     - target: {fileID: 4811859323897289456, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: playerStatistic.JumpForce.baseValue
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -18,14 +18,6 @@ public class Player : MonoBehaviour
 
     [Header("Attack")]
     public float attackResettingTime = 2f;
-    public float tailTurnDuration = 0.1f;
-    public int slamDamage = 10;
-    public int leftTailDamage = 10;
-    public int rightTailDamage = 15;
-
-    public int flipDamage = 20;
-
-    public float slamForce = 2.0f;
 
     public GameObject Tail;
 

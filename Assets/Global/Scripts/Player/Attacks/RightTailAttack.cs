@@ -7,8 +7,7 @@ public class RightTailAttack : TailAttack
 {
     public void Start()
     {
-        //Debug.Log("In rightTail attack class");
-        player.tailDoDamage = player.rightTailDamage;
+        player.tailDoDamage = player.Tail.GetComponent<Tail>().rightTailDamage;
         player.tailCanDoDamage = true;
         Animator animatorTailAttack = GlobalReference
             .GetReference<PlayerReference>()
