@@ -69,7 +69,6 @@ public class Player : MonoBehaviour
     [HideInInspector]
 
     public List<Collider> collidersEnemy;
-    public Healthbar healthBar;
 
     [Header("Debugging")]
     [SerializeField]
@@ -88,11 +87,7 @@ public class Player : MonoBehaviour
         collidersEnemy = new List<Collider>();
 
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
-
-        healthBar?.UpdateHealthBar();
-
-        GlobalReference.SubscribeTo(Events.HEALTH_CHANGED, healthBar.UpdateCurrentHealth);
-        playerStatistic.MaxHealth.Subscribe(healthBar.UpdateMaxHealth);
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
 
     void Update()
