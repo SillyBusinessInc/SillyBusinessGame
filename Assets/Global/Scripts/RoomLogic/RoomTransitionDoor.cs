@@ -16,11 +16,15 @@ public class RoomTransitionDoor : Interactable
     [SerializeField] private Animator animator;
     [SerializeField] private MeshRenderer doorMesh;
     [SerializeField] private string nextRoomName;
-    public int nextRoomid;
+    public RoomType nextRoomType;
+    public int nextRoomId;
+    public int roomAmounts;
 
     public CrossfadeController crossfadeController;
     public PlayerSpawnPoint playerSpawnPoint;
     public DoorManager doorManager;
+    public GameManagerReference gameManagerReference;
+    private int randomNum;
     
     private string currentScenename;
  
@@ -32,10 +36,11 @@ public class RoomTransitionDoor : Interactable
     }
 
     public void Initialize(){
-        base.Start();
-        nextRoomName = "Scene_" + nextRoomid;
-        // Debug.Log("RoomTransitionDoor Scene nextRoomid =  " + nextRoomid);       
-        // Debug.Log("RoomTransitionDoor Scene nextRoomName =  " + nextRoomName);
+        gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
+        roomAmounts = gameManagerReference.GetAmountForRoomType(nextRoomType);
+        int randomIndex = Random.Range(1, roomAmounts+1);
+        nextRoomName = nextRoomType.ToString() + "_" + randomIndex;
+
     }
 
     private void RoomFinished()
@@ -77,7 +82,7 @@ public class RoomTransitionDoor : Interactable
         var gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
         if (gameManagerReference != null)
         {
-            Room nextRoom = gameManagerReference.Get(nextRoomid);
+            Room nextRoom = gameManagerReference.Get(nextRoomId);
             if (nextRoom != null)
             {
                 gameManagerReference.activeRoom = nextRoom;
@@ -85,7 +90,7 @@ public class RoomTransitionDoor : Interactable
             }
             else
             {
-                Debug.LogError($"Failed to find Room with ID: {nextRoomid}");
+                Debug.LogError($"Failed to find Room with Type: {nextRoomType}");
             }
         }
         else
