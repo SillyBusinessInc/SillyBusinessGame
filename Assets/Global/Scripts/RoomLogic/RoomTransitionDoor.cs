@@ -20,10 +20,10 @@ public class RoomTransitionDoor : Interactable
     public int nextRoomId;
     public int roomAmounts;
 
-    public CrossfadeController crossfadeController;
     public PlayerSpawnPoint playerSpawnPoint;
     public DoorManager doorManager;
     public GameManagerReference gameManagerReference;
+    public CrossfadeController crossfadeController;
     private int randomNum;
     
     private string currentScenename;
@@ -33,6 +33,7 @@ public class RoomTransitionDoor : Interactable
     {
         IsDisabled = IsDisabled; // ugly fix so maybe we have to change in the future
         GlobalReference.SubscribeTo(Events.ROOM_FINISHED, RoomFinished);
+        crossfadeController = GlobalReference.GetReference<CrossfadeController>();
     }
 
     public void Initialize(){
@@ -56,13 +57,13 @@ public class RoomTransitionDoor : Interactable
 
     private IEnumerator LoadNextRoom()
     {
-        yield return StartCoroutine(crossfadeController.Crossfade());
+        yield return StartCoroutine(crossfadeController.Crossfade_Start());
         yield return StartCoroutine(LoadRoomCoroutine());
+        yield return StartCoroutine(crossfadeController.Crossfade_End());
     }
 
     public IEnumerator LoadRoomCoroutine()
     {
-
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
             Scene scene = SceneManager.GetSceneAt(i);
