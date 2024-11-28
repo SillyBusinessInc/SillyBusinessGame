@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Waffle
   m_EditorClassIdentifier: 
   groundCombo:
-  - {fileID: 7929348380001065860, guid: 9f9b42fb158b34e4095b63429a7bb54a, type: 3}
-  - {fileID: 7929348380001065860, guid: eaa3261ae8fa71244a28b108bde486ea, type: 3}
+  - {fileID: 11400000, guid: 4691fa48d5b7367469034572ad52acaa, type: 2}
+  - {fileID: 11400000, guid: ac56fd45b08018a4b87fee0e2a50e37d, type: 2}
   airCombo:
-  - {fileID: 7929348380001065860, guid: a23bda3932e835a498b4c631a12a52c4, type: 3}
+  - {fileID: 11400000, guid: 0802315ce2a304e4c80b65ef9eace2be, type: 2}
   currentCombo:
-  - {fileID: 7929348380001065860, guid: a23bda3932e835a498b4c631a12a52c4, type: 3}
+  - {fileID: 11400000, guid: 4691fa48d5b7367469034572ad52acaa, type: 2}
+  - {fileID: 11400000, guid: ac56fd45b08018a4b87fee0e2a50e37d, type: 2}
