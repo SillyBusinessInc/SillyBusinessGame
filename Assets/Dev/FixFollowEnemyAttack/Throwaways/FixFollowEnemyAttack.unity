@@ -214,6 +214,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 937187944436586504, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 29a85246bf6e44c479e20ce2826ad4ca, type: 2}
     - target: {fileID: 1367837106214492311, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.55679
@@ -242,6 +246,26 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.12472292
       objectReference: {fileID: 0}
+    - target: {fileID: 2711058826921660939, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 29a85246bf6e44c479e20ce2826ad4ca, type: 2}
+    - target: {fileID: 2796025694072676485, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 29a85246bf6e44c479e20ce2826ad4ca, type: 2}
+    - target: {fileID: 2796025694072676485, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 29a85246bf6e44c479e20ce2826ad4ca, type: 2}
+    - target: {fileID: 2873210957943282872, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 29a85246bf6e44c479e20ce2826ad4ca, type: 2}
+    - target: {fileID: 4085556679454136279, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 29a85246bf6e44c479e20ce2826ad4ca, type: 2}
     - target: {fileID: 4811859323897289456, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.99
@@ -282,6 +306,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4957094705918257474, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 29a85246bf6e44c479e20ce2826ad4ca, type: 2}
     - target: {fileID: 5260001915288532325, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.55679
@@ -314,6 +342,26 @@ PrefabInstance:
       propertyPath: VerticalAxis.Value
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7785304745334924041, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 29a85246bf6e44c479e20ce2826ad4ca, type: 2}
+    - target: {fileID: 7914000636823765198, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 29a85246bf6e44c479e20ce2826ad4ca, type: 2}
+    - target: {fileID: 8497580373513693235, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 29a85246bf6e44c479e20ce2826ad4ca, type: 2}
+    - target: {fileID: 8641594505114041019, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 29a85246bf6e44c479e20ce2826ad4ca, type: 2}
+    - target: {fileID: 8675484354647217536, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 29a85246bf6e44c479e20ce2826ad4ca, type: 2}
     - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: healthBar
       value: 
