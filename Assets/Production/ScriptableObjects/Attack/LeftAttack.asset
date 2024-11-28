@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 038c2022e088d6546ba8e1ace473169a, type: 3}
   m_Name: LeftAttack
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  duration: 0
+  duration: 0.5
   damage: 10

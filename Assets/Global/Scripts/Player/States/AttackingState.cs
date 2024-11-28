@@ -57,6 +57,7 @@ public class AttackingState : StateBase
 
     public override void Exit()
     {
+        Player.Tail.flipDoDamage = false;
         Player.Tail.tailCanDoDamage = false;
         Player.collidersEnemy.Clear();
     }

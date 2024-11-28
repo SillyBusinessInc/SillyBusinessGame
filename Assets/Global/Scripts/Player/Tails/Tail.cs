@@ -20,6 +20,8 @@ public class Tail : MonoBehaviour
     public bool tailCanDoDamage = false;
     public float attackResettingTime = 2f;
 
+    public bool flipDoDamage = false;
+
     public void Update()
     {
         activeAttackCooldown =

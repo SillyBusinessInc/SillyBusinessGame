@@ -15,7 +15,7 @@ public class TailAttack : Attack
     {
         // TODO: duration is  the base speed of the attack, and so it should work with the duration of the animation and stuff.
         // And also with attack speed
-        
+        Debug.Log("SetIdleState");
         yield return new WaitForSeconds(duration);
         player.SetState(player.states.Idle);
     }
