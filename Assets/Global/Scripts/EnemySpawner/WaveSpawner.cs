@@ -98,7 +98,6 @@ public class EnemyWaveManager : MonoBehaviour
         {
             GlobalReference.AttemptInvoke(Events.ALL_WAVES_DONE);
             GlobalReference.AttemptInvoke(Events.NEXT_SPAWNER);
-            Debug.Log("waves manager done" );
             Destroy(gameObject);
         }
         else
