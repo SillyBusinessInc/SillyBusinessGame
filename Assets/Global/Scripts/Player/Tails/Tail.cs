@@ -19,7 +19,7 @@ public class Tail : MonoBehaviour
     [HideInInspector]
     public bool tailCanDoDamage = false;
     public float attackResettingTime = 2f;
-
+    public GameObject slamObject;
     public bool flipDoDamage = false;
 
     public void Update()
@@ -40,6 +40,7 @@ public class Tail : MonoBehaviour
         currentTail = newtail;
         this.animator = animator;
     }
+    
 
     public void OnTriggerEnter(Collider Collider)
     {

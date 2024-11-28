@@ -15,7 +15,6 @@ public class AttackingState : StateBase
 
     public override void Enter()
     {
-        Player.Tail.tailCanDoDamage = true;
         var tail = Player.Tail.currentTail;
         if(tail.currentCombo.Count == 0) 
         {

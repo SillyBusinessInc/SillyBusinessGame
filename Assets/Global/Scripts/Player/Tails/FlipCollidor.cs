@@ -9,13 +9,9 @@ public class FlipCollidor : MonoBehaviour
     {
         if (Collider.gameObject.CompareTag("Enemy"))
         {
-            if (player.collidersEnemy.Contains(Collider))
-            {
-                return;
-            }
-            player.collidersEnemy.Add(Collider);
             if (player.Tail.flipDoDamage)
             {
+                Debug.Log("flipcircle is doing damage");
                 float actualDamage =
                     player.Tail.tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
                 if (Collider.GetComponent<EnemyBase>() != null)

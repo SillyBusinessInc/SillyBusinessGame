@@ -390,7 +390,7 @@ Transform:
   - {fileID: 304415592298720483}
   - {fileID: 2562900229708890194}
   - {fileID: 291553938830926261}
-  - {fileID: 2952932644374885435}
+  - {fileID: 480049636159477938}
   m_Father: {fileID: 4811859323897289456}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &3940277038179656397
@@ -519,7 +519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 2562900229708890194}
   smoothSpeed: 5
---- !u!1 &4311420090899386650
+--- !u!1 &3673123473092810611
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -527,48 +527,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2952932644374885435}
-  - component: {fileID: 5995532862067568802}
-  - component: {fileID: 3266878022000385725}
-  - component: {fileID: 7625687393001811248}
-  - component: {fileID: 1983679204203347074}
+  - component: {fileID: 480049636159477938}
+  - component: {fileID: 4297266789453176424}
+  - component: {fileID: 5170202797750981263}
+  - component: {fileID: 1479547991173183016}
+  - component: {fileID: 6881743553604421080}
   m_Layer: 7
-  m_Name: flipCollider
-  m_TagString: Untagged
+  m_Name: flipObj
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2952932644374885435
+  m_IsActive: 0
+--- !u!4 &480049636159477938
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4311420090899386650}
+  m_GameObject: {fileID: 3673123473092810611}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.12, z: 1.711}
-  m_LocalScale: {x: 2.274864, y: 0.4946477, z: 3.4505968}
+  m_LocalPosition: {x: 0, y: 0, z: 1.661}
+  m_LocalScale: {x: 2.8903143, y: 0.8131631, z: 2.6231046}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4764116892959088292}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5995532862067568802
+--- !u!33 &4297266789453176424
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4311420090899386650}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &3266878022000385725
+  m_GameObject: {fileID: 3673123473092810611}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &5170202797750981263
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4311420090899386650}
+  m_GameObject: {fileID: 3673123473092810611}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -607,13 +607,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7625687393001811248
-BoxCollider:
+--- !u!136 &1479547991173183016
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4311420090899386650}
+  m_GameObject: {fileID: 3673123473092810611}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -625,16 +625,18 @@ BoxCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1983679204203347074
+--- !u!114 &6881743553604421080
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4311420090899386650}
+  m_GameObject: {fileID: 3673123473092810611}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 300d983c4dd64244f9fcc82f75cd3e43, type: 3}
@@ -700,7 +702,7 @@ GameObject:
   - component: {fileID: 7914000636823765198}
   - component: {fileID: 7578467244722651917}
   - component: {fileID: 2433743845863343982}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: CustomTail
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -816,6 +818,7 @@ MonoBehaviour:
   activeAttackCooldown: 0
   tailCanDoDamage: 0
   attackResettingTime: 2
+  slamObject: {fileID: 3673123473092810611}
   flipDoDamage: 0
 --- !u!1 &6770734137585760780
 GameObject:
