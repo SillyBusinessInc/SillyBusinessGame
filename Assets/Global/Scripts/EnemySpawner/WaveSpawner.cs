@@ -30,7 +30,7 @@ public class EnemyWaveManager : MonoBehaviour
     {
         // deadEnemies = 0;
         maxWaves = waves.Count;
-        StartCoroutine(StartWave());
+        StartWaveCoroutine();
         GlobalReference.SubscribeTo(Events.NORMAL_WAVE_START, StartWaveCoroutine);
         GlobalReference.SubscribeTo(Events.NORMAL_WAVE_DONE, WaveCompleted);
         GlobalReference.SubscribeTo(Events.ENEMY_KILLED, OnEnemyDeath);
