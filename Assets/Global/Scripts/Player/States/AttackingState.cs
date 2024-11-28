@@ -52,7 +52,10 @@ public class AttackingState : StateBase
         IncreaseIndex();
     }
 
-
+    public override void Exit()
+    {
+        Player.collidersEnemy.Clear();
+    }
 
     public override void Jump(InputAction.CallbackContext ctx) { }
 

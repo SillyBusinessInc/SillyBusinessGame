@@ -42,6 +42,5 @@ public abstract class EnemyBase : MonoBehaviour
     {
         GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
         Destroy(gameObject);
-        //Debug.Log($"{this.name} OnDeath() triggered", this);
     }
 }
