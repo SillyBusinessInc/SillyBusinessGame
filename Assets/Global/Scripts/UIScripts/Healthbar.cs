@@ -1,6 +1,4 @@
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Healthbar : MonoBehaviour
 {
@@ -18,6 +16,8 @@ public class Healthbar : MonoBehaviour
         player = GlobalReference.GetReference<PlayerReference>().Player;
 
         UpdateHealthBar();
+        GlobalReference.SubscribeTo(Events.HEALTH_CHANGED, UpdateCurrentHealth);
+        player.playerStatistic.MaxHealth.Subscribe(UpdateMaxHealth);
     }
 
 
