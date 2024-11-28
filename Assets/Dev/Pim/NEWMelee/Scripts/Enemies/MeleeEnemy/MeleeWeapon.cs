@@ -7,7 +7,6 @@ namespace EnemiesNS
         void Start()
         {
             enemy = this.GetComponentInParent<EnemyBase>();
-            Debug.Log($"enemy found? {enemy}", enemy);
         }
 
         void OnTriggerEnter(Collider hit)

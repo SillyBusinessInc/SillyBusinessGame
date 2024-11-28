@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UIElements;
 using System.Collections.Generic;
+using System.Collections;
 public class Player : MonoBehaviour
 {
     [Header("Settings")]
@@ -58,6 +58,9 @@ public class Player : MonoBehaviour
 
     [HideInInspector]
     public bool tailCanDoDamage = false;
+
+    [SerializeField]
+    private bool isKnockedBack = false;
 
     [HideInInspector]
     public PlayerStates states;
@@ -174,6 +177,8 @@ public class Player : MonoBehaviour
 
     private void RotatePlayerObj()
     {
+        if (isKnockedBack && rb.linearVelocity.magnitude < 0.1f) isKnockedBack = false;
+        if (isKnockedBack) return;
         if (rb.linearVelocity.magnitude > 0.1f)
         {
             var direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
@@ -190,6 +195,17 @@ public class Player : MonoBehaviour
         healthBar?.UpdateCurrentHealth();
 
         if (playerStatistic.Health <= 0) OnDeath();
+    }
+
+    public void applyKnockback(Vector3 knockback, float time)
+    {
+        //
+        // TODO: Need to be written once we have reworked movement
+        //
+        isKnockedBack = true;
+        rb.linearVelocity = knockback;
+        StartCoroutine(KnockbackStunRoutine(time));
+        // above is temporary
     }
 
     public void Heal(float reward)
@@ -215,5 +231,11 @@ public class Player : MonoBehaviour
     private void OnDeath()
     {
         Debug.Log("Player died", this);
+    }
+
+    IEnumerator KnockbackStunRoutine(float time = 0.5f)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        isKnockedBack = false;
     }
 }

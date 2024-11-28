@@ -14,14 +14,12 @@ public class MeleeEnemy : EnemiesNS.EnemyBase
     public void EnableWeaponHitBox()
     {
         weapon.enabled = true;
-        // Debug.Log($"weapon.enabled: {weapon.enabled}");
     }
 
     public void DisableWeaponHitBox()
     {
         weapon.enabled = false;
         playerHit = false;
-        // Debug.Log($"weapon.enabled: {weapon.enabled}");
     }
 
     public override void PlayerHit(PlayerObject playerObject, int damage)

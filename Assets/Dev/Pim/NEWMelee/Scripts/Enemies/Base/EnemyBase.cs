@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -105,15 +106,20 @@ namespace EnemiesNS
         [SerializeField]
         [Range(0f, 10f)]
         public float attackKnockback;
+        [Tooltip("The time the hit object will be stunned due to knockback")]
+        [SerializeField]
+        [Range(0f, 5f)]
+        public float knockbackStunTime = 0.5f;
+
         //[HideInInspector]
         public bool canAttack = true;
-        [HideInInspector]
+        // [HideInInspector]
         public bool isRecovering = false;
         [HideInInspector]
         public float attackCooldownElapsed = 0;
         [HideInInspector]
         public float attackRecoveryElapsed = 0;
-        [HideInInspector]
+        // [HideInInspector]
         public bool inAttackAnim = false;
 
         [Header("References")]
@@ -251,6 +257,16 @@ namespace EnemiesNS
             Player player = playerObject.GetComponentInParent<Player>();
             if (!player) return;
             player.OnHit(damage);
+            player.applyKnockback(CalculatedKnockback(playerObject), knockbackStunTime);
+        }
+
+        public virtual Vector3 CalculatedKnockback(PlayerObject playerObject)
+        {
+            Vector3 directionToPlayer = playerObject.transform.position - transform.position;
+            directionToPlayer.y = 0;
+            directionToPlayer.Normalize();
+
+            return directionToPlayer * attackKnockback;
         }
 
         //

@@ -83,7 +83,6 @@ namespace EnemiesNS
             if (enemy.target == null) canATK = false;
             if (enemy.inAttackAnim) canATK = false;
             return canATK;
-
         }
     }
 }
