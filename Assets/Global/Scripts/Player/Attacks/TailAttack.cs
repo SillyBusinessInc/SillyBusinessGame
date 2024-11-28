@@ -3,10 +3,8 @@ using UnityEngine;
 
 public class TailAttack : Attack
 {
-    [HideInInspector]
-    public Player player;
+    protected Player player;
     public float duration;
-    protected float idleTime;
 
     public override void Start()
     {
@@ -15,9 +13,10 @@ public class TailAttack : Attack
 
     public override IEnumerator SetStateIdle()
     {
-        Debug.Log("SetStateIdle");
-        yield return new WaitForSeconds(idleTime);
-        Debug.Log("SetStateIdle");
+        // TODO: duration is  the base speed of the attack, and so it should work with the duration of the animation and stuff.
+        // And also with attack speed
+        
+        yield return new WaitForSeconds(duration);
         player.SetState(player.states.Idle);
     }
 }

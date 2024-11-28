@@ -10,7 +10,6 @@ public class RightTailAttack : TailAttack
     public override void Start()
     {
         base.Start();
-        idleTime = 0.5f;
         player.Tail.tailDoDamage = damage;
         Animator animatorTailAttack = GlobalReference
             .GetReference<PlayerReference>()
