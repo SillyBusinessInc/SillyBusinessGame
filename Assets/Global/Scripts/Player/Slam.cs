@@ -8,7 +8,7 @@ public class Slam : MonoBehaviour
     {
         if (Collider.gameObject.CompareTag("Enemy"))
         {
-            if(player.slamCanDoDamage)
+            if(player.slamCanDoDamage && Collider.GetComponent<EnemyBase>() != null)
             {
                 Collider.GetComponent<EnemyBase>().OnHit(player.slamDamage);
             }
