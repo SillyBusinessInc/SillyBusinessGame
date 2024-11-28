@@ -89,15 +89,22 @@ namespace EnemiesNS
         [SerializeField]
         [Range(0f, 10f)]
         public float attackRecoveryTime = 0.3f;
+        [Tooltip("number of attacks before triggering cooldown.")]
+        [SerializeField]
+        [Range(1, 10)]
+        public int attacksPerCooldown = 1;
         [Tooltip("The base damage of the attack")]
         [SerializeField]
         [Range(0, 10)]
         public int attackDamage = 1;
+        [Tooltip("The angle the enemy can be off while trying to face the player")]
+        [SerializeField]
+        [Range(0f, 180f)]
+        public float facingPlayerVarianceAngle = 5f;
         [Tooltip("The amount of knockback this enemy's attacks will apply")]
         [SerializeField]
         [Range(0f, 10f)]
         public float attackKnockback;
-
         //[HideInInspector]
         public bool canAttack = true;
         [HideInInspector]
@@ -106,6 +113,8 @@ namespace EnemiesNS
         public float attackCooldownElapsed = 0;
         [HideInInspector]
         public float attackRecoveryElapsed = 0;
+        [HideInInspector]
+        public bool inAttackAnim = false;
 
         [Header("References")]
         [Tooltip("OPTIONAL: Reference to the target's Transform. Default: Player")]
@@ -235,6 +244,25 @@ namespace EnemiesNS
             if (chaseWaitElapsed >= chaseWaitTime) toggleIsWaiting(false);
             if (attackCooldownElapsed >= attackCooldown) toggleCanAttack(true);
             if (attackRecoveryElapsed >= attackRecoveryTime) toggleIsRecovering(false);
+        }
+
+        public virtual void PlayerHit(PlayerObject playerObject, int damage)
+        {
+            Player player = playerObject.GetComponentInParent<Player>();
+            if (!player) return;
+            player.OnHit(damage);
+        }
+
+        //
+        // Used as events in animations
+        //
+        public void AttackAnimStarted()
+        {
+            inAttackAnim = true;
+        }
+        public void AttackAnimEnded()
+        {
+            inAttackAnim = false;
         }
 
         //

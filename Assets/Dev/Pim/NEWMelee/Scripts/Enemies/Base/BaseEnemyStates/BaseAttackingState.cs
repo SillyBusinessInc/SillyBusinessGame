@@ -5,10 +5,20 @@ namespace EnemiesNS
     {
         public BaseAttackingState(EnemyBase enemy) : base(enemy) { }
 
+        private Player player;
+        private int attacksThisState;
+
         public override void Enter()
         {
             base.Enter();
             enemy.FreezeMovement(true);
+        }
+
+
+        public override void Exit()
+        {
+            attacksThisState = 0;
+            base.Exit();
         }
 
         public override void Update()
@@ -16,33 +26,24 @@ namespace EnemiesNS
             if (enemy.target == null) enemy.ChangeState(enemy.states.Idle);
 
             // If the player is in range, attempt to face them
-            if (IsWithinAttackRange() && !enemy.isRecovering)
+            if (IsWithinAttackRange() && canAttack())
             {
                 FacePlayer();
-                if (IsFacingPlayer() && enemy.canAttack) Attack();
-                return;
+                if (IsFacingPlayer()) Attack();
             }
 
+            // check if we can still attack, then early return so we dont run the base update and dont trigger attack cooldown.
+            if (attacksThisState < enemy.attacksPerCooldown && IsWithinAttackRange()) return;
+            enemy.toggleCanAttack(false);
             base.Update();
         }
 
         private void Attack()
         {
-            if (!enemy.canAttack) return;
-
             // Proceed with the attack if the player exists and can be damaged
-            if (enemy.target != null)
-            {
-                var player = enemy.target.root.GetComponent<Player>();
-                if (player != null)
-                {
-                    enemy.animator.SetTrigger("TriggerAttackAnimation");
-                    player.OnHit(enemy.attackDamage);
-                    enemy.toggleIsRecovering(true);
-                }
-                // After attacking, disable attacking until cooldown is over
-                enemy.toggleCanAttack(false);
-            }
+            enemy.animator.SetTrigger("AttackTrigger");
+            attacksThisState++;
+            enemy.toggleIsRecovering(true);
         }
 
         private void FacePlayer()
@@ -71,7 +72,18 @@ namespace EnemiesNS
             Vector3 directionToPlayer = (enemy.target.position - enemy.transform.position).normalized;
             float angleToPlayer = Vector3.Angle(enemy.transform.forward, directionToPlayer);
 
-            return angleToPlayer < 5f;
+            return angleToPlayer < enemy.facingPlayerVarianceAngle;
+        }
+
+        protected bool canAttack()
+        {
+            bool canATK = true;
+            if (!enemy.canAttack) canATK = false;
+            if (enemy.isRecovering) canATK = false;
+            if (enemy.target == null) canATK = false;
+            if (enemy.inAttackAnim) canATK = false;
+            return canATK;
+
         }
     }
 }

@@ -130,17 +130,17 @@ public class Player : MonoBehaviour
         groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
         Vector3[] raycastOffsets = new Vector3[]
         {
-            Vector3.zero, 
-            new Vector3(0, 0, rb.GetComponent<Collider>().bounds.extents.z), 
+            Vector3.zero,
+            new Vector3(0, 0, rb.GetComponent<Collider>().bounds.extents.z),
             new Vector3(0, 0, -rb.GetComponent<Collider>().bounds.extents.z),
-            new Vector3(rb.GetComponent<Collider>().bounds.extents.x, 0, 0), 
+            new Vector3(rb.GetComponent<Collider>().bounds.extents.x, 0, 0),
             new Vector3(-rb.GetComponent<Collider>().bounds.extents.x,0,0) ,
         };
 
         foreach (Vector3 offset in raycastOffsets)
         {
             Vector3 raycastPosition = rb.position + offset;
-            if (Physics.Raycast(raycastPosition,Vector3.down,out RaycastHit hit,groundCheckDistance))
+            if (Physics.Raycast(raycastPosition, Vector3.down, out RaycastHit hit, groundCheckDistance))
             {
                 if (!hit.collider.gameObject.CompareTag("Player"))
                 {
@@ -153,7 +153,7 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        isGrounded = false; 
+        isGrounded = false;
     }
 
     public void SetState(StateBase newState)
