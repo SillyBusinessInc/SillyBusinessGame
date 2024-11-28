@@ -56,7 +56,7 @@ public class DoorManager : Reference
     void LoadConnectedRooms()
     {
         connectedRooms = GetConnectedRooms(); 
-        Debug.Log(string.Join(", ", connectedRooms.Select(room => room.roomType.ToString())));
+        // Debug.Log(string.Join(", ", connectedRooms.Select(room => room.roomType.ToString())));
     }
 
     void DeactivateExtraDoors()
@@ -92,6 +92,11 @@ public class DoorManager : Reference
 
             door.nextRoomType = selectedRoom.roomType;
             door.nextRoomId = selectedRoom.id;
+            
+            if(door.nextRoomType.ToString() == "BONUS") {
+                doorObject.SetActive(false);
+                Debug.Log("Bonus room setActive false");
+            }
 
             remainingRooms.RemoveAt(randomIndex);
         }
