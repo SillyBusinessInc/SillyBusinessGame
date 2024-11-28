@@ -2,66 +2,55 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
-using Random = UnityEngine.Random;
 
 public class EnemyWaveManager : MonoBehaviour
 {
     public List<Wave> waves;
     public List<Transform> spawnAreaTransforms;
-    public GameObject spawnerObject;
-    private int totalEnemies;
-    private int deadEnemies;
+
+    private List<GameObject> activeEnemies = new List<GameObject>();
+    // private int totalEnemies;
+    // private int deadEnemies;
     private int currentWave = 0;
     private int wavesDone = 0;
     private int maxWaves;
     private bool nextWave = false;
-    public bool immediateStart = false;
-
-    private void Start()
-    {
-        if (immediateStart){
-            GlobalReference.AttemptInvoke(Events.WAVE_START);
-        }
-    }
+    
     private void Update()
     {
-        if (deadEnemies >= totalEnemies && nextWave)
+        if (activeEnemies.Count() == 0 || activeEnemies.All(enemy => enemy == null) && nextWave)
         {
             WaveCompleted();
         }
     }
 
-    //function that invokes wave start event
-
-    [ContextMenu("Start Wave")]
-    public void StartWaveTest()
+    private void StartWaveCoroutine() => StartCoroutine(StartWave());
+    
+    private void OnEnable()
     {
-        GlobalReference.AttemptInvoke(Events.WAVE_START);
-    }
-
-    private void Awake()
-    {
+        // deadEnemies = 0;
         maxWaves = waves.Count;
-        GlobalReference.SubscribeTo(Events.WAVE_START, () => StartCoroutine(StartWave()));
-        GlobalReference.SubscribeTo(Events.WAVE_DONE, WaveCompleted);
+        StartWaveCoroutine();
+        GlobalReference.SubscribeTo(Events.NORMAL_WAVE_START, StartWaveCoroutine);
+        GlobalReference.SubscribeTo(Events.NORMAL_WAVE_DONE, WaveCompleted);
         GlobalReference.SubscribeTo(Events.ENEMY_KILLED, OnEnemyDeath);
     }
 
     private void OnDestroy()
     {
-        GlobalReference.UnsubscribeTo(Events.WAVE_START, () => StartCoroutine(StartWave()));
-        GlobalReference.UnsubscribeTo(Events.WAVE_DONE, WaveCompleted);
+        GlobalReference.UnsubscribeTo(Events.NORMAL_WAVE_START, StartWaveCoroutine);
+        GlobalReference.UnsubscribeTo(Events.NORMAL_WAVE_DONE, WaveCompleted);
         GlobalReference.UnsubscribeTo(Events.ENEMY_KILLED, OnEnemyDeath);
     }
     public IEnumerator StartWave()
     {
         nextWave = false;
         
-        deadEnemies = 0;
-        totalEnemies = 0;
+        // deadEnemies = 0;
+        // totalEnemies = 0;
         
-        var spawner = spawnerObject.GetComponent<WaveSpawnArea>();
-        totalEnemies = waves[currentWave].waveParts.Sum(wavePart => wavePart.enemyPrefabs.Sum(enemy => enemy.amount));
+        var spawner = gameObject.GetComponent<WaveSpawnArea>();
+        var totalEnemies = waves[currentWave].waveParts.Sum(wavePart => wavePart.enemyPrefabs.Sum(enemy => enemy.amount));
         nextWave = true;
 
         foreach (var wavePart in waves[currentWave].waveParts) // Access waveParts within each Wave
@@ -78,7 +67,8 @@ public class EnemyWaveManager : MonoBehaviour
                     spawner.waveDone = true;
                     foreach (var _ in Enumerable.Range(0, enemy.amount))
                     {
-                        spawner.SpawnEnemy();
+                        var enemyObject =spawner.SpawnEnemy();
+                        activeEnemies.Add(enemyObject);
                         yield return new WaitForSeconds(waves[currentWave].interval);
                     }
                 }
@@ -93,8 +83,7 @@ public class EnemyWaveManager : MonoBehaviour
 
     private void OnEnemyDeath()
     {
-        deadEnemies++;
-        if (deadEnemies >= totalEnemies)
+        if (!activeEnemies.Any() || activeEnemies.All(enemy => enemy == null))
         {
             WaveCompleted();
         }
@@ -102,20 +91,21 @@ public class EnemyWaveManager : MonoBehaviour
 
     private void WaveCompleted()
     {   
-        totalEnemies = 0;
+        nextWave = false;
+        // totalEnemies = 0;
+        wavesDone++;
         if (wavesDone >= maxWaves)
         {
             GlobalReference.AttemptInvoke(Events.ALL_WAVES_DONE);
-            nextWave = false;
+            GlobalReference.AttemptInvoke(Events.NEXT_SPAWNER);
+            Destroy(gameObject);
         }
         else
         {
-
             nextWave = true;
             currentWave++;
-            GlobalReference.AttemptInvoke(Events.WAVE_START);
+            GlobalReference.AttemptInvoke(Events.NORMAL_WAVE_START);
         }
-        wavesDone++;
 
     }
 }

@@ -87,6 +87,7 @@ public class Statistic
     private void TriggerOnChange()
     {
         OnChange?.Invoke();
+        GlobalReference.AttemptInvoke(Events.STATISTIC_CHANGED);
     }
 
     public void Subscribe(Action callback) => OnChange += callback;
