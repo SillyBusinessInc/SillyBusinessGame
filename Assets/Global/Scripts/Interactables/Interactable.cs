@@ -80,7 +80,13 @@ public class Interactable : MonoBehaviour
         hudElement.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;
 
         // set right coordinates
-        hudElement.transform.SetParent(transform);
+        Transform modelTransform = transform.Find("Models");
+        if (modelTransform != null)
+        {
+            hudElement.transform.SetParent(modelTransform);
+        }else {
+            Debug.LogWarning("No Model object found under Door.");
+        }
     }
 
     public bool IsWithinInteractionRange(float rayHitDistance) => rayHitDistance <= interactDistance;

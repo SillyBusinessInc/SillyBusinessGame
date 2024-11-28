@@ -515,7 +515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4604004392676631497, guid: 6f26dc5aa3ee64c6785e6b303245e6ec, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4604004392676631497, guid: 6f26dc5aa3ee64c6785e6b303245e6ec, type: 3}
       propertyPath: m_LocalPosition.y
@@ -564,7 +564,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1546219008}
   - {fileID: 1000231850}
+  - {fileID: 3344082653674880784}
   - {fileID: 1440107791}
   - {fileID: 1950116271}
   - {fileID: 1906455995}
-  - {fileID: 3344082653674880784}
