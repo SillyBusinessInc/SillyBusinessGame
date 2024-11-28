@@ -5,28 +5,33 @@ using UnityEngine.AI;
 
 public class FollowEnemy : EnemyBase
 {
-    public Dictionary<string, FollowEnemyStates.StateBase> states;
+    public FollowingEnemyStates states;
     private FollowEnemyStates.StateBase currentState;
 
     [HideInInspector] public NavMeshAgent agent;
+    [HideInInspector] public Animator animator;
 
     [Header("Roaming behavior")]
     public float roamingRadius = 10f;
     public float roamingAngleRange = 90f;
-    // public Vector3 roamingNextDestination; // never used?
 
     [Header("Following behavior")]
     public Collider playerObject; // The player object is what the enemy is following
     public Transform target;
-    // public float followRange = 10f; // never used?
 
     [Header("Vision cone")]
     public float visionAngle = 45f;
     public float visionRange = 10f;
 
+    [Header("Memory")]
+    public float memoryDuration = 2f; // Time to "remember" the player's last position
+    [HideInInspector] public float lastSeenTime = 0f;
+    [HideInInspector] public Vector3 lastSeenLocation = Vector3.zero;
+
+
     [Header("Attacking behavior")]
-    public float attackDamage = 25f;
-    public float attackRange = 1f;
+    public float attackDamage = 1f; // hp damage
+    public float attackRange = 5f;
     public float attackCooldown = 2f;
     public bool canAttack = true;
     public float attackTimeElapsed = 0f;
@@ -38,18 +43,14 @@ public class FollowEnemy : EnemyBase
     {
         base.Start();
         agent = GetComponent<NavMeshAgent>();
-        try {
+        animator = GetComponent<Animator>();
+        try
+        {
             playerObject = GlobalReference.GetReference<PlayerReference>().PlayerObj.GetComponent<Collider>();
         }
-        catch {}
-        states = new Dictionary<string, FollowEnemyStates.StateBase>
-            {
-                {"Roaming", new RoamingState(this)},
-                {"Following", new FollowingState(this)},
-                {"Attacking", new FollowEnemyStates.AttackingState(this)}, // unfortunately i need to specify namespace here to combat namespace conflicts.
-
-        };
-        ChangeState(states["Roaming"]);
+        catch { }
+        states = new FollowingEnemyStates(this);
+        ChangeState(states.Roaming);
     }
 
     private void Update()
@@ -77,20 +78,29 @@ public class FollowEnemy : EnemyBase
     // Visualize the cone of vision in the editor
     private void OnDrawGizmos()
     {
+
+        // Draw vision range
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, visionRange);
 
+        // Draw vision cone
         Vector3 leftBoundary = Quaternion.Euler(0, -visionAngle / 2, 0) * transform.forward * visionRange;
         Vector3 rightBoundary = Quaternion.Euler(0, visionAngle / 2, 0) * transform.forward * visionRange;
 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + leftBoundary);
         Gizmos.DrawLine(transform.position, transform.position + rightBoundary);
+
+
+        // Draw the attack range
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
     // Debug
     [ContextMenu("DIE")]
-    public void Die() {
+    public void Die()
+    {
         OnHit(100);
     }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
-
+using System.Collections.Generic;
 public class Player : MonoBehaviour
 {
     [Header("Settings")]
@@ -21,7 +21,6 @@ public class Player : MonoBehaviour
     public int slamDamage = 10;
     public int firstTailDamage = 10;
     public int secondTailDamage = 15;
-
     public float slamForce = 2.0f;
     public BoxCollider TransformTail;
 
@@ -58,9 +57,6 @@ public class Player : MonoBehaviour
     public float verticalInput;
 
     [HideInInspector]
-    public bool isGrounded;
-
-    [HideInInspector]
     public bool tailCanDoDamage = false;
 
     [HideInInspector]
@@ -69,11 +65,15 @@ public class Player : MonoBehaviour
 
     [HideInInspector]
     public Vector2 movementInput;
-    public Healthbar healthBar;
+
+    [HideInInspector]
+
+    public List<Collider> collidersEnemy;
 
     [Header("Debugging")]
     [SerializeField]
     private string currentStateName = "none";
+    public bool isGrounded;
 
     // private PlayerInputActions inputActions;
     [HideInInspector]
@@ -84,10 +84,12 @@ public class Player : MonoBehaviour
         states = new PlayerStates(this);
         SetState(states.Idle);
         // health and maxHealth should be the same value at the start of game
+        collidersEnemy = new List<Collider>();
+
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
-        if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
-    
+
     void Update()
     {
         RaycastDown();
@@ -121,26 +123,36 @@ public class Player : MonoBehaviour
     }
 
     public void OnCollisionExit(Collision collision) { }
-    
+
     private void RaycastDown()
     {
         groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
-        RaycastHit hit;
-        Vector3 raycastPosition = new Vector3(rb.position.x, rb.position.y, rb.position.z);
-        if (Physics.Raycast(raycastPosition, Vector3.down, out hit, groundCheckDistance))
+        Vector3[] raycastOffsets = new Vector3[]
         {
-            if (!(hit.collider.gameObject.CompareTag("Player")))
+            Vector3.zero, 
+            new Vector3(0, 0, rb.GetComponent<Collider>().bounds.extents.z), 
+            new Vector3(0, 0, -rb.GetComponent<Collider>().bounds.extents.z),
+            new Vector3(rb.GetComponent<Collider>().bounds.extents.x, 0, 0), 
+            new Vector3(-rb.GetComponent<Collider>().bounds.extents.x,0,0) ,
+        };
+
+        foreach (Vector3 offset in raycastOffsets)
+        {
+            Vector3 raycastPosition = rb.position + offset;
+            if (Physics.Raycast(raycastPosition,Vector3.down,out RaycastHit hit,groundCheckDistance))
             {
-                if (Vector3.Angle(Vector3.up, hit.normal) < degreesToRotate)
+                if (!hit.collider.gameObject.CompareTag("Player"))
                 {
-                    isGrounded = true;
+                    if (Vector3.Angle(Vector3.up, hit.normal) < degreesToRotate)
+                    {
+                        currentJumps = 0;
+                        isGrounded = true;
+                        return;
+                    }
                 }
             }
         }
-        else
-        {
-            isGrounded = false;
-        }
+        isGrounded = false; 
     }
 
     public void SetState(StateBase newState)
@@ -173,27 +185,20 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         playerStatistic.Health -= damage;
-        if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
+
         if (playerStatistic.Health <= 0) OnDeath();
     }
 
     public void Heal(float reward)
     {
         playerStatistic.Health += reward;
-        healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
 
-    public void IncreaseMaxHealth(float reward)
-    {
-        playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
-        healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
-    }
+    public void MultiplyMaxHealth(float reward) => playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
 
-    public void DecreaseMaxHealth()
-    {
-        playerStatistic.MaxHealth.RemoveMultiplier("reward", true);
-        healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
-    }
+    public void IncreaseMaxHealth(float reward) => playerStatistic.MaxHealth.AddModifier("reward", reward);
 
     // If we go the event route this should change right?
     private void OnDeath()

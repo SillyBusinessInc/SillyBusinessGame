@@ -5,8 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - Ground
-  - SpawnPoint
   - Enemy
+  - PlayerSpawnPoint
+  - PlayerPrefeb
+  - DoorPrefab
   layers:
   - Default
   - TransparentFX
@@ -15,8 +17,8 @@ TagManager:
   - Water
   - UI
   - Interactables
-  - 
-  - 
+  - Player
+  - Enemies
   - 
   - 
   - 
