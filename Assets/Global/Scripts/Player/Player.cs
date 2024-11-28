@@ -33,10 +33,6 @@ public class Player : MonoBehaviour
 
     [HideInInspector]
     public float verticalInput;
-
-    [HideInInspector]
-    public bool tailCanDoDamage = false;
-
     [HideInInspector]
     public PlayerStates states;
     public StateBase currentState;

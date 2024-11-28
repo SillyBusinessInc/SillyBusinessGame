@@ -1,3 +1,8 @@
 using UnityEngine;
+using System.Collections;
+public abstract class Attack : ScriptableObject {
+    public abstract void Start();
 
-public class Attack : MonoBehaviour { }
+    public abstract IEnumerator SetStateIdle();
+
+ }

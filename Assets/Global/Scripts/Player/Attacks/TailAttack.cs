@@ -6,20 +6,18 @@ public class TailAttack : Attack
     [HideInInspector]
     public Player player;
     public float duration;
-    public void Awake()
+    protected float idleTime;
+
+    public override void Start()
     {
         player = GlobalReference.GetReference<PlayerReference>().GetComponent<Player>();
     }
 
-    public IEnumerator canDoDamageCoroutine(float time)
+    public override IEnumerator SetStateIdle()
     {
-        yield return new WaitForSeconds(time);
+        Debug.Log("SetStateIdle");
+        yield return new WaitForSeconds(idleTime);
+        Debug.Log("SetStateIdle");
         player.SetState(player.states.Idle);
-        Destroy(gameObject);
-    }
-
-    public void canDoDamage(float time)
-    {
-        StartCoroutine(canDoDamageCoroutine(time));
     }
 }

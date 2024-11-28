@@ -15,6 +15,7 @@ public class AttackingState : StateBase
 
     public override void Enter()
     {
+        Player.Tail.tailCanDoDamage = true;
         var tail = Player.Tail.currentTail;
         if(tail.currentCombo.Count == 0) 
         {
@@ -48,12 +49,15 @@ public class AttackingState : StateBase
             Player.SetState(Player.states.Idle);
             return;
         }
-        Object.Instantiate(tail.currentCombo[Player.Tail.attackIndex]);
+        var currentCombo = tail.currentCombo[Player.Tail.attackIndex];
+        currentCombo.Start();
+        Player.StartCoroutine(currentCombo.SetStateIdle());
         IncreaseIndex();
     }
 
     public override void Exit()
     {
+        Player.Tail.tailCanDoDamage = false;
         Player.collidersEnemy.Clear();
     }
 

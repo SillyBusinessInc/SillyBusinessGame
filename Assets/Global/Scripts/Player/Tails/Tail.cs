@@ -16,6 +16,9 @@ public class Tail : MonoBehaviour
 
     [HideInInspector]
     public float activeAttackCooldown;
+
+    [HideInInspector]
+    public bool tailCanDoDamage = false;
     public float attackResettingTime = 2f;
 
     public void Update()
@@ -46,7 +49,7 @@ public class Tail : MonoBehaviour
                 return;
             }
             player.collidersEnemy.Add(Collider);
-            if (player.tailCanDoDamage)
+            if (tailCanDoDamage)
             {
                 float actualDamage =
                     tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
