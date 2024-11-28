@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
     public float glideDrag = 2f;
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
-
     public float degreesToRotate = 50.0f;
+    public float acceleration = 10;
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
@@ -50,7 +50,10 @@ public class Player : MonoBehaviour
 
     [Header("Debugging")]
     [SerializeField] public bool isGrounded;
-    [SerializeField] private string currentStateName = "none";
+    [SerializeField] private string debug_currentStateName = "none";
+    [SerializeField] private float debug_speed = 0;
+    [SerializeField] private float debug_speedTarget = 0;
+    [SerializeField] private float debug_speedDif = 0;
     // private PlayerInputActions inputActions;
 
     void Start()
@@ -139,7 +142,7 @@ public class Player : MonoBehaviour
         currentState.Enter();
 
         // storing current name for debugging
-        currentStateName = currentState.GetType().Name;
+        debug_currentStateName = currentState.GetType().Name;
     }
 
     public Vector3 GetDirection()
@@ -158,7 +161,23 @@ public class Player : MonoBehaviour
     }
 
     private void ApproachTargetVelocity() {
-        rb.AddForce(targetVelocity, ForceMode.Force);
+        Vector3 dif = targetVelocity - rb.linearVelocity;
+        Vector3 movement = dif * acceleration;
+        // accelerate
+        // if (dif > 0) {
+        //     movement = dif * acceleration;
+        // }
+        // // decelerate
+        // else {
+        //     movement = dif * acceleration;
+        // }
+
+        // rb.AddForce(GetDirection() * movement, ForceMode.Force);
+        rb.linearVelocity = movement;
+
+        debug_speedDif = dif.magnitude;
+        debug_speed = rb.linearVelocity.magnitude;
+        debug_speedTarget = targetVelocity.magnitude;
     }
 
     // TO BE CHANGED ===============================================================================================================================

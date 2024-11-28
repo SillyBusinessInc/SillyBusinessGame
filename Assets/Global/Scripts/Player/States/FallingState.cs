@@ -1,3 +1,4 @@
+using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,7 @@ public class FallingState : StateBase
         // Apply horizontal movement in the air
         // Player.rb.AddForce(Player.GetDirection() * (Player.playerStatistic.Speed.GetValue() * Player.airBorneMovementFactor), ForceMode.Acceleration);
         Player.targetVelocity = Player.GetDirection() * (Player.playerStatistic.Speed.GetValue() * Player.airBorneMovementFactor);
+        Player.targetVelocity = new(Player.targetVelocity.x, -1, Player.targetVelocity.z);
         
         if (Player.isGrounded) Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
     }

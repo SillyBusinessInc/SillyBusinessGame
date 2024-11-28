@@ -17,7 +17,8 @@ public class DodgeRollState : StateBase
 
         if (dodgeDirection == Vector3.zero) dodgeDirection = Player.rb.transform.forward.normalized;
 
-        Player.rb.AddForce(dodgeDirection * Player.dodgeRollSpeed, ForceMode.Impulse);
+        // Player.rb.AddForce(dodgeDirection * Player.dodgeRollSpeed, ForceMode.Impulse);
+        Player.targetVelocity = dodgeDirection * Player.dodgeRollSpeed;
         // player.animator.SetTrigger("DodgeRoll");
     }
 
