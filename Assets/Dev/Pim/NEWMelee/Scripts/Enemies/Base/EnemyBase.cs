@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -25,7 +24,7 @@ namespace EnemiesNS
         public float idleWaitElapsed;
         [HideInInspector]
         public float idleWaitTime;
-        //[HideInInspector]
+        [HideInInspector]
         public bool isIdling = false;
 
         [Header("Base roam settings | ignored on moldcores")]
@@ -70,11 +69,11 @@ namespace EnemiesNS
         public float chaseWaitTime = 1f;
         [HideInInspector]
         public float chaseWaitElapsed = 0;
-        //[HideInInspector]
+        [HideInInspector]
         public bool isChasing = false;
-        // [HideInInspector]
+        [HideInInspector]
         public bool isWaiting = false;
-        //[HideInInspector]
+        [HideInInspector]
         public float distanceToPlayer;
 
         [Header("Base attack settings | ignored on moldcores")]
@@ -111,15 +110,15 @@ namespace EnemiesNS
         [Range(0f, 5f)]
         public float knockbackStunTime = 0.5f;
 
-        //[HideInInspector]
+        [HideInInspector]
         public bool canAttack = true;
-        // [HideInInspector]
+        [HideInInspector]
         public bool isRecovering = false;
         [HideInInspector]
         public float attackCooldownElapsed = 0;
         [HideInInspector]
         public float attackRecoveryElapsed = 0;
-        // [HideInInspector]
+        [HideInInspector]
         public bool inAttackAnim = false;
 
         [Header("References")]
@@ -166,7 +165,7 @@ namespace EnemiesNS
         public void OnHit(int damage)
         {
             health -= damage;
-            Debug.Log($"Enemy health: {health}", this);
+            //TODO: add visual indicator of hit
             if (health <= 0)
             {
                 OnDeath();
