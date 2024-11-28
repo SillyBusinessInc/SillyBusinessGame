@@ -2,16 +2,28 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
+using System.Collections;
 // using System.Numerics;
 public class Player : MonoBehaviour
 {
-    [Header("Settings")]
+    [Header("Walking Settings")]
+    public float acceleration = 2;
+    public float maxWalkingPenalty = 0.5f;
+    public float currentMovementLerpSpeed = 100;
+
+    [Header("Jumping Settings")]
     public float airBorneMovementFactor = 0.5f;
+    public float fallMultiplier = 7;
+    public float jumpVelocityFalloff = 8;
+    public float coyoteTime = 0.3f;
+
+    [Header("Other Settings")]
     public float glideDrag = 2f;
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
-    public float degreesToRotate = 50.0f;
-    public float acceleration = 10;
+    public float groundCheckAngle = 50.0f;
+    public bool isHoldingJump = false;
+    public bool isHoldingDodge = false;
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
@@ -47,13 +59,15 @@ public class Player : MonoBehaviour
     [HideInInspector] public List<Collider> collidersEnemy;
     [HideInInspector] public float groundCheckDistance;
     [HideInInspector] public Vector3 targetVelocity;
+    [HideInInspector] public float timeLeftGrounded;
+    [HideInInspector] public float timeLastDodge;
+    [HideInInspector] public float currentWalkingPenalty;
+    [HideInInspector] public bool awaitingNewState = false;
 
     [Header("Debugging")]
     [SerializeField] public bool isGrounded;
     [SerializeField] private string debug_currentStateName = "none";
-    [SerializeField] private float debug_speed = 0;
-    [SerializeField] private float debug_speedTarget = 0;
-    [SerializeField] private float debug_speedDif = 0;
+    [HideInInspector] public Color debug_lineColor;
     // private PlayerInputActions inputActions;
 
     void Start()
@@ -71,6 +85,7 @@ public class Player : MonoBehaviour
     {
         GroundCheck();
         currentState.Update();
+        ApproachTargetVelocity();
         RotatePlayerObj();
 
         activeAttackCooldown = currentState != states.Attacking ? activeAttackCooldown + Time.deltaTime : 0.0f;
@@ -82,12 +97,11 @@ public class Player : MonoBehaviour
         }
 
         if (isGrounded) canDodgeRoll = true;
-        Debug.DrawLine(rb.position, rb.position + targetVelocity, Color.yellow, 1, true);
+        Debug.DrawLine(rb.position, rb.position + targetVelocity, debug_lineColor, 0,  true);
     }
 
     void FixedUpdate() {
         currentState.FixedUpdate();
-        ApproachTargetVelocity();
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -123,7 +137,7 @@ public class Player : MonoBehaviour
             {
                 if (!hit.collider.gameObject.CompareTag("Player"))
                 {
-                    if (Vector3.Angle(Vector3.up, hit.normal) < degreesToRotate)
+                    if (Vector3.Angle(Vector3.up, hit.normal) < groundCheckAngle)
                     {
                         currentJumps = 0;
                         isGrounded = true;
@@ -132,17 +146,30 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        isGrounded = false; 
+        if (isGrounded) {
+            isGrounded = false;
+            timeLeftGrounded = Time.time;
+        }
     }
 
     public void SetState(StateBase newState)
     {
+        if (awaitingNewState) return;
+
         currentState?.Exit();
         currentState = newState;
         currentState.Enter();
 
         // storing current name for debugging
         debug_currentStateName = currentState.GetType().Name;
+        debug_lineColor = Color.yellow;
+    }
+
+    public IEnumerator SetStateAfter(StateBase newState, float time) {
+        awaitingNewState = true;
+        yield return new WaitForSeconds(time);
+        awaitingNewState = false;
+        SetState(newState);
     }
 
     public Vector3 GetDirection()
@@ -161,24 +188,39 @@ public class Player : MonoBehaviour
     }
 
     private void ApproachTargetVelocity() {
-        Vector3 dif = targetVelocity - rb.linearVelocity;
-        Vector3 movement = dif * acceleration;
-        // accelerate
-        // if (dif > 0) {
-        //     movement = dif * acceleration;
-        // }
-        // // decelerate
-        // else {
-        //     movement = dif * acceleration;
-        // }
+        if (targetVelocity == Vector3.zero) return;
+        
+        Vector3 newVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, currentMovementLerpSpeed * Time.deltaTime);
+        // if (newVelocity.y*-1 > terminalVelocity) newVelocity = new(newVelocity.x, terminalVelocity*-1, newVelocity.z);
 
-        // rb.AddForce(GetDirection() * movement, ForceMode.Force);
-        rb.linearVelocity = movement;
+        if (newVelocity.sqrMagnitude < rb.linearVelocity.sqrMagnitude) {
+            float yVal = newVelocity.y;
+            newVelocity = newVelocity.normalized * rb.linearVelocity.magnitude;
+            newVelocity = new(newVelocity.x, yVal, newVelocity.z);
+        }
 
-        debug_speedDif = dif.magnitude;
-        debug_speed = rb.linearVelocity.magnitude;
-        debug_speedTarget = targetVelocity.magnitude;
+        rb.linearVelocity = newVelocity;
     }
+
+    // private void ApproachTargetVelocity() {
+    //     Vector3 dif = targetVelocity - rb.linearVelocity;
+    //     Vector3 movement = dif * acceleration;
+    //     // accelerate
+    //     // if (dif > 0) {
+    //     //     movement = dif * acceleration;
+    //     // }
+    //     // // decelerate
+    //     // else {
+    //     //     movement = dif * acceleration;
+    //     // }
+
+    //     // rb.AddForce(GetDirection() * movement, ForceMode.Force);
+    //     rb.linearVelocity = movement;
+
+    //     debug_speedDif = dif.magnitude;
+    //     debug_speed = rb.linearVelocity.magnitude;
+    //     debug_speedTarget = targetVelocity.magnitude;
+    // }
 
     // TO BE CHANGED ===============================================================================================================================
     // If we go the event route this should change right?

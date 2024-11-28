@@ -8,11 +8,19 @@ public class FallingState : StateBase
 
     public override void Update()
     {
-        // Apply horizontal movement in the air
-        // Player.rb.AddForce(Player.GetDirection() * (Player.playerStatistic.Speed.GetValue() * Player.airBorneMovementFactor), ForceMode.Acceleration);
+        float linearY = Player.rb.linearVelocity.y;
+
+        if (linearY < Player.jumpVelocityFalloff || linearY > 0 && !Player.isHoldingJump && !Player.isHoldingDodge) {
+            linearY += Player.fallMultiplier * Physics.gravity.y * Time.deltaTime;
+            Player.debug_lineColor = Color.red;
+        }
+        else {
+            Player.debug_lineColor = Color.yellow;
+        }
+
         Player.targetVelocity = Player.GetDirection() * (Player.playerStatistic.Speed.GetValue() * Player.airBorneMovementFactor);
-        Player.targetVelocity = new(Player.targetVelocity.x, -1, Player.targetVelocity.z);
-        
+        Player.targetVelocity = new(Player.targetVelocity.x, linearY, Player.targetVelocity.z);
+
         if (Player.isGrounded) Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
     }
 
@@ -21,7 +29,12 @@ public class FallingState : StateBase
         if (ctx.started && Player.playerStatistic.DoubleJumpsCount.GetValueInt() > Player.currentJumps)
         {
             Player.currentJumps += 1;
+            Player.isHoldingJump = true;
             Player.SetState(Player.states.Jumping);
+        }
+        if (ctx.canceled) 
+        {
+            Player.isHoldingJump = false;
         }
     }
 

@@ -36,10 +36,15 @@ public abstract class StateBase
     {
         if (ctx.started)
         {
+            Player.isHoldingDodge = true;
             if (Player.canDodgeRoll)
             {
                 Player.SetState(Player.states.DodgeRoll);
             }
+        }
+        if (ctx.canceled) 
+        {
+            Player.isHoldingDodge = false;
         }
     }
 
@@ -47,7 +52,12 @@ public abstract class StateBase
     {
         if (ctx.started)
         {
+            Player.isHoldingJump = true;
             Player.SetState(Player.states.Jumping);
+        }
+        if (ctx.canceled) 
+        {
+            Player.isHoldingJump = false;
         }
 
     }

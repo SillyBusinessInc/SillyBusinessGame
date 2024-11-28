@@ -6,7 +6,6 @@ public class IdleState : StateBase
 
     public override void Update()
     {
-        Player.targetVelocity = Vector3.zero;
-        if (!Player.isGrounded) Player.SetState(Player.states.Falling);
+        if (!Player.isGrounded) Player.StartCoroutine(Player.SetStateAfter(Player.states.Falling, Player.coyoteTime));
     }
 }

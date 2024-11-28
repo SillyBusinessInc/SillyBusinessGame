@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DodgeRollState : StateBase
 {
@@ -10,6 +11,12 @@ public class DodgeRollState : StateBase
 
     public override void Enter()
     {
+        if (Time.time < Player.timeLastDodge + Player.playerStatistic.DodgeCooldown.GetValue()) {
+            ExitDodge();
+            return;
+        }
+        Player.timeLastDodge = Time.time;
+
         Vector3 dodgeDirection = Player.GetDirection();
 
         timer = Player.dodgeRollDuration;
@@ -17,9 +24,27 @@ public class DodgeRollState : StateBase
 
         if (dodgeDirection == Vector3.zero) dodgeDirection = Player.rb.transform.forward.normalized;
 
-        // Player.rb.AddForce(dodgeDirection * Player.dodgeRollSpeed, ForceMode.Impulse);
-        Player.targetVelocity = dodgeDirection * Player.dodgeRollSpeed;
+        Player.rb.linearVelocity = dodgeDirection * Player.dodgeRollSpeed;
+        Player.targetVelocity = new(Player.targetVelocity.x, 0, Player.targetVelocity.z);
         // player.animator.SetTrigger("DodgeRoll");
+        
+    }
+
+    public override void Jump(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started && Player.playerStatistic.DoubleJumpsCount.GetValueInt() > Player.currentJumps)
+        {
+            // this will normalize the momentum preventing the momentum to be used to get an extra high jump
+            Player.rb.linearVelocity = Player.rb.linearVelocity.normalized;
+
+            Player.currentJumps += 1;
+            Player.isHoldingJump = true;
+            Player.SetState(Player.states.Jumping);
+        }
+        if (ctx.canceled) 
+        {
+            Player.isHoldingJump = false;
+        }
     }
 
     public override void Update()
@@ -28,8 +53,12 @@ public class DodgeRollState : StateBase
 
         if (timer <= 0)
         {
-            if (Player.isGrounded) Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
-            else Player.SetState(Player.states.Falling);
+            ExitDodge();
         }
+    }
+
+    public void ExitDodge() {
+        if (Player.isGrounded) Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
+        else Player.SetState(Player.states.Falling);
     }
 }

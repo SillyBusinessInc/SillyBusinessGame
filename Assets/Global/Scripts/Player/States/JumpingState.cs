@@ -6,8 +6,7 @@ public class JumpingState : StateBase
 
     public override void Enter()
     {
-        // Player.rb.linearVelocity = new Vector3(Player.rb.linearVelocity.x, 0, Player.rb.linearVelocity.z);
-        Player.rb.AddForce(Vector3.up * Player.playerStatistic.JumpForce.GetValue(), ForceMode.Impulse);
+        Player.rb.linearVelocity = new Vector3(Player.rb.linearVelocity.x, Player.playerStatistic.JumpForce.GetValue(), Player.rb.linearVelocity.z);
         Player.SetState(Player.states.Falling);
     }
 }

@@ -131,7 +131,7 @@ public class AttackingState : StateBase
 
     public override void Jump(InputAction.CallbackContext ctx)
     {
-        return;
+        if (ctx.canceled) Player.isHoldingJump = false;
     }
 
     public override void Glide(InputAction.CallbackContext ctx)
@@ -141,7 +141,7 @@ public class AttackingState : StateBase
 
     public override void Dodge(InputAction.CallbackContext ctx)
     {
-        return;
+        if (ctx.canceled) Player.isHoldingDodge = false;
     }
 
     public override void Move(InputAction.CallbackContext ctx)
