@@ -3,6 +3,7 @@ using UnityEngine;
 public class FlipAttack : TailAttack
 {
     [SerializeField] private int damage = 20;
+ 
     public void Start()
     {
         player.Tail.tailDoDamage = damage;

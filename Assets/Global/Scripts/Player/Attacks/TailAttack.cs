@@ -5,7 +5,7 @@ public class TailAttack : Attack
 {
     [HideInInspector]
     public Player player;
-
+    public float duration;
     public void Awake()
     {
         player = GlobalReference.GetReference<PlayerReference>().GetComponent<Player>();

@@ -14,9 +14,6 @@ public class Player : MonoBehaviour
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
 
-    [Header("Attack")]
-    public float attackResettingTime = 2f;
-
     public Tail Tail;
 
     [Header("References")]
@@ -24,8 +21,6 @@ public class Player : MonoBehaviour
     public Rigidbody rb;
     public Transform orientation;
 
-    [HideInInspector]
-    public float activeAttackCooldown;
 
     [HideInInspector]
     public bool canDodgeRoll = true;
@@ -79,15 +74,6 @@ public class Player : MonoBehaviour
         RaycastDown();
         currentState.Update();
         RotatePlayerObj();
-        activeAttackCooldown =
-            currentState.GetType().Name != "AttackingState"
-                ? activeAttackCooldown + Time.deltaTime
-                : 0.0f;
-        if (activeAttackCooldown >= this.attackResettingTime)
-        {
-            Tail.attackIndex = 0;
-            activeAttackCooldown = 0.0f;
-        }
         if (isGrounded)
         {
             canDodgeRoll = true;
