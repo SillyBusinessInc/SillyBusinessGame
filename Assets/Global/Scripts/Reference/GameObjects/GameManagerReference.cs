@@ -5,9 +5,12 @@ using UnityEngine;
 public class GameManagerReference : Reference
 {
     public Table table;
+
     void Start() {
         table = new();
         activeRoom = Get(0);
+        GlobalReference.GetReference<DoorManager>().Initialize();
+        // table.PrintTableAsTree();
     }
 
     // Rooms
@@ -22,5 +25,13 @@ public class GameManagerReference : Reference
     }
     public Room Get(int id) => rooms.Where((x) => x.id == id).FirstOrDefault();
     public void Reset() => rooms.Clear();
-    public List<int> GetNextRoomIds() => table.GetRow(activeRoom.id).branches;
+    public List<int> GetNextRoomIds() {
+        if (table == null) {
+            Debug.Log("table is null");
+        }
+        if (activeRoom == null) {
+            Debug.Log("activeRoom is null");
+        }
+        return table.GetRow(activeRoom.id).branches;
+    }
 }

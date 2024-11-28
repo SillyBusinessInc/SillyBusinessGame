@@ -27,4 +27,4 @@ MonoBehaviour:
       amount: 1
     spawnArea: 0
     center: 1
-  interval: 1
+  interval: 0
