@@ -43,7 +43,6 @@ public class Player : MonoBehaviour
     [HideInInspector]
 
     public List<Collider> collidersEnemy;
-    public Healthbar healthBar;
 
     [Header("Debugging")]
     [SerializeField]
@@ -60,9 +59,9 @@ public class Player : MonoBehaviour
         SetState(states.Idle);
         // health and maxHealth should be the same value at the start of game
         collidersEnemy = new List<Collider>();
-        playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
 
-        healthBar?.UpdateHealthBar();
+        playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
 
     void Update()
@@ -146,8 +145,7 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         playerStatistic.Health -= damage;
-
-        healthBar?.UpdateCurrentHealth();
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
 
         if (playerStatistic.Health <= 0) OnDeath();
     }
@@ -155,21 +153,12 @@ public class Player : MonoBehaviour
     public void Heal(float reward)
     {
         playerStatistic.Health += reward;
-        healthBar.UpdateCurrentHealth();
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
 
-    public void MultiplyMaxHealth(float reward)
-    {
-        playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
-        healthBar.UpdateMaxHealth();
-    }
+    public void MultiplyMaxHealth(float reward) => playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
 
-    public void IncreaseMaxHealth(float reward)
-    {
-        playerStatistic.MaxHealth.AddModifier("reward", reward);
-        healthBar.UpdateMaxHealth();
-    }
-
+    public void IncreaseMaxHealth(float reward) => playerStatistic.MaxHealth.AddModifier("reward", reward);
 
     // If we go the event route this should change right?
     private void OnDeath()

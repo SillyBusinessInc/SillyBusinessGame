@@ -16,18 +16,27 @@ public class RoomTransitionDoor : Interactable
     [SerializeField] private Animator animator;
     [SerializeField] private MeshRenderer doorMesh;
     [SerializeField] private string nextRoomName;
-    private bool isTransitioning = false;
+    public int nextRoomid;
+
     public CrossfadeController crossfadeController;
     public PlayerSpawnPoint playerSpawnPoint;
+    public DoorManager doorManager;
     
     private string currentScenename;
  
 
     private void Awake()
     {
+        IsDisabled = IsDisabled; // ugly fix so maybe we have to change in the future
         GlobalReference.SubscribeTo(Events.ROOM_FINISHED, RoomFinished);
     }
 
+    public void Initialize(){
+        base.Start();
+        nextRoomName = "Scene_" + nextRoomid;
+        // Debug.Log("RoomTransitionDoor Scene nextRoomid =  " + nextRoomid);       
+        // Debug.Log("RoomTransitionDoor Scene nextRoomName =  " + nextRoomName);
+    }
 
     private void RoomFinished()
     {
@@ -37,7 +46,6 @@ public class RoomTransitionDoor : Interactable
     public override void OnInteract()
     {
         Debug.Log("OnTriggerEnter Happend");
-        isTransitioning = true;
         StartCoroutine(LoadNextRoom());
     }
 
@@ -60,14 +68,32 @@ public class RoomTransitionDoor : Interactable
             }
         }
 
-        GlobalReference.UnregisterReference(GlobalReference.GetReference<PlayerReference>());
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextRoomName, LoadSceneMode.Additive);
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
 
+        var gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
+        if (gameManagerReference != null)
+        {
+            Room nextRoom = gameManagerReference.Get(nextRoomid);
+            if (nextRoom != null)
+            {
+                gameManagerReference.activeRoom = nextRoom;
+                Debug.Log($"Active Room updated to: {nextRoom.id}, Type: {nextRoom.roomType}");
+            }
+            else
+            {
+                Debug.LogError($"Failed to find Room with ID: {nextRoomid}");
+            }
+        }
+        else
+        {
+            Debug.LogError("GameManagerReference is null");
+        }
 
+        
         AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(currentScenename);
         while (!unloadOperation.isDone)
         {
@@ -76,7 +102,6 @@ public class RoomTransitionDoor : Interactable
 
         Scene newScene = SceneManager.GetSceneByName(nextRoomName);
         SceneManager.SetActiveScene(newScene);
-        isTransitioning = false;
     }
 
     public override void OnDisableInteraction()
