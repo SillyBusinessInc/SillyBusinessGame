@@ -15,6 +15,7 @@ public class EnemyWaveManager : MonoBehaviour
     private int wavesDone = 0;
     private int maxWaves;
     private bool nextWave = false;
+    
     private void Update()
     {
         if (activeEnemies.Count() == 0 || activeEnemies.All(enemy => enemy == null) && nextWave)
@@ -23,19 +24,22 @@ public class EnemyWaveManager : MonoBehaviour
         }
     }
 
+    private void StartWaveCoroutine() => StartCoroutine(StartWave());
+    
     private void OnEnable()
     {
         // deadEnemies = 0;
         maxWaves = waves.Count;
-        GlobalReference.SubscribeTo(Events.WAVE_START, () => StartCoroutine(StartWave()));
-        GlobalReference.SubscribeTo(Events.WAVE_DONE, WaveCompleted);
+        StartCoroutine(StartWave());
+        GlobalReference.SubscribeTo(Events.NORMAL_WAVE_START, StartWaveCoroutine);
+        GlobalReference.SubscribeTo(Events.NORMAL_WAVE_DONE, WaveCompleted);
         GlobalReference.SubscribeTo(Events.ENEMY_KILLED, OnEnemyDeath);
     }
 
     private void OnDestroy()
     {
-        GlobalReference.UnsubscribeTo(Events.WAVE_START, () => StartCoroutine(StartWave()));
-        GlobalReference.UnsubscribeTo(Events.WAVE_DONE, WaveCompleted);
+        GlobalReference.UnsubscribeTo(Events.NORMAL_WAVE_START, StartWaveCoroutine);
+        GlobalReference.UnsubscribeTo(Events.NORMAL_WAVE_DONE, WaveCompleted);
         GlobalReference.UnsubscribeTo(Events.ENEMY_KILLED, OnEnemyDeath);
     }
     public IEnumerator StartWave()
@@ -79,10 +83,7 @@ public class EnemyWaveManager : MonoBehaviour
 
     private void OnEnemyDeath()
     {
-        // deadEnemies++;
-        // Debug.Log("Dead enemies: " + deadEnemies);
-        // Debug.Log("Total enemies: " + totalEnemies);
-        if (activeEnemies.Count() == 0 || activeEnemies.All(enemy => enemy == null))
+        if (!activeEnemies.Any() || activeEnemies.All(enemy => enemy == null))
         {
             WaveCompleted();
         }
@@ -104,7 +105,7 @@ public class EnemyWaveManager : MonoBehaviour
         {
             nextWave = true;
             currentWave++;
-            GlobalReference.AttemptInvoke(Events.WAVE_START);
+            GlobalReference.AttemptInvoke(Events.NORMAL_WAVE_START);
         }
 
     }

@@ -26,7 +26,7 @@ public class WaveSpawnArea : MonoBehaviour
         if(activeEnemies.Count == maxSpawnedEnemies && activeEnemies.TrueForAll(enemy => enemy == null) &&waveDone)
         {
             waveDone = false;
-            GlobalReference.AttemptInvoke(Events.WAVE_DONE);
+            GlobalReference.AttemptInvoke(Events.NORMAL_WAVE_DONE);
         }
     }
 

@@ -34,12 +34,9 @@ public class SpawnerManager : MonoBehaviour
                 }
             }
             waveTypes[currentType].SetActive(true);
-            GlobalReference.AttemptInvoke(Events.WAVE_START);
         }else
         {
             GlobalReference.AttemptInvoke(Events.ALL_NEXT_SPAWNERS_DONE);
-            Debug.Log("All spawners done");
-            Destroy(gameObject);
         }
         currentType++;
     }

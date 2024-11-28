@@ -8,8 +8,8 @@ public enum Events
     ROOM_FINISHED,
     
     ALL_ENEMIES_DEAD,
-    WAVE_DONE,
-    WAVE_START,
+    NORMAL_WAVE_DONE,
+    NORMAL_WAVE_START,
 
     SPAWN_WAVE,
     ALL_WAVES_DONE,
