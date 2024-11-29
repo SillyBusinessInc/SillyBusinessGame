@@ -1,10 +1,14 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Tail : MonoBehaviour
 {
     public Player player;
     public BaseTail currentTail;
+
+    public List<BaseTail> tails;
+    public List<Attack> attacks;
     public Animator animator;
 
     [HideInInspector]
