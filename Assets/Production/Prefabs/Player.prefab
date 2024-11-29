@@ -51,16 +51,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8727f22fc89cd54b9e87543dfb8dca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  airBornMovementFactor: 0.4
-  glideDrag: 2
-  dodgeRollSpeed: 10
-  dodgeRollDuration: 0.5
-  degreesToRotate: 50
+  acceleration: 2
+  maxWalkingPenalty: 0.5
+  currentMovementLerpSpeed: 100
+  airBorneMovementFactor: 0.5
+  fallMultiplier: 5
+  jumpVelocityFalloff: 8
+  coyoteTime: 0.3
+  glideDrag: 1
+  dodgeRollSpeed: 30
+  dodgeRollDuration: 0.2
+  groundCheckAngle: 50
+  isHoldingJump: 0
+  isHoldingDodge: 0
   playerStatistic:
     Speed:
-      baseValue: 15
+      baseValue: 12
     JumpForce:
-      baseValue: 8
+      baseValue: 10
     MaxHealth:
       baseValue: 6
     AttackSpeedMultiplier:
@@ -80,6 +88,7 @@ MonoBehaviour:
   TransformTail: {fileID: 7578467244722651917}
   rb: {fileID: 8218035431276073872}
   orientation: {fileID: 8661837782861090297}
+  healthBar: {fileID: 0}
   slamCanDoDamage: 0
   attackCounter: 0
   tailDoDamage: 0
@@ -92,10 +101,15 @@ MonoBehaviour:
   tailCanDoDamage: 0
   movementInput: {x: 0, y: 0}
   collidersEnemy: []
-  healthBar: {fileID: 0}
-  currentStateName: none
-  isGrounded: 0
   groundCheckDistance: 0
+  targetVelocity: {x: 0, y: 0, z: 0}
+  timeLeftGrounded: 0
+  timeLastDodge: 0
+  currentWalkingPenalty: 0
+  awaitingNewState: 0
+  isGrounded: 0
+  debug_currentStateName: none
+  debug_lineColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &2974869042834182435
 MonoBehaviour:
   m_ObjectHideFlags: 0
