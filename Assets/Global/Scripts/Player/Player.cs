@@ -1,7 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UIElements;
-using System.Collections.Generic;
 public class Player : MonoBehaviour
 {
     [Header("Settings")]
@@ -15,34 +14,13 @@ public class Player : MonoBehaviour
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
 
-    [Header("Attack")]
-    public float attackResettingTime = 2f;
-    public float TailTurnSpeed = 40f;
-    public int slamDamage = 10;
-    public int firstTailDamage = 10;
-    public int secondTailDamage = 15;
-    public float slamForce = 2.0f;
-    public BoxCollider TransformTail;
+    public Tail Tail;
 
     [Header("References")]
     [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
     public Transform orientation;
 
-    [HideInInspector]
-    public bool slamCanDoDamage = false;
-
-    [HideInInspector]
-    public int attackCounter;
-
-    [HideInInspector]
-    public int tailDoDamage;
-
-    [HideInInspector]
-    public bool isSlamming;
-
-    [HideInInspector]
-    public float activeAttackCooldown;
 
     [HideInInspector]
     public bool canDodgeRoll = true;
@@ -55,10 +33,6 @@ public class Player : MonoBehaviour
 
     [HideInInspector]
     public float verticalInput;
-
-    [HideInInspector]
-    public bool tailCanDoDamage = false;
-
     [HideInInspector]
     public PlayerStates states;
     public StateBase currentState;
@@ -69,7 +43,6 @@ public class Player : MonoBehaviour
     [HideInInspector]
 
     public List<Collider> collidersEnemy;
-    public Healthbar healthBar;
 
     [Header("Debugging")]
     [SerializeField]
@@ -86,9 +59,9 @@ public class Player : MonoBehaviour
         SetState(states.Idle);
         // health and maxHealth should be the same value at the start of game
         collidersEnemy = new List<Collider>();
-        playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
 
-        if (healthBar) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
 
     void Update()
@@ -96,15 +69,6 @@ public class Player : MonoBehaviour
         RaycastDown();
         currentState.Update();
         RotatePlayerObj();
-        activeAttackCooldown =
-            currentState.GetType().Name != "AttackingState"
-                ? activeAttackCooldown + Time.deltaTime
-                : 0.0f;
-        if (activeAttackCooldown >= this.attackResettingTime)
-        {
-            attackCounter = 0;
-            activeAttackCooldown = 0.0f;
-        }
         if (isGrounded)
         {
             canDodgeRoll = true;
@@ -115,11 +79,6 @@ public class Player : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (isSlamming)
-        {
-            isSlamming = false;
-            SetState(states.Idle);
-        }
         currentState.OnCollision(collision);
     }
 
@@ -186,8 +145,7 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         playerStatistic.Health -= damage;
-
-        if (healthBar != null) healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
 
         if (playerStatistic.Health <= 0) OnDeath();
     }
@@ -195,21 +153,12 @@ public class Player : MonoBehaviour
     public void Heal(float reward)
     {
         playerStatistic.Health += reward;
-        healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
 
-    public void MultiplyMaxHealth(float reward)
-    {
-        playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
-        healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
-    }
+    public void MultiplyMaxHealth(float reward) => playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
 
-    public void IncreaseMaxHealth(float reward)
-    {
-        playerStatistic.MaxHealth.AddModifier("reward", reward);
-        healthBar.UpdateHealthBar(0f, playerStatistic.MaxHealth.GetValue(), playerStatistic.Health);
-    }
-
+    public void IncreaseMaxHealth(float reward) => playerStatistic.MaxHealth.AddModifier("reward", reward);
 
     // If we go the event route this should change right?
     private void OnDeath()
