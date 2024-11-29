@@ -79,22 +79,22 @@ public class Player : MonoBehaviour
         currentState.Update();
         ApproachTargetVelocity();
         RotatePlayerObj();
-        if (isGrounded)
-        {
-            canDodgeRoll = true;
-        }
+
+        if (isGrounded) canDodgeRoll = true;
+        Debug.DrawLine(rb.position, rb.position + targetVelocity, debug_lineColor, 0,  true);
     }
 
     void FixedUpdate() {
         currentState.FixedUpdate();
     }
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        currentState.OnCollision(collision);
+    public void OnCollisionEnter(Collision collision) {
+        currentState.OnCollisionEnter(collision);
     }
 
-    public void OnCollisionExit(Collision collision) { }
+    public void OnCollisionExit(Collision collision) {
+        currentState.OnCollisionExit(collision);
+    }
 
     private void GroundCheck()
     {
