@@ -1,41 +1,45 @@
-using System.Linq;
 using UnityEngine;
 
 public class TreasureChestInteractable : Interactable
 {
-    [Tooltip("The loot table to use for this chest [Debug, read only]")]
-    [SerializeField] private LootTable _lootTable;
-    private LootTable lootTable;
+    [Header("Treasure Chest Settings")]
+    [SerializeField] private LootTable lootTable;
+    [Tooltip("The reward config it uses for this treasure chest [Read Only]")]
+    [SerializeField] private RewardConfig rewardConfig;
+
+
+    private GameManagerReference gameManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public override void Start()
     {
-
         base.Start();
 
-        GameManagerReference gameManager = GlobalReference.GetReference<GameManagerReference>();
+        gameManager = GlobalReference.GetReference<GameManagerReference>();
 
         RoomType roomType = gameManager.Get(gameManager.activeRoom.id).roomType;
+        lootTable = rewardConfig.GetLootTableForRoomType(roomType);
 
-        Debug.Log($"Room Type: {roomType}");
+        GlobalReference.SubscribeTo(Events.ROOM_FINISHED, ShowTreasureChest);
     }
 
-    [ContextMenu("GetLoot")]
     public override void OnInteract()
     {
-        if (lootTable == null)
-        {
-            lootTable = _lootTable;
-        }
+
+        if (lootTable == null) return;
 
         var loot = lootTable.GetRandomReward();
-
-        Debug.Log($"Loot: {loot}");
 
         if (loot != null)
         {
             // loop through the list of actions and invoke them
             foreach (var action in loot.Entry) action.InvokeAction();
         }
+    }
+
+    public void ShowTreasureChest()
+    {
+        // set active 
+        gameObject.SetActive(true);
     }
 }
