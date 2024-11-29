@@ -14,24 +14,25 @@ public class Tail : MonoBehaviour
     public int tailDoDamage;
 
     [HideInInspector]
-    public float activeAttackCooldown;
+    public float activeResetComboTime;
+
+    public float comboResetTime = 2f;
 
     [HideInInspector]
     public bool tailCanDoDamage = false;
-    public float attackResettingTime = 2f;
     public GameObject slamObject;
     public bool flipDoDamage = false;
 
     public void Update()
     {
-        activeAttackCooldown =
+        activeResetComboTime =
             player.currentState.GetType().Name != "AttackingState"
-                ? activeAttackCooldown + Time.deltaTime
+                ? activeResetComboTime + Time.deltaTime
                 : 0.0f;
-        if (activeAttackCooldown >= attackResettingTime)
+        if (activeResetComboTime >= comboResetTime)
         {
             attackIndex = 0;
-            activeAttackCooldown = 0.0f;
+            activeResetComboTime = 0.0f;
         }
     }
 

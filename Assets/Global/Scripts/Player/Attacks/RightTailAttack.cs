@@ -6,7 +6,7 @@ using UnityEngine;
 public class RightTailAttack : TailAttack
 {
     [SerializeField] private int damage = 15;
-    
+    public override string Name => "RightTail";
     public override void Start()
     {
         base.Start();

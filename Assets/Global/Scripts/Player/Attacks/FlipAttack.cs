@@ -7,6 +7,8 @@ public class FlipAttack : TailAttack
     [SerializeField]
     private int damage = 20;
 
+    public override string Name => "FlipAttack";
+
     public override void Start()
     {
         base.Start();

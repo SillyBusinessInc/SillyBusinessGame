@@ -5,6 +5,7 @@ public class LeftTailAttack : TailAttack
 {
     [SerializeField] private int damage = 10;
     
+    public override string Name => "LeftTailAttack";
     public override void Start()
     {
         base.Start();
