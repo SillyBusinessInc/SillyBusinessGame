@@ -18,7 +18,7 @@ public class RightTailAttack : TailAttack
             .Tail.animator;
         AnimationClip[] clips = animatorTailAttack.runtimeAnimatorController.animationClips;
         AnimationClip clip = clips.Where(x => x.name == "FlipAttack").Single();
-        animatorTailAttack.speed *= clip.length / duration;
+        animatorTailAttack.speed *= (clip.length / duration) * player.Tail.increaseTailSpeed;
         animatorTailAttack.SetTrigger("RightAttack");
     }
 }

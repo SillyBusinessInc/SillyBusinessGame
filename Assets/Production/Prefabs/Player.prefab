@@ -814,6 +814,8 @@ MonoBehaviour:
   currentTail: {fileID: 11400000, guid: 4573dec063fc903468e001bdc9c403e6, type: 2}
   tails:
   - {fileID: 11400000, guid: 4573dec063fc903468e001bdc9c403e6, type: 2}
+  defaultTails:
+  - {fileID: 11400000, guid: 1d284d516f2599f4f8e9e3e7a5021f62, type: 2}
   attacks:
   - {fileID: 11400000, guid: ac56fd45b08018a4b87fee0e2a50e37d, type: 2}
   - {fileID: 11400000, guid: 4691fa48d5b7367469034572ad52acaa, type: 2}
@@ -828,6 +830,7 @@ MonoBehaviour:
   tailCanDoDamage: 0
   slamObject: {fileID: 3673123473092810611}
   flipDoDamage: 0
+  increaseTailSpeed: 1
 --- !u!1 &6770734137585760780
 GameObject:
   m_ObjectHideFlags: 0
