@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - PlayerSpawnPoint
   - PlayerPrefeb
+  - DoorPrefab
   layers:
   - Default
   - TransparentFX

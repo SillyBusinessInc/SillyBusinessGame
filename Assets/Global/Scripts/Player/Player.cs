@@ -1,7 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UIElements;
-using System.Collections.Generic;
 using System.Collections;
 // using System.Numerics;
 public class Player : MonoBehaviour
@@ -28,14 +27,7 @@ public class Player : MonoBehaviour
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
 
-    [Header("Attack")]
-    public float attackResettingTime = 2f;
-    public float TailTurnSpeed = 40f;
-    public int slamDamage = 10;
-    public int firstTailDamage = 10;
-    public int secondTailDamage = 15;
-    public float slamForce = 2.0f;
-    public BoxCollider TransformTail;
+    public Tail Tail;
 
     [Header("References")]
     [FormerlySerializedAs("playerRb")]
@@ -76,9 +68,9 @@ public class Player : MonoBehaviour
         SetState(states.Idle);
         // health and maxHealth should be the same value at the start of game
         collidersEnemy = new List<Collider>();
-        playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
 
-        if (healthBar != null) healthBar.UpdateHealthBar();
+        playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
 
     void Update()
@@ -87,17 +79,10 @@ public class Player : MonoBehaviour
         currentState.Update();
         ApproachTargetVelocity();
         RotatePlayerObj();
-
-        activeAttackCooldown = currentState != states.Attacking ? activeAttackCooldown + Time.deltaTime : 0.0f;
-
-        if (activeAttackCooldown >= attackResettingTime)
+        if (isGrounded)
         {
-            attackCounter = 0;
-            activeAttackCooldown = 0.0f;
+            canDodgeRoll = true;
         }
-
-        if (isGrounded) canDodgeRoll = true;
-        Debug.DrawLine(rb.position, rb.position + targetVelocity, debug_lineColor, 0,  true);
     }
 
     void FixedUpdate() {
@@ -106,17 +91,10 @@ public class Player : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (isSlamming)
-        {
-            isSlamming = false;
-            SetState(states.Idle);
-        }
-        currentState.OnCollisionEnter(collision);
+        currentState.OnCollision(collision);
     }
 
-    public void OnCollisionExit(Collision collision) {
-        currentState.OnCollisionExit(collision);
-    }
+    public void OnCollisionExit(Collision collision) { }
 
     private void GroundCheck()
     {
@@ -231,8 +209,7 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         playerStatistic.Health -= damage;
-
-        if (healthBar != null) healthBar.UpdateCurrentHealth();
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
 
         if (playerStatistic.Health <= 0) OnDeath();
     }
@@ -240,21 +217,12 @@ public class Player : MonoBehaviour
     public void Heal(float reward)
     {
         playerStatistic.Health += reward;
-        healthBar.UpdateCurrentHealth();
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
 
-    public void MultiplyMaxHealth(float reward)
-    {
-        playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
-        healthBar.UpdateMaxHealth();
-    }
+    public void MultiplyMaxHealth(float reward) => playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
 
-    public void IncreaseMaxHealth(float reward)
-    {
-        playerStatistic.MaxHealth.AddModifier("reward", reward);
-        healthBar.UpdateMaxHealth();
-    }
-
+    public void IncreaseMaxHealth(float reward) => playerStatistic.MaxHealth.AddModifier("reward", reward);
 
     // If we go the event route this should change right?
     private void OnDeath()

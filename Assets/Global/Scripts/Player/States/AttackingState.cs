@@ -1,132 +1,64 @@
-using System.Data;
-using System.Runtime.InteropServices.WindowsRuntime;
-using JetBrains.Annotations;
-using NUnit.Framework;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 public class AttackingState : StateBase
 {
-    public bool rotateLeft;
+    public AttackingState(Player player)
+        : base(player) { }
 
-    public float rotate;
-
-    private bool isReturning;
-
-    private bool turnLeft;
-
-    public AttackingState(Player player) : base(player) {}
-
-    public override void FixedUpdate()
+    public void IncreaseIndex()
     {
-        Attack(Player.attackCounter);
-    }
-
-    void Attack(int attackCounter)
-    {
-        switch (attackCounter)
-        {
-            case 1:
-                Slash();
-                break;
-            case 2:
-                Slash();
-                break;
-            case 3:
-                GroundPound();
-                break;
-        }
-    }
-
-    void GroundPound()
-    {
-        if (Player.isGrounded)
-        {
-            Player.isSlamming = true;
-            Player.rb.AddForce(Vector3.up * Player.slamForce, ForceMode.Impulse);
-        }
-        else if (Player.rb.linearVelocity.y < 0 && Player.isSlamming)
-        {
-            Player.rb.AddForce(Vector3.down * Player.slamForce, ForceMode.Impulse);
-        }
-    }
-
-    void Slash()
-    {
-        float speed = turnLeft ?
-            Player.playerStatistic.AttackSpeedMultiplier.GetValue() :
-            -Player.playerStatistic.AttackSpeedMultiplier.GetValue();
-            
-        if (!isReturning)
-        {
-            if (rotate < 180)
-            {
-                Player.TransformTail.transform.RotateAround(
-                    Player.rb.position,
-                    Vector3.up,
-                    Player.TailTurnSpeed * speed 
-                );
-                rotate += Player.TailTurnSpeed;
-            }
-            else
-            {
-                rotate = 0;
-                isReturning = !isReturning;
-                turnLeft = !turnLeft;
-            }
-        }
-        else
-        {
-            if (rotate < 180)
-            {
-                Player.TransformTail.transform.RotateAround(
-                    Player.rb.position,
-                    Vector3.up,
-                    Player.TailTurnSpeed * speed
-                );
-                rotate += Player.TailTurnSpeed;
-            }
-            else
-            {
-                Player.SetState(
-                    Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle
-                );
-            }
-        }
+        Player.Tail.attackIndex =
+            Player.Tail.attackIndex >= Player.Tail.currentTail.currentCombo.Count - 1
+                ? 0
+                : ++Player.Tail.attackIndex;
     }
 
     public override void Enter()
     {
-        ++Player.attackCounter;
-        if (Player.attackCounter == 1)
+        Player.Tail.tailCanDoDamage = true;
+        var tail = Player.Tail.currentTail;
+        if(tail.currentCombo.Count == 0) 
         {
-            Player.tailCanDoDamage = true;
-            Player.tailDoDamage = Player.firstTailDamage;
-            turnLeft = false;
+            if(Player.isGrounded)
+            {
+                tail.currentCombo = tail.groundCombo;
+            }
+            else
+            {
+                tail.currentCombo = tail.airCombo;
+            }
         }
-        if (Player.attackCounter == 2)
+        else if(Player.isGrounded)
         {
-            Player.tailCanDoDamage = true;
-            Player.tailDoDamage = Player.secondTailDamage;
-            turnLeft = true;
+            if(tail.currentCombo == tail.airCombo)
+            {
+                Player.Tail.attackIndex = 0;
+            }
+            tail.currentCombo = tail.groundCombo;
         }
-        if (Player.attackCounter == 3)
+        else
         {
-            Player.slamCanDoDamage = true;
+            if(tail.currentCombo == tail.groundCombo)
+            {
+                Player.Tail.attackIndex = 0;
+            }
+            tail.currentCombo = tail.airCombo;
         }
-        rotate = 0;
-        isReturning = false;
+        if(tail.currentCombo.Count == 0)
+        {
+            Player.SetState(Player.states.Idle);
+            return;
+        }
+        var currentCombo = tail.currentCombo[Player.Tail.attackIndex];
+        currentCombo.Start();
+        Player.StartCoroutine(currentCombo.SetStateIdle());
+        IncreaseIndex();
     }
 
     public override void Exit()
     {
+        Player.Tail.tailCanDoDamage = false;
         Player.collidersEnemy.Clear();
-        Player.tailCanDoDamage = false;
-        Player.slamCanDoDamage = false;
-        Player.isSlamming = false;
-        Player.TransformTail.transform.RotateAround(Player.rb.position, Vector3.up, 0);
-        Player.attackCounter = Player.attackCounter == 3 ? 0 : Player.attackCounter;
     }
 
     public override void Jump(InputAction.CallbackContext ctx)
@@ -134,25 +66,16 @@ public class AttackingState : StateBase
         if (ctx.canceled) Player.isHoldingJump = false;
     }
 
-    public override void Glide(InputAction.CallbackContext ctx)
-    {
-        return;
-    }
+    public override void Glide(InputAction.CallbackContext ctx) { }
 
     public override void Dodge(InputAction.CallbackContext ctx)
     {
         if (ctx.canceled) Player.isHoldingDodge = false;
     }
 
-    public override void Move(InputAction.CallbackContext ctx)
-    {
-        return;
-    }
+    public override void Move(InputAction.CallbackContext ctx) { }
 
-    public override void Sprint(InputAction.CallbackContext ctx)
-    {
-        return;
-    }
+    public override void Sprint(InputAction.CallbackContext ctx) { }
 
-    public override void Attack(InputAction.CallbackContext ctx){}
+    public override void Attack(InputAction.CallbackContext ctx) { }
 }

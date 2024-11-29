@@ -27,10 +27,7 @@ public abstract class StateBase
         }
     }
 
-    public virtual void Sprint(InputAction.CallbackContext ctx)
-    {
-
-    }
+    public virtual void Sprint(InputAction.CallbackContext ctx) { }
 
     public virtual void Dodge(InputAction.CallbackContext ctx)
     {
@@ -70,20 +67,12 @@ public abstract class StateBase
         }
     }
 
-    public virtual void Crouch(InputAction.CallbackContext ctx)
-    {
-
-    }
+    public virtual void Crouch(InputAction.CallbackContext ctx) { }
 
     public virtual void Attack(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
         {
-            if (!Player.isGrounded)
-            {
-                Player.attackCounter = 2;
-                Player.isSlamming = true;
-            }
             Player.SetState(Player.states.Attacking);
         }
     }
