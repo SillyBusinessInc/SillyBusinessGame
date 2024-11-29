@@ -146,7 +146,7 @@ namespace EnemiesNS
         [SerializeField]
         protected bool agentIsStopped = false;
 
-        protected void Start()
+        protected virtual void Start()
         {
             spawnPos = this.transform.position;
             setReferences();
@@ -154,7 +154,7 @@ namespace EnemiesNS
             GlobalReference.AttemptInvoke(Events.ENEMY_SPAWNED);
         }
 
-        protected void Update()
+        protected virtual void Update()
         {
             agentIsStopped = agent.isStopped;
             UpdateTimers();
@@ -162,7 +162,7 @@ namespace EnemiesNS
         }
         protected void FxedUpdate() => currentState?.FixedUpdate();
 
-        public void OnHit(int damage)
+        public virtual void OnHit(int damage)
         {
             health -= damage;
             //TODO: add visual indicator of hit
@@ -172,7 +172,7 @@ namespace EnemiesNS
             }
         }
 
-        protected void OnDeath()
+        protected virtual void OnDeath()
         {
             ChangeState(states.Dead);
             GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);

@@ -10,7 +10,10 @@ namespace EnemiesNS
             this.enemy = enemy;
         }
 
-        public virtual void Enter() { }
+        public virtual void Enter()
+        {
+            Debug.Log($"{enemy.currentState.GetType().Name}- ENTER");
+        }
         public virtual void Exit()
         {
             enemy.FreezeMovement(false);

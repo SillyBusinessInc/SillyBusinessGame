@@ -5,8 +5,8 @@ namespace EnemiesNS
     {
         public BaseAttackingState(EnemyBase enemy) : base(enemy) { }
 
-        private Player player;
-        private int attacksThisState;
+        protected Player player;
+        protected int attacksThisState;
 
         public override void Enter()
         {
@@ -38,7 +38,7 @@ namespace EnemiesNS
             base.Update();
         }
 
-        private void Attack()
+        protected void Attack()
         {
             // Proceed with the attack if the player exists and can be damaged
             enemy.animator.SetTrigger("AttackTrigger");
@@ -46,7 +46,7 @@ namespace EnemiesNS
             enemy.toggleIsRecovering(true);
         }
 
-        private void FacePlayer()
+        protected void FacePlayer()
         {
             if (enemy.target == null) return;
 
@@ -64,7 +64,7 @@ namespace EnemiesNS
             );
         }
 
-        private bool IsFacingPlayer()
+        protected bool IsFacingPlayer()
         {
             if (enemy.target == null) return false;
 
