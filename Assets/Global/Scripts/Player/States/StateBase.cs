@@ -10,30 +10,15 @@ public abstract class StateBase
         this.Player = player;
     }
 
-    public virtual void Enter()
-    {
+    public virtual void Enter() { }
 
-    }
+    public virtual void Update() { }
 
-    public virtual void Update()
-    {
+    public virtual void FixedUpdate() { }
 
-    }
+    public virtual void Exit() { }
 
-    public virtual void FixedUpdate()
-    {
-
-    }
-
-    public virtual void Exit()
-    {
-
-    }
-
-    public virtual void OnCollision(Collision collision)
-    {
-
-    }
+    public virtual void OnCollision(Collision collision) { }
 
     // Input handling
     public virtual void Move(InputAction.CallbackContext ctx)
@@ -45,10 +30,7 @@ public abstract class StateBase
         }
     }
 
-    public virtual void Sprint(InputAction.CallbackContext ctx)
-    {
-
-    }
+    public virtual void Sprint(InputAction.CallbackContext ctx) { }
 
     public virtual void Dodge(InputAction.CallbackContext ctx)
     {
@@ -67,7 +49,6 @@ public abstract class StateBase
         {
             Player.SetState(Player.states.Jumping);
         }
-
     }
 
     public virtual void Glide(InputAction.CallbackContext ctx)
@@ -78,20 +59,12 @@ public abstract class StateBase
         }
     }
 
-    public virtual void Crouch(InputAction.CallbackContext ctx)
-    {
-
-    }
+    public virtual void Crouch(InputAction.CallbackContext ctx) { }
 
     public virtual void Attack(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
         {
-            if (!Player.isGrounded)
-            {
-                Player.attackCounter = 2;
-                Player.isSlamming = true;
-            }
             Player.SetState(Player.states.Attacking);
         }
     }
