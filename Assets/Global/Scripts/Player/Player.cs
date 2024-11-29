@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 {
     [Header("Walking Settings")]
     public float acceleration = 2;
-    public float maxWalkingPenalty = 0.5f;
+    public float deceleration = 0.5f;
     public float currentMovementLerpSpeed = 100;
 
     [Header("Jumping Settings")]
@@ -22,9 +22,8 @@ public class Player : MonoBehaviour
     public float glideDrag = 2f;
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
+    public float dodgeRollDeceleration = 1f;
     public float groundCheckAngle = 50.0f;
-    public bool isHoldingJump = false;
-    public bool isHoldingDodge = false;
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
@@ -58,11 +57,14 @@ public class Player : MonoBehaviour
     [HideInInspector] public float currentWalkingPenalty;
     [HideInInspector] public bool awaitingNewState = false;
     [HideInInspector] public Coroutine activeCoroutine;
+    [HideInInspector] public float maxWalkingPenalty = 0.5f;
 
     [Header("Debugging")]
     [SerializeField] public bool isGrounded;
     [SerializeField] private string debug_currentStateName = "none";
     [HideInInspector] public Color debug_lineColor;
+    [HideInInspector] public bool isHoldingJump = false;
+    [HideInInspector] public bool isHoldingDodge = false;
     // private PlayerInputActions inputActions;
 
     void Start()
@@ -175,50 +177,37 @@ public class Player : MonoBehaviour
 
     private void RotatePlayerObj()
     {
-        if (rb.linearVelocity.magnitude > 0.1f)
+        if (rb.linearVelocity != Vector3.zero)
         {
             var direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
             if (direction != Vector3.zero) rb.MoveRotation(Quaternion.LookRotation(direction));
+            else rb.MoveRotation(Quaternion.identity);
         }
     }
 
     private void ApproachTargetVelocity() {
-        // return if there is no target velocity to move towards
-        if (targetVelocity == Vector3.zero) return;
+        // return if there is no target velocity to move towards | currently disabled as I'm investigating it's necessity
+        // if (targetVelocity == Vector3.zero) return;
         
         // slowly move to target velocity
         Vector3 newVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, currentMovementLerpSpeed * Time.deltaTime);
 
-        // adjust speed when already moving at high speeds
+        // adjust speed when slowing down
         if (newVelocity.sqrMagnitude < rb.linearVelocity.sqrMagnitude) {
+            // preserve y velocity
             float yVal = newVelocity.y;
-            newVelocity = newVelocity.normalized * rb.linearVelocity.magnitude;
-            newVelocity = new(newVelocity.x, yVal, newVelocity.z);
+
+            // apply deceleration
+            Vector3 adjustedVelocity = newVelocity.normalized * (rb.linearVelocity.magnitude * (-0.01f * (currentState == states.DodgeRoll ? dodgeRollDeceleration : deceleration) + 1));
+            if (adjustedVelocity.sqrMagnitude < newVelocity.sqrMagnitude) adjustedVelocity = newVelocity;
+
+            // apply adjustment
+            newVelocity = new(adjustedVelocity.x, yVal, adjustedVelocity.z);
         }
 
         // apply new velocity
         rb.linearVelocity = newVelocity;
     }
-
-    // private void ApproachTargetVelocity() {
-    //     Vector3 dif = targetVelocity - rb.linearVelocity;
-    //     Vector3 movement = dif * acceleration;
-    //     // accelerate
-    //     // if (dif > 0) {
-    //     //     movement = dif * acceleration;
-    //     // }
-    //     // // decelerate
-    //     // else {
-    //     //     movement = dif * acceleration;
-    //     // }
-
-    //     // rb.AddForce(GetDirection() * movement, ForceMode.Force);
-    //     rb.linearVelocity = movement;
-
-    //     debug_speedDif = dif.magnitude;
-    //     debug_speed = rb.linearVelocity.magnitude;
-    //     debug_speedTarget = targetVelocity.magnitude;
-    // }
 
     // TO BE CHANGED ===============================================================================================================================
     // If we go the event route this should change right?
