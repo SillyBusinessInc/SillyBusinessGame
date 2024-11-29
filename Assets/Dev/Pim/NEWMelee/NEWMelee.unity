@@ -135,6 +135,11 @@ BoxCollider:
   m_CorrespondingSourceObject: {fileID: 4057713077167759773, guid: 15c007bff8f4c564883bf81b92a4aef7, type: 3}
   m_PrefabInstance: {fileID: 675772063}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &279938010 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5452983560052617153, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+  m_PrefabInstance: {fileID: 4549243724657442549}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &293611935 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1283807727940519950, guid: 54ef5301367fa4c428cc43c7f6fa82c3, type: 3}
@@ -2031,6 +2036,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1710052168369373784, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 279938010}
     - target: {fileID: 4316266649658499361, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
       propertyPath: m_Name
       value: Melee Enemy

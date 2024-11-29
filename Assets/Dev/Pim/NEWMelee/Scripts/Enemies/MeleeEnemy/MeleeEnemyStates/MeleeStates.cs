@@ -3,11 +3,11 @@ namespace EnemiesNS
     public class MeleeStates : BaseStates
     {
 
-        public new readonly MeleeIdleState Idle;
-        public new readonly MeleeRoamingState Roaming;
-        public new readonly MeleeChasingState Chasing;
-        public new readonly MeleeAttackingState Attacking;
-        public new readonly MeleeDeadState Dead;
+        public new readonly BaseIdleState Idle;
+        public new readonly BaseRoamingState Roaming;
+        public new readonly BaseChasingState Chasing;
+        public new readonly BaseAttackingState Attacking;
+        public new readonly BaseDeadState Dead;
 
 
         public MeleeStates(MeleeEnemy enemy) : base(enemy)
