@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &4008078765043432140
+--- !u!1001 &5911468287076968268
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 02051d823da93f24e9f6dee967792758, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 163.78177
+      value: 222.69208
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 02051d823da93f24e9f6dee967792758, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.03712058
+      value: 0.000019073486
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 02051d823da93f24e9f6dee967792758, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 124.10693
+      value: 158.2345
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 02051d823da93f24e9f6dee967792758, type: 3}
       propertyPath: m_LocalRotation.w
@@ -54,8 +54,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
-    - {fileID: -5245400830998454864, guid: 02051d823da93f24e9f6dee967792758, type: 3}
     - {fileID: 3815532374112369643, guid: 02051d823da93f24e9f6dee967792758, type: 3}
+    - {fileID: -5245400830998454864, guid: 02051d823da93f24e9f6dee967792758, type: 3}
     - {fileID: 4907177805066212155, guid: 02051d823da93f24e9f6dee967792758, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
