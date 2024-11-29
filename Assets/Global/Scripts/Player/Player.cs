@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
+using UnityEditor.Rendering;
+using System.Linq;
 // using System.Numerics;
 public class Player : MonoBehaviour
 {
@@ -55,6 +57,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public float timeLastDodge;
     [HideInInspector] public float currentWalkingPenalty;
     [HideInInspector] public bool awaitingNewState = false;
+    [HideInInspector] public Coroutine activeCoroutine;
 
     [Header("Debugging")]
     [SerializeField] public bool isGrounded;
@@ -132,8 +135,13 @@ public class Player : MonoBehaviour
 
     public void SetState(StateBase newState)
     {
-        if (awaitingNewState) return;
+        // stop active coroutine
+        if (activeCoroutine != null) {
+            StopCoroutine(activeCoroutine);
+            activeCoroutine = null;
+        }
 
+        // chance state
         currentState?.Exit();
         currentState = newState;
         currentState.Enter();
@@ -143,11 +151,19 @@ public class Player : MonoBehaviour
         debug_lineColor = Color.yellow;
     }
 
-    public IEnumerator SetStateAfter(StateBase newState, float time) {
-        if (awaitingNewState) yield break;
-        awaitingNewState = true;
+    public IEnumerator SetStateAfter(StateBase newState, float time, bool override_ = false) {
+        // stop active coroutine
+        if (activeCoroutine != null) {
+            if (override_) {
+                StopCoroutine(activeCoroutine);
+                activeCoroutine = null;
+            }
+            else yield break;
+        }
+        
+        // set state after time
         yield return new WaitForSeconds(time);
-        awaitingNewState = false;
+        activeCoroutine = null;
         SetState(newState);
     }
 

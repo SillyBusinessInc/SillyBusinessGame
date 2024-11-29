@@ -9,7 +9,7 @@ public class WalkingState : StateBase
     {
         // perform ground check first
         if (!Player.isGrounded) {
-            Player.StartCoroutine(Player.SetStateAfter(Player.states.Falling, Player.coyoteTime));
+            Player.activeCoroutine = Player.StartCoroutine(Player.SetStateAfter(Player.states.Falling, Player.coyoteTime));
         }
 
         // calculate walking direction and speed

@@ -57,7 +57,7 @@ MonoBehaviour:
   airBorneMovementFactor: 0.5
   fallMultiplier: 5
   jumpVelocityFalloff: 8
-  coyoteTime: 0.3
+  coyoteTime: 0.2
   glideDrag: 1
   dodgeRollSpeed: 30
   dodgeRollDuration: 0.2
@@ -79,10 +79,14 @@ MonoBehaviour:
       baseValue: 1
     DoubleJumpsCount:
       baseValue: 2
-  attackResettingTime: 2
   Tail: {fileID: 2433743845863343982}
   rb: {fileID: 8218035431276073872}
   orientation: {fileID: 8661837782861090297}
+  healthBar: {fileID: 0}
+  slamCanDoDamage: 0
+  attackCounter: 0
+  tailDoDamage: 0
+  isSlamming: 0
   activeAttackCooldown: 0
   canDodgeRoll: 1
   currentJumps: 0
@@ -705,14 +709,11 @@ MonoBehaviour:
   player: {fileID: 9169223613212550927}
   currentTail: {fileID: 11400000, guid: 4573dec063fc903468e001bdc9c403e6, type: 2}
   animator: {fileID: 6655933081070539201}
-  tailTurnDuration: 0.1
-  leftTailDamage: 10
-  rightTailDamage: 15
-  flipDamage: 20
-  slamForce: 2
-  slamCanDoDamage: 0
   attackIndex: 0
   tailDoDamage: 0
+  activeAttackCooldown: 0
+  tailCanDoDamage: 0
+  attackResettingTime: 2
 --- !u!1 &6770734137585760780
 GameObject:
   m_ObjectHideFlags: 0

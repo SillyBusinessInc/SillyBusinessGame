@@ -11,6 +11,6 @@ public class JumpingState : StateBase
         Player.targetVelocity = Player.rb.linearVelocity;
 
         // change state to falling after a bit to give the player some time to reach intended height
-        Player.StartCoroutine(Player.SetStateAfter(Player.states.Falling, 0.2f));
+        Player.activeCoroutine = Player.StartCoroutine(Player.SetStateAfter(Player.states.Falling, 0.2f, true));
     }
 }
