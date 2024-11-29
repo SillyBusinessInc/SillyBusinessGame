@@ -5,11 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class DoorManager : Reference
 {
-    public List<Room> connectedRooms = new List<Room>(); 
-    public List<GameObject> doors;
+    private List<Room> connectedRooms = new List<Room>(); 
+    private List<GameObject> doors;
     private GameManagerReference gameManagerReference;
     private string lastSceneName;
-    private RoomTransitionDoor roomTransitionDoor;
 
     public void Initialize()
     {
@@ -32,7 +31,6 @@ public class DoorManager : Reference
         string currentSceneName = GetNonBaseSceneName();
         if (!string.IsNullOrEmpty(currentSceneName) && currentSceneName != lastSceneName)
         {
-            Debug.Log($"Scene changed from {lastSceneName} to {currentSceneName}");
             lastSceneName = currentSceneName;
             doors = GameObject.FindGameObjectsWithTag("DoorPrefab").ToList();
             SetupDoors();
@@ -56,7 +54,6 @@ public class DoorManager : Reference
     void LoadConnectedRooms()
     {
         connectedRooms = GetConnectedRooms(); 
-        // Debug.Log(string.Join(", ", connectedRooms.Select(room => room.roomType.ToString())));
     }
 
     void DeactivateExtraDoors()
@@ -93,9 +90,9 @@ public class DoorManager : Reference
             door.nextRoomType = selectedRoom.roomType;
             door.nextRoomId = selectedRoom.id;
             
+            // set Bonus Room active false
             if(door.nextRoomType.ToString() == "BONUS") {
                 doorObject.SetActive(false);
-                Debug.Log("Bonus room setActive false");
             }
 
             remainingRooms.RemoveAt(randomIndex);

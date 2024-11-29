@@ -16,14 +16,14 @@ public class RoomTransitionDoor : Interactable
     [SerializeField] private Animator animator;
     [SerializeField] private MeshRenderer doorMesh;
     [SerializeField] private string nextRoomName;
-    public RoomType nextRoomType;
+    [HideInInspector]public RoomType nextRoomType;
     public int nextRoomId;
-    public int roomAmounts;
+    private int roomAmounts;
 
-    public PlayerSpawnPoint playerSpawnPoint;
-    public DoorManager doorManager;
-    public GameManagerReference gameManagerReference;
-    public CrossfadeController crossfadeController;
+    private PlayerSpawnPoint playerSpawnPoint;
+    private DoorManager doorManager;
+    private GameManagerReference gameManagerReference;
+    private CrossfadeController crossfadeController;
     private int randomNum;
     
     private string currentScenename;
@@ -87,7 +87,6 @@ public class RoomTransitionDoor : Interactable
             if (nextRoom != null)
             {
                 gameManagerReference.activeRoom = nextRoom;
-                Debug.Log($"Active Room updated to: {nextRoom.id}, Type: {nextRoom.roomType}");
             }
             else
             {
