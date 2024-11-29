@@ -23,6 +23,11 @@ public class Tail : MonoBehaviour
     public float comboResetTime = 2f;
 
     [HideInInspector]
+    public float activeCooldownTime;
+
+    public float cooldownTime;
+
+    [HideInInspector]
     public bool tailCanDoDamage = false;
     public GameObject slamObject;
     public bool flipDoDamage = false;
@@ -38,6 +43,7 @@ public class Tail : MonoBehaviour
             attackIndex = 0;
             activeResetComboTime = 0.0f;
         }
+        activeCooldownTime += Time.deltaTime;
     }
 
     public void ChangeTail(BaseTail newtail, Animator animator)
@@ -45,7 +51,6 @@ public class Tail : MonoBehaviour
         currentTail = newtail;
         this.animator = animator;
     }
-    
 
     public void OnTriggerEnter(Collider Collider)
     {

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 public class AttackingState : StateBase
 {
     public AttackingState(Player player)
@@ -15,10 +16,19 @@ public class AttackingState : StateBase
 
     public override void Enter()
     {
-        var tail = Player.Tail.currentTail;
-        if(tail.currentCombo.Count == 0) 
+        if (Player.Tail.activeCooldownTime >= Player.Tail.cooldownTime)
         {
-            if(Player.isGrounded)
+            Player.Tail.activeCooldownTime = 0.0f;
+        }
+        else
+        {
+            Player.SetState(Player.states.Idle);
+            return;
+        }
+        var tail = Player.Tail.currentTail;
+        if (tail.currentCombo.Count == 0)
+        {
+            if (Player.isGrounded)
             {
                 tail.currentCombo = tail.groundCombo;
             }
@@ -27,9 +37,9 @@ public class AttackingState : StateBase
                 tail.currentCombo = tail.airCombo;
             }
         }
-        else if(Player.isGrounded)
+        else if (Player.isGrounded)
         {
-            if(tail.currentCombo == tail.airCombo)
+            if (tail.currentCombo == tail.airCombo)
             {
                 Player.Tail.attackIndex = 0;
             }
@@ -37,13 +47,13 @@ public class AttackingState : StateBase
         }
         else
         {
-            if(tail.currentCombo == tail.groundCombo)
+            if (tail.currentCombo == tail.groundCombo)
             {
                 Player.Tail.attackIndex = 0;
             }
             tail.currentCombo = tail.airCombo;
         }
-        if(tail.currentCombo.Count == 0)
+        if (tail.currentCombo.Count == 0)
         {
             Player.SetState(Player.states.Idle);
             return;
