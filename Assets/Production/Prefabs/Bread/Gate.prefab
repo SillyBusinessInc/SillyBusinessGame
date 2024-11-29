@@ -66,10 +66,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b407a8c93aad3544a97e54d6292e3d82, type: 3}
       propertyPath: m_Name
-      value: gate With Texture
+      value: Gate
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b407a8c93aad3544a97e54d6292e3d82, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3719706914240513475}
   m_SourcePrefab: {fileID: 100100000, guid: b407a8c93aad3544a97e54d6292e3d82, type: 3}
+--- !u!1 &6540302592232261495 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b407a8c93aad3544a97e54d6292e3d82, type: 3}
+  m_PrefabInstance: {fileID: 6197722057562602022}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &3719706914240513475
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6540302592232261495}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7.04561, y: 8.746538, z: 1.4473426}
+  m_Center: {x: 0.12232185, y: 3.8732696, z: 1.1566262}
