@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
-using System.Linq;
+
 public class Tail : MonoBehaviour
 {
     public Player player;
@@ -11,6 +12,8 @@ public class Tail : MonoBehaviour
 
     public List<BaseTail> defaultTails;
     public List<Attack> attacks;
+
+    public List<Attack> defaultAttacks;
     public Animator animator;
 
     [HideInInspector]
@@ -24,17 +27,21 @@ public class Tail : MonoBehaviour
 
     public float comboResetTime = 2f;
 
-    [HideInInspector]
     public float activeCooldownTime;
-
-    public float cooldownTime;
+    public float cooldownTime = 0.0f;
 
     [HideInInspector]
     public bool tailCanDoDamage = false;
     public GameObject slamObject;
     public bool flipDoDamage = false;
 
-    public float increaseTailSpeed = 1.0f; 
+    public float increaseTailSpeed = 1.0f;
+
+    public void Start()
+    {
+        WaffleQuake();
+    }
+
     public void Update()
     {
         activeResetComboTime =
@@ -46,6 +53,7 @@ public class Tail : MonoBehaviour
             attackIndex = 0;
             activeResetComboTime = 0.0f;
         }
+
         activeCooldownTime =
             player.currentState.GetType().Name != "AttackingState"
                 ? activeCooldownTime + Time.deltaTime
@@ -58,15 +66,19 @@ public class Tail : MonoBehaviour
         currentTail.groundCombo.Add(attacks.Where(x => x.Name == "FlipAttack").Single());
         currentTail.groundCombo.First().damage *= 2;
         slamObject.transform.localScale *= 1.5f;
-        cooldownTime += 3.0f;
+        //cooldownTime += 3.0f;
     }
 
     public void ReverseWaffleQuake()
     {
-        currentTail.groundCombo = defaultTails.Where(x => x.Name == "DefaultWaffle").Single().groundCombo;
+        currentTail.groundCombo = defaultTails
+            .Where(x => x.Name == "DefaultWaffle")
+            .Single()
+            .groundCombo;
         slamObject.transform.localScale /= 1.5f;
-        cooldownTime += 3.0f;
+        //cooldownTime -= 3.0f;
     }
+
     public void DoubleTap()
     {
         currentTail.groundCombo.Clear();
@@ -77,9 +89,13 @@ public class Tail : MonoBehaviour
 
     public void ReverseDoubleTap()
     {
-        currentTail.groundCombo = defaultTails.Where(x => x.Name == "DefaultWaffle").Single().groundCombo;
+        currentTail.groundCombo = defaultTails
+            .Where(x => x.Name == "DefaultWaffle")
+            .Single()
+            .groundCombo;
         increaseTailSpeed = 1.0f;
     }
+
     public void OnTriggerEnter(Collider Collider)
     {
         if (Collider.gameObject.CompareTag("Enemy"))

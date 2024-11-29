@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class BaseTail : ScriptableObject
 {
     public string Name;
+    public float Cooldown;
     public List<Attack> groundCombo = new();
     public List<Attack> airCombo = new();
 

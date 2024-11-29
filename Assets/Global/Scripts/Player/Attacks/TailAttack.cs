@@ -18,5 +18,6 @@ public class TailAttack : Attack
         // And also with attack speed
         yield return new WaitForSeconds(duration);
         player.SetState(player.states.Idle);
+        player.Tail.cooldownTime = cooldown;
     }
 }

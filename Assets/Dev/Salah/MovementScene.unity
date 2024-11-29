@@ -619,13 +619,21 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2433743845863343982, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
-      propertyPath: defaultTails.Array.size
-      value: 1
+      propertyPath: defaultAttacks.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2433743845863343982, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
-      propertyPath: 'defaultTails.Array.data[0]'
+      propertyPath: 'defaultAttacks.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 1d284d516f2599f4f8e9e3e7a5021f62, type: 2}
+      objectReference: {fileID: 11400000, guid: ac56fd45b08018a4b87fee0e2a50e37d, type: 2}
+    - target: {fileID: 2433743845863343982, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'defaultAttacks.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 4691fa48d5b7367469034572ad52acaa, type: 2}
+    - target: {fileID: 2433743845863343982, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: 'defaultAttacks.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 0802315ce2a304e4c80b65ef9eace2be, type: 2}
     - target: {fileID: 4811859323897289456, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 412.2
