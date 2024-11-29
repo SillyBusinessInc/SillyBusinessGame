@@ -1,8 +1,12 @@
-using UnityEngine;
 using System.Collections;
-public abstract class Attack : ScriptableObject {
+using UnityEngine;
+
+public abstract class Attack : ScriptableObject
+{
     public abstract void Start();
 
     public abstract IEnumerator SetStateIdle();
-    public abstract string Name { get; }
- }
+    public abstract string Name { get;}
+
+    public float damage;
+}

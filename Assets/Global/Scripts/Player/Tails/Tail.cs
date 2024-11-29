@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Rendering;
+using System.Linq;
 public class Tail : MonoBehaviour
 {
     public Player player;
     public BaseTail currentTail;
-
     public List<BaseTail> tails;
     public List<Attack> attacks;
     public Animator animator;
@@ -15,7 +15,7 @@ public class Tail : MonoBehaviour
     public int attackIndex;
 
     [HideInInspector]
-    public int tailDoDamage;
+    public float tailDoDamage;
 
     [HideInInspector]
     public float activeResetComboTime;
@@ -31,7 +31,6 @@ public class Tail : MonoBehaviour
     public bool tailCanDoDamage = false;
     public GameObject slamObject;
     public bool flipDoDamage = false;
-
     public void Update()
     {
         activeResetComboTime =
@@ -43,15 +42,27 @@ public class Tail : MonoBehaviour
             attackIndex = 0;
             activeResetComboTime = 0.0f;
         }
-        activeCooldownTime += Time.deltaTime;
+        activeCooldownTime =
+            player.currentState.GetType().Name != "AttackingState"
+                ? activeCooldownTime + Time.deltaTime
+                : activeCooldownTime;
     }
 
-    public void ChangeTail(BaseTail newtail, Animator animator)
+    public void WaffleQuake()
     {
-        currentTail = newtail;
-        this.animator = animator;
+        currentTail.groundCombo.Clear();
+        currentTail.groundCombo.Add(attacks.Where(x => x.Name == "FlipAttack").Single());
+        currentTail.groundCombo.First().damage *= 2;
+        slamObject.transform.localScale *= 1.5f;
+        cooldownTime += 3.0f;
     }
 
+    public void DoubleTap()
+    {
+        currentTail.groundCombo.Clear();
+        currentTail.groundCombo.Add(attacks.Where(x => x.Name == "LeftTailAttack").Single());
+        currentTail.groundCombo.Add(attacks.Where(x => x.Name == "RightTailAttack").Single());
+    }
     public void OnTriggerEnter(Collider Collider)
     {
         if (Collider.gameObject.CompareTag("Enemy"))

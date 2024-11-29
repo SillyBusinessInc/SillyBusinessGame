@@ -66,6 +66,10 @@ public class AttackingState : StateBase
 
     public override void Exit()
     {
+        float animatorTailAttack = GlobalReference
+            .GetReference<PlayerReference>()
+            .GetComponent<Player>()
+            .Tail.animator.speed = 1.0f;
         Player.Tail.flipDoDamage = false;
         Player.Tail.tailCanDoDamage = false;
         Player.collidersEnemy.Clear();

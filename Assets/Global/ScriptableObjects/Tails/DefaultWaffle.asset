@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6998065adb0cca546b130e890c877371, type: 3}
-  m_Name: Waffle
+  m_Name: DefaultWaffle
   m_EditorClassIdentifier: 
-  Name: Waffle
+  Name: DefaultWaffle
   groundCombo:
   - {fileID: 11400000, guid: ac56fd45b08018a4b87fee0e2a50e37d, type: 2}
   - {fileID: 11400000, guid: 4691fa48d5b7367469034572ad52acaa, type: 2}

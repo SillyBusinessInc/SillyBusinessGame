@@ -1,12 +1,12 @@
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
-
 
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "RightTail")]
 public class RightTailAttack : TailAttack
 {
-    [SerializeField] private int damage = 15;
-    public override string Name => "RightTail";
+    public override string Name => "RightTailAttack";
+
     public override void Start()
     {
         base.Start();
@@ -15,8 +15,10 @@ public class RightTailAttack : TailAttack
         Animator animatorTailAttack = GlobalReference
             .GetReference<PlayerReference>()
             .GetComponent<Player>()
-            .Tail
-            .animator;
+            .Tail.animator;
+        AnimationClip[] clips = animatorTailAttack.runtimeAnimatorController.animationClips;
+        AnimationClip clip = clips.Where(x => x.name == "FlipAttack").Single();
+        animatorTailAttack.speed *= clip.length / duration;
         animatorTailAttack.SetTrigger("RightAttack");
     }
 }

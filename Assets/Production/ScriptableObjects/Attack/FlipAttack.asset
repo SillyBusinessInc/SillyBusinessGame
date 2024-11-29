@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19302e82ce5c49f43bf2b2004f6e98fd, type: 3}
   m_Name: FlipAttack
   m_EditorClassIdentifier: 
-  duration: 0.5
   damage: 20
+  duration: 0.5

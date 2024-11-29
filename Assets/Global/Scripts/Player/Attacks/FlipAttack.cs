@@ -1,11 +1,10 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "FlipTail")]
 public class FlipAttack : TailAttack
 {
-    [SerializeField]
-    private int damage = 20;
 
     public override string Name => "FlipAttack";
 
@@ -17,6 +16,9 @@ public class FlipAttack : TailAttack
             .GetReference<PlayerReference>()
             .GetComponent<Player>()
             .Tail.animator;
+        AnimationClip[] clips = animatorTailAttack.runtimeAnimatorController.animationClips;
+        AnimationClip clip = clips.Where(x => x.name == "FlipAttack").Single();
+        animatorTailAttack.speed *= clip.length / duration;
         animatorTailAttack.SetTrigger("FlipAttack");
     }
 

@@ -6,6 +6,7 @@ public class TailAttack : Attack
     protected Player player;
     public float duration;
     public override string Name { get; }
+
     public override void Start()
     {
         player = GlobalReference.GetReference<PlayerReference>().GetComponent<Player>();
