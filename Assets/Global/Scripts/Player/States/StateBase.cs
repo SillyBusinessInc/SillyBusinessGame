@@ -21,7 +21,7 @@ public abstract class StateBase
     public virtual void Move(InputAction.CallbackContext ctx)
     {
         Player.movementInput = ctx.ReadValue<Vector2>();
-        if (ctx.performed && Player.currentState != Player.states.Walking)
+        if (ctx.performed && Player.currentState != Player.states.Walking && Player.isGrounded)
         {
             Player.SetState(Player.states.Walking);
         }

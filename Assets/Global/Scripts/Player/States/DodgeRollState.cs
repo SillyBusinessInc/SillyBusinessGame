@@ -11,23 +11,28 @@ public class DodgeRollState : StateBase
 
     public override void Enter()
     {
+        // return if on cooldown
         if (Time.time < Player.timeLastDodge + Player.playerStatistic.DodgeCooldown.GetValue()) {
             ExitDodge();
             return;
         }
         Player.timeLastDodge = Time.time;
 
+        // find direction
         Vector3 dodgeDirection = Player.GetDirection();
 
+        // set timer after which we can change state
         timer = Player.dodgeRollDuration;
         Player.canDodgeRoll = false;
 
+        // force forward position if the player isn't directly giving us a direction
         if (dodgeDirection == Vector3.zero) dodgeDirection = Player.rb.transform.forward.normalized;
 
+        // apply force
         Player.rb.linearVelocity = dodgeDirection * Player.dodgeRollSpeed;
         Player.targetVelocity = new(Player.targetVelocity.x, 0, Player.targetVelocity.z);
+
         // player.animator.SetTrigger("DodgeRoll");
-        
     }
 
     public override void Jump(InputAction.CallbackContext ctx)

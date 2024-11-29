@@ -166,6 +166,7 @@ public class Player : MonoBehaviour
     }
 
     public IEnumerator SetStateAfter(StateBase newState, float time) {
+        if (awaitingNewState) yield break;
         awaitingNewState = true;
         yield return new WaitForSeconds(time);
         awaitingNewState = false;
@@ -188,17 +189,20 @@ public class Player : MonoBehaviour
     }
 
     private void ApproachTargetVelocity() {
+        // return if there is no target velocity to move towards
         if (targetVelocity == Vector3.zero) return;
         
+        // slowly move to target velocity
         Vector3 newVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, currentMovementLerpSpeed * Time.deltaTime);
-        // if (newVelocity.y*-1 > terminalVelocity) newVelocity = new(newVelocity.x, terminalVelocity*-1, newVelocity.z);
 
+        // adjust speed when already moving at high speeds
         if (newVelocity.sqrMagnitude < rb.linearVelocity.sqrMagnitude) {
             float yVal = newVelocity.y;
             newVelocity = newVelocity.normalized * rb.linearVelocity.magnitude;
             newVelocity = new(newVelocity.x, yVal, newVelocity.z);
         }
 
+        // apply new velocity
         rb.linearVelocity = newVelocity;
     }
 

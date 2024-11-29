@@ -6,9 +6,11 @@ public class GlidingState : StateBase
     public GlidingState(Player player) : base(player) {}
     public override void Update()
     {
-        // Player.rb.AddForce(Player.GetDirection() * Player.playerStatistic.Speed.GetValue(), ForceMode.Acceleration);
-        Player.targetVelocity = Player.GetDirection() * Player.playerStatistic.Speed.GetValue();
+        // smoothly rotate to desired angle and apply force
+        float singleStep = Time.deltaTime;
+        Player.targetVelocity = Vector3.RotateTowards(Player.targetVelocity, Player.GetDirection() + new Vector3(0, -0.5f, 0), singleStep, 0.0f);
 
+        // ground check
         if (Player.isGrounded) Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
     }
 
