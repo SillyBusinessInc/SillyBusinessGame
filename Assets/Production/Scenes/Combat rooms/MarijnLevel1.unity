@@ -4685,39 +4685,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6307948340270541099, guid: ffdc712fdf0dd754ca3857c8627306c3, type: 3}
       propertyPath: m_Size.y
-      value: 5.0290575
+      value: 4.2374983
+      objectReference: {fileID: 0}
+    - target: {fileID: 6307948340270541099, guid: ffdc712fdf0dd754ca3857c8627306c3, type: 3}
+      propertyPath: m_Size.z
+      value: 0.96311456
       objectReference: {fileID: 0}
     - target: {fileID: 6307948340270541099, guid: ffdc712fdf0dd754ca3857c8627306c3, type: 3}
       propertyPath: m_Center.x
-      value: 0.019086704
+      value: 0.01908315
       objectReference: {fileID: 0}
     - target: {fileID: 6307948340270541099, guid: ffdc712fdf0dd754ca3857c8627306c3, type: 3}
       propertyPath: m_Center.y
-      value: -1.5215566
+      value: -1.1257842
       objectReference: {fileID: 0}
     - target: {fileID: 6307948340270541099, guid: ffdc712fdf0dd754ca3857c8627306c3, type: 3}
       propertyPath: m_Center.z
-      value: -0.0799351
+      value: -0.17831299
       objectReference: {fileID: 0}
     - target: {fileID: 7500351222155282847, guid: ffdc712fdf0dd754ca3857c8627306c3, type: 3}
       propertyPath: m_Size.y
-      value: 0.02604845
+      value: 0.02427486
       objectReference: {fileID: 0}
     - target: {fileID: 7500351222155282847, guid: ffdc712fdf0dd754ca3857c8627306c3, type: 3}
       propertyPath: m_Size.z
-      value: 0.051932544
+      value: 0.018605907
       objectReference: {fileID: 0}
     - target: {fileID: 7500351222155282847, guid: ffdc712fdf0dd754ca3857c8627306c3, type: 3}
       propertyPath: m_Center.x
-      value: 0.00009142825
+      value: 0.00009142756
       objectReference: {fileID: 0}
     - target: {fileID: 7500351222155282847, guid: ffdc712fdf0dd754ca3857c8627306c3, type: 3}
       propertyPath: m_Center.y
-      value: 0.0071419934
+      value: 0.006255217
       objectReference: {fileID: 0}
     - target: {fileID: 7500351222155282847, guid: ffdc712fdf0dd754ca3857c8627306c3, type: 3}
       propertyPath: m_Center.z
-      value: 0.02834346
+      value: 0.011680326
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
