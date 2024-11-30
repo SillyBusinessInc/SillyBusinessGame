@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public float dodgeRollDuration = 1f;
 
     public float degreesToRotate = 50.0f;
+    [HideInInspector] public PlayerAnimationsHandler playerAnimationsHandler;
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
@@ -53,8 +54,11 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public float groundCheckDistance;
 
+    private bool IsLanding = false;
+
     void Start()
     {
+        playerAnimationsHandler = GetComponent<PlayerAnimationsHandler>();
         states = new PlayerStates(this);
         SetState(states.Idle);
         // health and maxHealth should be the same value at the start of game
@@ -66,7 +70,9 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        RaycastDown();
+        RaycastGround();
+        // RaycastLanding();
+        CheckLandingAnimation();
         currentState.Update();
         RotatePlayerObj();
         if (isGrounded)
@@ -84,22 +90,22 @@ public class Player : MonoBehaviour
 
     public void OnCollisionExit(Collision collision) { }
 
-    private void RaycastDown()
+    private void RaycastGround()
     {
         groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
         Vector3[] raycastOffsets = new Vector3[]
         {
-            Vector3.zero, 
-            new Vector3(0, 0, rb.GetComponent<Collider>().bounds.extents.z), 
+            Vector3.zero,
+            new Vector3(0, 0, rb.GetComponent<Collider>().bounds.extents.z),
             new Vector3(0, 0, -rb.GetComponent<Collider>().bounds.extents.z),
-            new Vector3(rb.GetComponent<Collider>().bounds.extents.x, 0, 0), 
+            new Vector3(rb.GetComponent<Collider>().bounds.extents.x, 0, 0),
             new Vector3(-rb.GetComponent<Collider>().bounds.extents.x,0,0) ,
         };
 
         foreach (Vector3 offset in raycastOffsets)
         {
             Vector3 raycastPosition = rb.position + offset;
-            if (Physics.Raycast(raycastPosition,Vector3.down,out RaycastHit hit,groundCheckDistance))
+            if (Physics.Raycast(raycastPosition, Vector3.down, out RaycastHit hit, groundCheckDistance))
             {
                 if (!hit.collider.gameObject.CompareTag("Player"))
                 {
@@ -107,14 +113,29 @@ public class Player : MonoBehaviour
                     {
                         currentJumps = 0;
                         isGrounded = true;
+                        playerAnimationsHandler.SetBool("IsOnGround", true);
                         return;
                     }
                 }
             }
         }
-        isGrounded = false; 
+        isGrounded = false;
+        IsLanding = false;
+        playerAnimationsHandler.SetBool("IsOnGround", false);
     }
-
+    private void CheckLandingAnimation()
+    {
+        if (rb.linearVelocity.y < -0.1f && isGrounded)
+        {
+            if (!IsLanding)
+            {
+                IsLanding = true;
+                playerAnimationsHandler.resetStates();
+                playerAnimationsHandler.animator.SetTrigger("IsLanding");
+            }
+        }
+    }
+    
     public void SetState(StateBase newState)
     {
         currentState?.Exit();
@@ -165,4 +186,16 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Player died", this);
     }
+
+    //contextmenu button
+    [ContextMenu("Reset Health")]
+    public void damageattack()
+    {
+        playerStatistic.Health -= 1;
+        playerAnimationsHandler.resetStates();
+        playerAnimationsHandler.SetBool("TakingDamage", true);
+        // playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");
+    }
+
+
 }

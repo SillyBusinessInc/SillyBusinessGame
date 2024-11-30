@@ -17,5 +17,9 @@ public class FlipAttack : TailAttack
             .animator;
         animatorTailAttack.SetTrigger("FlipAttack");
 
+        player.playerAnimationsHandler.resetStates();
+        player.playerAnimationsHandler.SetInt("AttackType", 2);
+        player.playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");
+
     }
 }

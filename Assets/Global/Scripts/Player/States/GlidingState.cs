@@ -29,4 +29,12 @@ public class GlidingState : StateBase
             Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
         }
     }
+
+        
+        // jump from the air
+    // public override void Jump(InputAction.CallbackContext ctx)
+    // {
+
+    //     base.Jump(ctx);
+    // }
 }

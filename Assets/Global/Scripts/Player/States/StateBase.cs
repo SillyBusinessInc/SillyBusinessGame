@@ -27,6 +27,9 @@ public abstract class StateBase
         if (ctx.performed && Player.currentState != Player.states.Walking)
         {
             Player.SetState(Player.states.Walking);
+        }else if (ctx.canceled && Player.currentState == Player.states.Walking)
+        {
+            Player.SetState(Player.states.Idle);
         }
     }
 
