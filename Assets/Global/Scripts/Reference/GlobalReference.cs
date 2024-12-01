@@ -85,9 +85,7 @@ public static class GlobalReference
     public static void UnsubscribeTo(Events eventName, UnityAction action) => TryGetEvent(eventName).RemoveListener(action);
     public static void UnsubscribeTo<T>(Events eventName, UnityAction<T> action) => TryGetEvent<T>(eventName).RemoveListener(action);
 
-    public static void AttemptInvoke(Events eventName)
-    {
-        // This log is allowed to stay :P, it's so useful
+    public static void AttemptInvoke(Events eventName){
         Debug.Log($"Object Invoked ({eventName})");
         TryGetEvent(eventName).Invoke();
     }
