@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50c8997d309b092458436854a349c92f, type: 3}
   m_Name: RightAttack
   m_EditorClassIdentifier: 
-  duration: 0.5
+  Name: RightTailAttack
+  cooldown: 0
   damage: 15
+  duration: 0.5

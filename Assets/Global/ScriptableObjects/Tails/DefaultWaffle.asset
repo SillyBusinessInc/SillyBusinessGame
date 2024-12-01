@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: DefaultWaffle
   m_EditorClassIdentifier: 
   Name: DefaultWaffle
+  Cooldown: 0
   groundCombo:
-  - {fileID: 11400000, guid: ac56fd45b08018a4b87fee0e2a50e37d, type: 2}
-  - {fileID: 11400000, guid: 4691fa48d5b7367469034572ad52acaa, type: 2}
-  - {fileID: 11400000, guid: 0802315ce2a304e4c80b65ef9eace2be, type: 2}
+  - {fileID: 11400000, guid: a0357bd3f53888c46abf41b2942e4cb9, type: 2}
+  - {fileID: 11400000, guid: c4738a2552e0988419c40426fbcb0c8d, type: 2}
+  - {fileID: 11400000, guid: e32657aca5f3c294093cfa388eb4ce28, type: 2}
   airCombo:
-  - {fileID: 11400000, guid: ac56fd45b08018a4b87fee0e2a50e37d, type: 2}
-  - {fileID: 11400000, guid: 4691fa48d5b7367469034572ad52acaa, type: 2}
+  - {fileID: 11400000, guid: a0357bd3f53888c46abf41b2942e4cb9, type: 2}
+  - {fileID: 11400000, guid: c4738a2552e0988419c40426fbcb0c8d, type: 2}
   currentCombo:
   - {fileID: 11400000, guid: ac56fd45b08018a4b87fee0e2a50e37d, type: 2}
   - {fileID: 11400000, guid: 4691fa48d5b7367469034572ad52acaa, type: 2}
