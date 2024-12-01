@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19302e82ce5c49f43bf2b2004f6e98fd, type: 3}
-  m_Name: FlipAttack
+  m_Script: {fileID: 11500000, guid: 50c8997d309b092458436854a349c92f, type: 3}
+  m_Name: DefaultRightAttack
   m_EditorClassIdentifier: 
-  cooldown: 3
-  damage: 160
   duration: 0.5
+  damage: 15

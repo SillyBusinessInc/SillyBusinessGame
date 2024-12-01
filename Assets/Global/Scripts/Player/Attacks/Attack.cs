@@ -7,7 +7,7 @@ public abstract class Attack : ScriptableObject
 
     public abstract IEnumerator SetStateIdle();
 
-    public abstract string Name { get;}
+    public string Name;
     public float cooldown;
     public float damage;
 

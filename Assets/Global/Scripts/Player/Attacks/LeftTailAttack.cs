@@ -4,8 +4,6 @@ using System.Linq;
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "LeftTail")]
 public class LeftTailAttack : TailAttack
 {
-    public override string Name => "LeftTailAttack";
-
     public override void Start()
     {
         base.Start();
@@ -16,7 +14,7 @@ public class LeftTailAttack : TailAttack
             .GetComponent<Player>()
             .Tail.animator;
         AnimationClip[] clips = animatorTailAttack.runtimeAnimatorController.animationClips;
-        AnimationClip clip = clips.Where(x => x.name == "FlipAttack").Single();
+        AnimationClip clip = clips.Where(x => x.name == "LeftTailAttack").Single();
         animatorTailAttack.speed *= (clip.length / duration) * player.Tail.increaseTailSpeed; 
         animatorTailAttack.SetTrigger("LeftAttack");
     }

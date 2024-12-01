@@ -40,6 +40,7 @@ public class Tail : MonoBehaviour
     public void Start()
     {
         WaffleQuake();
+        ReverseWaffleQuake();
     }
 
     public void Update()
@@ -63,10 +64,10 @@ public class Tail : MonoBehaviour
     public void WaffleQuake()
     {
         currentTail.groundCombo.Clear();
-        currentTail.groundCombo.Add(attacks.Where(x => x.Name == "FlipAttack").Single());
+        currentTail.groundCombo.Add(defaultAttacks.Where(x => x.Name == "FlipAttack").Single());
         currentTail.groundCombo.First().damage *= 2;
         slamObject.transform.localScale *= 1.5f;
-        //cooldownTime += 3.0f;
+        currentTail.groundCombo.Where(x => x.Name == "FlipAttack").Single().cooldown += 3f;
     }
 
     public void ReverseWaffleQuake()
@@ -76,7 +77,6 @@ public class Tail : MonoBehaviour
             .Single()
             .groundCombo;
         slamObject.transform.localScale /= 1.5f;
-        //cooldownTime -= 3.0f;
     }
 
     public void DoubleTap()

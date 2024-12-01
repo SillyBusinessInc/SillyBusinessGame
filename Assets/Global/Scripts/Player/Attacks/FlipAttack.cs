@@ -5,9 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "FlipTail")]
 public class FlipAttack : TailAttack
 {
-
-    public override string Name => "FlipAttack";
-
     public override void Start()
     {
         base.Start();

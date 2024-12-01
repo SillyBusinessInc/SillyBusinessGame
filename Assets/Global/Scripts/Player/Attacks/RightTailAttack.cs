@@ -5,8 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "RightTail")]
 public class RightTailAttack : TailAttack
 {
-    public override string Name => "RightTailAttack";
-
     public override void Start()
     {
         base.Start();
@@ -17,7 +15,7 @@ public class RightTailAttack : TailAttack
             .GetComponent<Player>()
             .Tail.animator;
         AnimationClip[] clips = animatorTailAttack.runtimeAnimatorController.animationClips;
-        AnimationClip clip = clips.Where(x => x.name == "FlipAttack").Single();
+        AnimationClip clip = clips.Where(x => x.name == "RightTailAttack").Single();
         animatorTailAttack.speed *= (clip.length / duration) * player.Tail.increaseTailSpeed;
         animatorTailAttack.SetTrigger("RightAttack");
     }
