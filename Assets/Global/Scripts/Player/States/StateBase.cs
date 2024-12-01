@@ -76,4 +76,16 @@ public abstract class StateBase
             Player.SetState(Player.states.Attacking);
         }
     }
+
+    // general movement logic
+    protected float ApplyGravity(float yValue) {
+        if (yValue < Player.jumpVelocityFalloff || yValue > 0 && !Player.isHoldingJump && !Player.isHoldingDodge) {
+            yValue += Player.fallMultiplier * Physics.gravity.y * Time.deltaTime;
+            Player.debug_lineColor = Color.red;
+        }
+        else {
+            Player.debug_lineColor = Color.yellow;
+        }
+        return yValue;
+    }
 }

@@ -8,17 +8,8 @@ public class FallingState : StateBase
 
     public override void Update()
     {
-        // preserve y velocity
-        float linearY = Player.rb.linearVelocity.y;
-
-        // add extra gravity to prevent floatiness
-        if (linearY < Player.jumpVelocityFalloff || linearY > 0 && !Player.isHoldingJump && !Player.isHoldingDodge) {
-            linearY += Player.fallMultiplier * Physics.gravity.y * Time.deltaTime;
-            Player.debug_lineColor = Color.red;
-        }
-        else {
-            Player.debug_lineColor = Color.yellow;
-        }
+        // add gravity to y velocity
+        float linearY = ApplyGravity(Player.rb.linearVelocity.y);
 
         // apply horizontal momentum based on input
         Vector3 newTargetVelocity = Player.GetDirection() * (Player.playerStatistic.Speed.GetValue() * Player.airBorneMovementFactor);
@@ -30,7 +21,6 @@ public class FallingState : StateBase
         else if (Player.isGrounded) {
             Player.SetState(Player.states.Walking);
             Player.rb.linearVelocity = new(newTargetVelocity.x, 0, newTargetVelocity.z);
-
         }
     }
 

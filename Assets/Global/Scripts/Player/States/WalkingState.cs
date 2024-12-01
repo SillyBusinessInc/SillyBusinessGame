@@ -21,15 +21,18 @@ public class WalkingState : StateBase
         Vector3 newTargetVelocity = Player.currentWalkingPenalty * Player.playerStatistic.Speed.GetValue() * new Vector3(Player.GetDirection().x, 0, Player.GetDirection().z);
 
         // create reference vector for preserving y velocity
-        Vector3 referenceVector = Player.rb.linearVelocity.normalized * newTargetVelocity.magnitude;
-        if (Vector3.Angle(referenceVector, newTargetVelocity) > 90) referenceVector *= -1;
+        // Vector3 referenceVector = Player.rb.linearVelocity.normalized * newTargetVelocity.magnitude;
+        // if (Vector3.Angle(referenceVector, newTargetVelocity) > 90) referenceVector *= -1;
+
+        // add gravity to y velocity
+        float linearY = ApplyGravity(Player.rb.linearVelocity.y);
 
         // slow down on turn
         Vector3 flatLinearVelocity = new(Player.rb.linearVelocity.x, 0 ,Player.rb.linearVelocity.z);
         if (Vector3.Angle(flatLinearVelocity, newTargetVelocity) > 45) Player.rb.linearVelocity *= 0.2f;
 
         // apply force
-        Player.targetVelocity = new Vector3(newTargetVelocity.x, referenceVector.y, newTargetVelocity.z);
+        Player.targetVelocity = new Vector3(newTargetVelocity.x, linearY, newTargetVelocity.z);
 
         // set player to idle if not moving
         if (Player.rb.linearVelocity == Vector3.zero && Player.targetVelocity == Vector3.zero) Player.SetState(Player.states.Idle);
