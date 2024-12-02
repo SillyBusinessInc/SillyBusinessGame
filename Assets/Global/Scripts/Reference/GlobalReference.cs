@@ -77,29 +77,33 @@ public static class GlobalReference
     }
 
     // Event Logic
-    public static Dictionary<Events, UnityEvent> eventList = new();
+    public static Dictionary<Events, UnityEventBase> eventList = new();
 
-    public static void SubscribeTo(Events eventName, UnityAction action)
-    {
-        // Debug.Log($"Object Subscribed ({eventName})");
-        TryGetEvent(eventName).AddListener(action);
-    }
+    public static void SubscribeTo(Events eventName, UnityAction action) => TryGetEvent(eventName).AddListener(action);
+    public static void SubscribeTo<T>(Events eventName, UnityAction<T> action) => TryGetEvent<T>(eventName).AddListener(action);
 
-    public static void UnsubscribeTo(Events eventName, UnityAction action)
-    {
-        // Debug.Log($"Object Unsubscribed ({eventName})");
-        TryGetEvent(eventName).RemoveListener(action);
-    }
+    public static void UnsubscribeTo(Events eventName, UnityAction action) => TryGetEvent(eventName).RemoveListener(action);
+    public static void UnsubscribeTo<T>(Events eventName, UnityAction<T> action) => TryGetEvent<T>(eventName).RemoveListener(action);
 
-    public static void AttemptInvoke(Events eventName)
-    {
-        // This log is allowed to stay :P, it's so useful
+    public static void AttemptInvoke(Events eventName){
         Debug.Log($"Object Invoked ({eventName})");
         TryGetEvent(eventName).Invoke();
     }
-
-    private static UnityEvent TryGetEvent(Events eventName)
+    public static void AttemptInvoke<T>(Events eventName, T parameter)
     {
-        return eventList.ContainsKey(eventName) ? eventList[eventName] : eventList[eventName] = new();
+        // This log is allowed to stay :P, it's so useful
+        Debug.Log($"Object Invoked ({eventName}) with parameter: ({parameter})");
+        TryGetEvent<T>(eventName).Invoke(parameter);
+    }
+
+    private static UnityEvent TryGetEvent(Events eventName) {
+        if (!eventList.ContainsKey(eventName)) return (UnityEvent)(eventList[eventName] = new UnityEvent());
+        if (eventList[eventName] is UnityEvent e) return e;
+        throw new UnityException($"You are trying to access {eventName} as if it was a parameterless event even though it has been created as an event with a parameter");
+    }
+    private static UnityEvent<T> TryGetEvent<T>(Events eventName) {
+        if (!eventList.ContainsKey(eventName)) return (UnityEvent<T>)(eventList[eventName] = new UnityEvent<T>());
+        if (eventList[eventName] is UnityEvent<T> e) return e;
+        throw new UnityException($"You are trying to access {eventName} as if it was an event with a parameter even though it has been created as a parameterless event");
     }
 }

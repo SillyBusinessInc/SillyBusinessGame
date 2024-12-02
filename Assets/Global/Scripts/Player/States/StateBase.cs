@@ -3,61 +3,45 @@ using UnityEngine.InputSystem;
 
 public abstract class StateBase
 {
-    protected readonly Player Player;
+    protected Player Player { get; private set; }
 
     protected StateBase(Player player)
     {
-        this.Player = player;
+        Player = player;
     }
 
-    public virtual void Enter()
-    {
-        
-    }
-
-    public virtual void Update()
-    {
-
-    }
-
-    public virtual void FixedUpdate()
-    {
-
-    }
-
-    public virtual void Exit()
-    {
-
-    }
-
-    public virtual void OnCollision(Collision collision)
-    {
-
-    }
+    public virtual void Enter() {}
+    public virtual void Exit() {}
+    public virtual void Update() {}
+    public virtual void FixedUpdate() {}
+    public virtual void OnCollisionEnter(Collision collision) {}
+    public virtual void OnCollisionExit(Collision collision) {}
 
     // Input handling
     public virtual void Move(InputAction.CallbackContext ctx)
     {
         Player.movementInput = ctx.ReadValue<Vector2>();
-        if (ctx.performed && Player.currentState != Player.states.Walking)
+        if (ctx.performed && Player.currentState != Player.states.Walking && Player.isGrounded)
         {
             Player.SetState(Player.states.Walking);
         }
     }
 
-    public virtual void Sprint(InputAction.CallbackContext ctx)
-    {
-
-    }
+    public virtual void Sprint(InputAction.CallbackContext ctx) { }
 
     public virtual void Dodge(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
         {
+            Player.isHoldingDodge = true;
             if (Player.canDodgeRoll)
             {
                 Player.SetState(Player.states.DodgeRoll);
             }
+        }
+        if (ctx.canceled) 
+        {
+            Player.isHoldingDodge = false;
         }
     }
 
@@ -65,7 +49,12 @@ public abstract class StateBase
     {
         if (ctx.started)
         {
+            Player.isHoldingJump = true;
             Player.SetState(Player.states.Jumping);
+        }
+        if (ctx.canceled) 
+        {
+            Player.isHoldingJump = false;
         }
 
     }
@@ -78,21 +67,25 @@ public abstract class StateBase
         }
     }
 
-    public virtual void Crouch(InputAction.CallbackContext ctx)
-    {
-
-    }
+    public virtual void Crouch(InputAction.CallbackContext ctx) { }
 
     public virtual void Attack(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
         {
-            if (!Player.isGrounded)
-            {
-                Player.attackCounter = 2;
-                Player.isSlamming = true;
-            }
             Player.SetState(Player.states.Attacking);
         }
+    }
+
+    // general movement logic
+    protected float ApplyGravity(float yValue) {
+        if (yValue < Player.jumpVelocityFalloff || yValue > 0 && !Player.isHoldingJump && !Player.isHoldingDodge) {
+            yValue += Player.fallMultiplier * Physics.gravity.y * Time.deltaTime;
+            Player.debug_lineColor = Color.red;
+        }
+        else {
+            Player.debug_lineColor = Color.yellow;
+        }
+        return yValue;
     }
 }
