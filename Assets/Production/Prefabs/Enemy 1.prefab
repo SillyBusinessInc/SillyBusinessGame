@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d34f13b5369f1045938e93314f1d011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 60
   agent: {fileID: 0}
   animator: {fileID: 0}
   roamingRadius: 5
@@ -62,7 +62,7 @@ MonoBehaviour:
   memoryDuration: 2
   lastSeenTime: 0
   lastSeenLocation: {x: 0, y: 0, z: 0}
-  attackDamage: 25
+  attackDamage: 1
   attackRange: 2
   attackCooldown: 3
   canAttack: 1
