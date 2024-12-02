@@ -61,7 +61,6 @@ namespace EnemiesNS
         [Tooltip("the minimum distance to keep from the player.")]
         [SerializeField]
         [Range(0f, 5f)]
-
         public float minDistanceToPlayer = 2f;
         [Tooltip("Time for the chasing enemy to hold position once it gets into attackingrange but still on attack cooldown. Used to keep the enemy from hugging the player.")]
         [SerializeField]

@@ -12,10 +12,11 @@ namespace EnemiesNS
 
         public virtual void Enter()
         {
-            Debug.Log($"{enemy.currentState.GetType().Name}- ENTER");
+            Debug.Log($"{enemy.currentState.GetType().Name}- ENTER", enemy); // debugging the state entered and more importantly its type.
         }
         public virtual void Exit()
         {
+            Debug.Log($"{enemy.currentState.GetType().Name}- EXIT", enemy);
             enemy.FreezeMovement(false);
         }
         public virtual void Update()

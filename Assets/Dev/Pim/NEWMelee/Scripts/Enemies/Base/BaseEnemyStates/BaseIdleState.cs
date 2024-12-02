@@ -15,12 +15,6 @@ namespace EnemiesNS
             enemy.FreezeMovement(true);
         }
 
-        public override void Exit()
-        {
-
-            base.Exit();
-        }
-
         private float GetIdleWaitValue()
         {
             return Random.Range(enemy.idleTime * (1 - enemy.idleVariance), enemy.idleTime * (1 + enemy.idleVariance));

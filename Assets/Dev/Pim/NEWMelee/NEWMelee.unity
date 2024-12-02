@@ -135,11 +135,6 @@ BoxCollider:
   m_CorrespondingSourceObject: {fileID: 4057713077167759773, guid: 15c007bff8f4c564883bf81b92a4aef7, type: 3}
   m_PrefabInstance: {fileID: 675772063}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &279938010 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5452983560052617153, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
-  m_PrefabInstance: {fileID: 4549243724657442549}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &293611935 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1283807727940519950, guid: 54ef5301367fa4c428cc43c7f6fa82c3, type: 3}
@@ -362,6 +357,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 988867954}
+  - {fileID: 1194659993}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &529214284 stripped
@@ -1029,6 +1025,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1150689520}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1194659993 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+  m_PrefabInstance: {fileID: 4549243724657442549}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1199761915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1994,7 +1995,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 494961967}
     m_Modifications:
     - target: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2014,15 +2015,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2036,13 +2037,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1710052168369373784, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 279938010}
     - target: {fileID: 4316266649658499361, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
       propertyPath: m_Name
       value: Melee Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760221064733371951, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_Name
+      value: Model
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2159,4 +2160,3 @@ SceneRoots:
   - {fileID: 494961967}
   - {fileID: 1248621817}
   - {fileID: 754360772}
-  - {fileID: 4549243724657442549}
