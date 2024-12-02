@@ -1,10 +1,10 @@
+using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "RewardConfig", menuName = "Configs/RewardConfig")]
 public class RewardConfig : ScriptableObject
 {
-
     [System.Serializable]
     public class EventLootTablePair
     {
@@ -12,19 +12,26 @@ public class RewardConfig : ScriptableObject
         public LootTable lootTable;
     }
 
+
     public List<EventLootTablePair> eventLootTablePairs;
     public LootTable fallBackLootTable;
 
+    private Dictionary<RoomType, LootTable> lookupTable;
+
+    private void OnEnable()
+    {
+        // Precompute the lookup table for efficient runtime queries
+        lookupTable = eventLootTablePairs
+            .SelectMany(pair => pair.roomType.Select(room => new { room, pair.lootTable }))
+            .ToDictionary(x => x.room, x => x.lootTable);
+    }
+
     public LootTable GetLootTableForRoomType(RoomType roomType)
     {
-        foreach (var pair in eventLootTablePairs)
+        if (lookupTable != null && lookupTable.TryGetValue(roomType, out var lootTable))
         {
-            if (pair.roomType.Contains(roomType))
-            {
-                return pair.lootTable;
-            }
+            return lootTable;
         }
-
         return fallBackLootTable;
     }
 }
