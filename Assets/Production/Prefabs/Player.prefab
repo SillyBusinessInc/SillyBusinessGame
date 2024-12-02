@@ -54,6 +54,7 @@ MonoBehaviour:
   acceleration: 2
   deceleration: 10
   currentMovementLerpSpeed: 100
+  maxJumpHoldTime: 0.2
   airBorneMovementFactor: 1
   fallMultiplier: 5
   jumpVelocityFalloff: 8
@@ -78,7 +79,6 @@ MonoBehaviour:
       baseValue: 1
     DoubleJumpsCount:
       baseValue: 2
-  attackResettingTime: 0.5
   Tail: {fileID: 2433743845863343982}
   rb: {fileID: 8218035431276073872}
   orientation: {fileID: 8661837782861090297}
@@ -423,7 +423,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1034164388570683902}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 80452b9ac00ec1c42a41f20ebd18a988, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
