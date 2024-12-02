@@ -141,6 +141,7 @@ public class Table
         return newRow.id;
     }
 
+    // Debug print Table (Tree Structure)
     public void PrintTableAsTree() {
         Debug.Log("Generated Table (Tree Structure):");
         PrintRowRecursive(GetRow(0), 0);
