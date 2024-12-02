@@ -1,8 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
-public class TailAttack : Attack
+public abstract class TailAttack : Attack
 {
+    public TailAttack(string Name,float damage, float cooldown) : base(Name, damage, cooldown)
+    {
+    } 
     protected Player player;
     public float duration;
     public override void Start()
@@ -17,5 +20,11 @@ public class TailAttack : Attack
         yield return new WaitForSeconds(duration);
         player.SetState(player.states.Idle);
         player.Tail.cooldownTime = cooldown;
+    }
+
+    public override Attack Copy()
+    {
+        //just to make it stop complaining
+        return new LeftTailAttack("", 0, 0);
     }
 }

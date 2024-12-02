@@ -6,6 +6,8 @@ public class AttackingState : StateBase
     public AttackingState(Player player)
         : base(player) { }
 
+    public override void Update() { }
+
     public void IncreaseIndex()
     {
         Player.Tail.attackIndex =
@@ -28,35 +30,24 @@ public class AttackingState : StateBase
         var tail = Player.Tail.currentTail;
         if (tail.currentCombo.Count == 0)
         {
-            if (Player.isGrounded)
-            {
-                tail.currentCombo = tail.groundCombo;
-            }
-            else
-            {
-                tail.currentCombo = tail.airCombo;
-            }
+            Player.SetState(Player.states.Idle);
+            return;
         }
-        else if (Player.isGrounded)
+        if (Player.isGrounded)
         {
-            if (tail.currentCombo == tail.airCombo)
+            if (Player.Tail.currentTail.currentCombo != Player.Tail.currentTail.groundCombo)
             {
                 Player.Tail.attackIndex = 0;
             }
-            tail.currentCombo = tail.groundCombo;
+            Player.Tail.currentTail.currentCombo = Player.Tail.currentTail.groundCombo;
         }
         else
         {
-            if (tail.currentCombo == tail.groundCombo)
+            if (Player.Tail.currentTail.currentCombo != Player.Tail.currentTail.airCombo)
             {
                 Player.Tail.attackIndex = 0;
             }
-            tail.currentCombo = tail.airCombo;
-        }
-        if (tail.currentCombo.Count == 0)
-        {
-            Player.SetState(Player.states.Idle);
-            return;
+            Player.Tail.currentTail.currentCombo = Player.Tail.currentTail.airCombo;
         }
         var currentCombo = tail.currentCombo[Player.Tail.attackIndex];
         currentCombo.Start();
@@ -69,7 +60,7 @@ public class AttackingState : StateBase
         float animatorTailAttack = GlobalReference
             .GetReference<PlayerReference>()
             .GetComponent<Player>()
-            .Tail.animator.speed = 1.0f;
+            .Tail.WaffleAnimator.speed = 1.0f;
         Player.Tail.flipDoDamage = false;
         Player.Tail.tailCanDoDamage = false;
         Player.collidersEnemy.Clear();

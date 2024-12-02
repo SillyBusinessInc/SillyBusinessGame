@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem.Utilities;
+using UnityEngine.Rendering;
 
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "FlipTail")]
 public class FlipAttack : TailAttack
 {
+    public FlipAttack(string Name, float damage, float cooldown)
+        : base(Name, damage, cooldown) { }
+
     public override void Start()
     {
         base.Start();
@@ -12,7 +17,7 @@ public class FlipAttack : TailAttack
         Animator animatorTailAttack = GlobalReference
             .GetReference<PlayerReference>()
             .GetComponent<Player>()
-            .Tail.animator;
+            .Tail.WaffleAnimator;
         AnimationClip[] clips = animatorTailAttack.runtimeAnimatorController.animationClips;
         AnimationClip clip = clips.Where(x => x.name == "FlipAttack").Single();
         animatorTailAttack.speed *= clip.length / duration;
@@ -30,5 +35,15 @@ public class FlipAttack : TailAttack
         yield return new WaitForSeconds(duration / 2);
         player.SetState(player.states.Idle);
         player.Tail.cooldownTime = cooldown;
+    }
+
+    // public void SetStateIdleStart()
+    // {
+    //     StartCoroutine(SetStateIdle());
+    // } 
+
+    public override Attack Copy()
+    {
+        return new FlipAttack(Name, damage, cooldown);
     }
 }
