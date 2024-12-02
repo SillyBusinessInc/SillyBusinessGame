@@ -20,7 +20,6 @@ public class FallingState : StateBase
         if (Player.isGrounded && Player.movementInput.sqrMagnitude == 0) Player.SetState(Player.states.Idle);
         else if (Player.isGrounded) {
             Player.SetState(Player.states.Walking);
-            Player.rb.linearVelocity = new(newTargetVelocity.x, 0, newTargetVelocity.z);
         }
     }
 

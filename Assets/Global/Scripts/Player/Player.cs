@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public float currentMovementLerpSpeed = 100;
 
     [Header("Jumping Settings")]
+    public float maxJumpHoldTime = 0.2f;
     public float airBorneMovementFactor = 0.5f;
     public float fallMultiplier = 7;
     public float jumpVelocityFalloff = 8;
@@ -179,9 +180,8 @@ public class Player : MonoBehaviour
     {
         if (rb.linearVelocity != Vector3.zero)
         {
-            var direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
+            Vector3 direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
             if (direction != Vector3.zero) rb.MoveRotation(Quaternion.LookRotation(direction));
-            else rb.MoveRotation(Quaternion.identity);
         }
     }
 

@@ -20,10 +20,6 @@ public class WalkingState : StateBase
         // apply speed stat
         Vector3 newTargetVelocity = Player.currentWalkingPenalty * Player.playerStatistic.Speed.GetValue() * new Vector3(Player.GetDirection().x, 0, Player.GetDirection().z);
 
-        // create reference vector for preserving y velocity
-        // Vector3 referenceVector = Player.rb.linearVelocity.normalized * newTargetVelocity.magnitude;
-        // if (Vector3.Angle(referenceVector, newTargetVelocity) > 90) referenceVector *= -1;
-
         // add gravity to y velocity
         float linearY = ApplyGravity(Player.rb.linearVelocity.y);
 
@@ -37,5 +33,4 @@ public class WalkingState : StateBase
         // set player to idle if not moving
         if (Player.rb.linearVelocity == Vector3.zero && Player.targetVelocity == Vector3.zero) Player.SetState(Player.states.Idle);
     }
-
 }
