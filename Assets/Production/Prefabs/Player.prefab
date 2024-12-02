@@ -71,7 +71,7 @@ MonoBehaviour:
       baseValue: 1
     DoubleJumpsCount:
       baseValue: 2
-  attackResettingTime: 2
+  attackResettingTime: 0.5
   Tail: {fileID: 2433743845863343982}
   rb: {fileID: 8218035431276073872}
   orientation: {fileID: 8661837782861090297}
@@ -395,7 +395,7 @@ Transform:
   - {fileID: 2562900229708890194}
   - {fileID: 291553938830926261}
   m_Father: {fileID: 4811859323897289456}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -213.343, z: 0}
 --- !u!136 &3940277038179656397
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -418,7 +418,7 @@ CapsuleCollider:
   m_Radius: 0.7
   m_Height: 2.3254
   m_Direction: 2
-  m_Center: {x: 0, y: 0.70880187, z: 0.1}
+  m_Center: {x: 0, y: 0.7088019, z: -0.24152842}
 --- !u!54 &8218035431276073872
 Rigidbody:
   m_ObjectHideFlags: 0
