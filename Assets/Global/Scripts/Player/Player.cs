@@ -1,7 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UIElements;
-using System.Collections.Generic;
 public class Player : MonoBehaviour
 {
     [Header("Settings")]
@@ -15,34 +14,13 @@ public class Player : MonoBehaviour
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
 
-    [Header("Attack")]
-    public float attackResettingTime = 2f;
-    public float TailTurnSpeed = 40f;
-    public int slamDamage = 10;
-    public int firstTailDamage = 10;
-    public int secondTailDamage = 15;
-    public float slamForce = 2.0f;
-    public BoxCollider TransformTail;
+    public Tail Tail;
 
     [Header("References")]
     [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
     public Transform orientation;
 
-    [HideInInspector]
-    public bool slamCanDoDamage = false;
-
-    [HideInInspector]
-    public int attackCounter;
-
-    [HideInInspector]
-    public int tailDoDamage;
-
-    [HideInInspector]
-    public bool isSlamming;
-
-    [HideInInspector]
-    public float activeAttackCooldown;
 
     [HideInInspector]
     public bool canDodgeRoll = true;
@@ -55,10 +33,6 @@ public class Player : MonoBehaviour
 
     [HideInInspector]
     public float verticalInput;
-
-    [HideInInspector]
-    public bool tailCanDoDamage = false;
-
     [HideInInspector]
     public PlayerStates states;
     public StateBase currentState;
@@ -95,15 +69,6 @@ public class Player : MonoBehaviour
         RaycastDown();
         currentState.Update();
         RotatePlayerObj();
-        activeAttackCooldown =
-            currentState.GetType().Name != "AttackingState"
-                ? activeAttackCooldown + Time.deltaTime
-                : 0.0f;
-        if (activeAttackCooldown >= this.attackResettingTime)
-        {
-            attackCounter = 0;
-            activeAttackCooldown = 0.0f;
-        }
         if (isGrounded)
         {
             canDodgeRoll = true;
@@ -114,11 +79,6 @@ public class Player : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (isSlamming)
-        {
-            isSlamming = false;
-            SetState(states.Idle);
-        }
         currentState.OnCollision(collision);
     }
 
