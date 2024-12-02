@@ -8,6 +8,7 @@ namespace EnemiesNS
 
         public override void Enter()
         {
+            enemy.EnableWeaponHitBox();
             enemy.animator.SetInteger("Idle_var", 1);
             enemy.animator.SetBool("Idle", true);
             base.Enter();
@@ -15,6 +16,7 @@ namespace EnemiesNS
 
         public override void Exit()
         {
+            enemy.DisableWeaponHitBox();
             enemy.animator.SetBool("Idle", false);
             base.Exit();
         }

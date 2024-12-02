@@ -7,10 +7,13 @@ namespace EnemiesNS
 
         protected Player player;
         protected int attacksThisState;
+        protected AnimatorStateInfo animatorStateInfo;
 
         public override void Enter()
         {
             base.Enter();
+
+            // Debug.Log(animatorStateInfo.normalizedTime);
             enemy.FreezeMovement(true);
         }
 
@@ -23,7 +26,9 @@ namespace EnemiesNS
 
         public override void Update()
         {
+            if (!enemy.animator.IsInTransition(0)) animatorStateInfo = enemy.animator.GetCurrentAnimatorStateInfo(0);
             if (enemy.target == null) enemy.ChangeState(enemy.states.Idle);
+            if (animatorStateInfo.normalizedTime / attacksThisState >= 1) enemy.inAttackAnim = false;
 
             // If the player is in range, attempt to face them
             if (IsWithinAttackRange() && canAttack())
@@ -34,14 +39,15 @@ namespace EnemiesNS
 
             // check if we can still attack, then early return so we dont run the base update and dont trigger attack cooldown.
             if (attacksThisState < enemy.attacksPerCooldown && IsWithinAttackRange()) return;
+
             enemy.toggleCanAttack(false);
             base.Update();
         }
 
         protected void Attack()
         {
+            enemy.inAttackAnim = true;
             // Proceed with the attack if the player exists and can be damaged
-            enemy.animator.SetTrigger("AttackTrigger");
             attacksThisState++;
             enemy.toggleIsRecovering(true);
         }

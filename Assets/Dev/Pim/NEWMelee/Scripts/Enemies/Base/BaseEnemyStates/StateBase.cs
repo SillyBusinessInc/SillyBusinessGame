@@ -10,17 +10,15 @@ namespace EnemiesNS
             this.enemy = enemy;
         }
 
-        public virtual void Enter()
-        {
-            Debug.Log($"{enemy.currentState.GetType().Name}- ENTER", enemy); // debugging the state entered and more importantly its type.
-        }
+        public virtual void Enter() { }
+
         public virtual void Exit()
         {
-            Debug.Log($"{enemy.currentState.GetType().Name}- EXIT", enemy);
             enemy.FreezeMovement(false);
         }
         public virtual void Update()
         {
+            enemy.animator.SetFloat("WalkingSpeed", enemy.agent.velocity.magnitude);
             CalculateDistanceToPlayer(); // do we want to calculate on every frame?
             CheckState();
         }
@@ -36,7 +34,7 @@ namespace EnemiesNS
             if (enemy.currentState == enemy.states.Dead) return;
 
             // check to see if enemy is still recovering from attacking
-            if (enemy.isRecovering) return;
+            if (enemy.isRecovering || enemy.inAttackAnim) return;
 
             // attack
             if (enemy.currentState != enemy.states.Attacking && enemy.canAttack && IsWithinAttackRange())

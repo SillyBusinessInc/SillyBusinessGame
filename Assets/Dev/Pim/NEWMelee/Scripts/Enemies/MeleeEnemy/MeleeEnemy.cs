@@ -6,7 +6,7 @@ namespace EnemiesNS
     {
         [Header("Melee Character Specific settings")]
         [Tooltip("Reference to the weapon's hitbox")]
-        public Collider weapon;
+
         private bool playerHit = false;
 
         protected override void Start()
@@ -18,12 +18,12 @@ namespace EnemiesNS
         //
         // called in animations as events
         //
-        public void EnableWeaponHitBox()
+        public override void EnableWeaponHitBox()
         {
             weapon.enabled = true;
         }
 
-        public void DisableWeaponHitBox()
+        public override void DisableWeaponHitBox()
         {
             weapon.enabled = false;
             playerHit = false;
