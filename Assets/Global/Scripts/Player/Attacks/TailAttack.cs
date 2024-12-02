@@ -18,8 +18,8 @@ public abstract class TailAttack : Attack
         // TODO: duration is  the base speed of the attack, and so it should work with the duration of the animation and stuff.
         // And also with attack speed
         yield return new WaitForSeconds(duration);
-        player.SetState(player.states.Idle);
-        player.Tail.cooldownTime = cooldown;
+        if (player.isGrounded) player.SetState(player.movementInput.magnitude > 0 ? player.states.Walking : player.states.Idle);
+        else player.SetState(player.states.Falling);
     }
 
 }

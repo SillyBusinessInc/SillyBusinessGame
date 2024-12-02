@@ -11,9 +11,6 @@ using UnityEngine;
 //[CreateAssetMenu(fileName = "PlayerStatistic", menuName = "PlayerStatistic")]
 public class PlayerStatistic //: ScriptableObject
 {
-    public Statistic Speed = new(10f);
-    public Statistic JumpForce = new(2f);
-    public Statistic MaxHealth = new(10f);
     private float health;
     public float Health { 
         get => health = Mathf.Min(health, MaxHealth.GetValue());
@@ -25,6 +22,10 @@ public class PlayerStatistic //: ScriptableObject
         get => crumbs;
         set => crumbs = value > 0 ? value : 0;
     }
+
+    public Statistic Speed = new(10f);
+    public Statistic JumpForce = new(2f);
+    public Statistic MaxHealth = new(10f);
     public Statistic AttackSpeedMultiplier = new(1f);
     public Statistic AttackDamageMultiplier = new(1f);
     public Statistic DodgeCooldown = new(1f);

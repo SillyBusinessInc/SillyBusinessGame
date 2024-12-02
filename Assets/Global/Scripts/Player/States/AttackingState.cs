@@ -66,11 +66,17 @@ public class AttackingState : StateBase
         Player.collidersEnemy.Clear();
     }
 
-    public override void Jump(InputAction.CallbackContext ctx) { }
+    public override void Jump(InputAction.CallbackContext ctx)
+    {
+        if (ctx.canceled) Player.isHoldingJump = false;
+    }
 
     public override void Glide(InputAction.CallbackContext ctx) { }
 
-    public override void Dodge(InputAction.CallbackContext ctx) { }
+    public override void Dodge(InputAction.CallbackContext ctx)
+    {
+        if (ctx.canceled) Player.isHoldingDodge = false;
+    }
 
     public override void Move(InputAction.CallbackContext ctx) { }
 
