@@ -8,9 +8,8 @@ namespace EnemiesNS
 
         public override void Enter()
         {
-            Debug.Log("Triggering attack bool");
-            enemy.animator.SetBool("Idle", true);
             enemy.animator.SetInteger("Idle_var", 1);
+            enemy.animator.SetBool("Idle", true);
             base.Enter();
         }
 

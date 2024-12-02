@@ -1,6 +1,3 @@
-using UnityEngine;
-using UnityEngine.AI;
-
 namespace EnemiesNS
 {
     public class BaseChasingState : StateBase
@@ -28,7 +25,6 @@ namespace EnemiesNS
                 if (enemy.agent.isStopped) enemy.FreezeMovement(false);
                 enemy.agent.SetDestination(enemy.target.transform.position);
             }
-
             base.Update();
         }
     }

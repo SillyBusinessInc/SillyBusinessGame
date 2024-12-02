@@ -9,8 +9,7 @@ namespace EnemiesNS
         public override void Enter()
         {
             base.Enter();
-            Debug.Log("Triggering no anim bool");
-            enemy.animator.SetBool("No_anim 0", true);
+            enemy.animator.SetBool("No_anim", true);
         }
 
     }

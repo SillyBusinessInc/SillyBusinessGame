@@ -8,7 +8,6 @@ namespace EnemiesNS
 
         public override void Enter()
         {
-            Debug.Log("triggering walk bool");
             enemy.animator.SetBool("Walk", true);
             base.Enter();
         }
