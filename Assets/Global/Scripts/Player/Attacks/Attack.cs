@@ -18,5 +18,4 @@ public abstract class Attack : ScriptableObject
     public float cooldown;
     public float damage;
 
-    public abstract Attack Copy();
 }

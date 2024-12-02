@@ -36,14 +36,4 @@ public class FlipAttack : TailAttack
         player.SetState(player.states.Idle);
         player.Tail.cooldownTime = cooldown;
     }
-
-    // public void SetStateIdleStart()
-    // {
-    //     StartCoroutine(SetStateIdle());
-    // } 
-
-    public override Attack Copy()
-    {
-        return new FlipAttack(Name, damage, cooldown);
-    }
 }

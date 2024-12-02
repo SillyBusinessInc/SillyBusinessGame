@@ -21,9 +21,4 @@ public class LeftTailAttack : TailAttack
         animatorTailAttack.speed *= (clip.length / duration) * player.Tail.increaseTailSpeed;
         animatorTailAttack.SetTrigger("LeftAttack");
     }
-
-    public override Attack Copy()
-    {
-        return new LeftTailAttack(Name, damage, cooldown);
-    }
 }

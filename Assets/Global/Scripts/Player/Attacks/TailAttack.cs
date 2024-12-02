@@ -22,9 +22,4 @@ public abstract class TailAttack : Attack
         player.Tail.cooldownTime = cooldown;
     }
 
-    public override Attack Copy()
-    {
-        //just to make it stop complaining
-        return new LeftTailAttack("", 0, 0);
-    }
 }
