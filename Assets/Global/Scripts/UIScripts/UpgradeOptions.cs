@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class UpgradeOptions : MonoBehaviour
 {
+    
     [ContextMenu("SHOW")]
     public void ShowOptions()
     {
@@ -24,9 +25,9 @@ public class UpgradeOptions : MonoBehaviour
         }
     }
 
-    public void SetOptions()
+    public void SetOptions(UpgradeOption upgrade, int index)
     {
-        // for later
+        transform.GetChild(index).GetComponent<UpgradeOptionLogic>().data = upgrade;
     }
 
     public GameObject GetOption(int index)
@@ -35,24 +36,6 @@ public class UpgradeOptions : MonoBehaviour
         return transform.GetChild(index).gameObject;;
     }
 
-    // TEMP HARDCODE:
-    public void GlorbTactics()
-    {
-        HideOptions();
-        GlobalReference.GetReference<PlayerReference>().Player.IncreaseMaxHealth(25);
-    }
-
-    public void NoonSupport()
-    {
-        HideOptions();
-        GlobalReference.GetReference<PlayerReference>().Player.Heal(50);
-    }
-
-    public void WalnutCurse()
-    {
-        HideOptions();
-        GlobalReference.GetReference<PlayerReference>().Player.MultiplyMaxHealth(0.5f);
-    }
 
     void Update()
     {
