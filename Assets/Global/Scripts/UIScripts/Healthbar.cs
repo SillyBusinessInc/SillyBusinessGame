@@ -31,21 +31,25 @@ public class Healthbar : MonoBehaviour
     {
         float currentHealth = player.playerStatistic.Health;
         HealthbarOverlayTransform.sizeDelta = new Vector2(
-            originalWidth * (currentHealth / 2), 
+            originalWidth * (currentHealth / 2),
             HealthbarOverlayTransform.sizeDelta.y
         );
-        // GlobalReference.PlayerStatistic.Set("health", currentHealth);
-        // GlobalReference.PlayerStatistic.SaveAll();
+
+        // GlobalReference.PermanentPlayerStatistic.Set("health", player.playerStatistic.Health);
+        // GlobalReference.PermanentPlayerStatistic.SaveAll();
     }
 
     public void UpdateMaxHealth() {
         // doing maxHealth / 2 because 1hp is a half heart
         float maxHealth = player.playerStatistic.MaxHealth.GetValue();
         HealthbarUnderlayTransform.sizeDelta = new Vector2(
-            originalWidth * (maxHealth / 2), 
+            originalWidth * (maxHealth / 2),
             HealthbarUnderlayTransform.sizeDelta.y
         );
-        // GlobalReference.PlayerStatistic.Set("maxHealth", maxHealth);
-        // GlobalReference.PlayerStatistic.SaveAll();
+
+        // saving the multipliers and modifiers
+        // string json = JsonUtility.ToJson(player.playerStatistic.MaxHealth.ListWithModifications());
+        // GlobalReference.PermanentPlayerStatistic.Set("maxHealth", json);
+        // GlobalReference.PermanentPlayerStatistic.SaveAll();
     }
 }

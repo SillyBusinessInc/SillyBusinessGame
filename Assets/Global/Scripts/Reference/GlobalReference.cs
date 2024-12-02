@@ -5,9 +5,9 @@ using UnityEngine.Events;
 public static class GlobalReference
 {
     // Non monobehavior singletons
-    private static PlayerStatistic playerStatistic;
-    public static PlayerStatistic PlayerStatistic { 
-        get => playerStatistic ??= new();
+    private static PermanentPlayerStatistic permanentPlayerStatistic;
+    public static PermanentPlayerStatistic PermanentPlayerStatistic { 
+        get => permanentPlayerStatistic ??= new();
     }
 
     private static Settings settings;
@@ -20,7 +20,7 @@ public static class GlobalReference
     }
 
     public static void Save() {
-        playerStatistic.SaveAll();
+        permanentPlayerStatistic.SaveAll();
         settings.SaveAll();
         devSettings.SaveAll();
     }
@@ -98,8 +98,7 @@ public static class GlobalReference
         TryGetEvent(eventName).Invoke();
     }
 
-    private static UnityEvent TryGetEvent(Events eventName)
-    {
+    private static UnityEvent TryGetEvent(Events eventName) {
         return eventList.ContainsKey(eventName) ? eventList[eventName] : eventList[eventName] = new();
     }
 }

@@ -9,32 +9,19 @@ using UnityEngine;
 
 [System.Serializable]
 //[CreateAssetMenu(fileName = "PlayerStatistic", menuName = "PlayerStatistic")]
-public class PlayerStatistic : SaveSystem //: ScriptableObject
+public class PlayerStatistic //: ScriptableObject
 {
-    public Statistic Speed = new(10f);
-    public Statistic JumpForce = new(2f);
-    public Statistic MaxHealth = new(10f);
+    // this is for the current stats of the player
+    public CurrentStatistic Speed = new(10f);
+    public CurrentStatistic JumpForce = new(2f);
+    public CurrentStatistic MaxHealth = new(6f);
     private float health;
     public float Health { 
         get => health = Mathf.Min(health, MaxHealth.GetValue());
         set => health = value > 0 ? value : 0;
     }
-    private int crumbs;
-    public int Crumbs
-    {
-        get => crumbs;
-        set => crumbs = value > 0 ? value : 0;
-    }
-    public Statistic AttackSpeedMultiplier = new(1f);
-    public Statistic AttackDamageMultiplier = new(1f);
-    public Statistic DodgeCooldown = new(1f);
-    public Statistic DoubleJumpsCount = new(2f);
-
-    protected override string Prefix => "playerStatistics";
-
-    public override void Init() {
-        Add("crumbs", 0);
-        Add("health", 6f);
-        Add("maxHealth", 6f);
-    }
+    public CurrentStatistic AttackSpeedMultiplier = new(1f);
+    public CurrentStatistic AttackDamageMultiplier = new(1f);
+    public CurrentStatistic DodgeCooldown = new(1f);
+    public CurrentStatistic DoubleJumpsCount = new(2f);
 }

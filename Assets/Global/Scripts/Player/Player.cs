@@ -188,9 +188,6 @@ public class Player : MonoBehaviour
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
 
         if (playerStatistic.Health <= 0) OnDeath();
-
-        Debug.Log(playerStatistic.Health);
-        Debug.Log(GlobalReference.PlayerStatistic.Get<float>("heath"));
     }
 
     public void Heal(float reward)
@@ -202,6 +199,20 @@ public class Player : MonoBehaviour
     public void MultiplyMaxHealth(float reward) => playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
 
     public void IncreaseMaxHealth(float reward) => playerStatistic.MaxHealth.AddModifier("reward", reward);
+
+    [ContextMenu("IncreaseCrumbs")]
+    public void IncreaseCrumbs()
+    {
+        int crumbs = GlobalReference.PermanentPlayerStatistic.Get<int>("crumbs");
+        // crumbs += crumb;
+        crumbs += 30;
+        GlobalReference.PermanentPlayerStatistic.Crumbs = crumbs;
+
+        GlobalReference.PermanentPlayerStatistic.Set("crumbs", crumbs);
+        GlobalReference.PermanentPlayerStatistic.SaveAll();
+
+        GlobalReference.AttemptInvoke(Events.CRUMBS_CHANGED);
+    }
 
     // If we go the event route this should change right?
     private void OnDeath()
