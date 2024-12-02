@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     public float groundCheckAngle = 50.0f;
 
     [Header("Stats")]
-    public PlayerStatistic playerStatistic = new();
+    public PlayerStatistic playerStatistic;
 
     public Tail Tail;
 
@@ -69,6 +69,11 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool isHoldingDodge = false;
     // private PlayerInputActions inputActions;
 
+    void Awake()
+    {
+        playerStatistic = new();
+    }
+
     void Start()
     {
         states = new PlayerStates(this);
@@ -77,6 +82,8 @@ public class Player : MonoBehaviour
         collidersEnemy = new List<Collider>();
 
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
+        GlobalReference.PermanentPlayerStatistic.Health = playerStatistic.Health;
+        GlobalReference.PermanentPlayerStatistic.SaveHealth();
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
 
@@ -217,8 +224,8 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         playerStatistic.Health -= damage;
+        GlobalReference.PermanentPlayerStatistic.Health = playerStatistic.Health;
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
-
         if (playerStatistic.Health <= 0) OnDeath();
     }
 
@@ -243,17 +250,13 @@ public class Player : MonoBehaviour
 
     public void IncreaseMaxHealth(float reward) => playerStatistic.MaxHealth.AddModifier("reward", reward);
 
-    [ContextMenu("IncreaseCrumbs")]
+    [ContextMenu("Add 30 crumbs")]
     public void IncreaseCrumbs()
     {
         int crumbs = GlobalReference.PermanentPlayerStatistic.Get<int>("crumbs");
-        // crumbs += crumb;
-        crumbs += 30;
-        GlobalReference.PermanentPlayerStatistic.Crumbs = crumbs;
-
-        GlobalReference.PermanentPlayerStatistic.Set("crumbs", crumbs);
-        GlobalReference.PermanentPlayerStatistic.SaveAll();
-
+        // GlobalReference.PermanentPlayerStatistic.Crumbs = crumbs + crumb;
+        GlobalReference.PermanentPlayerStatistic.Crumbs = crumbs + 30;
+        GlobalReference.PermanentPlayerStatistic.SaveCrumbs();
         GlobalReference.AttemptInvoke(Events.CRUMBS_CHANGED);
     }
 

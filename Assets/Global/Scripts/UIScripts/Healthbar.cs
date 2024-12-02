@@ -14,17 +14,16 @@ public class Healthbar : MonoBehaviour
         HealthbarOverlayTransform = transform.GetChild(1) as RectTransform;
 
         originalWidth = HealthbarUnderlayTransform.sizeDelta.x;
+        GlobalReference.SubscribeTo(Events.HEALTH_CHANGED, UpdateCurrentHealthPermanent);
     }
 
-    private void Start()
+    void Start()
     {
         player = GlobalReference.GetReference<PlayerReference>().Player;
 
         UpdateHealthBar();
-        GlobalReference.SubscribeTo(Events.HEALTH_CHANGED, UpdateCurrentHealth);
-        player.playerStatistic.MaxHealth.Subscribe(UpdateMaxHealth);
+        player.playerStatistic.MaxHealth.Subscribe(UpdateMaxHealthPermanent);
     }
-
 
     public void UpdateHealthBar()
     {
@@ -39,9 +38,6 @@ public class Healthbar : MonoBehaviour
             originalWidth * (currentHealth / 2),
             HealthbarOverlayTransform.sizeDelta.y
         );
-
-        // GlobalReference.PermanentPlayerStatistic.Set("health", player.playerStatistic.Health);
-        // GlobalReference.PermanentPlayerStatistic.SaveAll();
     }
 
     public void UpdateMaxHealth() {
@@ -51,10 +47,15 @@ public class Healthbar : MonoBehaviour
             originalWidth * (maxHealth / 2),
             HealthbarUnderlayTransform.sizeDelta.y
         );
+    }
 
-        // saving the multipliers and modifiers
-        // string json = JsonUtility.ToJson(player.playerStatistic.MaxHealth.ListWithModifications());
-        // GlobalReference.PermanentPlayerStatistic.Set("maxHealth", json);
-        // GlobalReference.PermanentPlayerStatistic.SaveAll();
+    void UpdateCurrentHealthPermanent() {
+        UpdateCurrentHealth();
+        GlobalReference.PermanentPlayerStatistic.SaveHealth();
+    }
+
+    void UpdateMaxHealthPermanent() {
+        UpdateMaxHealth();
+        GlobalReference.PermanentPlayerStatistic.SaveMaxHealth();
     }
 }

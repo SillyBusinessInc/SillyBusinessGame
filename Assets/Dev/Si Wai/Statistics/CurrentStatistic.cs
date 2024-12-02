@@ -22,7 +22,7 @@ public class CurrentStatistic : BaseStatistic
         float value = baseValue;
         // first, apply the base multipliers
         float baseMultiplier = baseMultipliers.Any() ? baseMultipliers.Sum(pair => pair.Value) : 1;
-        float permanentBaseMultiplier = Perm?.PermanentBaseMulitpliers() ?? 1; // will be 1 if Perm is null
+        float permanentBaseMultiplier = Perm?.PermanentBaseMulitpliers() ?? 1;
         value = value * baseMultiplier * permanentBaseMultiplier; // add current * permanent baseMultipliers
         
         // then, add the static modifiers

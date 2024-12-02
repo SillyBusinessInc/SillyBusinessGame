@@ -51,4 +51,56 @@ public class PermanentPlayerStatistic : SaveSystem
         json = JsonUtility.ToJson(DoubleJumpsCount.ListWithModifications());
         Add("doubleJumpsCount", json);
     }
+
+    public void SaveSpeed() {
+        string json = JsonUtility.ToJson(Speed.ListWithModifications());
+        GlobalReference.PermanentPlayerStatistic.Set("speed", json);
+        GlobalReference.PermanentPlayerStatistic.SaveAll();
+    }
+
+    public void SaveJumpForce() {
+        string json = JsonUtility.ToJson(JumpForce.ListWithModifications());
+        GlobalReference.PermanentPlayerStatistic.Set("jumpForce", json);
+        GlobalReference.PermanentPlayerStatistic.SaveAll();
+    }
+
+    public void SaveMaxHealth() {
+        string json = JsonUtility.ToJson(MaxHealth.ListWithModifications());
+        GlobalReference.PermanentPlayerStatistic.Set("maxHealth", json);
+        GlobalReference.PermanentPlayerStatistic.SaveAll();
+    }
+
+    public void SaveHealth() {
+        GlobalReference.PermanentPlayerStatistic.Set("health", Health);
+        GlobalReference.PermanentPlayerStatistic.SaveAll();
+    }
+
+    public void SaveCrumbs() {
+        GlobalReference.PermanentPlayerStatistic.Set("crumbs", Crumbs);
+        GlobalReference.PermanentPlayerStatistic.SaveAll();
+    }
+
+    public void SaveAttackSpeedMulitplier() {
+        string json = JsonUtility.ToJson(AttackSpeedMultiplier.ListWithModifications());
+        GlobalReference.PermanentPlayerStatistic.Set("attackSpeedMultiplier", json);
+        GlobalReference.PermanentPlayerStatistic.SaveAll();
+    }
+
+    public void SaveAttackDamageMultiplier() {
+        string json = JsonUtility.ToJson(AttackDamageMultiplier.ListWithModifications());
+        GlobalReference.PermanentPlayerStatistic.Set("attackDamageMultiplier", json);
+        GlobalReference.PermanentPlayerStatistic.SaveAll();
+    }
+
+    public void SaveDodgeCooldown() {
+        string json = JsonUtility.ToJson(DodgeCooldown.ListWithModifications());
+        GlobalReference.PermanentPlayerStatistic.Set("dodgeCooldown", json);
+        GlobalReference.PermanentPlayerStatistic.SaveAll();
+    }
+
+    public void SaveDoubleJumpsCount() {
+        string json = JsonUtility.ToJson(DoubleJumpsCount.ListWithModifications());
+        GlobalReference.PermanentPlayerStatistic.Set("doubleJumpsCount", json);
+        GlobalReference.PermanentPlayerStatistic.SaveAll();
+    }
 }
