@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
-using UnityEditor.Rendering;
-using System.Linq;
+
 // using System.Numerics;
+
 public class Player : MonoBehaviour
 {
     [Header("Walking Settings")]
@@ -63,6 +63,7 @@ public class Player : MonoBehaviour
     [Header("Debugging")]
     [SerializeField] public bool isGrounded;
     [SerializeField] private string debug_currentStateName = "none";
+    [SerializeField] private bool isKnockedBack = false;
     [HideInInspector] public Color debug_lineColor;
     [HideInInspector] public bool isHoldingJump = false;
     [HideInInspector] public bool isHoldingDodge = false;
@@ -178,7 +179,9 @@ public class Player : MonoBehaviour
 
     private void RotatePlayerObj()
     {
-        if (rb.linearVelocity != Vector3.zero)
+        if (isKnockedBack && rb.linearVelocity.magnitude < 0.1f) isKnockedBack = false;
+        if (isKnockedBack) return;
+        if (rb.linearVelocity.magnitude > 0.1f)
         {
             Vector3 direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
             if (direction != Vector3.zero) rb.MoveRotation(Quaternion.LookRotation(direction));
@@ -219,6 +222,17 @@ public class Player : MonoBehaviour
         if (playerStatistic.Health <= 0) OnDeath();
     }
 
+    public void applyKnockback(Vector3 knockback, float time)
+    {
+        //
+        // TODO: Need to be written once we have reworked movement
+        //
+        isKnockedBack = true;
+        rb.linearVelocity = knockback;
+        StartCoroutine(KnockbackStunRoutine(time));
+        // above is temporary
+    }
+
     public void Heal(float reward)
     {
         playerStatistic.Health += reward;
@@ -233,5 +247,11 @@ public class Player : MonoBehaviour
     private void OnDeath()
     {
         Debug.Log("Player died", this);
+    }
+
+    IEnumerator KnockbackStunRoutine(float time = 0.5f)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        isKnockedBack = false;
     }
 }
