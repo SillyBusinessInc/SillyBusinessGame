@@ -15,6 +15,8 @@ public class TreasureChestInteractable : Interactable
     {
         base.Start();
 
+        gameObject.SetActive(false);
+
         gameManager = GlobalReference.GetReference<GameManagerReference>();
 
         RoomType roomType = gameManager.Get(gameManager.activeRoom.id).roomType;
