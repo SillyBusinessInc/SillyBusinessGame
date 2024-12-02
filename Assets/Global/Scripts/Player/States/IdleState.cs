@@ -1,27 +1,32 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 public class IdleState : StateBase
 {
     public float time = 20f;
     private float currentTime;
-    public IdleState(Player player) : base(player)
+
+    public IdleState(Player player) : base(player) {}
+
+    public override void Enter()
     {
         currentTime = time;
-        Debug.Log("IdleState");
         Player.playerAnimationsHandler.resetStates();
     }
 
     public override void Update()
     {
-        Player.playerAnimationsHandler.SetBool("IsRunning", false);
-        Player.playerAnimationsHandler.resetStates();
+        //was here before need to check this
 
-        if (!Player.isGrounded)
-        {
-            Player.SetState(Player.states.Falling);
-        }
-        //every minute i want a 
+        // Player.playerAnimationsHandler.SetBool("IsRunning", false);
+        // Player.playerAnimationsHandler.resetStates();
+
+        // add gravity to y velocity
+        float linearY = ApplyGravity(Player.rb.linearVelocity.y);
+        Player.targetVelocity = new Vector3(0, linearY, 0);
+
+        if (!Player.isGrounded) Player.activeCoroutine = Player.StartCoroutine(Player.SetStateAfter(Player.states.Falling, Player.coyoteTime));
+
         currentTime -= Time.deltaTime;
         if (currentTime <= 0)
         {
@@ -31,13 +36,5 @@ public class IdleState : StateBase
             currentTime = time;
         }
     }
-
-    public override void Jump(InputAction.CallbackContext ctx)
-    {
-        Player.playerAnimationsHandler.SetBool("IsFallingDown", false);
-        Player.playerAnimationsHandler.SetBool("IsJumpingBool",true);
-
-        base.Jump(ctx);
-    }
-
+    
 }

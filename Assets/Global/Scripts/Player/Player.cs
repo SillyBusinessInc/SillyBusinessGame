@@ -1,16 +1,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using System.Collections;
+
+// using System.Numerics;
+
 public class Player : MonoBehaviour
 {
-    [Header("Settings")]
-    public float airBornMovementFactor = 0.5f;
+    [Header("Walking Settings")]
+    public float acceleration = 2;
+    public float deceleration = 0.5f;
+    public float currentMovementLerpSpeed = 100;
+
+    [Header("Jumping Settings")]
+    public float maxJumpHoldTime = 0.2f;
+    public float airBorneMovementFactor = 0.5f;
+    public float fallMultiplier = 7;
+    public float jumpVelocityFalloff = 8;
+    public float coyoteTime = 0.3f;
+
+    [Header("Other Settings")]
     public float glideDrag = 2f;
     public float dodgeRollSpeed = 10f;
     public float dodgeRollDuration = 1f;
+    public float dodgeRollDeceleration = 1f;
+    public float groundCheckAngle = 50.0f;
 
-    public float degreesToRotate = 50.0f;
-    [HideInInspector] public PlayerAnimationsHandler playerAnimationsHandler;
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
@@ -21,38 +36,40 @@ public class Player : MonoBehaviour
     [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
     public Transform orientation;
+    public Healthbar healthBar;
 
-
-    [HideInInspector]
-    public bool canDodgeRoll = true;
-
-    [HideInInspector]
-    public int currentJumps = 0;
-
-    [HideInInspector]
-    public float horizontalInput;
-
-    [HideInInspector]
-    public float verticalInput;
-    [HideInInspector]
-    public PlayerStates states;
-    public StateBase currentState;
-
-    [HideInInspector]
-    public Vector2 movementInput;
-
-    [HideInInspector]
-
-    public List<Collider> collidersEnemy;
+    [HideInInspector] public PlayerAnimationsHandler playerAnimationsHandler;
+    [HideInInspector] public bool slamCanDoDamage = false;
+    [HideInInspector] public int attackCounter;
+    [HideInInspector] public int tailDoDamage;
+    [HideInInspector] public bool isSlamming;
+    [HideInInspector] public float activeAttackCooldown;
+    [HideInInspector] public bool canDodgeRoll = true;
+    [HideInInspector] public int currentJumps = 0;
+    [HideInInspector] public float horizontalInput;
+    [HideInInspector] public float verticalInput;
+    [HideInInspector] public bool tailCanDoDamage = false;
+    [HideInInspector] public PlayerStates states;
+    [HideInInspector] public StateBase currentState;
+    [HideInInspector] public Vector2 movementInput;
+    [HideInInspector] public List<Collider> collidersEnemy;
+    [HideInInspector] public float groundCheckDistance;
+    [HideInInspector] public Vector3 targetVelocity;
+    [HideInInspector] public float timeLeftGrounded;
+    [HideInInspector] public float timeLastDodge;
+    [HideInInspector] public float currentWalkingPenalty;
+    [HideInInspector] public bool awaitingNewState = false;
+    [HideInInspector] public Coroutine activeCoroutine;
+    [HideInInspector] public float maxWalkingPenalty = 0.5f;
 
     [Header("Debugging")]
-    [SerializeField]
-    private string currentStateName = "none";
-    public bool isGrounded;
-
+    [SerializeField] public bool isGrounded;
+    [SerializeField] private string debug_currentStateName = "none";
+    [SerializeField] private bool isKnockedBack = false;
+    [HideInInspector] public Color debug_lineColor;
+    [HideInInspector] public bool isHoldingJump = false;
+    [HideInInspector] public bool isHoldingDodge = false;
     // private PlayerInputActions inputActions;
-    [HideInInspector]
-    public float groundCheckDistance;
 
     private bool IsLanding = false;
 
@@ -70,36 +87,40 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        RaycastGround();
-        // RaycastLanding();
+        GroundCheck();
         CheckLandingAnimation();
         currentState.Update();
+        ApproachTargetVelocity();
         RotatePlayerObj();
-        if (isGrounded)
-        {
-            canDodgeRoll = true;
-        }
+
+        if (isGrounded) canDodgeRoll = true;
+        Debug.DrawLine(rb.position, rb.position + targetVelocity, debug_lineColor, 0,  true);
     }
 
-    void FixedUpdate() => currentState.FixedUpdate();
-
-    public void OnCollisionEnter(Collision collision)
-    {
-        currentState.OnCollision(collision);
+    void FixedUpdate() {
+        currentState.FixedUpdate();
     }
 
-    public void OnCollisionExit(Collision collision) { }
+    public void OnCollisionEnter(Collision collision) {
+        currentState.OnCollisionEnter(collision);
+    }
 
-    private void RaycastGround()
+
+    public void OnCollisionExit(Collision collision) {
+        currentState.OnCollisionExit(collision);
+    }
+
+    private void GroundCheck()
+
     {
         groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
         Vector3[] raycastOffsets = new Vector3[]
         {
-            Vector3.zero,
-            new Vector3(0, 0, rb.GetComponent<Collider>().bounds.extents.z),
-            new Vector3(0, 0, -rb.GetComponent<Collider>().bounds.extents.z),
-            new Vector3(rb.GetComponent<Collider>().bounds.extents.x, 0, 0),
-            new Vector3(-rb.GetComponent<Collider>().bounds.extents.x,0,0) ,
+            Vector3.zero, 
+            new (0, 0, rb.GetComponent<Collider>().bounds.extents.z), 
+            new (0, 0, -rb.GetComponent<Collider>().bounds.extents.z),
+            new (rb.GetComponent<Collider>().bounds.extents.x, 0, 0), 
+            new (-rb.GetComponent<Collider>().bounds.extents.x,0,0) ,
         };
 
         foreach (Vector3 offset in raycastOffsets)
@@ -109,7 +130,7 @@ public class Player : MonoBehaviour
             {
                 if (!hit.collider.gameObject.CompareTag("Player"))
                 {
-                    if (Vector3.Angle(Vector3.up, hit.normal) < degreesToRotate)
+                    if (Vector3.Angle(Vector3.up, hit.normal) < groundCheckAngle)
                     {
                         currentJumps = 0;
                         isGrounded = true;
@@ -119,9 +140,15 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        isGrounded = false;
-        IsLanding = false;
-        playerAnimationsHandler.SetBool("IsOnGround", false);
+
+        if (isGrounded) {
+            isGrounded = false;
+            IsLanding = false;
+            timeLeftGrounded = Time.time;
+            playerAnimationsHandler.SetBool("IsOnGround", false);
+        }
+        // playerAnimationsHandler.SetBool("IsOnGround", false);
+
     }
     private void CheckLandingAnimation()
     {
@@ -138,30 +165,80 @@ public class Player : MonoBehaviour
     
     public void SetState(StateBase newState)
     {
+        // stop active coroutine
+        if (activeCoroutine != null) {
+            StopCoroutine(activeCoroutine);
+            activeCoroutine = null;
+        }
+
+        // chance state
         currentState?.Exit();
         currentState = newState;
         currentState.Enter();
-        currentStateName = newState.GetType().Name;
+
+        // storing current name for debugging
+        debug_currentStateName = currentState.GetType().Name;
+        debug_lineColor = Color.yellow;
+    }
+
+    public IEnumerator SetStateAfter(StateBase newState, float time, bool override_ = false) {
+        // stop active coroutine
+        if (activeCoroutine != null) {
+            if (override_) {
+                StopCoroutine(activeCoroutine);
+                activeCoroutine = null;
+            }
+            else yield break;
+        }
+        
+        // set state after time
+        yield return new WaitForSeconds(time);
+        activeCoroutine = null;
+        SetState(newState);
     }
 
     public Vector3 GetDirection()
     {
-        Vector3 moveDirection =
-            orientation.forward * movementInput.y + orientation.right * movementInput.x;
-
+        Vector3 moveDirection = orientation.forward * movementInput.y + orientation.right * movementInput.x;
         return moveDirection.normalized;
     }
 
     private void RotatePlayerObj()
     {
+        if (isKnockedBack && rb.linearVelocity.magnitude < 0.1f) isKnockedBack = false;
+        if (isKnockedBack) return;
         if (rb.linearVelocity.magnitude > 0.1f)
         {
-            var direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
-            if (direction != Vector3.zero)
-                rb.MoveRotation(Quaternion.LookRotation(direction));
+            Vector3 direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
+            if (direction != Vector3.zero) rb.MoveRotation(Quaternion.LookRotation(direction));
         }
     }
 
+    private void ApproachTargetVelocity() {
+        // return if there is no target velocity to move towards | currently disabled as I'm investigating it's necessity
+        // if (targetVelocity == Vector3.zero) return;
+        
+        // slowly move to target velocity
+        Vector3 newVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, currentMovementLerpSpeed * Time.deltaTime);
+
+        // adjust speed when slowing down
+        if (newVelocity.sqrMagnitude < rb.linearVelocity.sqrMagnitude) {
+            // preserve y velocity
+            float yVal = newVelocity.y;
+
+            // apply deceleration
+            Vector3 adjustedVelocity = newVelocity.normalized * (rb.linearVelocity.magnitude * (-0.01f * (currentState == states.DodgeRoll ? dodgeRollDeceleration : deceleration) + 1));
+            if (adjustedVelocity.sqrMagnitude < newVelocity.sqrMagnitude) adjustedVelocity = newVelocity;
+
+            // apply adjustment
+            newVelocity = new(adjustedVelocity.x, yVal, adjustedVelocity.z);
+        }
+
+        // apply new velocity
+        rb.linearVelocity = newVelocity;
+    }
+
+    // TO BE CHANGED ===============================================================================================================================
     // If we go the event route this should change right?
     public void OnHit(float damage)
     {
@@ -169,6 +246,17 @@ public class Player : MonoBehaviour
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
 
         if (playerStatistic.Health <= 0) OnDeath();
+    }
+
+    public void applyKnockback(Vector3 knockback, float time)
+    {
+        //
+        // TODO: Need to be written once we have reworked movement
+        //
+        isKnockedBack = true;
+        rb.linearVelocity = knockback;
+        StartCoroutine(KnockbackStunRoutine(time));
+        // above is temporary
     }
 
     public void Heal(float reward)
@@ -187,15 +275,10 @@ public class Player : MonoBehaviour
         Debug.Log("Player died", this);
     }
 
-    //contextmenu button
-    [ContextMenu("Reset Health")]
-    public void damageattack()
+
+    IEnumerator KnockbackStunRoutine(float time = 0.5f)
     {
-        playerStatistic.Health -= 1;
-        playerAnimationsHandler.resetStates();
-        playerAnimationsHandler.SetBool("TakingDamage", true);
-        // playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");
+        yield return new WaitForSecondsRealtime(time);
+        isKnockedBack = false;
     }
-
-
 }
