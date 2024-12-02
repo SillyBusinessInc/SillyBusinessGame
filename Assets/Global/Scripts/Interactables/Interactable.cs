@@ -84,8 +84,8 @@ public class Interactable : MonoBehaviour
         if (modelTransform != null)
         {
             hudElement.transform.SetParent(modelTransform);
-        }else {
-            Debug.LogWarning("No Model object found under Door.");
+        } else {
+            Debug.LogWarning("No Model object found.");
         }
     }
 
