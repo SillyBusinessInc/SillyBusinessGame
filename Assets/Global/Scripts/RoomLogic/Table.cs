@@ -140,6 +140,24 @@ public class Table
         existingBranches.Remove(newRow);
         return newRow.id;
     }
+
+    // Debug print Table (Tree Structure)
+    public void PrintTableAsTree() {
+        Debug.Log("Generated Table (Tree Structure):");
+        PrintRowRecursive(GetRow(0), 0);
+    }
+
+    private void PrintRowRecursive(Row row, int indentLevel) {
+        string indent = new string(' ', indentLevel * 4);
+        Debug.Log($"{indent}- Row {row.id} (Depth: {row.depth})");
+
+        foreach (int branchId in row.branches) {
+            Row branch = GetRow(branchId);
+            PrintRowRecursive(branch, indentLevel + 1);
+        }
+    }
+
+
 }
 
 public struct Row {

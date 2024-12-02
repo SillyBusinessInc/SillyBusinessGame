@@ -102,7 +102,7 @@ namespace EnemiesNS
         public float facingPlayerVarianceAngle = 5f;
         [Tooltip("The amount of knockback this enemy's attacks will apply")]
         [SerializeField]
-        [Range(0f, 10f)]
+        [Range(0f, 100f)]
         public float attackKnockback;
         [Tooltip("The time the hit object will be stunned due to knockback")]
         [SerializeField]
