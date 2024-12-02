@@ -5,11 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class DoorManager : Reference
 {
-    public List<int> connectedRooms = new List<int>(); 
-    public List<GameObject> doors;
+    private List<Room> connectedRooms = new List<Room>(); 
+    private List<GameObject> doors;
     private GameManagerReference gameManagerReference;
     private string lastSceneName;
-    private RoomTransitionDoor roomTransitionDoor;
 
     public void Initialize()
     {
@@ -32,7 +31,6 @@ public class DoorManager : Reference
         string currentSceneName = GetNonBaseSceneName();
         if (!string.IsNullOrEmpty(currentSceneName) && currentSceneName != lastSceneName)
         {
-            Debug.Log($"Scene changed from {lastSceneName} to {currentSceneName}");
             lastSceneName = currentSceneName;
             doors = GameObject.FindGameObjectsWithTag("DoorPrefab").ToList();
             SetupDoors();
@@ -55,10 +53,7 @@ public class DoorManager : Reference
 
     void LoadConnectedRooms()
     {
-        connectedRooms = GetConnectedRoomIds(); 
-        Debug.Log(string.Join(", ", connectedRooms));
-        // Debug.Log("Connected Rooms : " + connectedRooms);   
-        
+        connectedRooms = GetConnectedRooms(); 
     }
 
     void DeactivateExtraDoors()
@@ -81,7 +76,7 @@ public class DoorManager : Reference
 
     void ConnectDoorsToRooms()
     {
-        List<int> remainingRooms = new List<int>(connectedRooms);
+        List<Room> remainingRooms = new List<Room>(connectedRooms);
         foreach (var doorObject in doors)
         {
             if (!doorObject.activeSelf) continue;
@@ -90,19 +85,24 @@ public class DoorManager : Reference
             if (door == null) continue;
 
             int randomIndex = Random.Range(0, remainingRooms.Count);
-            int selectedRoom = remainingRooms[randomIndex];
+            Room selectedRoom = remainingRooms[randomIndex];
 
-            door.nextRoomid = selectedRoom;
-            // Debug.Log("DoorManager Script nextRoomid : " + door.nextRoomid);
-            // Debug.Log("door:" + door.name + " connected to room " + selectedRoom);
+            door.nextRoomType = selectedRoom.roomType;
+            door.nextRoomId = selectedRoom.id;
+            
+            // set Bonus Room active false
+            if(door.nextRoomType.ToString() == "BONUS") {
+                doorObject.SetActive(false);
+            }
+
             remainingRooms.RemoveAt(randomIndex);
         }
     }
 
 
-    public List<int> GetConnectedRoomIds()
+    public List<Room> GetConnectedRooms()
     {
-        return gameManagerReference.GetNextRoomIds();
+        return gameManagerReference.GetNextRooms();
     }
 
     void SetupDoors()

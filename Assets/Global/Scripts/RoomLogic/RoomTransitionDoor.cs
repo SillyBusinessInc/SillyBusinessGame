@@ -16,11 +16,15 @@ public class RoomTransitionDoor : Interactable
     [SerializeField] private Animator animator;
     [SerializeField] private MeshRenderer doorMesh;
     [SerializeField] private string nextRoomName;
-    public int nextRoomid;
+    [HideInInspector]public RoomType nextRoomType;
+    public int nextRoomId;
+    private int roomAmounts;
 
-    public CrossfadeController crossfadeController;
-    public PlayerSpawnPoint playerSpawnPoint;
-    public DoorManager doorManager;
+    private PlayerSpawnPoint playerSpawnPoint;
+    private DoorManager doorManager;
+    private GameManagerReference gameManagerReference;
+    private CrossfadeController crossfadeController;
+    private int randomNum;
     
     private string currentScenename;
  
@@ -29,13 +33,15 @@ public class RoomTransitionDoor : Interactable
     {
         IsDisabled = IsDisabled; // ugly fix so maybe we have to change in the future
         GlobalReference.SubscribeTo(Events.ROOM_FINISHED, RoomFinished);
+        crossfadeController = GlobalReference.GetReference<CrossfadeController>();
     }
 
     public void Initialize(){
-        base.Start();
-        nextRoomName = "Scene_" + nextRoomid;
-        // Debug.Log("RoomTransitionDoor Scene nextRoomid =  " + nextRoomid);       
-        // Debug.Log("RoomTransitionDoor Scene nextRoomName =  " + nextRoomName);
+        gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
+        roomAmounts = gameManagerReference.GetAmountForRoomType(nextRoomType);
+        int randomIndex = Random.Range(1, roomAmounts+1);
+        nextRoomName = nextRoomType.ToString() + "_" + randomIndex;
+
     }
 
     private void RoomFinished()
@@ -51,13 +57,13 @@ public class RoomTransitionDoor : Interactable
 
     private IEnumerator LoadNextRoom()
     {
-        yield return StartCoroutine(crossfadeController.Crossfade());
+        yield return StartCoroutine(crossfadeController.Crossfade_Start());
         yield return StartCoroutine(LoadRoomCoroutine());
+        yield return StartCoroutine(crossfadeController.Crossfade_End());
     }
 
     public IEnumerator LoadRoomCoroutine()
     {
-
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
             Scene scene = SceneManager.GetSceneAt(i);
@@ -77,15 +83,14 @@ public class RoomTransitionDoor : Interactable
         var gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
         if (gameManagerReference != null)
         {
-            Room nextRoom = gameManagerReference.Get(nextRoomid);
+            Room nextRoom = gameManagerReference.Get(nextRoomId);
             if (nextRoom != null)
             {
                 gameManagerReference.activeRoom = nextRoom;
-                Debug.Log($"Active Room updated to: {nextRoom.id}, Type: {nextRoom.roomType}");
             }
             else
             {
-                Debug.LogError($"Failed to find Room with ID: {nextRoomid}");
+                Debug.LogError($"Failed to find Room with Type: {nextRoomType}");
             }
         }
         else
