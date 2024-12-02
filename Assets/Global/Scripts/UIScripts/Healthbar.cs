@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Healthbar : MonoBehaviour
@@ -13,6 +14,10 @@ public class Healthbar : MonoBehaviour
         HealthbarOverlayTransform = transform.GetChild(1) as RectTransform;
 
         originalWidth = HealthbarUnderlayTransform.sizeDelta.x;
+    }
+
+    private void Start()
+    {
         player = GlobalReference.GetReference<PlayerReference>().Player;
 
         UpdateHealthBar();

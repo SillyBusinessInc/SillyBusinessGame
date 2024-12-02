@@ -17,6 +17,7 @@ public class TailAttack : Attack
         // And also with attack speed
         
         yield return new WaitForSeconds(duration);
-        player.SetState(player.states.Idle);
+        if (player.isGrounded) player.SetState(player.movementInput.magnitude > 0 ? player.states.Walking : player.states.Idle);
+        else player.SetState(player.states.Falling);
     }
 }
