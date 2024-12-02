@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
     public float dodgeRollDuration = 1f;
     public float dodgeRollDeceleration = 1f;
     public float groundCheckAngle = 50.0f;
+    public float maxIdleTime = 20f;
+    public float minIdleTime = 5f;
 
 
     [Header("Stats")]

@@ -3,23 +3,18 @@ using UnityEngine;
 
 public class IdleState : StateBase
 {
-    public float time = 20f;
     private float currentTime;
 
     public IdleState(Player player) : base(player) {}
 
     public override void Enter()
     {
-        currentTime = time;
+        currentTime = Random.Range(Player.minIdleTime, Player.maxIdleTime);
         Player.playerAnimationsHandler.resetStates();
     }
 
     public override void Update()
     {
-        //was here before need to check this
-
-        // Player.playerAnimationsHandler.SetBool("IsRunning", false);
-        // Player.playerAnimationsHandler.resetStates();
 
         // add gravity to y velocity
         float linearY = ApplyGravity(Player.rb.linearVelocity.y);
@@ -33,7 +28,7 @@ public class IdleState : StateBase
 
             Player.playerAnimationsHandler.SetInt("IdleSpecialType", Random.Range(1, 3));
             Player.playerAnimationsHandler.animator.SetTrigger("IdleSpecial");
-            currentTime = time;
+            currentTime = Random.Range(Player.minIdleTime, Player.maxIdleTime);
         }
     }
     
