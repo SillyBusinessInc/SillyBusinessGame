@@ -59,23 +59,11 @@ public class AttackingState : StateBase
     {
         Player.Tail.tailCanDoDamage = false;
         Player.collidersEnemy.Clear();
+        GlobalReference
+            .GetReference<PlayerReference>()
+            .GetComponent<Player>()
+            .Tail.animator.speed = 1.0f;
     }
-
-    public override void Jump(InputAction.CallbackContext ctx)
-    {
-        if (ctx.canceled) Player.isHoldingJump = false;
-    }
-
-    public override void Glide(InputAction.CallbackContext ctx) { }
-
-    public override void Dodge(InputAction.CallbackContext ctx)
-    {
-        if (ctx.canceled) Player.isHoldingDodge = false;
-    }
-
-    public override void Move(InputAction.CallbackContext ctx) { }
-
-    public override void Sprint(InputAction.CallbackContext ctx) { }
 
     public override void Attack(InputAction.CallbackContext ctx) { }
 }

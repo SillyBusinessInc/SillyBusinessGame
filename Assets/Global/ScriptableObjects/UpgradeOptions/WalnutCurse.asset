@@ -15,3 +15,6 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 4807d39019989e041bc98eaf05259196, type: 3}
   name: Walnut Curse
   description: Cut's base max HP in half
+  interactionActions:
+  - action: {fileID: 11400000, guid: 6a88b6c35f690ac458cb5aa9e974188b, type: 2}
+    param: 

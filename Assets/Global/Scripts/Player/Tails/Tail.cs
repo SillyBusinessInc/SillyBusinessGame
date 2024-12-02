@@ -20,6 +20,7 @@ public class Tail : MonoBehaviour
     public bool tailCanDoDamage = false;
     public float attackResettingTime = 2f;
 
+    [HideInInspector] public float increaseTailSpeed = 1.0f;
     public void Update()
     {
         activeAttackCooldown =

@@ -10,6 +10,8 @@ public class UpgradeOptionLogic : MonoBehaviour
     [NonSerialized] public TMP_Text upgradeName;
     [NonSerialized] public TMP_Text description;
 
+    
+
     void Start()
     {
         image = transform.GetChild(1).GetComponent<UnityEngine.UI.Image>();

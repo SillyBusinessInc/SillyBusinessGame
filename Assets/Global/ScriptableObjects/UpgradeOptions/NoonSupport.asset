@@ -15,3 +15,6 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: f28efe13d57519a429beddfdee97a9d4, type: 3}
   name: Noon Support
   description: Heals 50 HP
+  interactionActions:
+  - action: {fileID: 11400000, guid: 6a88b6c35f690ac458cb5aa9e974188b, type: 2}
+    param: 
