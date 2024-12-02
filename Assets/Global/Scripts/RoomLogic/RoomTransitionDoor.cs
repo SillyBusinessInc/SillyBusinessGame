@@ -46,7 +46,7 @@ public class RoomTransitionDoor : Interactable
 
     private void RoomFinished()
     {
-        IsDisabled = false;
+        IsDisabled = false;   
     }
 
     public override void OnInteract()
