@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(menuName = "WeightableSystem/ShopItem")]
+[CreateAssetMenu(menuName = "Configs/ShopItem")]
 [System.Serializable]
 public class ShopItem : ScriptableObject
 {
@@ -17,7 +17,7 @@ public class ShopTier
     public List<ShopItem> items = new();
 }
 
-[CreateAssetMenu(menuName = "WeightableSystem/ShopLootTable")]
+[CreateAssetMenu(menuName = "Configs/ShopLootTable")]
 public class ShopLootTable : ScriptableObject
 {
     public List<WeightableEntry<ShopTier>> Tiers = new();

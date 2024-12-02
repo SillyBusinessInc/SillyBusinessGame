@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 
-[CreateAssetMenu(menuName = "WeightableSystem/LootTable")]
+[CreateAssetMenu(menuName = "Configs/LootTable")]
 public class LootTable : ScriptableObject
 {
     public List<WeightableEntry<List<ActionParamPair>>> Rewards = new();

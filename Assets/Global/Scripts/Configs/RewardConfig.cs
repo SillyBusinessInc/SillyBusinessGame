@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "RewardConfig", menuName = "Scriptable Objects/RewardConfig")]
+[CreateAssetMenu(fileName = "RewardConfig", menuName = "Configs/RewardConfig")]
 public class RewardConfig : ScriptableObject
 {
 
