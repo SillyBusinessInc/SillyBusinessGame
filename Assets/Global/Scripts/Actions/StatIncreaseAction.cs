@@ -1,14 +1,22 @@
 using UnityEngine;
 using System.Reflection;
 
-[CreateAssetMenu(menuName = "Actions/StatIncreaseAction")]
-public class StatIncreaseAction : ActionScriptableObject
-{
-    [SerializeField] private string actionName = "Stat Increase Action";
+public enum UpgradeType { Modify, Multiply }
 
-    public override void InvokeAction(string param)
+[CreateAssetMenu(menuName = "Actions/StatIncreaseAction")]
+public class StatIncreaseAction : ThreeParamAction
+{
+    [SerializeField] private PlayerStatistic playerStatistic;
+    [SerializeField] private string param2 = "value";
+
+    [Tooltip("The type of upgrade to apply to the stat")]
+    [SerializeField] private UpgradeType param3;
+
+
+    public override void InvokeAction(string stat, string value, string upgradeType)
     {
-        Player player = GlobalReference.GetReference<PlayerReference>().GetComponent<Player>();
+        Player player = GlobalReference.GetReference<PlayerReference>().Player;
+        UpgradeType upgrade = System.Enum.TryParse(upgradeType, true, out upgrade) ? upgrade : UpgradeType.Modify;
 
         if (player == null)
         {
@@ -25,12 +33,25 @@ public class StatIncreaseAction : ActionScriptableObject
         }
 
         // Use reflection to find and modify the field
-        FieldInfo field = typeof(PlayerStatistic).GetField(param, BindingFlags.IgnoreCase | BindingFlags.Public);
+        FieldInfo field = typeof(PlayerStatistic).GetField(stat, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 
         if (field != null && field.FieldType == typeof(Statistic))
         {
-            Statistic stat = (Statistic)field.GetValue(stats);
-            stat.AddModifier("StatIncreaseAction", 1);
+            Statistic statistic = (Statistic)field.GetValue(stats);
+            float valueFloat = float.Parse(value);
+
+            if (upgrade == UpgradeType.Modify)
+            {
+                statistic.AddModifier("StatIncreaseAction", valueFloat);
+            }
+            else
+            {
+                statistic.AddMultiplier("StatIncreaseAction", valueFloat, false);
+            }
+
+            // check the new value
+            Debug.Log($"New value of {stat}: {statistic.GetValue()}");
+
         }
         else
         {
