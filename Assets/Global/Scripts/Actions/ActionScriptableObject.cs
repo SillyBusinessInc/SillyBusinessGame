@@ -7,19 +7,6 @@ public abstract class ActionScriptableObjectBase : ScriptableObject
     public abstract void InvokeAction(List<string> parameters);
 }
 
-// For backwards compatibility
-public abstract class ActionScriptableObject : OneParamAction { }
-
-public abstract class NoParamAction : ActionScriptableObjectBase
-{
-    public abstract void InvokeAction();
-
-    public override void InvokeAction(List<string> parameters)
-    {
-        InvokeAction();
-    }
-}
-
 public abstract class OneParamAction : ActionScriptableObjectBase
 {
     // The method to be implemented by each action
