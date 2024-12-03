@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 
@@ -20,12 +17,9 @@ public class RoomTransitionDoor : Interactable
     public int nextRoomId;
     private int roomAmounts;
 
-    private PlayerSpawnPoint playerSpawnPoint;
-    private DoorManager doorManager;
     private GameManagerReference gameManagerReference;
     private CrossfadeController crossfadeController;
-    private int randomNum;
-    
+
     private string currentScenename;
  
 
@@ -41,12 +35,11 @@ public class RoomTransitionDoor : Interactable
         roomAmounts = gameManagerReference.GetAmountForRoomType(nextRoomType);
         int randomIndex = Random.Range(1, roomAmounts+1);
         nextRoomName = nextRoomType.ToString() + "_" + randomIndex;
-
     }
 
     private void RoomFinished()
     {
-        IsDisabled = false;   
+        IsDisabled = false;
     }
 
     public override void OnInteract()
