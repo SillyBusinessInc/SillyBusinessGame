@@ -19,7 +19,7 @@ public class TreasureChestInteractable : Interactable
 
         gameManager = GlobalReference.GetReference<GameManagerReference>();
 
-        RoomType roomType = gameManager.Get(gameManager.activeRoom.id).roomType;
+        RoomType roomType = gameManager.GetRoom(gameManager.activeRoom.id).roomType;
         lootTable = rewardConfig.GetLootTableForRoomType(roomType);
 
         GlobalReference.SubscribeTo(Events.ROOM_FINISHED, ShowTreasureChest);
