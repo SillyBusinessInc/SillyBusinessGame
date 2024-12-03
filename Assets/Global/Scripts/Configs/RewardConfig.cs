@@ -13,8 +13,8 @@ public class RewardConfig : ScriptableObject
     }
 
 
-    public List<EventLootTablePair> eventLootTablePairs;
-    public LootTable fallBackLootTable;
+    [SerializeField] private List<EventLootTablePair> eventLootTablePairs;
+    [SerializeField] private LootTable fallBackLootTable;
 
     private Dictionary<RoomType, LootTable> lookupTable;
 
