@@ -8,13 +8,15 @@ public class PlayerSpawnPoint : MonoBehaviour
     }
 
     public void SpawnPoint() {
+        Vector3 offset = new Vector3(0, 0, -4);
+
         var playerObj = GlobalReference.GetReference<PlayerReference>().PlayerObj;
-        playerObj.transform.position = this.transform.position;
-        playerObj.transform.rotation = this.transform.rotation;
+        playerObj.transform.position = this.transform.position + offset;
+        // playerObj.transform.rotation = this.transform.rotation;
 
         var SmoothCamaraTarget = GlobalReference.GetReference<PlayerReference>().SmoothCamaraTarget;
-        SmoothCamaraTarget.transform.position = this.transform.position;
-        SmoothCamaraTarget.transform.rotation = this.transform.rotation;
+        SmoothCamaraTarget.transform.position = this.transform.position + offset;
+        // SmoothCamaraTarget.transform.rotation = this.transform.rotation;
 
     }
 }
