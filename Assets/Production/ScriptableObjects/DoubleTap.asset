@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19302e82ce5c49f43bf2b2004f6e98fd, type: 3}
-  m_Name: FlipAttack
+  m_Script: {fileID: 11500000, guid: d23a81dae8602da4abf624e541c4f760, type: 3}
+  m_Name: DoubleTap
   m_EditorClassIdentifier: 
-  duration: 0.5
-  damage: 20
+  actionName: DoubleTap
