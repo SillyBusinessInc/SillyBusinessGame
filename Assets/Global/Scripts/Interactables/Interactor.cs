@@ -7,8 +7,7 @@ public class PlayerInteraction : MonoBehaviour
     private Interactable currentInteractable;
 
     [Header("Raycast Settings [Debug]")]
-    [SerializeField] private float rayDistance = 10f;         // Maximum detection distance  
-    [SerializeField] private float maxInteractionAngle = 180f; // FOV 
+    [SerializeField] private float rayDistance = 10f;         // Maximum detection distance   
 
 
     private bool isColliding = false;
@@ -28,8 +27,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void DetectInteractable()
     {
-        // move backwards from the player's position
-        Vector3 origin = transform.position + Vector3.up * 0.1f + transform.forward * -1.0f;
+        Vector3 origin = transform.position + Vector3.up * 0.1f;
         Vector3 forward = transform.forward;
 
         // Check if the player is colliding with an interactable
@@ -52,18 +50,14 @@ public class PlayerInteraction : MonoBehaviour
             isColliding = true;
             SetInteractable(interactable);
         }
-        else
-        {
-            isColliding = false;
-        }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        isColliding = false;
         var interactable = collision.collider.GetComponent<Interactable>();
         if (interactable != null && interactable == currentInteractable)
         {
+            isColliding = false;
             currentInteractable.ShowPrompt(false);
             currentInteractable = null;
         }
