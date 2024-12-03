@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Events;
 
+
 public class Interactable : MonoBehaviour
 {
 
@@ -47,7 +48,7 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    protected void Start()
+    public virtual void Start()
     {
         playerCamera = GlobalReference.GetReference<PlayerReference>().PlayerCamera;
 
@@ -62,7 +63,11 @@ public class Interactable : MonoBehaviour
 
 
 
-    public virtual void OnInteract() { }
+    public virtual void OnInteract()
+    {
+        // loop over the list of actions and invoke them
+        interactionActions.ForEach(action => action.InvokeAction());
+    }
 
     public virtual void OnFailedInteract() { }
 
@@ -126,7 +131,7 @@ public class Interactable : MonoBehaviour
         {
             OnInteract();
             // Invoke all actions
-          interactionActions.ForEach(action => action.InvokeAction());
+            interactionActions.ForEach(action => action.InvokeAction());
         }
         else
         {

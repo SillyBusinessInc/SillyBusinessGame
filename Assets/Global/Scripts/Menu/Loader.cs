@@ -38,7 +38,6 @@ public class Loader : MonoBehaviour
         loadingProgress += (targetLoadingProgress - loadingProgress) * 0.99f * Time.unscaledDeltaTime;;
 
         loadingBar.fillAmount = Mathf.Clamp(loadingProgress/100f, 0f, 1f);
-        Debug.Log($"target: {targetLoadingProgress}, precise: {loadingProgress}, actual: {loadingBar.fillAmount}");
     }
 
     private void UpdateProgress() {
