@@ -308,11 +308,26 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 3.7383585
       objectReference: {fileID: 0}
+    - target: {fileID: 9169223613212550927, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+      propertyPath: fadeImage
+      value: 
+      objectReference: {fileID: 1585601264}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
+--- !u!114 &1585601264 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3832089285249100973, guid: 5e7833d33c9a64950955a9ed501a287b, type: 3}
+  m_PrefabInstance: {fileID: 491883868}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1906455995
 GameObject:
   m_ObjectHideFlags: 0
