@@ -102,7 +102,7 @@ public class Interactable : MonoBehaviour
         hudElement.SetActive(show);
         if (show)
         {
-            hudElement.transform.position = transform.position + Vector3.up * promptYOffset;
+            hudElement.transform.position = transform.position ;
             RotateBillboardTowardsCamera();
             SetBillboardText();
         }

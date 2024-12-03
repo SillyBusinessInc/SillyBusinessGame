@@ -28,6 +28,7 @@ public class DoorManager : Reference
 
     void Update()
     {
+        if (Time.timeScale == 0) return;
         string currentSceneName = GetNonBaseSceneName();
         if (!string.IsNullOrEmpty(currentSceneName) && currentSceneName != lastSceneName)
         {
