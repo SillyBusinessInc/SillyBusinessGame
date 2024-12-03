@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UpgradeOptions : MonoBehaviour
 {
+    public List<UpgradeOption> options;
     
     [ContextMenu("SHOW")]
     public void ShowOptions()
