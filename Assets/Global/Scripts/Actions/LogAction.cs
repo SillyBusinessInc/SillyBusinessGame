@@ -8,6 +8,6 @@ public class LogAction : ActionScriptableObject
     {
         Debug.Log($"{actionName} - {param}");
     }
-    
+
 }
 
