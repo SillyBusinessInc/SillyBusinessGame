@@ -8,23 +8,15 @@ public class PlayerSpawnPoint : MonoBehaviour
     }
 
     public void SpawnPoint() {
-        Scene BaseScene = SceneManager.GetSceneByName("BaseScene");
-        GameObject[] rootObjects = BaseScene.GetRootGameObjects();
-        foreach (GameObject obj in rootObjects)
-        {
-            if (obj.CompareTag("PlayerPrefeb")) {
-                foreach (Transform child in obj.transform)
-                {
-                    if (child.CompareTag("Player"))
-                    {
-                        child.transform.position = this.transform.position;
-                        // Debug.Log("child.name : " + child.name);
-                        Debug.Log("spawnPoint position = " + this.transform.position);
-                        Debug.Log("child position = " + child.transform.position);
-                        break;
-                    }
-                }
-            }
-        }
+        Vector3 offset = new Vector3(0, 0, -4);
+
+        var playerObj = GlobalReference.GetReference<PlayerReference>().PlayerObj;
+        playerObj.transform.position = this.transform.position + offset;
+        // playerObj.transform.rotation = this.transform.rotation;
+
+        var SmoothCamaraTarget = GlobalReference.GetReference<PlayerReference>().SmoothCamaraTarget;
+        SmoothCamaraTarget.transform.position = this.transform.position + offset;
+        // SmoothCamaraTarget.transform.rotation = this.transform.rotation;
+
     }
 }

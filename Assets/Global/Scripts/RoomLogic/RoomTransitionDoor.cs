@@ -16,40 +16,54 @@ public class RoomTransitionDoor : Interactable
     [SerializeField] private Animator animator;
     [SerializeField] private MeshRenderer doorMesh;
     [SerializeField] private string nextRoomName;
-    private bool isTransitioning = false;
-    public CrossfadeController crossfadeController;
-    public PlayerSpawnPoint playerSpawnPoint;
+    [HideInInspector]public RoomType nextRoomType;
+    public int nextRoomId;
+    private int roomAmounts;
+
+    private PlayerSpawnPoint playerSpawnPoint;
+    private DoorManager doorManager;
+    private GameManagerReference gameManagerReference;
+    private CrossfadeController crossfadeController;
+    private int randomNum;
     
     private string currentScenename;
  
 
     private void Awake()
     {
+        IsDisabled = IsDisabled; // ugly fix so maybe we have to change in the future
         GlobalReference.SubscribeTo(Events.ROOM_FINISHED, RoomFinished);
+        crossfadeController = GlobalReference.GetReference<CrossfadeController>();
     }
 
+    public void Initialize(){
+        gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
+        roomAmounts = gameManagerReference.GetAmountForRoomType(nextRoomType);
+        int randomIndex = Random.Range(1, roomAmounts+1);
+        nextRoomName = nextRoomType.ToString() + "_" + randomIndex;
+
+    }
 
     private void RoomFinished()
     {
-        IsDisabled = false;
+        IsDisabled = false;   
     }
 
     public override void OnInteract()
     {
         Debug.Log("OnTriggerEnter Happend");
-        isTransitioning = true;
         StartCoroutine(LoadNextRoom());
     }
 
     private IEnumerator LoadNextRoom()
     {
-        yield return StartCoroutine(crossfadeController.Crossfade());
+        yield return StartCoroutine(crossfadeController.Crossfade_Start());
         yield return StartCoroutine(LoadRoomCoroutine());
+        yield return StartCoroutine(crossfadeController.Crossfade_End());
     }
 
     public IEnumerator LoadRoomCoroutine()
     {
-
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
             Scene scene = SceneManager.GetSceneAt(i);
@@ -60,14 +74,31 @@ public class RoomTransitionDoor : Interactable
             }
         }
 
-        GlobalReference.UnregisterReference(GlobalReference.GetReference<PlayerReference>());
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextRoomName, LoadSceneMode.Additive);
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
 
+        var gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
+        if (gameManagerReference != null)
+        {
+            Room nextRoom = gameManagerReference.GetRoom(nextRoomId);
+            if (nextRoom != null)
+            {
+                gameManagerReference.activeRoom = nextRoom;
+            }
+            else
+            {
+                Debug.LogError($"Failed to find Room with Type: {nextRoomType}");
+            }
+        }
+        else
+        {
+            Debug.LogError("GameManagerReference is null");
+        }
 
+        
         AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(currentScenename);
         while (!unloadOperation.isDone)
         {
@@ -76,7 +107,6 @@ public class RoomTransitionDoor : Interactable
 
         Scene newScene = SceneManager.GetSceneByName(nextRoomName);
         SceneManager.SetActiveScene(newScene);
-        isTransitioning = false;
     }
 
     public override void OnDisableInteraction()
