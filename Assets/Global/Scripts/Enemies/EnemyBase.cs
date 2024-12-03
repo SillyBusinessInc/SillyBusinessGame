@@ -34,6 +34,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     public void OnHit(int damage)
     {
+        //Debug.Log("Enemy hit for " + damage + " damage");
         health -= damage;
         if (health <= 0)
         {

@@ -46,7 +46,7 @@ public class RoomTransitionDoor : Interactable
 
     private void RoomFinished()
     {
-        IsDisabled = false;
+        IsDisabled = false;   
     }
 
     public override void OnInteract()
@@ -83,7 +83,7 @@ public class RoomTransitionDoor : Interactable
         var gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
         if (gameManagerReference != null)
         {
-            Room nextRoom = gameManagerReference.Get(nextRoomId);
+            Room nextRoom = gameManagerReference.GetRoom(nextRoomId);
             if (nextRoom != null)
             {
                 gameManagerReference.activeRoom = nextRoom;
