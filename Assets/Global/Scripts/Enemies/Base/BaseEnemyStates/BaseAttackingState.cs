@@ -12,8 +12,6 @@ namespace EnemiesNS
         public override void Enter()
         {
             base.Enter();
-
-            // Debug.Log(animatorStateInfo.normalizedTime);
             enemy.FreezeMovement(true);
         }
 
@@ -44,8 +42,9 @@ namespace EnemiesNS
             base.Update();
         }
 
-        protected void Attack()
+        protected virtual void Attack()
         {
+
             enemy.inAttackAnim = true;
             // Proceed with the attack if the player exists and can be damaged
             attacksThisState++;

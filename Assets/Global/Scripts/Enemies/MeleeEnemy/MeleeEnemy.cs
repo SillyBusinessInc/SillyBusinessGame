@@ -9,12 +9,6 @@ namespace EnemiesNS
 
         private bool playerHit = false;
 
-        protected override void Start()
-        {
-            base.Start();
-            Debug.Log(states.GetType().Name);
-        }
-
         //
         // called in animations as events
         //

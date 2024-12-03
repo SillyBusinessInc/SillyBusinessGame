@@ -9,16 +9,23 @@ namespace EnemiesNS
         public override void Enter()
         {
             enemy.EnableWeaponHitBox();
-            enemy.animator.SetInteger("Idle_var", 1);
-            enemy.animator.SetBool("Idle", true);
+            enemy.animator.SetInteger("Attack_var", 0);
+            enemy.animator.SetBool("Attack", true);
             base.Enter();
         }
 
         public override void Exit()
         {
             enemy.DisableWeaponHitBox();
-            enemy.animator.SetBool("Idle", false);
+            enemy.animator.SetBool("Attack", false);
             base.Exit();
+        }
+
+        protected override void Attack()
+        {
+            Debug.Log("Fire attack trigger");
+            enemy.animator.SetTrigger("PlayAttack");
+            base.Attack();
         }
 
     }

@@ -9,7 +9,9 @@ namespace EnemiesNS
         public override void Enter()
         {
             base.Enter();
-            enemy.animator.SetBool("No_anim", true);
+            enemy.animator.SetInteger("DeathReason", 1);
+            enemy.animator.SetTrigger("PlayDeath");
+
         }
 
     }
