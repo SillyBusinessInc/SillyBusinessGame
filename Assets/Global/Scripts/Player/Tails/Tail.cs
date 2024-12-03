@@ -35,7 +35,6 @@ public class Tail : MonoBehaviour
     public bool flipDoDamage = false;
 
     public float increaseTailSpeed = 1.0f;
-
     public void Update()
     {
         activeResetComboTime =
@@ -69,7 +68,7 @@ public class Tail : MonoBehaviour
         currentTail.groundCombo.Add(attacks.Where(x => x.Name == "LeftTailAttack").Single());
         currentTail.groundCombo.Add(attacks.Where(x => x.Name == "RightTailAttack").Single());
         currentTail.groundCombo.Add(attacks.Where(x => x.Name == "FlipAttack").Single());
-        currentTail.groundCombo.First().damage /= 2;
+        currentTail.groundCombo.Where(x => x.Name == "FlipAttack").Single().damage /= 2;
         slamObject.transform.localScale /= 1.5f;
         currentTail.groundCombo.Where(x => x.Name == "FlipAttack").Single().cooldown -= 3f;
     }
