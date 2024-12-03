@@ -14,6 +14,7 @@ public abstract class SaveSystem
     //Logic
     private readonly Dictionary<string, ISaveable> saveables = new() {};
     public bool IsDirty { get; private set; } = false;
+    public bool IsLocked { get; set; } = false;
 
     public T Get<T>(string id) {
         if (!saveables.ContainsKey(id)) {
@@ -24,6 +25,7 @@ public abstract class SaveSystem
     }
 
     public void Set<T>(string id, T value) {
+        if (IsLocked) return;
         if (!saveables.ContainsKey(id)) {
             Debug.LogError($"{id} can not be found in {GetType().Name}");
             return;
