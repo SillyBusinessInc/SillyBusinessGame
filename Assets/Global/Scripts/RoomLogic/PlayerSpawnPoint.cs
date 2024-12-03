@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerSpawnPoint : MonoBehaviour
 {
-    public void Awake() {
+    public void Start() {
         SpawnPoint();
     }
 
@@ -12,11 +12,11 @@ public class PlayerSpawnPoint : MonoBehaviour
 
         var playerObj = GlobalReference.GetReference<PlayerReference>().PlayerObj;
         playerObj.transform.position = this.transform.position + offset;
+        playerObj.GetComponent<Rigidbody>().transform.position = this.transform.position + offset;
         // playerObj.transform.rotation = this.transform.rotation;
 
         var SmoothCamaraTarget = GlobalReference.GetReference<PlayerReference>().SmoothCamaraTarget;
         SmoothCamaraTarget.transform.position = this.transform.position + offset;
         // SmoothCamaraTarget.transform.rotation = this.transform.rotation;
-
     }
 }
