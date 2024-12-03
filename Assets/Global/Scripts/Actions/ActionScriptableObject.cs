@@ -13,7 +13,7 @@ public class ActionParamPair
 {
     public ActionScriptableObject action;
     public string param;
-    
+
     public void InvokeAction()
     {
         action.InvokeAction(param);
