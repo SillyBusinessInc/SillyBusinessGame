@@ -1,11 +1,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManagerReference : Reference
 {
     public Table table;
     [SerializeField] private List<RoomAmountCombo> roomAmountCombo;
+
+    void Start() {
+        // calling Initialize if scene was loaded directly (without loading screen)
+        for (int i = 0; i < SceneManager.sceneCount; i++) {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (!(scene.name == "Loading")) continue;
+            if (!scene.isLoaded) Initialize();
+            return;
+        }
+        Initialize();
+    }
 
     public void Initialize() {
         table = new();
