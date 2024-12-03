@@ -1,3 +1,7 @@
+/////////////////////////////////////////////////////////////////////////////
+///                             OBSOLETE                                  ///
+/////////////////////////////////////////////////////////////////////////////
+
 using UnityEngine;
 
 // Base enemy class
@@ -39,11 +43,12 @@ public abstract class EnemyBase : MonoBehaviour
 
     virtual public void OnDeath()
     {
-        
+
         GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
         Destroy(gameObject);
     }
-    void OnDestroy(){
+    void OnDestroy()
+    {
         OnDeath();
     }
 }

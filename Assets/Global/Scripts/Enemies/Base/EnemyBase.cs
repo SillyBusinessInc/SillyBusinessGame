@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -166,6 +167,7 @@ namespace EnemiesNS
 
         public virtual void OnHit(int damage)
         {
+            Debug.Log($"Taking {damage} points of damage", this);
             health -= damage;
             //TODO: add visual indicator of hit
             if (health <= 0)
@@ -178,6 +180,8 @@ namespace EnemiesNS
         {
             ChangeState(states.Dead);
             GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
+            StartCoroutine(DestroyWait()); //Temp in place of waiting for the non-existent death anim to finish
+
         }
 
         public void ChangeState(StateBase state)
@@ -271,6 +275,13 @@ namespace EnemiesNS
             directionToPlayer.Normalize();
 
             return directionToPlayer * attackKnockback;
+        }
+
+        IEnumerator DestroyWait()
+        {
+            yield return new WaitForSecondsRealtime(1);
+            Debug.Log("Destroy call", this);
+            Destroy(gameObject);
         }
 
         //
