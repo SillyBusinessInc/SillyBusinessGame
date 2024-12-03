@@ -35,7 +35,7 @@ public class RoomGenerator : MonoBehaviour
         foreach (Row row in table.table) {
             GameObject room = Instantiate(roomPrefab, RowPosition(row), Quaternion.identity);
             room.transform.SetParent(transform, true);
-            RoomType type = GlobalReference.GetReference<GameManagerReference>().GetRoom(row.id).roomType;
+            RoomType type = GlobalReference.GetReference<GameManagerReference>().Get(row.id).roomType;
             switch (type) {
                 case RoomType.BONUS:
                     room.GetComponent<MeshRenderer>().material = MBonus;

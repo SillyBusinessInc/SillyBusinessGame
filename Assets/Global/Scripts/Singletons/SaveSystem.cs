@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public abstract class SaveSystem
 {
@@ -13,7 +15,6 @@ public abstract class SaveSystem
 
     //Logic
     private readonly Dictionary<string, ISaveable> saveables = new() {};
-    public bool IsDirty { get; private set; } = false;
 
     public T Get<T>(string id) {
         if (!saveables.ContainsKey(id)) {
@@ -29,7 +30,6 @@ public abstract class SaveSystem
             return;
         }
         saveables[id].Set(value);
-        IsDirty = true;
     }
 
     protected void Add<T>(string id, T defaultValue) {
@@ -47,14 +47,6 @@ public abstract class SaveSystem
         foreach (KeyValuePair<string, ISaveable> saveable in saveables) {
             saveable.Value.Save();
         }
-        IsDirty = false;
-    }
-
-    public void LoadAll() {
-        foreach (KeyValuePair<string, ISaveable> saveable in saveables) {
-            saveable.Value.Load();
-        }
-        IsDirty = false;
     }
 
     // debug

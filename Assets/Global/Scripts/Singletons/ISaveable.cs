@@ -2,9 +2,8 @@ using UnityEngine;
 
 public interface ISaveable {
     string Id {get; set;}
-    public void Set<S>(S newValue);
     void Save();
-    void Load();
+    public void Set<S>(S newValue);
 }
 
 public class Saveable<T> : ISaveable {
