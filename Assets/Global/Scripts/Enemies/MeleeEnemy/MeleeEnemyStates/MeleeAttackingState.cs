@@ -23,7 +23,6 @@ namespace EnemiesNS
 
         protected override void Attack()
         {
-            Debug.Log("Fire attack trigger");
             enemy.animator.SetTrigger("PlayAttack");
             base.Attack();
         }

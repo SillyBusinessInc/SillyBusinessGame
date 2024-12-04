@@ -91,7 +91,6 @@ public class Tail : MonoBehaviour
     }
     public void OnTriggerEnter(Collider Collider)
     {
-        Debug.Log($"Hit: {Collider}", Collider.gameObject);
         if (Collider.gameObject.CompareTag("Enemy"))
         {
             if (tailCanDoDamage)
@@ -103,7 +102,6 @@ public class Tail : MonoBehaviour
                 player.collidersEnemy.Add(Collider);
                 float actualDamage =
                     tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
-                Debug.Log($"Going to do {actualDamage} points of damage");
                 if (Collider.GetComponent<EnemiesNS.EnemyBase>() != null)
                 {
                     Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));

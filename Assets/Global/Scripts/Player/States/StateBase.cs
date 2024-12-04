@@ -24,6 +24,9 @@ public abstract class StateBase
         if (ctx.performed && Player.currentState != Player.states.Walking && Player.isGrounded)
         {
             Player.SetState(Player.states.Walking);
+        }else if (ctx.canceled && Player.currentState == Player.states.Walking)
+        {
+            Player.SetState(Player.states.Idle);
         }
         else if (ctx.canceled && Player.currentState == Player.states.Walking)
         {
@@ -53,6 +56,15 @@ public abstract class StateBase
     {
         if (ctx.started)
         {
+            if (Player.isGrounded)
+            {
+                Player.playerAnimationsHandler.SetBool("IsFallingDown", false);
+                Player.playerAnimationsHandler.SetBool("IsJumpingBool",true);
+            }else{
+                Player.playerAnimationsHandler.animator.SetTrigger("IsDoubleJumping");
+
+            }
+
             Player.isHoldingJump = true;
             Player.SetState(Player.states.Jumping);
         }
