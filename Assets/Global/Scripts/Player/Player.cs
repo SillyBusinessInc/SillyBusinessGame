@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
+using UnityEngine.UI;
 
 // using System.Numerics;
 
@@ -73,6 +74,8 @@ public class Player : MonoBehaviour
     // private PlayerInputActions inputActions;
 
     private bool IsLanding = false;
+    [SerializeField] private Image fadeImage;
+
 
     void Start()
     {
@@ -281,10 +284,14 @@ public class Player : MonoBehaviour
     public void IncreaseMaxHealth(float reward) => playerStatistic.MaxHealth.AddModifier("reward", reward);
 
     // If we go the event route this should change right?
+    [ContextMenu("Die!!!!!")]
     private void OnDeath()
     {
         Debug.Log("Player died", this);
+        MoveToMenu();
     }
+    
+    private void MoveToMenu() => UILogic.FadeToScene("Death", fadeImage, this);
 
 
     IEnumerator KnockbackStunRoutine(float time = 0.5f)
