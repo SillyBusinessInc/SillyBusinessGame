@@ -83,6 +83,30 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Production/Scenes/Rooms/ENTRANCE_1.unity
     guid: 7c96780ea309c994599df5dac4696fd2
+  - enabled: 1
+    path: Assets/Production/Scenes/Rooms/BONUS_1.unity
+    guid: 1f6c6a521f06d7644893d34b3ca1615f
+  - enabled: 1
+    path: Assets/Production/Scenes/Rooms/COMBAT_2.unity
+    guid: 18e75b99b0eb77748b10e9a0bd9050ca
+  - enabled: 1
+    path: Assets/Production/Scenes/Rooms/COMBAT_1.unity
+    guid: b04444e4f71acdb4aa123b816b17baf3
+  - enabled: 1
+    path: Assets/Production/Scenes/Rooms/PARKOUR_1.unity
+    guid: fa17837fd19cee245bf37ab7334409e7
+  - enabled: 1
+    path: Assets/Production/Scenes/Rooms/OTHER_1.unity
+    guid: 6a7a7651dded0c8488eee2ed4e3d1b4f
+  - enabled: 1
+    path: Assets/Production/Scenes/Rooms/EXIT_1.unity
+    guid: d147b256a871f4a4e850f4691e9e2267
+  - enabled: 1
+    path: Assets/Production/Scenes/Rooms/WAVESURVIVAL_1.unity
+    guid: bb5aedac30ca7a84fa99fada62a6d231
+  - enabled: 1
+    path: Assets/Production/Scenes/Rooms/SHOP_1.unity
+    guid: 128c0872a4d7e084a85c9c23c275ff8d
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5ee5558464c699340918ebc2380ce47a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
