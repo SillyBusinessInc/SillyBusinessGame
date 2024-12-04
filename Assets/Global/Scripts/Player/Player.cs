@@ -50,7 +50,6 @@ public class Player : MonoBehaviour
     [HideInInspector] public int currentJumps = 0;
     [HideInInspector] public float horizontalInput;
     [HideInInspector] public float verticalInput;
-    [HideInInspector] public bool tailCanDoDamage = false;
     [HideInInspector] public PlayerStates states;
     [HideInInspector] public StateBase currentState;
     [HideInInspector] public Vector2 movementInput;
@@ -96,19 +95,22 @@ public class Player : MonoBehaviour
         RotatePlayerObj();
 
         if (isGrounded) canDodgeRoll = true;
-        Debug.DrawLine(rb.position, rb.position + targetVelocity, debug_lineColor, 0,  true);
+        Debug.DrawLine(rb.position, rb.position + targetVelocity, debug_lineColor, 0, true);
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         currentState.FixedUpdate();
     }
 
-    public void OnCollisionEnter(Collision collision) {
+    public void OnCollisionEnter(Collision collision)
+    {
         currentState.OnCollisionEnter(collision);
     }
 
 
-    public void OnCollisionExit(Collision collision) {
+    public void OnCollisionExit(Collision collision)
+    {
         currentState.OnCollisionExit(collision);
     }
 
@@ -118,10 +120,10 @@ public class Player : MonoBehaviour
         groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
         Vector3[] raycastOffsets = new Vector3[]
         {
-            Vector3.zero, 
-            new (0, 0, rb.GetComponent<Collider>().bounds.extents.z), 
+            Vector3.zero,
+            new (0, 0, rb.GetComponent<Collider>().bounds.extents.z),
             new (0, 0, -rb.GetComponent<Collider>().bounds.extents.z),
-            new (rb.GetComponent<Collider>().bounds.extents.x, 0, 0), 
+            new (rb.GetComponent<Collider>().bounds.extents.x, 0, 0),
             new (-rb.GetComponent<Collider>().bounds.extents.x,0,0) ,
         };
 
@@ -143,7 +145,8 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (isGrounded) {
+        if (isGrounded)
+        {
             isGrounded = false;
             IsLanding = false;
             timeLeftGrounded = Time.time;
@@ -168,7 +171,8 @@ public class Player : MonoBehaviour
     public void SetState(StateBase newState)
     {
         // stop active coroutine
-        if (activeCoroutine != null) {
+        if (activeCoroutine != null)
+        {
             StopCoroutine(activeCoroutine);
             activeCoroutine = null;
         }
@@ -183,16 +187,19 @@ public class Player : MonoBehaviour
         debug_lineColor = Color.yellow;
     }
 
-    public IEnumerator SetStateAfter(StateBase newState, float time, bool override_ = false) {
+    public IEnumerator SetStateAfter(StateBase newState, float time, bool override_ = false)
+    {
         // stop active coroutine
-        if (activeCoroutine != null) {
-            if (override_) {
+        if (activeCoroutine != null)
+        {
+            if (override_)
+            {
                 StopCoroutine(activeCoroutine);
                 activeCoroutine = null;
             }
             else yield break;
         }
-        
+
         // set state after time
         yield return new WaitForSeconds(time);
         activeCoroutine = null;
@@ -216,15 +223,17 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void ApproachTargetVelocity() {
+    private void ApproachTargetVelocity()
+    {
         // return if there is no target velocity to move towards | currently disabled as I'm investigating it's necessity
         // if (targetVelocity == Vector3.zero) return;
-        
+
         // slowly move to target velocity
         Vector3 newVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, currentMovementLerpSpeed * Time.deltaTime);
 
         // adjust speed when slowing down
-        if (newVelocity.sqrMagnitude < rb.linearVelocity.sqrMagnitude) {
+        if (newVelocity.sqrMagnitude < rb.linearVelocity.sqrMagnitude)
+        {
             // preserve y velocity
             float yVal = newVelocity.y;
 

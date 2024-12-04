@@ -28,6 +28,10 @@ public abstract class StateBase
         {
             Player.SetState(Player.states.Idle);
         }
+        else if (ctx.canceled && Player.currentState == Player.states.Walking)
+        {
+            Player.SetState(Player.states.Idle);
+        }
     }
 
     public virtual void Sprint(InputAction.CallbackContext ctx) { }
