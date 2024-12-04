@@ -171,7 +171,6 @@ namespace EnemiesNS
 
         public virtual void OnHit(int damage)
         {
-            Debug.Log("BOB");
             health -= damage;
             //TODO: add visual indicator of hit
             if (health <= 0)
