@@ -13,7 +13,7 @@ public class StatIncreaseAction : ThreeParamAction
     [SerializeField] private UpgradeType param3;
 
 
-    public override void InvokeAction(string stat, string value, string upgradeType)
+    public override void InvokeAction(ActionMetaData _, string stat, string value, string upgradeType)
     {
         Player player = GlobalReference.GetReference<PlayerReference>().Player;
         UpgradeType upgrade = System.Enum.TryParse(upgradeType, true, out upgrade) ? upgrade : UpgradeType.Modify;
