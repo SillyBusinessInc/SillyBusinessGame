@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -98,6 +99,10 @@ public class Player : MonoBehaviour
         RotatePlayerObj();
 
         if (isGrounded) canDodgeRoll = true;
+    }
+    
+    private void OnDrawGizmos()
+    {
         Debug.DrawLine(rb.position, rb.position + targetVelocity, debug_lineColor, 0, true);
     }
 
@@ -230,6 +235,8 @@ public class Player : MonoBehaviour
     {
         // return if there is no target velocity to move towards | currently disabled as I'm investigating it's necessity
         // if (targetVelocity == Vector3.zero) return;
+        
+        
 
         // slowly move to target velocity
         Vector3 newVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, currentMovementLerpSpeed * Time.deltaTime);

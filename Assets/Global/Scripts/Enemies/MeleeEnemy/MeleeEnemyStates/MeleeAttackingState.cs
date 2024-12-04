@@ -8,7 +8,6 @@ namespace EnemiesNS
 
         public override void Enter()
         {
-            enemy.EnableWeaponHitBox();
             enemy.animator.SetInteger("Attack_var", 0);
             enemy.animator.SetBool("Attack", true);
             base.Enter();

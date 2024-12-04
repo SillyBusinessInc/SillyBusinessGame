@@ -26,7 +26,19 @@ namespace EnemiesNS
         {
             if (!enemy.animator.IsInTransition(0)) animatorStateInfo = enemy.animator.GetCurrentAnimatorStateInfo(0);
             if (enemy.target == null) enemy.ChangeState(enemy.states.Idle);
-            if (animatorStateInfo.normalizedTime / attacksThisState >= 1) enemy.inAttackAnim = false;
+            //TODO: this is a quick fix to get the demo out the door, make this nicer
+            if (animatorStateInfo.normalizedTime / attacksThisState >= 1) enemy.toggleInAttackAnim(false, animatorStateInfo.normalizedTime / attacksThisState);
+            if (animatorStateInfo.normalizedTime / attacksThisState >= 0.7)
+            {
+                enemy.DisableWeaponHitBox();
+            }
+            else if (animatorStateInfo.normalizedTime / attacksThisState >= 0.5)
+            {
+                if (!enemy.weapon.enabled)
+                {
+                    enemy.EnableWeaponHitBox();
+                }
+            }
 
             // If the player is in range, attempt to face them
             if (IsWithinAttackRange() && canAttack())
