@@ -26,6 +26,9 @@ public class Player : MonoBehaviour
     public float dodgeRollDuration = 1f;
     public float dodgeRollDeceleration = 1f;
     public float groundCheckAngle = 50.0f;
+    public float maxIdleTime = 20f;
+    public float minIdleTime = 5f;
+
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
@@ -38,6 +41,7 @@ public class Player : MonoBehaviour
     public Transform orientation;
     public Healthbar healthBar;
 
+    [HideInInspector] public PlayerAnimationsHandler playerAnimationsHandler;
     [HideInInspector] public bool slamCanDoDamage = false;
     [HideInInspector] public int attackCounter;
     [HideInInspector] public int tailDoDamage;
@@ -69,11 +73,13 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool isHoldingDodge = false;
     // private PlayerInputActions inputActions;
 
+    private bool IsLanding = false;
     [SerializeField] private Image fadeImage;
 
 
     void Start()
     {
+        playerAnimationsHandler = GetComponent<PlayerAnimationsHandler>();
         states = new PlayerStates(this);
         SetState(states.Idle);
         // health and maxHealth should be the same value at the start of game
@@ -86,6 +92,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         GroundCheck();
+        CheckLandingAnimation();
         currentState.Update();
         ApproachTargetVelocity();
         RotatePlayerObj();
@@ -104,12 +111,14 @@ public class Player : MonoBehaviour
         currentState.OnCollisionEnter(collision);
     }
 
+
     public void OnCollisionExit(Collision collision)
     {
         currentState.OnCollisionExit(collision);
     }
 
     private void GroundCheck()
+
     {
         groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
         Vector3[] raycastOffsets = new Vector3[]
@@ -132,18 +141,36 @@ public class Player : MonoBehaviour
                     {
                         currentJumps = 0;
                         isGrounded = true;
+                        playerAnimationsHandler.SetBool("IsOnGround", true);
                         return;
                     }
                 }
             }
         }
+
         if (isGrounded)
         {
             isGrounded = false;
+            IsLanding = false;
             timeLeftGrounded = Time.time;
+            playerAnimationsHandler.SetBool("IsOnGround", false);
+        }
+        // playerAnimationsHandler.SetBool("IsOnGround", false);
+
+    }
+    private void CheckLandingAnimation()
+    {
+        if (rb.linearVelocity.y < -0.1f && isGrounded)
+        {
+            if (!IsLanding)
+            {
+                IsLanding = true;
+                playerAnimationsHandler.resetStates();
+                playerAnimationsHandler.animator.SetTrigger("IsLanding");
+            }
         }
     }
-
+    
     public void SetState(StateBase newState)
     {
         // stop active coroutine
@@ -265,6 +292,7 @@ public class Player : MonoBehaviour
     }
     
     private void MoveToMenu() => UILogic.FadeToScene("Death", fadeImage, this);
+
 
     IEnumerator KnockbackStunRoutine(float time = 0.5f)
     {
