@@ -18,8 +18,7 @@ public class WalkingState : StateBase
         if (!Player.isGrounded) {
             Player.activeCoroutine = Player.StartCoroutine(Player.SetStateAfter(Player.states.Falling, Player.coyoteTime));
         }
-
-
+        
         // calculate walking direction and speed
         if (Player.GetDirection() != Vector3.zero) Player.currentWalkingPenalty += Player.acceleration * Time.deltaTime;
         else Player.currentWalkingPenalty -= Player.acceleration * Time.deltaTime;

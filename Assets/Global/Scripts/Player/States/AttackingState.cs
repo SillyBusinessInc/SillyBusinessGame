@@ -18,6 +18,8 @@ public class AttackingState : StateBase
 
     public override void Enter()
     {
+        Player.targetVelocity *= 0;
+        
         if (Player.Tail.activeCooldownTime >= Player.Tail.cooldownTime)
         {
             Player.Tail.activeCooldownTime = 0.0f;
