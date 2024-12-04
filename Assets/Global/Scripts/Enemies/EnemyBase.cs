@@ -1,3 +1,7 @@
+/////////////////////////////////////////////////////////////////////////////
+///                             OBSOLETE                                  ///
+/////////////////////////////////////////////////////////////////////////////
+
 using UnityEngine;
 
 // Base enemy class
@@ -30,7 +34,6 @@ public abstract class EnemyBase : MonoBehaviour
 
     public void OnHit(int damage)
     {
-        //Debug.Log("Enemy hit for " + damage + " damage");
         health -= damage;
         if (health <= 0)
         {
@@ -40,11 +43,12 @@ public abstract class EnemyBase : MonoBehaviour
 
     virtual public void OnDeath()
     {
-        
+
         GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
         Destroy(gameObject);
     }
-    void OnDestroy(){
+    void OnDestroy()
+    {
         OnDeath();
     }
 }
