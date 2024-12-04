@@ -28,6 +28,7 @@ namespace EnemiesNS
             if (playerHit) return;
             playerHit = true;
             base.PlayerHit(playerObject, damage);
+            
         }
 
         protected override void SetupStateMachine()

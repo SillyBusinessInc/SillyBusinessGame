@@ -167,6 +167,7 @@ namespace EnemiesNS
 
         public virtual void OnHit(int damage)
         {
+            Debug.Log("BOB");
             health -= damage;
             //TODO: add visual indicator of hit
             if (health <= 0)
@@ -175,6 +176,7 @@ namespace EnemiesNS
                 return;
             }
             animator.SetTrigger("PlayDamage");
+
         }
 
         protected virtual void OnDeath()
