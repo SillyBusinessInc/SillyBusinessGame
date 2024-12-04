@@ -482,7 +482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   from: 12
-  to: 1
+  to: 16
 --- !u!1 &2020797699
 GameObject:
   m_ObjectHideFlags: 0
