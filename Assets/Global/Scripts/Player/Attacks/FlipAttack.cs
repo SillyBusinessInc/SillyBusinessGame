@@ -23,7 +23,7 @@ public class FlipAttack : TailAttack
         animatorTailAttack.speed *= clip.length / duration;
         animatorTailAttack.SetTrigger("FlipAttack");
         player.playerAnimationsHandler.resetStates();
-        player.playerAnimationsHandler.SetInt("AttackType", 2);
+        player.playerAnimationsHandler.SetInt("AttackType", 1);
         player.playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");
     }
     public override IEnumerator SetStateIdle()
