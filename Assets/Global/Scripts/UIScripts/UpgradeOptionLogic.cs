@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UpgradeOptionLogic : MonoBehaviour
@@ -9,8 +10,6 @@ public class UpgradeOptionLogic : MonoBehaviour
     [NonSerialized] public UnityEngine.UI.Image image;
     [NonSerialized] public TMP_Text upgradeName;
     [NonSerialized] public TMP_Text description;
-
-    
 
     void Start()
     {

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 
@@ -14,6 +16,8 @@ public class Tail : MonoBehaviour
     public List<Attack> attacks;
 
     public Animator WaffleAnimator;
+
+    public TailStatistic tailStatistic = new(); 
 
     [HideInInspector]
     public int attackIndex;
@@ -35,6 +39,8 @@ public class Tail : MonoBehaviour
     public bool flipDoDamage = false;
 
     public float increaseTailSpeed = 1.0f;
+
+    public float slamObjectSize = 1.0f;
     public void Update()
     {
         activeResetComboTime =
@@ -53,12 +59,26 @@ public class Tail : MonoBehaviour
                 : activeCooldownTime;
     }
 
+
+    public void Start (){
+        var stats = GlobalReference.GetReference<PlayerReference>().Player.playerStatistic;
+        //stats.TailGroundThingSize.Subscribe(onTailSizeChange);
+    }
+
+    private void onTailSizeChange(){
+        var stats = GlobalReference.GetReference<PlayerReference>().Player.playerStatistic;
+        //var size = stats.TailGroundThingSize.GetValue();
+        //slamObject.transform.localScale = new(size,size,size);
+    }
     public void WaffleQuake()
     {
         currentTail.groundCombo.Clear();
         currentTail.groundCombo.Add(attacks.Where(x => x.Name == "FlipAttack").Single());
         currentTail.groundCombo.First().damage *= 2;
-        slamObject.transform.localScale *= 1.5f;;
+        
+        var stats = GlobalReference.GetReference<PlayerReference>().Player.playerStatistic;
+        //stats.TailGroundThingSize.AddModifier("waffel mod", 0.5f);
+        //slamObject.transform.localScale *= 1.5f;;
         currentTail.groundCombo.Where(x => x.Name == "FlipAttack").Single().cooldown += 3f;
     }
 

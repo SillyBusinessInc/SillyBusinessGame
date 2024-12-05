@@ -67,7 +67,7 @@ public class AttackingState : StateBase
         GlobalReference
             .GetReference<PlayerReference>()
             .GetComponent<Player>()
-            .Tail.animator.speed = 1.0f;
+            .Tail.WaffleAnimator.speed = 1.0f;
     }
 
     public override void Jump(InputAction.CallbackContext ctx)

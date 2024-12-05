@@ -1,6 +1,6 @@
 using System.Linq;
 using UnityEngine;
-using System.Linq;
+
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "LeftTail")]
 public class LeftTailAttack : TailAttack
 {
