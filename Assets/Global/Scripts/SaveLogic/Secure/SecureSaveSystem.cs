@@ -41,8 +41,11 @@ public abstract class SecureSaveSystem
         if (type != typeof(int) &&
             type != typeof(float) &&
             type != typeof(string) &&
-            type != typeof(bool)
-        ) Debug.LogError($"cannot save {id} because {type} is not a saveable type. please only save int, float, string or bool");
+            type != typeof(bool) &&
+            type != typeof(Vector2) &&
+            type != typeof(Vector3) &&
+            type != typeof(Vector4)
+        ) Debug.LogError($"cannot save [{id}] because [{type}] is not a securely saveable type. please only save int, float, string or bool");
         
         saveables.Add(id, new SecureSaveable<T>($"{Prefix}_{id}", defaultValue));
     }
@@ -50,7 +53,11 @@ public abstract class SecureSaveSystem
     public void SaveAll() {
         BinaryFormatter formatter = new();
         using (FileStream stream = new(SavePath, FileMode.Create)) {
-            string data = "lol";
+            SerializableData data = new();
+
+            foreach (KeyValuePair<string, ISecureSaveable> saveable in saveables) {
+                data.Add(saveable.Key, saveable.Value);
+            }
 
             formatter.Serialize(stream, data);
             stream.Close();
@@ -62,7 +69,17 @@ public abstract class SecureSaveSystem
         if (File.Exists(SavePath)) {
             BinaryFormatter formatter = new();
             using (FileStream stream = new(SavePath, FileMode.Open)) {
-                string data = (string)formatter.Deserialize(stream);
+                SerializableData data = (SerializableData)formatter.Deserialize(stream); // load into data element - then turn data element in saveables
+                Debug.Log(data.Get<string>("test"));
+                Debug.Log(data.Get<int>("test2"));
+                Debug.Log(data.Get<bool>("test3"));
+                Debug.Log(data.Get<Vector3>("test4"));
+
+                foreach (KeyValuePair<string, ISecureSaveable> saveable in saveables) {
+                    saveables[saveable.Key].Set(data.Get(saveable.Key));
+                }
+
+                Debug.Log(SavePath);
                 stream.Close();
             }
             IsDirty = false;
