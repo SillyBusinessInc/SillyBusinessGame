@@ -19,11 +19,6 @@ public static class GlobalReference
         get => devSettings ??= new();
     }
 
-    private static PlayerSave playerSave;
-    public static PlayerSave PlayerSave {
-        get => playerSave ??= new();
-    }
-
     public static void Save() {
         statistics.SaveAll();
         settings.SaveAll();
