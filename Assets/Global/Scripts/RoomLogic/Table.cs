@@ -30,7 +30,7 @@ public class Table
     public int GetNextId() => table?.Count ?? 0;
     public int GetIndexInDepth(Row row) => GetRowsAtDepth(row.depth).OrderBy(x => x.id).ToList().FindIndex(x => x.id == row.id);
     public List<int> GetDepthColumn() => table.Select(x => x.depth).ToList();
-    public List<Row> GetRowsAtDepth(int depth) => table.Where(x => x.depth == depth && GlobalReference.GetReference<GameManagerReference>().Get(x.id).roomType != RoomType.BONUS).ToList();
+    public List<Row> GetRowsAtDepth(int depth) => table.Where(x => x.depth == depth && GlobalReference.GetReference<GameManagerReference>().GetRoom(x.id).roomType != RoomType.BONUS).ToList();
 
     // Reference
     public string RowReference(Row row) => $"Row: {row.id}, {row.depth}, [{string.Join(';', row.branches)}]";
@@ -51,9 +51,9 @@ public class Table
         if (seed < 0) random = new(Guid.NewGuid().GetHashCode());
         else random = new(seed);
 
-        shopDepth = shopDepthOverride >= 1 ? shopDepth : random.Next(2, targetDepth);
+        shopDepth = shopDepthOverride >= -1 ? shopDepth : random.Next(2, targetDepth);
 
-        GlobalReference.GetReference<GameManagerReference>().Reset();
+        GlobalReference.GetReference<GameManagerReference>().ResetRooms();
 
         table = new();
         GetIdFromNewRow(0, RoomType.ENTRANCE);
@@ -67,7 +67,7 @@ public class Table
 
         // init
         RoomType roomType = RoomType.OTHER;
-        if (GlobalReference.GetReference<GameManagerReference>().Get(row.id).IsStandard() && random.Next(0, 100) < bonusChance) AddBonusRoom(row);
+        if (GlobalReference.GetReference<GameManagerReference>().GetRoom(row.id).IsStandard() && random.Next(0, 100) < bonusChance) AddBonusRoom(row);
 
         // get total branches to apply
         int branchesToApply = random.Next(minBranchCount, maxBranchCount+1);
@@ -132,7 +132,7 @@ public class Table
         table.Add(newRow);
 
         if (roomType == RoomType.OTHER) roomType = RandomDistribution.GetRandom(Room.RoomDistribution, random);
-        GlobalReference.GetReference<GameManagerReference>().Add(newRow.id, roomType);
+        GlobalReference.GetReference<GameManagerReference>().AddRoom(newRow.id, roomType);
         return newRow.id;
     }
     private int GetIdFromOldRow(List<Row> existingBranches) {

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManagerReference : Reference
 {
@@ -8,23 +9,35 @@ public class GameManagerReference : Reference
     [SerializeField] private List<RoomAmountCombo> roomAmountCombo;
 
     void Start() {
+        // calling Initialize if scene was loaded directly (without loading screen)
+        for (int i = 0; i < SceneManager.sceneCount; i++) {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (!(scene.name == "Loading")) continue;
+            if (!scene.isLoaded) Initialize();
+            return;
+        }
+        Initialize();
+    }
+
+    public void Initialize() {
         table = new();
-        activeRoom = Get(0);
+        activeRoom = GetRoom(0);
         GlobalReference.GetReference<DoorManager>().Initialize();
     }
 
     // Rooms
     public Room activeRoom;
     private readonly List<Room> rooms = new();
-    public void Add(int id, RoomType roomType) {
+
+    public void AddRoom(int id, RoomType roomType) {
         if (rooms.Where((x) => x.id == id).Count() == 0) rooms.Add(new(id, roomType));
     }
-    public void Remove(int id) {
+    public void RemoveRoom(int id) {
         Room room = rooms.Where((x) => x.id == id).FirstOrDefault();
         if (room != null) rooms.Remove(room); 
     }
-    public Room Get(int id) => rooms.Where((x) => x.id == id).FirstOrDefault();
-    public void Reset() => rooms.Clear();
+    public Room GetRoom(int id) => rooms.Where((x) => x.id == id).FirstOrDefault();
+    public void ResetRooms() => rooms.Clear();
 
     public List<Room> GetNextRooms() {
         if (table == null) {
@@ -34,7 +47,7 @@ public class GameManagerReference : Reference
             Debug.Log("activeRoom is null");
         }
         var connectedIds = table.GetRow(activeRoom.id).branches;
-        var connectedRooms = connectedIds.Select(id => Get(id)).Where(room => room != null).ToList();
+        var connectedRooms = connectedIds.Select(id => GetRoom(id)).Where(room => room != null).ToList();
 
         Debug.Log("Connected Rooms: " + string.Join(", ", connectedRooms.Select(r => r.roomType)));
         return connectedRooms;

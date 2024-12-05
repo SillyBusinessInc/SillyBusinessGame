@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
+using UnityEngine.UI;
 
 // using System.Numerics;
 
@@ -25,6 +27,9 @@ public class Player : MonoBehaviour
     public float dodgeRollDuration = 1f;
     public float dodgeRollDeceleration = 1f;
     public float groundCheckAngle = 50.0f;
+    public float maxIdleTime = 20f;
+    public float minIdleTime = 5f;
+
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic;
@@ -37,6 +42,7 @@ public class Player : MonoBehaviour
     public Transform orientation;
     public Healthbar healthBar;
 
+    [HideInInspector] public PlayerAnimationsHandler playerAnimationsHandler;
     [HideInInspector] public bool slamCanDoDamage = false;
     [HideInInspector] public int attackCounter;
     [HideInInspector] public int tailDoDamage;
@@ -46,7 +52,6 @@ public class Player : MonoBehaviour
     [HideInInspector] public int currentJumps = 0;
     [HideInInspector] public float horizontalInput;
     [HideInInspector] public float verticalInput;
-    [HideInInspector] public bool tailCanDoDamage = false;
     [HideInInspector] public PlayerStates states;
     [HideInInspector] public StateBase currentState;
     [HideInInspector] public Vector2 movementInput;
@@ -68,6 +73,8 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool isHoldingJump = false;
     [HideInInspector] public bool isHoldingDodge = false;
     // private PlayerInputActions inputActions;
+    private bool IsLanding = false;
+    [SerializeField] private Image fadeImage;
 
     void Awake()
     {
@@ -76,6 +83,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        playerAnimationsHandler = GetComponent<PlayerAnimationsHandler>();
         states = new PlayerStates(this);
         SetState(states.Idle);
         // health and maxHealth should be the same value at the start of game
@@ -88,35 +96,45 @@ public class Player : MonoBehaviour
     void Update()
     {
         GroundCheck();
+        CheckLandingAnimation();
         currentState.Update();
         ApproachTargetVelocity();
         RotatePlayerObj();
 
         if (isGrounded) canDodgeRoll = true;
-        Debug.DrawLine(rb.position, rb.position + targetVelocity, debug_lineColor, 0,  true);
+    }
+    
+    private void OnDrawGizmos()
+    {
+        Debug.DrawLine(rb.position, rb.position + targetVelocity, debug_lineColor, 0, true);
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         currentState.FixedUpdate();
     }
 
-    public void OnCollisionEnter(Collision collision) {
+    public void OnCollisionEnter(Collision collision)
+    {
         currentState.OnCollisionEnter(collision);
     }
 
-    public void OnCollisionExit(Collision collision) {
+
+    public void OnCollisionExit(Collision collision)
+    {
         currentState.OnCollisionExit(collision);
     }
 
     private void GroundCheck()
+
     {
         groundCheckDistance = rb.GetComponent<Collider>().bounds.extents.y;
         Vector3[] raycastOffsets = new Vector3[]
         {
-            Vector3.zero, 
-            new (0, 0, rb.GetComponent<Collider>().bounds.extents.z), 
+            Vector3.zero,
+            new (0, 0, rb.GetComponent<Collider>().bounds.extents.z),
             new (0, 0, -rb.GetComponent<Collider>().bounds.extents.z),
-            new (rb.GetComponent<Collider>().bounds.extents.x, 0, 0), 
+            new (rb.GetComponent<Collider>().bounds.extents.x, 0, 0),
             new (-rb.GetComponent<Collider>().bounds.extents.x,0,0) ,
         };
 
@@ -131,21 +149,41 @@ public class Player : MonoBehaviour
                     {
                         currentJumps = 0;
                         isGrounded = true;
+                        playerAnimationsHandler.SetBool("IsOnGround", true);
                         return;
                     }
                 }
             }
         }
-        if (isGrounded) {
+
+        if (isGrounded)
+        {
             isGrounded = false;
+            IsLanding = false;
             timeLeftGrounded = Time.time;
+            playerAnimationsHandler.SetBool("IsOnGround", false);
+        }
+        // playerAnimationsHandler.SetBool("IsOnGround", false);
+
+    }
+    private void CheckLandingAnimation()
+    {
+        if (rb.linearVelocity.y < -0.1f && isGrounded)
+        {
+            if (!IsLanding)
+            {
+                IsLanding = true;
+                playerAnimationsHandler.resetStates();
+                playerAnimationsHandler.animator.SetTrigger("IsLanding");
+            }
         }
     }
-
+    
     public void SetState(StateBase newState)
     {
         // stop active coroutine
-        if (activeCoroutine != null) {
+        if (activeCoroutine != null)
+        {
             StopCoroutine(activeCoroutine);
             activeCoroutine = null;
         }
@@ -160,16 +198,19 @@ public class Player : MonoBehaviour
         debug_lineColor = Color.yellow;
     }
 
-    public IEnumerator SetStateAfter(StateBase newState, float time, bool override_ = false) {
+    public IEnumerator SetStateAfter(StateBase newState, float time, bool override_ = false)
+    {
         // stop active coroutine
-        if (activeCoroutine != null) {
-            if (override_) {
+        if (activeCoroutine != null)
+        {
+            if (override_)
+            {
                 StopCoroutine(activeCoroutine);
                 activeCoroutine = null;
             }
             else yield break;
         }
-        
+
         // set state after time
         yield return new WaitForSeconds(time);
         activeCoroutine = null;
@@ -193,15 +234,19 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void ApproachTargetVelocity() {
+    private void ApproachTargetVelocity()
+    {
         // return if there is no target velocity to move towards | currently disabled as I'm investigating it's necessity
         // if (targetVelocity == Vector3.zero) return;
         
+        
+
         // slowly move to target velocity
         Vector3 newVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, currentMovementLerpSpeed * Time.deltaTime);
 
         // adjust speed when slowing down
-        if (newVelocity.sqrMagnitude < rb.linearVelocity.sqrMagnitude) {
+        if (newVelocity.sqrMagnitude < rb.linearVelocity.sqrMagnitude)
+        {
             // preserve y velocity
             float yVal = newVelocity.y;
 
@@ -255,10 +300,15 @@ public class Player : MonoBehaviour
     }
 
     // If we go the event route this should change right?
+    [ContextMenu("Die!!!!!")]
     private void OnDeath()
     {
         Debug.Log("Player died", this);
+        MoveToMenu();
     }
+    
+    private void MoveToMenu() => UILogic.FadeToScene("Death", fadeImage, this);
+
 
     IEnumerator KnockbackStunRoutine(float time = 0.5f)
     {
