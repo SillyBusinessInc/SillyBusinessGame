@@ -32,6 +32,21 @@ public class SerializableData {
     public Dictionary<string, bool> bools = new();
     public Dictionary<string, float[]> vectors = new();
 
+    public static AllowedTypeReturnOption AllowedType(Type type) {
+        if (type != typeof(int) &&
+            type != typeof(float) &&
+            type != typeof(string) &&
+            type != typeof(bool) &&
+            type != typeof(Vector2) &&
+            type != typeof(Vector3) &&
+            type != typeof(Vector4)
+        ) {
+            if (type.IsSerializable) return AllowedTypeReturnOption.ALLOWED_OBJECT;
+            else return AllowedTypeReturnOption.DISALLOWED;
+        }
+        else return AllowedTypeReturnOption.ALLOWED_PRIMITIVE;
+    }
+
     public void Add<T>(string id, T value) {
         if (value is int t_int) ints.Add(id, t_int);
         else if (value is float t_float) floats.Add(id, t_float);
@@ -81,6 +96,12 @@ public class SerializableData {
         else if (saveable is SecureSaveable<Vector4> s_vector4) s_vector4.Set(Get<Vector4>(saveable.Id));
         else Debug.LogError($"you are trying to load all values in [{saveable.Id}] of type [{saveable.GetType()}] which is not a serializable saveable and cannot be loaded");
     }
+}
+
+public enum AllowedTypeReturnOption {
+    ALLOWED_PRIMITIVE,
+    ALLOWED_OBJECT,
+    DISALLOWED
 }
 
 #endregion

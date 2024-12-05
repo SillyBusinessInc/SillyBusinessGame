@@ -23,5 +23,9 @@ public class SaveDebugger : MonoBehaviour
         GlobalReference.PlayerSave.ListAll<Vector3>();
         Debug.Log("Displaying all vector4s:...................................");
         GlobalReference.PlayerSave.ListAll<Vector4>();
+
+        Debug.Log("Displaying fabio:..........................................");
+        SerializableTest test = GlobalReference.PlayerSave.Get<SerializableTest>("data");
+        test.Log();
     }
 }

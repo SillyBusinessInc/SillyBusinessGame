@@ -23,6 +23,9 @@ public abstract class SecureSaveSystem
     public bool IsDirty { get; private set; } = false;
 
     public T Get<T>(string id) {
+        if (SerializableData.AllowedType(typeof(T)) == AllowedTypeReturnOption.ALLOWED_OBJECT) {
+            return JsonUtility.FromJson<T>(Get<string>(id));
+        }
         if (!saveables.ContainsKey(id)) {
             Debug.LogError($"{id} can not be found in {GetType().Name}");
             return default;
@@ -31,6 +34,10 @@ public abstract class SecureSaveSystem
     }
 
     public void Set<T>(string id, T value) {
+        if (SerializableData.AllowedType(typeof(T)) == AllowedTypeReturnOption.ALLOWED_OBJECT) {
+            Set(id, JsonUtility.ToJson(value));
+            return;
+        }
         if (!saveables.ContainsKey(id)) {
             Debug.LogError($"{id} can not be found in {GetType().Name}");
             return;
@@ -41,14 +48,12 @@ public abstract class SecureSaveSystem
 
     protected void Add<T>(string id, T defaultValue) {
         Type type = typeof(T);
-        if (type != typeof(int) &&
-            type != typeof(float) &&
-            type != typeof(string) &&
-            type != typeof(bool) &&
-            type != typeof(Vector2) &&
-            type != typeof(Vector3) &&
-            type != typeof(Vector4)
-        ) Debug.LogError($"cannot save [{id}] because [{type}] is not a securely saveable type. please only save int, float, string or bool");
+        AllowedTypeReturnOption result = SerializableData.AllowedType(type);
+        if (result == AllowedTypeReturnOption.DISALLOWED) Debug.LogError($"cannot save [{id}] because [{type}] is not a securely saveable type");
+        else if (result == AllowedTypeReturnOption.ALLOWED_OBJECT) {
+            Add(id, JsonUtility.ToJson(defaultValue));
+            return;
+        }
         
         saveables.Add(id, new SecureSaveable<T>($"{Prefix}_{id}", defaultValue));
         saveableTypes.Add(id, typeof(T));
