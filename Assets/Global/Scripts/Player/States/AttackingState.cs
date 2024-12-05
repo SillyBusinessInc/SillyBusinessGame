@@ -19,6 +19,7 @@ public class AttackingState : StateBase
     public override void Enter()
     {
         Player.targetVelocity *= 0;
+        Player.rb.linearVelocity *= 0;
         
         if (Player.Tail.activeCooldownTime >= Player.Tail.cooldownTime)
         {
@@ -67,22 +68,6 @@ public class AttackingState : StateBase
         Player.Tail.tailCanDoDamage = false;
         Player.collidersEnemy.Clear();
     }
-
-    public override void Jump(InputAction.CallbackContext ctx)
-    {
-        if (ctx.canceled) Player.isHoldingJump = false;
-    }
-
-    public override void Glide(InputAction.CallbackContext ctx) { }
-
-    public override void Dodge(InputAction.CallbackContext ctx)
-    {
-        if (ctx.canceled) Player.isHoldingDodge = false;
-    }
-
-    public override void Move(InputAction.CallbackContext ctx) { }
-
-    public override void Sprint(InputAction.CallbackContext ctx) { }
 
     public override void Attack(InputAction.CallbackContext ctx) { }
 }
