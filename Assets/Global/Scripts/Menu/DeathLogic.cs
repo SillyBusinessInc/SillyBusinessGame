@@ -19,6 +19,6 @@ public class DeathLogic : MonoBehaviour
     }
 
     private IEnumerator WaitForFewSecond() {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
     }
 }
