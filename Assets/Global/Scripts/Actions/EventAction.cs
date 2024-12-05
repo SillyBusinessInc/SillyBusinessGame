@@ -6,7 +6,7 @@ public class EventAction : OneParamAction
 {
     [SerializeField] private List<Events> events;
     private List<Events> dynamicEvents;
-    public override void InvokeAction(string param)
+    public override void InvokeAction(ActionMetaData _, string param)
     {
         var eventNames = param.Split(',');
         foreach (var evName in eventNames)

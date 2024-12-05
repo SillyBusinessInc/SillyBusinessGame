@@ -10,6 +10,7 @@ public class RightTailAttack : TailAttack
 
     public override void Start()
     {
+        Debug.Log("Right Tail Attack first");
         base.Start();
         player.Tail.tailCanDoDamage = true;
         player.Tail.tailDoDamage = damage;
@@ -21,5 +22,9 @@ public class RightTailAttack : TailAttack
         AnimationClip clip = clips.Where(x => x.name == "RightTailAttack").Single();
         animatorTailAttack.speed *= (clip.length / duration) * player.Tail.increaseTailSpeed;
         animatorTailAttack.SetTrigger("RightAttack");
+
+        player.playerAnimationsHandler.resetStates();
+        player.playerAnimationsHandler.SetInt("AttackType", 0);
+        player.playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");
     }
 }

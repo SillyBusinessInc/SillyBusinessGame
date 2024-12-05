@@ -34,6 +34,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     public void OnHit(int damage)
     {
+        
         health -= damage;
         if (health <= 0)
         {

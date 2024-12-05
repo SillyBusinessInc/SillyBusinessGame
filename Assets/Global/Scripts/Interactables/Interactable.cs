@@ -65,8 +65,12 @@ public class Interactable : MonoBehaviour
 
     public virtual void OnInteract()
     {
+        // source = player
+        // target = this
+
+
         // loop over the list of actions and invoke them
-        interactionActions.ForEach(action => action.InvokeAction());
+        interactionActions.ForEach(action => action.InvokeAction(ActionMetaData.Empty));
     }
 
     public virtual void OnFailedInteract() { }
@@ -89,7 +93,9 @@ public class Interactable : MonoBehaviour
         if (modelTransform != null)
         {
             hudElement.transform.SetParent(modelTransform);
-        } else {
+        }
+        else
+        {
             Debug.LogWarning("No Model object found.");
         }
     }
@@ -107,7 +113,7 @@ public class Interactable : MonoBehaviour
         hudElement.SetActive(show);
         if (show)
         {
-            hudElement.transform.position = transform.position ;
+            hudElement.transform.position = transform.position;
             RotateBillboardTowardsCamera();
             SetBillboardText();
         }
@@ -131,7 +137,7 @@ public class Interactable : MonoBehaviour
         {
             OnInteract();
             // Invoke all actions
-            interactionActions.ForEach(action => action.InvokeAction());
+            interactionActions.ForEach(action => action.InvokeAction(ActionMetaData.Empty));
         }
         else
         {
