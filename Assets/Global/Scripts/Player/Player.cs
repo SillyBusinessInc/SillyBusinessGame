@@ -40,7 +40,6 @@ public class Player : MonoBehaviour
     [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
     public Transform orientation;
-    public Healthbar healthBar;
 
     [HideInInspector] public PlayerAnimationsHandler playerAnimationsHandler;
     [HideInInspector] public bool slamCanDoDamage = false;
