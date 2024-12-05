@@ -3102,6 +3102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveTypes:
   - {fileID: 971599047}
+  - {fileID: 1014515218}
 --- !u!4 &201069668
 Transform:
   m_ObjectHideFlags: 0
@@ -16247,7 +16248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - {fileID: 11400000, guid: c6c99acc1a23fc743b9b66a522677bbe, type: 2}
+  - {fileID: 11400000, guid: e70448433324f314b8b9b22119437d1c, type: 2}
   spawnAreaTransforms:
   - {fileID: 2071112063}
 --- !u!4 &1015607707 stripped
