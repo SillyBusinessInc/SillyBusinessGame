@@ -61,7 +61,7 @@ public class AttackingState : StateBase
             .GetReference<PlayerReference>()
             .GetComponent<Player>()
             .Tail.WaffleAnimator.speed = 1.0f;
-        Player.Tail.flipDoDamage = false;
+        Player.Tail.flipCanDoDamage = false;
         Player.Tail.tailCanDoDamage = false;
         Player.collidersEnemy.Clear();
         GlobalReference

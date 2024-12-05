@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 // IF you want to make this a Scriptable ,
@@ -11,13 +10,14 @@ using UnityEngine;
 //[CreateAssetMenu(fileName = "PlayerStatistic", menuName = "PlayerStatistic")]
 public class TailStatistic //: ScriptableObject
 {
-    public Statistic activeResetComboTime;
-    public Statistic slamObjectSize;
-    public Statistic increaseTailSpeed;
-    public Statistic cooldownTime;
-    public Statistic activeCooldownTime;
-    public Statistic comboResetTime;
-    public Statistic leftTailDamage;
-    public Statistic rightTailDamage;
-    public Statistic flipTailDamage;
+    public Statistic slamObjectSize = new(1.0f);
+    public Statistic increaseTailSpeed = new(1.0f);
+    public Statistic comboResetTime = new(2.0f);
+    public Statistic leftTailDamage = new(10.0f);
+    public Statistic rightTailDamage = new(15.0f);
+    public Statistic flipTailDamage = new(20.0f);
+
+    public Statistic leftTailCooldown = new(0.0f);
+    public Statistic rightTailCooldown = new(0.0f);
+    public Statistic flipTailCooldown = new(0.0f);
 }
