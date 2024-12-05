@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
 using UnityEngine;
+using EnemiesNS;
 
 
 public class Tail : MonoBehaviour
@@ -92,18 +93,18 @@ public class Tail : MonoBehaviour
     {
         if (Collider.gameObject.CompareTag("Enemy"))
         {
-            if (player.collidersEnemy.Contains(Collider))
-            {
-                return;
-            }
-            player.collidersEnemy.Add(Collider);
             if (tailCanDoDamage)
             {
+                if (player.collidersEnemy.Contains(Collider))
+                {
+                    return;
+                }
+                player.collidersEnemy.Add(Collider);
                 float actualDamage =
                     tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
-                if (Collider.GetComponent<EnemyBase>() != null)
+                if (Collider.GetComponent<EnemiesNS.EnemyBase>() != null)
                 {
-                    Collider.GetComponent<EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
+                    Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
                 }
             }
         }

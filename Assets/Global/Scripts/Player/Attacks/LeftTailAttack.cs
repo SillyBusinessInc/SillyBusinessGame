@@ -20,5 +20,9 @@ public class LeftTailAttack : TailAttack
         AnimationClip clip = clips.Where(x => x.name == "LeftTailAttack").Single();
         animatorTailAttack.speed *= (clip.length / duration) * player.Tail.increaseTailSpeed;
         animatorTailAttack.SetTrigger("LeftAttack");
+
+        player.playerAnimationsHandler.resetStates();
+        player.playerAnimationsHandler.SetInt("AttackType", 0);
+        player.playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");
     }
 }
