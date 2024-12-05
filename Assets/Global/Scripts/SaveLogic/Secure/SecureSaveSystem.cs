@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using NUnit.Framework.Constraints;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class SecureSaveSystem
@@ -12,11 +13,13 @@ public abstract class SecureSaveSystem
 
     public SecureSaveSystem() {
         Init();
+        LoadAll();
     }
 
     //Logic
     private string SavePath => Path.Combine(Application.persistentDataPath, $"{Prefix}.mold");
     private readonly Dictionary<string, ISecureSaveable> saveables = new() {};
+    private readonly Dictionary<string, Type> saveableTypes = new() {};
     public bool IsDirty { get; private set; } = false;
 
     public T Get<T>(string id) {
@@ -48,6 +51,7 @@ public abstract class SecureSaveSystem
         ) Debug.LogError($"cannot save [{id}] because [{type}] is not a securely saveable type. please only save int, float, string or bool");
         
         saveables.Add(id, new SecureSaveable<T>($"{Prefix}_{id}", defaultValue));
+        saveableTypes.Add(id, typeof(T));
     }
 
     public void SaveAll() {
@@ -56,7 +60,7 @@ public abstract class SecureSaveSystem
             SerializableData data = new();
 
             foreach (KeyValuePair<string, ISecureSaveable> saveable in saveables) {
-                data.Add(saveable.Key, saveable.Value);
+                data.AddAllFromSecureSavable(saveable.Value);
             }
 
             formatter.Serialize(stream, data);
@@ -70,16 +74,11 @@ public abstract class SecureSaveSystem
             BinaryFormatter formatter = new();
             using (FileStream stream = new(SavePath, FileMode.Open)) {
                 SerializableData data = (SerializableData)formatter.Deserialize(stream); // load into data element - then turn data element in saveables
-                Debug.Log(data.Get<string>("test"));
-                Debug.Log(data.Get<int>("test2"));
-                Debug.Log(data.Get<bool>("test3"));
-                Debug.Log(data.Get<Vector3>("test4"));
 
                 foreach (KeyValuePair<string, ISecureSaveable> saveable in saveables) {
-                    saveables[saveable.Key].Set(data.Get(saveable.Key));
+                    data.UpdateSecureSaveable(saveable.Value);
                 }
-
-                Debug.Log(SavePath);
+                
                 stream.Close();
             }
             IsDirty = false;
@@ -92,7 +91,7 @@ public abstract class SecureSaveSystem
     // debug
     public void ListAll<T>() {
         foreach (KeyValuePair<string, ISecureSaveable> saveable in saveables) {
-            Debug.Log((saveable.Value as SecureSaveable<T>).Value);
+            if (saveable.Value is SecureSaveable<T> t) Debug.Log($"{t.Id}: {t.Value}");
         }
     }
 }

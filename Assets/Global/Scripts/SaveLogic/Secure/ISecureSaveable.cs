@@ -6,8 +6,6 @@ public interface ISecureSaveable
 {
     string Id {get; set;}
     public void Set<S>(S newValue);
-    void Save();
-    void Load();
 }
 
 public class SecureSaveable<T> : ISecureSaveable {
@@ -16,32 +14,17 @@ public class SecureSaveable<T> : ISecureSaveable {
 
     public SecureSaveable(string id, T defaultValue) {
         Id = id;
-
-        if (PlayerPrefs.HasKey(id)) Load();
-        else Value = defaultValue;
+        Value = defaultValue;
     }
 
     public void Set<S>(S newValue) {
         if (newValue is T t) Value = t;
     }
-
-    public void Save() {
-        if (Value is int iValue) PlayerPrefs.SetInt(Id, iValue);
-        if (Value is float fValue) PlayerPrefs.SetFloat(Id, fValue);
-        if (Value is string sValue) PlayerPrefs.SetString(Id, sValue);
-        if (Value is bool bValue) PlayerPrefs.SetInt(Id, bValue ? 1 : 0);
-    }
-    public void Load() {
-        if (Value is int) Value = (T)(object)PlayerPrefs.GetInt(Id);
-        if (Value is float) Value = (T)(object)PlayerPrefs.GetFloat(Id);
-        if (Value is string) Value = (T)(object)PlayerPrefs.GetString(Id);
-        if (Value is bool) Value = (T)(object)(PlayerPrefs.GetInt(Id) == 1);
-    }
 }
 
-#region serializable saveable
+#region serializable data
 
-[System.Serializable]
+[Serializable]
 public class SerializableData {
     public Dictionary<string, int> ints = new();
     public Dictionary<string, float> floats = new();
@@ -75,6 +58,28 @@ public class SerializableData {
             Debug.LogError($"you are trying to load [{id}] of type [{type}] which does not exist, please check if the id and type are correct");
         }
         return default;
+    }
+
+    public void AddAllFromSecureSavable(ISecureSaveable saveable) {
+        if (saveable is SecureSaveable<int> s_int) Add(saveable.Id, s_int.Value);
+        else if (saveable is SecureSaveable<float> s_float) Add(saveable.Id, s_float.Value);
+        else if (saveable is SecureSaveable<string> s_string) Add(saveable.Id, s_string.Value);
+        else if (saveable is SecureSaveable<bool> s_bool) Add(saveable.Id, s_bool.Value);
+        else if (saveable is SecureSaveable<Vector2> s_vector2) Add(saveable.Id, s_vector2.Value);
+        else if (saveable is SecureSaveable<Vector3> s_vector3) Add(saveable.Id, s_vector3.Value);
+        else if (saveable is SecureSaveable<Vector4> s_vector4) Add(saveable.Id, s_vector4.Value);
+        else Debug.LogError($"you are trying to save all values in [{saveable.Id}] of type [{saveable.GetType()}] which is not a serializable saveable and will not be saved");
+    }
+
+    public void UpdateSecureSaveable(ISecureSaveable saveable) {
+        if (saveable is SecureSaveable<int> s_int) s_int.Set(Get<int>(saveable.Id));
+        else if (saveable is SecureSaveable<float> s_float) s_float.Set(Get<float>(saveable.Id));
+        else if (saveable is SecureSaveable<string> s_string) s_string.Set(Get<string>(saveable.Id));
+        else if (saveable is SecureSaveable<bool> s_bool) s_bool.Set(Get<bool>(saveable.Id));
+        else if (saveable is SecureSaveable<Vector2> s_vector2) s_vector2.Set(Get<Vector2>(saveable.Id));
+        else if (saveable is SecureSaveable<Vector3> s_vector3) s_vector3.Set(Get<Vector3>(saveable.Id));
+        else if (saveable is SecureSaveable<Vector4> s_vector4) s_vector4.Set(Get<Vector4>(saveable.Id));
+        else Debug.LogError($"you are trying to load all values in [{saveable.Id}] of type [{saveable.GetType()}] which is not a serializable saveable and cannot be loaded");
     }
 }
 
