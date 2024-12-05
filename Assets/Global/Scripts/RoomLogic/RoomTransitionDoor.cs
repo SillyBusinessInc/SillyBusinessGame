@@ -59,7 +59,7 @@ public class RoomTransitionDoor : Interactable
     {
         yield return StartCoroutine(crossfadeController.Crossfade_Start());
         yield return StartCoroutine(LoadRoomCoroutine());
-        yield return StartCoroutine(crossfadeController.Crossfade_End());
+        // yield return StartCoroutine(crossfadeController.Crossfade_End());
     }
 
     public IEnumerator LoadRoomCoroutine()

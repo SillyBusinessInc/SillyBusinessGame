@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DeathLogic : MonoBehaviour
 {
-    [SerializeField] private Image fadeImage;
+    [SerializeField] private CrossfadeController crossfadeController;
 
     private void Start() {
         StartCoroutine(GameOver());
@@ -12,13 +12,13 @@ public class DeathLogic : MonoBehaviour
     }
 
     private IEnumerator GameOver() {
+        yield return StartCoroutine(crossfadeController.Crossfade_End());
         yield return StartCoroutine(WaitForFewSecond());
-        MoveToMenu();
+        yield return StartCoroutine(crossfadeController.Crossfade_Start());
+        SceneManager.LoadScene("Menu");
     }
 
     private IEnumerator WaitForFewSecond() {
         yield return new WaitForSeconds(4f);
     }
-        
-    private void MoveToMenu() => UILogic.FadeToScene("Menu", fadeImage, this);
 }
