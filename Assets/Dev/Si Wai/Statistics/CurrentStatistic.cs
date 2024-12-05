@@ -9,11 +9,11 @@ public class CurrentStatistic : BaseStatistic
 {
     [SerializeField]
     private float baseValue;  // Starting value, read-only
-    private PermanentStatistic Perm;
+    private PermanentStatistic permanentStatistic;
 
     public CurrentStatistic(float bv, PermanentStatistic perm = null) {
         baseValue = bv;
-        Perm = perm;
+        permanentStatistic = perm;
     }
 
     // Get the final value after applying modifiers
@@ -21,17 +21,17 @@ public class CurrentStatistic : BaseStatistic
     {
         float value = baseValue;
         // first, apply the base multipliers
-        float baseMultiplier = baseMultipliers.Any() ? baseMultipliers.Sum(pair => pair.Value) : 1;
-        float permanentBaseMultiplier = Perm?.PermanentBaseMulitpliers() ?? 1;
+        float baseMultiplier = BaseMultipliers();
+        float permanentBaseMultiplier = permanentStatistic?.BaseMultipliers() ?? 1; // if Perm is null, it will be 1
         value = value * baseMultiplier * permanentBaseMultiplier; // add current * permanent baseMultipliers
         
         // then, add the static modifiers
         modifiers.ForEach(pair => value += pair.Value);
-        Perm?.PermanentModifiers().ForEach(pair => value += pair.Value);
+        permanentStatistic?.Modifiers().ForEach(pair => value += pair.Value);
 
         // lastly, combine the final multipliers
-        float finalMultiplier = finalMultipliers.Any() ? finalMultipliers.Sum(pair => pair.Value) : 1;
-        float permanentFinalMultiplier = Perm?.PermanentFinalMulitpliers() ?? 1;
+        float finalMultiplier = FinalMultipliers();
+        float permanentFinalMultiplier = permanentStatistic?.FinalMultipliers() ?? 1;
         value = value * finalMultiplier * permanentFinalMultiplier;
 
         return value;

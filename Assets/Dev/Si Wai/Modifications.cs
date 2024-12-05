@@ -7,17 +7,10 @@ public class Modifications : MonoBehaviour
     {
         // this is for testing
         Debug.Log($"crumbs: {GlobalReference.PermanentPlayerStatistic.Get<int>("crumbs")}");
-        Debug.Log($"health: {GlobalReference.PermanentPlayerStatistic.Get<float>("health")}");
-        GlobalReference.SubscribeTo(Events.CRUMBS_CHANGED, ChangeCrumbs);
-        GlobalReference.SubscribeTo(Events.HEALTH_CHANGED, ChangeMaxHealth);
-    
-    }
 
-    void ChangeMaxHealth() {
-        Debug.Log($"new health: {GlobalReference.PermanentPlayerStatistic.Get<float>("health")}");
-    }
+        GlobalReference.PermanentPlayerStatistic.Speed.AddModifier("speed", 1f);
 
-    void ChangeCrumbs() {
-        Debug.Log($"new crumbs: {GlobalReference.PermanentPlayerStatistic.Get<int>("crumbs")}");
+        var jsonString = GlobalReference.PermanentPlayerStatistic.Get<string>("speed");
+        GlobalReference.PermanentPlayerStatistic.Speed.DeserializeModifications(jsonString);
     }
 }

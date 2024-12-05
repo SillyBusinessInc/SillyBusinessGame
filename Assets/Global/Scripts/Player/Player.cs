@@ -82,8 +82,6 @@ public class Player : MonoBehaviour
         collidersEnemy = new List<Collider>();
 
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
-        GlobalReference.PermanentPlayerStatistic.Health = playerStatistic.Health;
-        GlobalReference.PermanentPlayerStatistic.SaveHealth();
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
 
@@ -224,7 +222,6 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         playerStatistic.Health -= damage;
-        GlobalReference.PermanentPlayerStatistic.Health = playerStatistic.Health;
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
         if (playerStatistic.Health <= 0) OnDeath();
     }
@@ -250,14 +247,11 @@ public class Player : MonoBehaviour
 
     public void IncreaseMaxHealth(float reward) => playerStatistic.MaxHealth.AddModifier("reward", reward);
 
-    [ContextMenu("Add 30 crumbs")]
-    public void IncreaseCrumbs()
+    public void IncreaseCrumbs(int crumb)
     {
         int crumbs = GlobalReference.PermanentPlayerStatistic.Get<int>("crumbs");
-        // GlobalReference.PermanentPlayerStatistic.Crumbs = crumbs + crumb;
-        GlobalReference.PermanentPlayerStatistic.Crumbs = crumbs + 30;
+        GlobalReference.PermanentPlayerStatistic.Crumbs = crumbs + crumb;
         GlobalReference.PermanentPlayerStatistic.SaveCrumbs();
-        GlobalReference.AttemptInvoke(Events.CRUMBS_CHANGED);
     }
 
     // If we go the event route this should change right?

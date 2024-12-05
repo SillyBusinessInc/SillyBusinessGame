@@ -15,6 +15,10 @@ public class BaseStatistic
     // Event to notify listeners about changes
     public event Action OnChange;
 
+    public float BaseMultipliers() => baseMultipliers.Any() ? baseMultipliers.Sum(pair => pair.Value) : 1;
+    public float FinalMultipliers() => finalMultipliers.Any() ? finalMultipliers.Sum(pair => pair.Value) : 1;
+    public List<KeyValuePair<string, float>> Modifiers() => modifiers;
+
     // Add new modifier  
     public void AddModifier(string key, float modifier)
     {

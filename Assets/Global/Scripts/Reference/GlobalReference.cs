@@ -5,24 +5,34 @@ using UnityEngine.Events;
 public static class GlobalReference
 {
     // Non monobehavior singletons
+    private static Statistics statistics;
+    public static Statistics Statistics
+    {
+        get => statistics ??= new();
+    }
+
+    private static Settings settings;
+    public static Settings Settings
+    {
+        get => settings ??= new();
+    }
+    private static DevSettings devSettings;
+    public static DevSettings DevSettings
+    {
+        get => devSettings ??= new();
+    }
+
     private static PermanentPlayerStatistic permanentPlayerStatistic;
     public static PermanentPlayerStatistic PermanentPlayerStatistic { 
         get => permanentPlayerStatistic ??= new();
     }
 
-    private static Settings settings;
-    public static Settings Settings { 
-        get => settings ??= new();
-    }
-    private static DevSettings devSettings;
-    public static DevSettings DevSettings { 
-        get => devSettings ??= new();
-    }
-
-    public static void Save() {
-        permanentPlayerStatistic.SaveAll();
+    public static void Save()
+    {
+        statistics.SaveAll();
         settings.SaveAll();
         devSettings.SaveAll();
+        permanentPlayerStatistic.SaveAll();
     }
 
     // GameObject reference logic
@@ -85,8 +95,9 @@ public static class GlobalReference
     public static void UnsubscribeTo(Events eventName, UnityAction action) => TryGetEvent(eventName).RemoveListener(action);
     public static void UnsubscribeTo<T>(Events eventName, UnityAction<T> action) => TryGetEvent<T>(eventName).RemoveListener(action);
 
-    public static void AttemptInvoke(Events eventName){
-        Debug.Log($"Object Invoked ({eventName})");
+    public static void AttemptInvoke(Events eventName)
+    {
+        //    Debug.Log($"Object Invoked ({eventName})");
         TryGetEvent(eventName).Invoke();
     }
     public static void AttemptInvoke<T>(Events eventName, T parameter)
@@ -96,12 +107,14 @@ public static class GlobalReference
         TryGetEvent<T>(eventName).Invoke(parameter);
     }
 
-    private static UnityEvent TryGetEvent(Events eventName) {
+    private static UnityEvent TryGetEvent(Events eventName)
+    {
         if (!eventList.ContainsKey(eventName)) return (UnityEvent)(eventList[eventName] = new UnityEvent());
         if (eventList[eventName] is UnityEvent e) return e;
         throw new UnityException($"You are trying to access {eventName} as if it was a parameterless event even though it has been created as an event with a parameter");
     }
-    private static UnityEvent<T> TryGetEvent<T>(Events eventName) {
+    private static UnityEvent<T> TryGetEvent<T>(Events eventName)
+    {
         if (!eventList.ContainsKey(eventName)) return (UnityEvent<T>)(eventList[eventName] = new UnityEvent<T>());
         if (eventList[eventName] is UnityEvent<T> e) return e;
         throw new UnityException($"You are trying to access {eventName} as if it was an event with a parameter even though it has been created as a parameterless event");

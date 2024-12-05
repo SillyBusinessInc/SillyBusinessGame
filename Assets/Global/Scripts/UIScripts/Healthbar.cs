@@ -14,7 +14,7 @@ public class Healthbar : MonoBehaviour
         HealthbarOverlayTransform = transform.GetChild(1) as RectTransform;
 
         originalWidth = HealthbarUnderlayTransform.sizeDelta.x;
-        GlobalReference.SubscribeTo(Events.HEALTH_CHANGED, UpdateCurrentHealthPermanent);
+        GlobalReference.SubscribeTo(Events.HEALTH_CHANGED, UpdateCurrentHealth);
     }
 
     void Start()
@@ -22,7 +22,7 @@ public class Healthbar : MonoBehaviour
         player = GlobalReference.GetReference<PlayerReference>().Player;
 
         UpdateHealthBar();
-        player.playerStatistic.MaxHealth.Subscribe(UpdateMaxHealthPermanent);
+        player.playerStatistic.MaxHealth.Subscribe(UpdateMaxHealth);
     }
 
     public void UpdateHealthBar()
@@ -47,15 +47,5 @@ public class Healthbar : MonoBehaviour
             originalWidth * (maxHealth / 2),
             HealthbarUnderlayTransform.sizeDelta.y
         );
-    }
-
-    void UpdateCurrentHealthPermanent() {
-        UpdateCurrentHealth();
-        GlobalReference.PermanentPlayerStatistic.SaveHealth();
-    }
-
-    void UpdateMaxHealthPermanent() {
-        UpdateMaxHealth();
-        GlobalReference.PermanentPlayerStatistic.SaveMaxHealth();
     }
 }
