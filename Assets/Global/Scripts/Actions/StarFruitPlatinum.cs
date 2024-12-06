@@ -1,14 +1,14 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Actions/StarFruitPlatinum")]
-public class StarFruitPlatinum : ActionScriptableObject
+public class StarFruitPlatinum : OneParamAction
 {
     [SerializeField]
     private string actionName = "StarFruitPlatinum";
 
     public float increaseAttackSpeedMultiplier = 10f;
 
-    public override void InvokeAction(string param)
+    public override void InvokeAction(ActionMetaData _, string param)
     {
         GlobalReference
             .GetReference<PlayerReference>()

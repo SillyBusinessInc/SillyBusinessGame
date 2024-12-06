@@ -1,11 +1,11 @@
 using UnityEngine;
 [CreateAssetMenu(menuName = "Actions/LegDay")]
-public class LegDay : ActionScriptableObject
+public class LegDay : OneParamAction
 {
     [SerializeField] private string actionName = "LegDay";
 
     public int doubleJumpsCountincrease = 1;
-    public override void InvokeAction(string param)
+    public override void InvokeAction(ActionMetaData _, string param)
     {
         GlobalReference
             .GetReference<PlayerReference>()
