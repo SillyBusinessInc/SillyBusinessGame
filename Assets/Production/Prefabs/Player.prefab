@@ -81,7 +81,7 @@ MonoBehaviour:
     DodgeCooldown:
       baseValue: 1
     DoubleJumpsCount:
-      baseValue: 2
+      baseValue: 1
   Tail: {fileID: 2433743845863343982}
   rb: {fileID: 8218035431276073872}
   orientation: {fileID: 8661837782861090297}

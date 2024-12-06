@@ -26,6 +26,8 @@ public enum Events
 
     // player attacks
     PLAYER_ATTACK_STARTED,
-    PLAYER_ATTACK_ENDED
+    PLAYER_ATTACK_ENDED,
+    
+    DROP_TREASURE_EVENT
 
 }
