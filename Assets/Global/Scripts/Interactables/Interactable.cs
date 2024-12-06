@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Events;
-using Unity.Android.Gradle.Manifest;
-
 
 public class Interactable : MonoBehaviour
 {
