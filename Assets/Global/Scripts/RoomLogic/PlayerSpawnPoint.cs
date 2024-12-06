@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerSpawnPoint : MonoBehaviour
 {
@@ -11,17 +10,20 @@ public class PlayerSpawnPoint : MonoBehaviour
         Vector3 offset = new Vector3(0, 0, 3);
 
         var playerObj = GlobalReference.GetReference<PlayerReference>().PlayerObj;
-        playerObj.transform.position = this.transform.position + offset;
-        playerObj.GetComponent<Rigidbody>().transform.position = this.transform.position + offset;
-        playerObj.transform.rotation = Quaternion.Euler(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y + 180, this.transform.rotation.eulerAngles.z);
+        var rb = playerObj.GetComponent<Rigidbody>();
+        rb.MovePosition(this.transform.position + offset);
+        Quaternion targetRotation = Quaternion.Euler(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y + 180, this.transform.rotation.eulerAngles.z);
+        rb.MoveRotation(targetRotation);
+
 
         // var SmoothCamaraTarget = GlobalReference.GetReference<PlayerReference>().SmoothCamaraTarget;
-        // SmoothCamaraTarget.transform.position = this.transform.position + offset;
+        // var cameraRb = SmoothCamaraTarget.GetComponent<Rigidbody>();
+        // cameraRb.MovePosition(this.transform.position + offset);
         // SmoothCamaraTarget.transform.rotation = Quaternion.Euler(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y + 180, this.transform.rotation.eulerAngles.z);
-        // // SmoothCamaraTarget.transform.rotation = this.transform.rotation;
+        // SmoothCamaraTarget.transform.rotation = this.transform.rotation;
 
-        var playerCamera = GlobalReference.GetReference<PlayerReference>().PlayerCamera;
-        playerCamera.transform.rotation = Quaternion.Euler(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y + 180, this.transform.rotation.eulerAngles.z);
+        // var playerCamera = GlobalReference.GetReference<PlayerReference>().PlayerCamera;
+        // playerCamera.transform.rotation = Quaternion.Euler(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y + 180, this.transform.rotation.eulerAngles.z);
 
     }
 }
