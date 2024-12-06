@@ -22,7 +22,7 @@ public class LeftTailAttack : TailAttack
         animatorTailAttack.SetTrigger("LeftAttack");
 
         player.playerAnimationsHandler.resetStates();
-        player.playerAnimationsHandler.SetInt("AttackType", 0);
+        player.playerAnimationsHandler.SetInt("AttackType", 1);
         player.playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");
     }
 }

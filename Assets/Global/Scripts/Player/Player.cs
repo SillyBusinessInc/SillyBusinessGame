@@ -72,6 +72,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public Color debug_lineColor;
     [HideInInspector] public bool isHoldingJump = false;
     [HideInInspector] public bool isHoldingDodge = false;
+    [HideInInspector] public bool isAttacking = false;
     // private PlayerInputActions inputActions;
 
     private bool IsLanding = false;
@@ -99,6 +100,21 @@ public class Player : MonoBehaviour
         RotatePlayerObj();
 
         if (isGrounded) canDodgeRoll = true;
+    }
+
+
+    private void attackingAnimation() => isAttacking = true;
+    private void attackingStoppedAnimation() => isAttacking = false;
+    private void Awake()
+    {
+        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
+        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
+    }
+
+    private void OnDestroy()
+    {
+        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
+        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
     }
     
     private void OnDrawGizmos()
