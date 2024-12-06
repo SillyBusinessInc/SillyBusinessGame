@@ -15,6 +15,6 @@ public class DevSettings : SaveSystem
         Add("targetDepth", 5);
         Add("bonusChance", 20);
         Add("seed", -1);
-        Add("shopDepthOverride", -1);
+        Add("shopDepthOverride", -2);
     }
 }

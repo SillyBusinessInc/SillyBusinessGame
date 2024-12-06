@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 public class AttackingState : StateBase
 {
     public AttackingState(Player player)
         : base(player) { }
+
+    public override void Update() { }
 
     public void IncreaseIndex()
     {
@@ -15,39 +18,39 @@ public class AttackingState : StateBase
 
     public override void Enter()
     {
-        Player.Tail.tailCanDoDamage = true;
-        var tail = Player.Tail.currentTail;
-        if(tail.currentCombo.Count == 0) 
+        Player.targetVelocity *= 0;
+        Player.rb.linearVelocity *= 0;
+        
+        if (Player.Tail.activeCooldownTime >= Player.Tail.cooldownTime)
         {
-            if(Player.isGrounded)
-            {
-                tail.currentCombo = tail.groundCombo;
-            }
-            else
-            {
-                tail.currentCombo = tail.airCombo;
-            }
-        }
-        else if(Player.isGrounded)
-        {
-            if(tail.currentCombo == tail.airCombo)
-            {
-                Player.Tail.attackIndex = 0;
-            }
-            tail.currentCombo = tail.groundCombo;
+            Player.Tail.activeCooldownTime = 0.0f;
         }
         else
         {
-            if(tail.currentCombo == tail.groundCombo)
-            {
-                Player.Tail.attackIndex = 0;
-            }
-            tail.currentCombo = tail.airCombo;
+            Player.SetState(Player.states.Idle);
+            return;
         }
-        if(tail.currentCombo.Count == 0)
+        var tail = Player.Tail.currentTail;
+        if (tail.currentCombo.Count == 0)
         {
             Player.SetState(Player.states.Idle);
             return;
+        }
+        if (Player.isGrounded)
+        {
+            if (Player.Tail.currentTail.currentCombo != Player.Tail.currentTail.groundCombo)
+            {
+                Player.Tail.attackIndex = 0;
+            }
+            Player.Tail.currentTail.currentCombo = Player.Tail.currentTail.groundCombo;
+        }
+        else
+        {
+            if (Player.Tail.currentTail.currentCombo != Player.Tail.currentTail.airCombo)
+            {
+                Player.Tail.attackIndex = 0;
+            }
+            Player.Tail.currentTail.currentCombo = Player.Tail.currentTail.airCombo;
         }
         var currentCombo = tail.currentCombo[Player.Tail.attackIndex];
         currentCombo.Start();
@@ -57,25 +60,14 @@ public class AttackingState : StateBase
 
     public override void Exit()
     {
+        float animatorTailAttack = GlobalReference
+            .GetReference<PlayerReference>()
+            .GetComponent<Player>()
+            .Tail.WaffleAnimator.speed = 1.0f;
+        Player.Tail.flipDoDamage = false;
         Player.Tail.tailCanDoDamage = false;
         Player.collidersEnemy.Clear();
     }
-
-    public override void Jump(InputAction.CallbackContext ctx)
-    {
-        if (ctx.canceled) Player.isHoldingJump = false;
-    }
-
-    public override void Glide(InputAction.CallbackContext ctx) { }
-
-    public override void Dodge(InputAction.CallbackContext ctx)
-    {
-        if (ctx.canceled) Player.isHoldingDodge = false;
-    }
-
-    public override void Move(InputAction.CallbackContext ctx) { }
-
-    public override void Sprint(InputAction.CallbackContext ctx) { }
 
     public override void Attack(InputAction.CallbackContext ctx) { }
 }
