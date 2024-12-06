@@ -40,6 +40,9 @@ public class Player : MonoBehaviour
     [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
     public Transform orientation;
+    public ParticleSystem particleSystemJump;
+    public ParticleSystem particleSystemDash;
+    public ParticleSystem particleSystemWalk;
 
     [HideInInspector] public PlayerAnimationsHandler playerAnimationsHandler;
     [HideInInspector] public bool slamCanDoDamage = false;
