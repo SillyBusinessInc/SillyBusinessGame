@@ -24,6 +24,7 @@ public abstract class SecureSaveSystem
 
     /// <summary> Defines if this save file has unsaved changes </summary>
     public bool IsDirty { get; private set; } = false;
+    public bool IsLocked { get; set; } = false;
 
     /// <summary> Finds the value with the given id </summary>
     public T Get<T>(string id) {
@@ -42,6 +43,7 @@ public abstract class SecureSaveSystem
 
     /// <summary> Sets the value with the given id to a new value </summary>
     public void Set<T>(string id, T value) {
+        if (IsLocked) return;
         // check if type is a seriallized object that requires special handling
         if (SerializableData.AllowedType(typeof(T)) == AllowedTypeReturnOption.ALLOWED_STRINGIFY) {
             Set(id, JsonUtility.ToJson(value));

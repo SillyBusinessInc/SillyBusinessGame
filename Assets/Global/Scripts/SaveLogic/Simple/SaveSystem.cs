@@ -18,6 +18,7 @@ public abstract class SaveSystem
 
     /// <summary> Defines if this save file has unsaved changes </summary>
     public bool IsDirty { get; private set; } = false;
+    public bool IsLocked { get; set; } = false;
 
     /// <summary> Finds the value with the given id </summary>
     public T Get<T>(string id) {
@@ -32,6 +33,7 @@ public abstract class SaveSystem
 
     /// <summary> Sets the value with the given id to a new value </summary>
     public void Set<T>(string id, T value) {
+        if (IsLocked) return;
         // check if the value exists in this save system
         if (!saveables.ContainsKey(id)) {
             Debug.LogError($"{id} can not be found in {GetType().Name}");
