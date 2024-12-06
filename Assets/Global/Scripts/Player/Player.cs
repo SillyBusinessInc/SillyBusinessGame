@@ -271,7 +271,7 @@ public class Player : MonoBehaviour
         if (playerStatistic.Health <= 0) OnDeath();
     }
 
-    public void applyKnockback(Vector3 knockback, float time)
+    public void ApplyKnockback(Vector3 knockback, float time)
     {
         //
         // TODO: Need to be written once we have reworked movement
@@ -291,13 +291,6 @@ public class Player : MonoBehaviour
     public void MultiplyMaxHealth(float reward) => playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
 
     public void IncreaseMaxHealth(float reward) => playerStatistic.MaxHealth.AddModifier("reward", reward);
-
-    public void IncreaseCrumbs(int crumb)
-    {
-        int crumbs = GlobalReference.PermanentPlayerStatistic.Get<int>("crumbs");
-        GlobalReference.PermanentPlayerStatistic.Crumbs = crumbs + crumb;
-        GlobalReference.PermanentPlayerStatistic.SaveCrumbs();
-    }
 
     // If we go the event route this should change right?
     [ContextMenu("Die!!!!!")]

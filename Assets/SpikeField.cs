@@ -33,7 +33,7 @@ public class SpikeField : MonoBehaviour
 
                 // Calculate and apply knockback velocity
                 Vector3 knockbackVelocity = CalculateKnockback(player.PlayerObj);
-                player.Player.applyKnockback(knockbackVelocity, 3);
+                player.Player.ApplyKnockback(knockbackVelocity, 3);
             }
 
             isDisabled = true;

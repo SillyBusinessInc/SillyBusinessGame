@@ -13,34 +13,26 @@ public class PermanentStatistic : BaseStatistic
         public float value;
     }
 
-    private class DictionaryWrapper {
-        public Dictionary<string, string> Dictionary;
-
-        public DictionaryWrapper(Dictionary<string, string> dictionary) {
-            Dictionary = dictionary;
-        }
-    }
-
     private class SerializationWrapper {
         public List<SerializableKeyValuePair> items;
     }
 
     // fields
     public readonly string Param;
-    private readonly SaveSystem SaveSystem;
-    public PermanentStatistic(string param, SaveSystem saveSystem) {
+    private readonly SecureSaveSystem SaveSystem;
+    public PermanentStatistic(string param, SecureSaveSystem saveSystem) {
         Param = param;
         SaveSystem = saveSystem;
     }
 
-    public string SerializeModifications() {
-        Dictionary<string, string> JsonList = new() {
+    public DictionaryWrapper SerializeModifications() {
+        Dictionary<string, string> Modifications = new() {
             {"baseMultipliers", ListToJson(baseMultipliers)},
             {"finalMultipliers", ListToJson(finalMultipliers)},
             {"modifiers", ListToJson(modifiers)}
         };
 
-        return JsonUtility.ToJson(new DictionaryWrapper(JsonList));
+        return new DictionaryWrapper(Modifications);
     }
 
     // convert a list of KeyValuePair to JSON string
@@ -106,8 +98,17 @@ public class PermanentStatistic : BaseStatistic
     }
 
     private void Save() {
-        string json = SerializeModifications();
+        var json = SerializeModifications();
         SaveSystem.Set(Param, json);
         SaveSystem.SaveAll();
+    }
+}
+
+[Serializable]
+public class DictionaryWrapper {
+    public Dictionary<string, string> Dictionary;
+
+    public DictionaryWrapper(Dictionary<string, string> dictionary) {
+        Dictionary = dictionary;
     }
 }

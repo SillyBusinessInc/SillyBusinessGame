@@ -1,58 +1,36 @@
 
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 [System.Serializable]
-public class PermanentPlayerStatistic : SaveSystem
+public class PermanentPlayerStatistic : SecureSaveSystem
 {
-    public PermanentStatistic Speed;
-    public PermanentStatistic JumpForce;
-    public PermanentStatistic MaxHealth;
-    private int crumbs;
-    public int Crumbs
-    {
-        get => crumbs;
-        set => crumbs = value > 0 ? value : 0;
-    }
-    public PermanentStatistic AttackSpeedMultiplier;
-    public PermanentStatistic AttackDamageMultiplier;
-    public PermanentStatistic DodgeCooldown;
-    public PermanentStatistic DoubleJumpsCount;
     protected override string Prefix => "permanentPlayerStatistic";
 
-    void Setup() {
-        Speed = new("speed", this);
-        JumpForce = new("jumpForce", this);
-        MaxHealth = new("maxHealth", this);
-        AttackSpeedMultiplier = new("attackSpeedMultiplier", this);
-        AttackDamageMultiplier = new("attackDamageMultiplier", this);
-        DodgeCooldown = new("dodgeCooldown", this);
-        DoubleJumpsCount = new("doubleJumpsCount", this);
-    }
-
     public override void Init() {
-        Setup();
-
-        List<PermanentStatistic> Statistics = new() {
-            Speed,
-            JumpForce,
-            MaxHealth,
-            AttackSpeedMultiplier,
-            AttackDamageMultiplier,
-            DodgeCooldown,
-            DoubleJumpsCount
-        };
-
-        foreach(var stat in Statistics) {
-            // using json strings to save the stats
-            Add(stat.Param, stat.SerializeModifications());
-        }
-
-        Add("crumbs", Crumbs);
+        Add("speed", new PermanentStatistic("speed", this));
+        Add("jumpForce", new PermanentStatistic("jumpForce", this));
+        Add("maxHealth", new PermanentStatistic("maxHealth", this));
+        Add("attackSpeedMultiplier", new PermanentStatistic("attackSpeedMultiplier", this));
+        Add("attackDamageMultiplier", new PermanentStatistic("attackDamageMultiplier", this));
+        Add("dodgeCooldown", new PermanentStatistic("dodgeCooldown", this));
+        Add("doubleJumpsCount", new PermanentStatistic("doubleJumpsCount", this));
+        Add("crumbs", 0);
     }
 
-    public void SaveCrumbs() {
-        Set("crumbs", Crumbs);
+    public void IncreaseCrumbs(int reward) {
+        int crumbs = Get<int>("crumbs");
+        crumbs += reward;
+        SaveCrumbs(crumbs);
+    }
+
+    public void DecreaseCrumbs(int price) {
+        int crumbs = Get<int>("crumbs");
+        crumbs -= price;
+        SaveCrumbs(crumbs);
+    }
+
+    private void SaveCrumbs(int crumbs) {
+        Set("crumbs", crumbs);
         SaveAll();
         GlobalReference.AttemptInvoke(Events.CRUMBS_CHANGED);
     }
