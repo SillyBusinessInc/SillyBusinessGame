@@ -21,6 +21,7 @@ public abstract class SecureSaveSystem
     private readonly Dictionary<string, ISecureSaveable> saveables = new() {};
     private readonly Dictionary<string, Type> saveableTypes = new() {};
     public bool IsDirty { get; private set; } = false;
+    public bool IsLocked { get; set; } = false;
 
     public T Get<T>(string id) {
         if (SerializableData.AllowedType(typeof(T)) == AllowedTypeReturnOption.ALLOWED_OBJECT) {
@@ -34,6 +35,7 @@ public abstract class SecureSaveSystem
     }
 
     public void Set<T>(string id, T value) {
+        if (IsLocked) return;
         if (SerializableData.AllowedType(typeof(T)) == AllowedTypeReturnOption.ALLOWED_OBJECT) {
             Set(id, JsonUtility.ToJson(value));
             return;
