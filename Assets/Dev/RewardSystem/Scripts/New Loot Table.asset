@@ -17,12 +17,10 @@ MonoBehaviour:
     Weight: 30
     Entry:
     - action: {fileID: 11400000, guid: 6a88b6c35f690ac458cb5aa9e974188b, type: 2}
-      param: 
-    - action: {fileID: 0}
-      param: 
-  - Name: mmm
-    Weight: 99
-    Entry: []
-  - Name: 
-    Weight: 0
-    Entry: []
+      parameters:
+      - skibidi
+    - action: {fileID: 11400000, guid: 21c2a01c9ec3b104bb8807de684e60a5, type: 2}
+      parameters:
+      - speed
+      - 20
+      - mulitply

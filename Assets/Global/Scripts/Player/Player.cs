@@ -41,7 +41,6 @@ public class Player : MonoBehaviour
     [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
     public Transform orientation;
-    public Healthbar healthBar;
 
     [HideInInspector] public PlayerAnimationsHandler playerAnimationsHandler;
     [HideInInspector] public bool slamCanDoDamage = false;
@@ -73,6 +72,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public Color debug_lineColor;
     [HideInInspector] public bool isHoldingJump = false;
     [HideInInspector] public bool isHoldingDodge = false;
+    [HideInInspector] public bool isAttacking = false;
     // private PlayerInputActions inputActions;
 
     private bool IsLanding = false;
@@ -101,6 +101,21 @@ public class Player : MonoBehaviour
         RotatePlayerObj();
 
         if (isGrounded) canDodgeRoll = true;
+    }
+
+
+    private void attackingAnimation() => isAttacking = true;
+    private void attackingStoppedAnimation() => isAttacking = false;
+    private void Awake()
+    {
+        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
+        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
+    }
+
+    private void OnDestroy()
+    {
+        GlobalReference.UnsubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
+        GlobalReference.UnsubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
     }
     
     private void OnDrawGizmos()
@@ -288,9 +303,15 @@ public class Player : MonoBehaviour
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
 
-    public void MultiplyMaxHealth(float reward) => playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
-
-    public void IncreaseMaxHealth(float reward) => playerStatistic.MaxHealth.AddModifier("reward", reward);
+    public void MultiplyMaxHealth(float reward) {
+        playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
+        Heal(1f);
+    }
+    
+    public void IncreaseMaxHealth(float reward) {
+        playerStatistic.MaxHealth.AddModifier("reward", reward);
+        Heal(1f);
+    }
 
     // If we go the event route this should change right?
     [ContextMenu("Die!!!!!")]

@@ -17,6 +17,7 @@ public class DodgeRollState : StateBase
             return;
         }
         Player.timeLastDodge = Time.time;
+        Player.playerAnimationsHandler.SetBool("Dodgerolling", true);
 
         // find direction
         Vector3 dodgeDirection = Player.GetDirection();
@@ -33,6 +34,12 @@ public class DodgeRollState : StateBase
         Player.targetVelocity = new(Player.targetVelocity.x, 0, Player.targetVelocity.z);
 
         // player.animator.SetTrigger("DodgeRoll");
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        Player.playerAnimationsHandler.SetBool("Dodgerolling", false);
     }
 
     public override void Jump(InputAction.CallbackContext ctx)

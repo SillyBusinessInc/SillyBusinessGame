@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class AttackingState : StateBase
@@ -18,6 +17,10 @@ public class AttackingState : StateBase
 
     public override void Enter()
     {
+        if (Player.isAttacking){
+            Player.SetState(Player.states.Idle);
+            return;
+        }
         Player.targetVelocity *= 0;
         Player.rb.linearVelocity *= 0;
         
@@ -64,9 +67,13 @@ public class AttackingState : StateBase
             .GetReference<PlayerReference>()
             .GetComponent<Player>()
             .Tail.WaffleAnimator.speed = 1.0f;
-        Player.Tail.flipDoDamage = false;
+        Player.Tail.flipCanDoDamage = false;
         Player.Tail.tailCanDoDamage = false;
         Player.collidersEnemy.Clear();
+        GlobalReference
+            .GetReference<PlayerReference>()
+            .GetComponent<Player>()
+            .Tail.WaffleAnimator.speed = 1.0f;
     }
 
     public override void Attack(InputAction.CallbackContext ctx) { }

@@ -16,7 +16,7 @@ public class RoomTransitionDoor : Interactable
     [SerializeField] private Animator animator;
     [SerializeField] private MeshRenderer doorMesh;
     [SerializeField] private string nextRoomName;
-    [HideInInspector]public RoomType nextRoomType;
+    [HideInInspector] public RoomType nextRoomType;
     public int nextRoomId;
     private int roomAmounts;
 
@@ -25,9 +25,9 @@ public class RoomTransitionDoor : Interactable
     private GameManagerReference gameManagerReference;
     private CrossfadeController crossfadeController;
     private int randomNum;
-    
+
     private string currentScenename;
- 
+
 
     private void Awake()
     {
@@ -36,20 +36,21 @@ public class RoomTransitionDoor : Interactable
         crossfadeController = GlobalReference.GetReference<CrossfadeController>();
     }
 
-    public void Initialize(){
+    public void Initialize()
+    {
         gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
         roomAmounts = gameManagerReference.GetAmountForRoomType(nextRoomType);
-        int randomIndex = Random.Range(1, roomAmounts+1);
+        int randomIndex = Random.Range(1, roomAmounts + 1);
         nextRoomName = nextRoomType.ToString() + "_" + randomIndex;
 
     }
 
     private void RoomFinished()
     {
-        IsDisabled = false;   
+        IsDisabled = false;
     }
 
-    public override void OnInteract()
+    public override void OnInteract(ActionMetaData _)
     {
         Debug.Log("OnTriggerEnter Happend");
         StartCoroutine(LoadNextRoom());
@@ -94,11 +95,11 @@ public class RoomTransitionDoor : Interactable
             Debug.LogError("GameManagerReference is null");
         }
 
-        
+
         AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(currentScenename);
         while (!unloadOperation.isDone)
         {
-            yield return null; 
+            yield return null;
         }
 
         Scene newScene = SceneManager.GetSceneByName(nextRoomName);

@@ -15,41 +15,31 @@ public class TreasureChestInteractable : Interactable
     {
         base.Start();
 
-        gameObject.SetActive(false);
-
         if (rewardConfig == null)
         {
             Debug.Log("[Config] RewardConfig is not set in the inspector [TreasureChestInteractable]");
             return;
         }
 
-
         gameManager = GlobalReference.GetReference<GameManagerReference>();
-
         RoomType roomType = gameManager.GetRoom(gameManager.activeRoom.id).roomType;
-
         lootTable = rewardConfig.GetLootTableForRoomType(roomType);
-
-        GlobalReference.SubscribeTo(Events.ROOM_FINISHED, ShowTreasureChest);
     }
 
-    public override void OnInteract()
+    public override void OnInteract(ActionMetaData metaData)
     {
-
         if (lootTable == null) return;
+
+        base.OnInteract(metaData);
 
         var loot = lootTable.GetRandomReward();
 
         if (loot != null)
         {
             // loop through the list of actions and invoke them
-            foreach (var action in loot.Entry) action.InvokeAction(ActionMetaData.Empty);
+            foreach (var action in loot.Entry) action.InvokeAction(metaData);
         }
-    }
 
-    public void ShowTreasureChest()
-    {
-        // set active 
-        gameObject.SetActive(true);
+        Destroy(this.gameObject);
     }
 }
