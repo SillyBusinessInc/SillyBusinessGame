@@ -112,8 +112,8 @@ public class Player : MonoBehaviour
 
     private void OnDestroy()
     {
-        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
-        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
+        GlobalReference.UnsubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
+        GlobalReference.UnsubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
     }
     
     private void OnDrawGizmos()
