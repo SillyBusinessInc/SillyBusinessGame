@@ -11,6 +11,9 @@ public class DodgeRollState : StateBase
 
     public override void Enter()
     {
+        // play animation
+        Player.particleSystemDash.Play();
+
         // return if on cooldown
         if (Time.time < Player.timeLastDodge + Player.playerStatistic.DodgeCooldown.GetValue()) {
             ExitDodge();

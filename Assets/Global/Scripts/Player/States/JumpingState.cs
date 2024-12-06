@@ -6,6 +6,9 @@ public class JumpingState : StateBase
 
     public override void Enter()
     {
+        // play animation
+        Player.particleSystemJump.Play();
+
         // add force upwards
         Player.rb.linearVelocity = new Vector3(Player.rb.linearVelocity.x, Player.playerStatistic.JumpForce.GetValue(), Player.rb.linearVelocity.z);
         Player.targetVelocity = Player.rb.linearVelocity;
