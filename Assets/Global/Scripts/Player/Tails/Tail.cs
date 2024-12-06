@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Collections;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 
@@ -39,9 +36,20 @@ public class Tail : MonoBehaviour
 
     public void Start()
     {
-        WaffleQuake();
-        //ReverseWaffleQuake();
+        // Initialize();
     }
+    //leave this for the future
+    // public void Initialize()
+    // {
+    //     tailStatistic.groundCombo = currentTail.groundCombo;
+    //     tailStatistic.airCombo = currentTail.airCombo;
+    // }
+
+    //Let this stay here for the future
+    // public void SwapTail()
+    // {
+
+    // }
     public void Update()
     {
         activeResetComboTime =

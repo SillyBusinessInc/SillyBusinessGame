@@ -8,7 +8,7 @@ public class SugarRush : ActionScriptableObject
     {
         GlobalReference
             .GetReference<PlayerReference>()
-            .GetComponent<Player>().playerStatistic.Speed.AddModifier("SugarRush", 1.1f);
+            .GetComponent<Player>().playerStatistic.Speed.AddMultiplier(actionName, 100f, true);
     }
 
 }

@@ -10,15 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7f58623c8fcc854e88b271402b2c7d0, type: 3}
-  m_Name: WalnutCurse 1
+  m_Name: GhostPepper
   m_EditorClassIdentifier: 
-  image: {fileID: 21300000, guid: 4807d39019989e041bc98eaf05259196, type: 3}
-  name: Walnut Curse
-  description: Cut's base max HP in half
+  image: {fileID: 0}
+  name: GhostPepper
+  description: 
   rarity: 0
   interactionActions:
-  - action: {fileID: 11400000, guid: 4cb2c2f110b2b6a47bffa0fee07cdfd7, type: 2}
-    parameters:
-    - Speed
-    - 20
-    - multiply
+  - action: {fileID: 11400000, guid: a8838f225e862a546af5a6ca45280ce6, type: 2}
+    parameters: []

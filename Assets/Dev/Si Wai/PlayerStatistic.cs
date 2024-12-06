@@ -30,6 +30,5 @@ public class PlayerStatistic //: ScriptableObject
     public Statistic AttackDamageMultiplier = new(1f);
     public Statistic DodgeCooldown = new(1f);
     public Statistic DoubleJumpsCount = new(2f);
-
-    // FROM HERe ITS TAIL STATS
+    
 }

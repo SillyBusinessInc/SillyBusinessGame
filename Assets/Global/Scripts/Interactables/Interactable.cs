@@ -125,7 +125,7 @@ public class Interactable : MonoBehaviour
         hudElement.transform.rotation = Quaternion.LookRotation(-directionToCamera);
     }
 
-    public void TriggerInteraction()
+    public virtual void TriggerInteraction()
     {
         if (!isDisabled)
         {
