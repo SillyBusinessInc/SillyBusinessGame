@@ -16,6 +16,15 @@ public class PlayerStatistic //: ScriptableObject
         get => health = Mathf.Min(health, MaxHealth.GetValue());
         set => health = value > 0 ? value : 0;
     }
+
+    private float moldmeter;
+    private float maxmoldmeter = 100f;
+
+    public float Moldmeter
+    {
+        get => moldmeter = Mathf.Min(moldmeter, maxmoldmeter);
+        set => moldmeter = value > 0 ? value : 0;
+    }
     private int crumbs;
     public int Crumbs
     {
@@ -30,5 +39,6 @@ public class PlayerStatistic //: ScriptableObject
     public Statistic AttackDamageMultiplier = new(1f);
     public Statistic DodgeCooldown = new(1f);
     public Statistic DoubleJumpsCount = new(2f);
-    
+ 
+
 }
