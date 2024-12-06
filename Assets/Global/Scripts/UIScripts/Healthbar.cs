@@ -45,26 +45,11 @@ public class Healthbar : MonoBehaviour
         isHalf = currentHealth % 2 != 0;
         // if a half heart needs to be displayed, display the half heart image as the last image
         if (isHalf) {
-            OverlayWholeHealth.sizeDelta = new Vector2(
-                originalWidth * ((currentHealth - 1) / 2),
-                OverlayWholeHealth.sizeDelta.y
-            );
-            // make sure to see the the half heart because the width of whole heart is smaller than the width of half heart
-            OverlayHalfHealth.sizeDelta = new Vector2(
-                originalWidth * ((currentHealth + 1) / 2),
-                OverlayHalfHealth.sizeDelta.y
-            );
+            ChangeHealthWidth(OverlayWholeHealth, currentHealth - 1);
+            ChangeHealthWidth(OverlayHalfHealth, currentHealth + 1);
         } else {
-            OverlayWholeHealth.sizeDelta = new Vector2(
-                originalWidth * (currentHealth / 2), 
-                OverlayWholeHealth.sizeDelta.y
-            );
-
-            // putting the width to 0 to make sure we only see the whole hearts
-            OverlayHalfHealth.sizeDelta = new Vector2(
-                0,
-                OverlayHalfHealth.sizeDelta.y
-            );
+            ChangeHealthWidth(OverlayWholeHealth, currentHealth);
+            ChangeHealthWidth(OverlayHalfHealth, 0);
         }
     }
     public void UpdateMaxHealth() {
@@ -72,25 +57,18 @@ public class Healthbar : MonoBehaviour
         float maxHealth = player.playerStatistic.MaxHealth.GetValue();
         isHalf = maxHealth % 2 != 0;
         if (isHalf) {
-            UnderlayWholeHealth.sizeDelta = new Vector2(
-                originalWidth * ((maxHealth - 1) / 2), 
-                UnderlayWholeHealth.sizeDelta.y
-            );
-
-            UnderlayHalfHealth.sizeDelta = new Vector2(
-                originalWidth * ((maxHealth + 1) / 2), 
-                UnderlayHalfHealth.sizeDelta.y
-            );
+            ChangeHealthWidth(UnderlayWholeHealth, maxHealth - 1);
+            ChangeHealthWidth(UnderlayHalfHealth, maxHealth + 1);
         } else {
-            UnderlayWholeHealth.sizeDelta = new Vector2(
-                originalWidth * (maxHealth / 2), 
-                UnderlayWholeHealth.sizeDelta.y
-            );
-
-            UnderlayHalfHealth.sizeDelta = new Vector2(
-                0,
-                UnderlayHalfHealth.sizeDelta.y
-            );
+            ChangeHealthWidth(UnderlayWholeHealth, maxHealth);
+            ChangeHealthWidth(UnderlayHalfHealth, 0);
         }
+    }
+
+    private void ChangeHealthWidth(RectTransform healthbar, float newHealth) {
+        healthbar.sizeDelta = new Vector2(
+            originalWidth * newHealth / 2, 
+            healthbar.sizeDelta.y
+        );
     }
 }
