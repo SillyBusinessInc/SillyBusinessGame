@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4799308510285275725
 Transform:
   m_ObjectHideFlags: 0
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4611929711176910460}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.353859, y: 1.1550448, z: 1.4265587}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -127,7 +127,10 @@ MonoBehaviour:
   promptYOffset: 1.5
   interactDistance: 5
   isDisabled: 0
-  interactionActions: []
+  interactionActions:
+  - action: {fileID: 11400000, guid: 738a1be2e325a1145bb93269c4296ad8, type: 2}
+    parameters:
+    - skibidi
   lootTable: {fileID: 0}
   rewardConfig: {fileID: 11400000, guid: 36e821a3b0da79746aa94ba952941862, type: 2}
 --- !u!1 &7428996355319093320

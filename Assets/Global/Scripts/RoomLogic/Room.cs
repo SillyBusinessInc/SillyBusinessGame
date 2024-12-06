@@ -29,10 +29,10 @@ public class Room
 
     // static info
     public static Dictionary<RoomType, int> RoomDistribution = new() {
-        {RoomType.COMBAT, 40},
-        {RoomType.PARKOUR, 30},
-        {RoomType.MOLDORB, 20},
-        {RoomType.WAVESURVIVAL, 10}
+        {RoomType.COMBAT, 90},
+        {RoomType.PARKOUR, 0},
+        {RoomType.MOLDORB, 10},
+        {RoomType.WAVESURVIVAL, 0}
     };
 }
 

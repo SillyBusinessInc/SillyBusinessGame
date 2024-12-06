@@ -223,7 +223,7 @@ MonoBehaviour:
     DodgeCooldown:
       baseValue: 1
     DoubleJumpsCount:
-      baseValue: 2
+      baseValue: 1
   Tail: {fileID: 2433743845863343982}
   rb: {fileID: 8218035431276073872}
   orientation: {fileID: 8661837782861090297}
@@ -253,6 +253,7 @@ MonoBehaviour:
   debug_lineColor: {r: 0, g: 0, b: 0, a: 0}
   isHoldingJump: 0
   isHoldingDodge: 0
+  fadeImage: {fileID: 0}
 --- !u!114 &2974869042834182435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2061,15 +2062,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.573114
+      value: 23.218449
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 105.66149
+      value: 105.16329
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 22.939758
+      value: 20.45542
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.w
