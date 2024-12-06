@@ -14,6 +14,7 @@ public class JumpingState : StateBase
         Player.activeCoroutine = Player.StartCoroutine(Player.SetStateAfter(Player.states.Falling, Player.maxJumpHoldTime, true));
     }
 
+
     public override void Update()
     {
         // force state change if player let's go of jump button early

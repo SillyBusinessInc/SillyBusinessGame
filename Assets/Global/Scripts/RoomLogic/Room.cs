@@ -9,13 +9,16 @@ public class Room
     public RoomType roomType;
 
     // constructor
-    public Room(int id_, RoomType roomType_) {
+    public Room(int id_, RoomType roomType_)
+    {
         id = id_;
         roomType = roomType_;
     }
 
-    public bool IsStandard() {
-        return roomType switch {
+    public bool IsStandard()
+    {
+        return roomType switch
+        {
             RoomType.COMBAT => true,
             RoomType.PARKOUR => true,
             RoomType.MOLDORB => true,
@@ -33,12 +36,13 @@ public class Room
     };
 }
 
-public enum RoomType {
+public enum RoomType
+{
     OTHER,      // anything non specified, preferably shouldn't be used
     ENTRANCE,   // entrance room, first room where the player starts the game
     EXIT,       // exit room, last room on a certain floor
     SHOP,       // shop, where the player can buy stuff
-    BONUS,      // hidden treasure room that will redirect back to the previous room
+    BONUS,      // hidden treasure room that will redirect back to the previous room 
     COMBAT,     // room with a focus on combat
     PARKOUR,    // room with a focus on movement
     MOLDORB,    // room that contains mold orbs that will need to be destroyed

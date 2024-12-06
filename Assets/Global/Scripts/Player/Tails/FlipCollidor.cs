@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-
 public class FlipCollidor : MonoBehaviour
 {
     public Player player;
@@ -11,12 +10,11 @@ public class FlipCollidor : MonoBehaviour
         {
             if (player.Tail.flipCanDoDamage)
             {
-                Debug.Log("flipcircle is doing damage");
                 float actualDamage =
-                    player.Tail.tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
-                if (Collider.GetComponent<EnemyBase>() != null)
+                player.Tail.tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
+                if (Collider.GetComponent<EnemiesNS.EnemyBase>() != null)
                 {
-                    Collider.GetComponent<EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
+                    Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
                 }
             }
         }

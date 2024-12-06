@@ -1,31 +1,34 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class ActionScriptableObjectBase : ScriptableObject
 {
     // The method to be implemented by each action
-    public abstract void InvokeAction(List<string> parameters);
+    public abstract void InvokeAction(ActionMetaData metaData, List<string> parameters);
 }
 
-// For backwards compatibility
-public abstract class ActionScriptableObject : OneParamAction { }
-
-public abstract class NoParamAction : ActionScriptableObjectBase
+public readonly struct ActionMetaData
 {
-    public abstract void InvokeAction();
+    public GameObject Source { get; }
+    public GameObject Target { get; }
 
-    public override void InvokeAction(List<string> parameters)
+    public ActionMetaData(GameObject source = null, GameObject target = null)
     {
-        InvokeAction();
+        Source = source;
+        Target = target;
     }
+
+    public static readonly ActionMetaData Empty = new();
 }
+
 
 public abstract class OneParamAction : ActionScriptableObjectBase
 {
     // The method to be implemented by each action
-    public abstract void InvokeAction(string parameter);
+    public abstract void InvokeAction(ActionMetaData metaData, string parameter);
 
-    public override void InvokeAction(List<string> parameters)
+    public override void InvokeAction(ActionMetaData metaData, List<string> parameters)
     {
         // validate the number of parameters
         if (parameters.Count < 1)
@@ -34,15 +37,15 @@ public abstract class OneParamAction : ActionScriptableObjectBase
             return;
         }
 
-        InvokeAction(parameters[0]);
+        InvokeAction(metaData, parameters[0]);
     }
 }
 
 public abstract class TwoParamAction : ActionScriptableObjectBase
 {
-    public abstract void InvokeAction(string parameter1, string parameter2);
+    public abstract void InvokeAction(ActionMetaData metaData, string parameter1, string parameter2);
 
-    public override void InvokeAction(List<string> parameters)
+    public override void InvokeAction(ActionMetaData metaData, List<string> parameters)
     {
         // validate the number of parameters
         if (parameters.Count < 2)
@@ -51,16 +54,16 @@ public abstract class TwoParamAction : ActionScriptableObjectBase
             return;
         }
 
-        InvokeAction(parameters[0], parameters[1]);
+        InvokeAction(metaData, parameters[0], parameters[1]);
     }
 
 }
 
 public abstract class ThreeParamAction : ActionScriptableObjectBase
 {
-    public abstract void InvokeAction(string parameter1, string parameter2, string parameter3);
+    public abstract void InvokeAction(ActionMetaData metaData, string parameter1, string parameter2, string parameter3);
 
-    public override void InvokeAction(List<string> parameters)
+    public override void InvokeAction(ActionMetaData metaData, List<string> parameters)
     {
         // validate the number of parameters
         if (parameters.Count < 3)
@@ -69,7 +72,7 @@ public abstract class ThreeParamAction : ActionScriptableObjectBase
             return;
         }
 
-        InvokeAction(parameters[0], parameters[1], parameters[2]);
+        InvokeAction(metaData, parameters[0], parameters[1], parameters[2]);
     }
 }
 
@@ -80,7 +83,7 @@ public class ActionParamPair
     public ActionScriptableObjectBase action;
     public List<string> parameters;
 
-    public void InvokeAction()
+    public void InvokeAction(ActionMetaData metaData = new())
     {
         if (action == null || parameters == null)
         {
@@ -88,6 +91,6 @@ public class ActionParamPair
             return;
         }
 
-        action.InvokeAction(parameters);
+        action.InvokeAction(metaData, parameters);
     }
 }
