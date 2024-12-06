@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class MoldCore : EnemyBase
+public class MoldCore : EnemiesNS.EnemyBase
 {
-    public Transform spawnArea {get; private set;}
+    public Transform spawnArea { get; private set; }
     public float radius = 5;
 
-    new void Start()
+    protected override void Start()
     {
         base.Start();
         GlobalReference.AttemptInvoke(Events.MOLD_CORE_SPAWNED);
@@ -25,7 +25,7 @@ public class MoldCore : EnemyBase
         spawnArea.SetParent(transform);
 
         // Set the local scale based on the radius (X and Z axis)
-        spawnArea.localScale = new Vector3(radius , 1, radius );
+        spawnArea.localScale = new Vector3(radius, 1, radius);
 
     }
     private void OnDrawGizmos()
