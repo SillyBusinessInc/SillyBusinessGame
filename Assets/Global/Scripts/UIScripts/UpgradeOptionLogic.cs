@@ -6,9 +6,14 @@ public class UpgradeOptionLogic : MonoBehaviour
 {
     public UpgradeOption data;
 
-    [NonSerialized] public UnityEngine.UI.Image image;
-    [NonSerialized] public TMP_Text upgradeName;
-    [NonSerialized] public TMP_Text description;
+    [NonSerialized]
+    public UnityEngine.UI.Image image;
+
+    [NonSerialized]
+    public TMP_Text upgradeName;
+
+    [NonSerialized]
+    public TMP_Text description;
 
     void Start()
     {

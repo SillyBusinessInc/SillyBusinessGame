@@ -10,8 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7f58623c8fcc854e88b271402b2c7d0, type: 3}
-  m_Name: WalnutCurse
+  m_Name: StarFruitPlatinum
   m_EditorClassIdentifier: 
-  image: {fileID: 21300000, guid: 4807d39019989e041bc98eaf05259196, type: 3}
-  name: Walnut Curse
-  description: Cut's base max HP in half
+  image: {fileID: 21300000, guid: ecab69acc5bacde41909a0f9cc9f32b4, type: 3}
+  name: StarFruitPlatinum
+  description: 
+  rarity: 0
+  interactionActions:
+  - action: {fileID: 11400000, guid: 4b876b3ca6ca96343a9498c9840e301e, type: 2}
+    parameters:
+    - starfruitplatinum
