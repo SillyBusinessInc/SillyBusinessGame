@@ -60,7 +60,7 @@ public abstract class SaveSystem
     // debug
     public void ListAll<T>() {
         foreach (KeyValuePair<string, ISaveable> saveable in saveables) {
-            Debug.Log((saveable.Value as Saveable<T>).Value);
+            if (saveable.Value is Saveable<T> t) Debug.Log($"{t.Id}: {t.Value}");
         }
     }
 }
