@@ -13,7 +13,6 @@ public class UpgradeOptions : Reference
     public void ShowOptions()
     {
         isShown = true;
-        Debug.Log(options.Count);
         Time.timeScale = 0;
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -63,7 +62,6 @@ public class UpgradeOptions : Reference
         }
         else if (Input.GetKeyDown("2"))
         {
-            Debug.Log("2");
             foreach(ActionParamPair action in options[1].interactionActions)
             {
                 action.InvokeAction();
@@ -72,7 +70,6 @@ public class UpgradeOptions : Reference
         }
         else if (Input.GetKeyDown("3"))
         {
-            Debug.Log("3");
             foreach(ActionParamPair action in options[2].interactionActions)
             {
                 action.InvokeAction();

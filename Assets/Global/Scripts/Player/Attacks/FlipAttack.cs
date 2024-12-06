@@ -26,7 +26,6 @@ public class FlipAttack : TailAttack
         AnimationClip clip = clips.Where(x => x.name == "FlipAttack").Single();
         animatorTailAttack.speed *= clip.length / duration;
         animatorTailAttack.speed *= player.playerStatistic.AttackSpeedMultiplier.GetValue();
-        Debug.Log(player.playerStatistic.AttackSpeedMultiplier.GetValue());
         animatorTailAttack.SetTrigger("FlipAttack");
         player.playerAnimationsHandler.resetStates();
         player.playerAnimationsHandler.SetInt("AttackType", 1);
