@@ -17,7 +17,7 @@ public class FlipAttack : TailAttack
             player.Tail.tailStatistic.slamObjectSize.GetValue();
         player.Tail.tailDoDamage = player.Tail.tailStatistic.flipTailDamage.GetValue();
         player.Tail.cooldownTime = player.Tail.tailStatistic.flipTailCooldown.GetValue();
-        player.Tail.tailDoDamage *= player.Tail.tailStatistic.increaseDamage.GetValue();
+        player.Tail.tailDoDamage *= player.playerStatistic.AttackDamageMultiplier.GetValue();
         Animator animatorTailAttack = GlobalReference
             .GetReference<PlayerReference>()
             .GetComponent<Player>()
@@ -25,7 +25,8 @@ public class FlipAttack : TailAttack
         AnimationClip[] clips = animatorTailAttack.runtimeAnimatorController.animationClips;
         AnimationClip clip = clips.Where(x => x.name == "FlipAttack").Single();
         animatorTailAttack.speed *= clip.length / duration;
-        animatorTailAttack.speed *= player.Tail.tailStatistic.increaseAttackSpeed.GetValue();
+        animatorTailAttack.speed *= player.playerStatistic.AttackSpeedMultiplier.GetValue();
+        Debug.Log(player.playerStatistic.AttackSpeedMultiplier.GetValue());
         animatorTailAttack.SetTrigger("FlipAttack");
     }
 

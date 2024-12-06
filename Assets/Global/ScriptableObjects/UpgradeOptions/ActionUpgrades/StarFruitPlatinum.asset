@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: StarFruitPlatinum
   m_EditorClassIdentifier: 
   actionName: StarFruitPlatinum
+  increaseAttackSpeedMultiplier: 1.1

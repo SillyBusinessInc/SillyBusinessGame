@@ -68,7 +68,7 @@ MonoBehaviour:
     Speed:
       baseValue: 12
     JumpForce:
-      baseValue: 10
+      baseValue: 8
     MaxHealth:
       baseValue: 6
     AttackSpeedMultiplier:
@@ -82,14 +82,19 @@ MonoBehaviour:
   Tail: {fileID: 2433743845863343982}
   rb: {fileID: 8218035431276073872}
   orientation: {fileID: 8661837782861090297}
+  healthBar: {fileID: 0}
+  slamCanDoDamage: 0
+  attackCounter: 0
+  tailDoDamage: 0
+  isSlamming: 0
+  activeAttackCooldown: 0
   canDodgeRoll: 1
   currentJumps: 0
   horizontalInput: 0
   verticalInput: 0
+  tailCanDoDamage: 0
   movementInput: {x: 0, y: 0}
   collidersEnemy: []
-  currentStateName: none
-  isGrounded: 0
   groundCheckDistance: 0
   targetVelocity: {x: 0, y: 0, z: 0}
   timeLeftGrounded: 0
@@ -99,6 +104,7 @@ MonoBehaviour:
   maxWalkingPenalty: 0.5
   isGrounded: 0
   debug_currentStateName: none
+  isKnockedBack: 0
   debug_lineColor: {r: 0, g: 0, b: 0, a: 0}
   isHoldingJump: 0
   isHoldingDodge: 0
@@ -491,7 +497,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   rayDistance: 5
-  maxInteractionAngle: 180
 --- !u!1 &2755229675335999368
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +573,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1.661}
-  m_LocalScale: {x: 2.8903143, y: 0.8131631, z: 2.6231046}
+  m_LocalScale: {x: 3, y: 1, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4764116892959088292}
@@ -838,16 +843,34 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4691fa48d5b7367469034572ad52acaa, type: 2}
   - {fileID: 11400000, guid: 0802315ce2a304e4c80b65ef9eace2be, type: 2}
   WaffleAnimator: {fileID: 6655933081070539201}
+  tailStatistic:
+    slamObjectSize:
+      baseValue: 1
+    increaseTailSpeed:
+      baseValue: 1
+    comboResetTime:
+      baseValue: 2
+    leftTailDamage:
+      baseValue: 10
+    rightTailDamage:
+      baseValue: 15
+    flipTailDamage:
+      baseValue: 20
+    leftTailCooldown:
+      baseValue: 0
+    rightTailCooldown:
+      baseValue: 0
+    flipTailCooldown:
+      baseValue: 0
   attackIndex: 0
   tailDoDamage: 0
-  activeResetComboTime: 0
-  comboResetTime: 2
-  activeCooldownTime: 0
   cooldownTime: 0
+  activeCooldownTime: 0
+  activeResetComboTime: 0
   tailCanDoDamage: 0
+  flipCanDoDamage: 0
   slamObject: {fileID: 3673123473092810611}
-  flipDoDamage: 0
-  increaseTailSpeed: 1
+  slamObjectSize: 1
 --- !u!1 &6770734137585760780
 GameObject:
   m_ObjectHideFlags: 0

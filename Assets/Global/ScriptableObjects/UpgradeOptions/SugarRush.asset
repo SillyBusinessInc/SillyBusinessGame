@@ -18,4 +18,5 @@ MonoBehaviour:
   rarity: 0
   interactionActions:
   - action: {fileID: 11400000, guid: 181002bb34567c840a397857a3be768e, type: 2}
-    parameters: []
+    parameters:
+    - SugarRush

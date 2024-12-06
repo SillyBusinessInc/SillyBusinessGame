@@ -12,7 +12,7 @@ public class LeftTailAttack : TailAttack
         base.Start();
         player.Tail.tailCanDoDamage = true;
         player.Tail.tailDoDamage = player.Tail.tailStatistic.leftTailDamage.GetValue();
-        player.Tail.tailDoDamage *= player.Tail.tailStatistic.increaseDamage.GetValue();
+        player.Tail.tailDoDamage *= player.playerStatistic.AttackDamageMultiplier.GetValue();
         player.Tail.cooldownTime = player.Tail.tailStatistic.leftTailCooldown.GetValue();
         Animator animatorTailAttack = GlobalReference
             .GetReference<PlayerReference>()
@@ -22,7 +22,8 @@ public class LeftTailAttack : TailAttack
         AnimationClip clip = clips.Where(x => x.name == "LeftTailAttack").Single();
         animatorTailAttack.speed *= (clip.length / duration);
         animatorTailAttack.speed *= player.Tail.tailStatistic.increaseTailSpeed.GetValue();
-        animatorTailAttack.speed *= player.Tail.tailStatistic.increaseAttackSpeed.GetValue();
+        animatorTailAttack.speed *= player.playerStatistic.AttackSpeedMultiplier.GetValue();
+        Debug.Log(player.playerStatistic.AttackSpeedMultiplier.GetValue());
         animatorTailAttack.SetTrigger("LeftAttack");
     }
 }

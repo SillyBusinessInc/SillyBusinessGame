@@ -6,10 +6,13 @@ public class UpgradeOptions : Reference
 {
     [HideInInspector]
     public List<UpgradeOption> options;
+    [HideInInspector]
+    public bool isShown = false;
     
     [ContextMenu("SHOW")]
     public void ShowOptions()
     {
+        isShown = true;
         Debug.Log(options.Count);
         Time.timeScale = 0;
         for (int i = 0; i < transform.childCount; i++)
@@ -29,6 +32,7 @@ public class UpgradeOptions : Reference
             Transform child = transform.GetChild(i);
             child.gameObject.SetActive(false);
         }
+        isShown = false;
     }
 
     public void SetOptions(UpgradeOption upgrade, int index)
@@ -45,9 +49,16 @@ public class UpgradeOptions : Reference
 
     void Update()
     {
+        if(!isShown)
+        {
+            return;
+        }
         if (Input.GetKeyDown("1"))
         {
-            GetOption(0).GetComponent<UpgradeOptionLogic>().data.interactionActions[0].InvokeAction();
+            foreach(ActionParamPair action in options[0].interactionActions)
+            {
+                action.InvokeAction();
+            }
             HideOptions();
         }
         else if (Input.GetKeyDown("2"))
@@ -68,6 +79,5 @@ public class UpgradeOptions : Reference
             }
             HideOptions();
         }
-
     }
 }

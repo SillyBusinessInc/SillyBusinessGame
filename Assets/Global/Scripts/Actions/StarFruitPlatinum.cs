@@ -6,12 +6,13 @@ public class StarFruitPlatinum : ActionScriptableObject
     [SerializeField]
     private string actionName = "StarFruitPlatinum";
 
+    public float increaseAttackSpeedMultiplier = 10f;
+
     public override void InvokeAction(string param)
     {
-        Debug.Log("StarFruitPlatinum");
         GlobalReference
             .GetReference<PlayerReference>()
-            .GetComponent<Player>()
-            .Tail.tailStatistic.increaseAttackSpeed.AddMultiplier(actionName, 10f, true);
+            .GetComponent<Player>().
+            playerStatistic.AttackSpeedMultiplier.AddMultiplier(actionName, increaseAttackSpeedMultiplier, true);
     }
 }

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: SugarRush
   m_EditorClassIdentifier: 
   actionName: SugarRush
+  increaseSpeedMultiplier: 1.1
