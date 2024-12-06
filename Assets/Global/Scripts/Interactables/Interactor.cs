@@ -21,7 +21,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (currentInteractable != null && !currentInteractable.IsDisabled && ctx.started)
         {
-            currentInteractable.TriggerInteraction();
+            currentInteractable.TriggerInteraction(this);
         }
     }
 
@@ -34,7 +34,7 @@ public class PlayerInteraction : MonoBehaviour
         bool interactableFound = RaycastFindInteractable(origin, forward);
 
         // If no interactable was found, clear the current interactable
-        if (!interactableFound && currentInteractable != null && !isColliding)
+        if (!interactableFound && currentInteractable != null)
         {
             Debug.Log("Clearing current interactable");
             currentInteractable.ShowPrompt(false);
@@ -47,6 +47,11 @@ public class PlayerInteraction : MonoBehaviour
         var interactable = collision.collider.GetComponent<Interactable>();
         if (interactable != null)
         {
+            if (currentInteractable != null && currentInteractable != interactable)
+            {
+                currentInteractable.ShowPrompt(false);
+            }
+
             isColliding = true;
             SetInteractable(interactable);
         }

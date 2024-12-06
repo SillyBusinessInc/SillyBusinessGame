@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Events;
+using Unity.Android.Gradle.Manifest;
 
 
 public class Interactable : MonoBehaviour
@@ -10,9 +11,17 @@ public class Interactable : MonoBehaviour
     [SerializeField] private string interactionPrompt = "E - Interact";
     [SerializeField] private string disabledPrompt = "Cannot interact";
 
+    [Header("HUD Settings")]
     [SerializeField]
     [Range(-10f, 10f)]
     private float promptYOffset = 1.5f;
+    [SerializeField]
+    private float promptXOffset = 0.0f;
+    [SerializeField]
+    private float promptZOffset = 0.0f;
+
+    [Tooltip("The parent object that the HUD will be attached to, if not set it will be attached to the interactable object")]
+    [SerializeField] private Transform hudParent;
 
     [Range(0, 10)]
     [SerializeField] private float interactDistance = 5.0f;
@@ -53,24 +62,17 @@ public class Interactable : MonoBehaviour
         playerCamera = GlobalReference.GetReference<PlayerReference>().PlayerCamera;
 
         // Create a HUD element to display the interaction prompt
-        if (hudElement == null)
-        {
-            InstantiateHUD();
-        }
+        if (hudElement == null) InstantiateHUD();
 
         IsDisabled = isDisabled;
     }
 
 
 
-    public virtual void OnInteract()
+    public virtual void OnInteract(ActionMetaData metaData)
     {
-        // source = player
-        // target = this
-
-
         // loop over the list of actions and invoke them
-        interactionActions.ForEach(action => action.InvokeAction(ActionMetaData.Empty));
+        interactionActions.ForEach(action => action.InvokeAction(metaData));
     }
 
     public virtual void OnFailedInteract() { }
@@ -88,16 +90,16 @@ public class Interactable : MonoBehaviour
         hudElement.SetActive(false);
         hudElement.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;
 
+        // set offsets
+        hudElement.transform.position = transform.position + Vector3.up * promptYOffset;
+        hudElement.transform.position += Vector3.right * promptXOffset;
+        hudElement.transform.position += Vector3.forward * promptZOffset;
+
         // set right coordinates
-        Transform modelTransform = transform.Find("Models");
-        if (modelTransform != null)
-        {
-            hudElement.transform.SetParent(modelTransform);
-        }
+        if (hudParent != null)
+            hudElement.transform.SetParent(hudParent);
         else
-        {
-            Debug.LogWarning("No Model object found.");
-        }
+            hudElement.transform.SetParent(transform);
     }
 
     public bool IsWithinInteractionRange(float rayHitDistance) => rayHitDistance <= interactDistance;
@@ -131,13 +133,14 @@ public class Interactable : MonoBehaviour
         hudElement.transform.rotation = Quaternion.LookRotation(-directionToCamera);
     }
 
-    public void TriggerInteraction()
+    public void TriggerInteraction(PlayerInteraction interactor)
     {
+        ActionMetaData metaData = new(interactor.gameObject, this.gameObject);
         if (!isDisabled)
         {
-            OnInteract();
+            OnInteract(metaData);
             // Invoke all actions
-            interactionActions.ForEach(action => action.InvokeAction(ActionMetaData.Empty));
+            interactionActions.ForEach(action => action.InvokeAction(metaData));
         }
         else
         {
