@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Collections;
 using UnityEngine;
 using EnemiesNS;
 
@@ -16,33 +15,49 @@ public class Tail : MonoBehaviour
 
     public Animator WaffleAnimator;
 
+    public TailStatistic tailStatistic = new(); 
+
     [HideInInspector]
     public int attackIndex;
 
     [HideInInspector]
     public float tailDoDamage;
-
+    [HideInInspector]
+    public float cooldownTime,activeCooldownTime;
     [HideInInspector]
     public float activeResetComboTime;
 
-    public float comboResetTime = 2f;
-
-    public float activeCooldownTime;
-    public float cooldownTime = 0.0f;
-
     [HideInInspector]
-    public bool tailCanDoDamage = false;
+    public bool tailCanDoDamage,flipCanDoDamage = false;
+    
+    [HideInInspector]
     public GameObject slamObject;
-    public bool flipDoDamage = false;
+    [HideInInspector]
+    public float slamObjectSize = 1.0f;
 
-    public float increaseTailSpeed = 1.0f;
+    public void Start()
+    {
+        // Initialize();
+    }
+    //leave this for the future
+    // public void Initialize()
+    // {
+    //     tailStatistic.groundCombo = currentTail.groundCombo;
+    //     tailStatistic.airCombo = currentTail.airCombo;
+    // }
+
+    //Let this stay here for the future
+    // public void SwapTail()
+    // {
+
+    // }
     public void Update()
     {
         activeResetComboTime =
             player.currentState.GetType().Name != "AttackingState"
                 ? activeResetComboTime + Time.deltaTime
                 : 0.0f;
-        if (activeResetComboTime >= comboResetTime)
+        if (activeResetComboTime >= tailStatistic.comboResetTime.GetValue())
         {
             attackIndex = 0;
             activeResetComboTime = 0.0f;
@@ -53,14 +68,13 @@ public class Tail : MonoBehaviour
                 ? activeCooldownTime + Time.deltaTime
                 : activeCooldownTime;
     }
-
     public void WaffleQuake()
     {
         currentTail.groundCombo.Clear();
         currentTail.groundCombo.Add(attacks.Where(x => x.Name == "FlipAttack").Single());
-        currentTail.groundCombo.First().damage *= 2;
-        slamObject.transform.localScale *= 1.5f;;
-        currentTail.groundCombo.Where(x => x.Name == "FlipAttack").Single().cooldown += 3f;
+        tailStatistic.flipTailDamage.AddMultiplier("WaffleQuakeDamageIncrease", 2f, true);
+        tailStatistic.slamObjectSize.AddMultiplier("WaffleQuakeSizeIncrease", 1.5f, true);
+        tailStatistic.flipTailCooldown.AddModifier("WaffleQuakeCooldownIncrease",3.0f);
     }
 
     public void ReverseWaffleQuake()
@@ -69,16 +83,16 @@ public class Tail : MonoBehaviour
         currentTail.groundCombo.Add(attacks.Where(x => x.Name == "LeftTailAttack").Single());
         currentTail.groundCombo.Add(attacks.Where(x => x.Name == "RightTailAttack").Single());
         currentTail.groundCombo.Add(attacks.Where(x => x.Name == "FlipAttack").Single());
-        currentTail.groundCombo.Where(x => x.Name == "FlipAttack").Single().damage /= 2;
-        slamObject.transform.localScale /= 1.5f;
-        currentTail.groundCombo.Where(x => x.Name == "FlipAttack").Single().cooldown -= 3f;
+        tailStatistic.flipTailDamage.RemoveMultiplier("WaffleQuakeDamageIncrease", true);
+        tailStatistic.slamObjectSize.RemoveMultiplier("WaffleQuakeSizeIncrease",true);
+        tailStatistic.flipTailCooldown.RemoveModifier("WaffleQuakeCooldownIncrease");
     }
     public void DoubleTap()
     {
         currentTail.groundCombo.Clear();
         currentTail.groundCombo.Add(attacks.Where(x => x.Name == "LeftTailAttack").Single());
         currentTail.groundCombo.Add(attacks.Where(x => x.Name == "RightTailAttack").Single());
-        increaseTailSpeed = 1.5f;
+        tailStatistic.increaseTailSpeed.AddMultiplier("DoubleTap",1.5f, true);
     }
 
     public void ReserseDoubleTap()
@@ -87,7 +101,7 @@ public class Tail : MonoBehaviour
         currentTail.groundCombo.Add(attacks.Where(x => x.Name == "LeftTailAttack").Single());
         currentTail.groundCombo.Add(attacks.Where(x => x.Name == "RightTailAttack").Single());
         currentTail.groundCombo.Add(attacks.Where(x => x.Name == "FlipAttack").Single());
-        increaseTailSpeed = 1.0f;
+        tailStatistic.increaseTailSpeed.RemoveMultiplier("DoubleTap", true);
     }
     public void OnTriggerEnter(Collider Collider)
     {

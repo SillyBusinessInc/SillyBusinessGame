@@ -24,6 +24,4 @@ public class PlayerStatistic
     public CurrentStatistic AttackDamageMultiplier = new(1f, GlobalReference.PermanentPlayerStatistic.Get<PermanentStatistic>("attackDamageMultiplier"));
     public CurrentStatistic DodgeCooldown = new(1f, GlobalReference.PermanentPlayerStatistic.Get<PermanentStatistic>("dodgeCooldown"));
     public CurrentStatistic DoubleJumpsCount = new(2f, GlobalReference.PermanentPlayerStatistic.Get<PermanentStatistic>("doubleJumpsCount"));
-
-
 }

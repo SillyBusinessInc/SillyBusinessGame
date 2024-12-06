@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,7 +18,7 @@ public class BackgroundRandomizer : MonoBehaviour
     void Update() => Switch();
 
     private void Switch() {
-        if (lastTimeSwitched == -1 || lastTimeSwitched + interval > Time.time) return;
+        if (lastTimeSwitched == -1 || lastTimeSwitched + interval > Time.unscaledTime) return;
         if (background == null) background = transform.GetChild(0).GetComponent<Image>();
         if (overlay == null) overlay = transform.GetChild(1).GetComponent<Image>();
 
@@ -37,7 +35,7 @@ public class BackgroundRandomizer : MonoBehaviour
     }
 
     private IEnumerator Fade() {
-        for (float i = 0; i <= 1.1f; i += Time.deltaTime)
+        for (float i = 0; i <= 1.1f; i += Time.unscaledDeltaTime)
         {
             SetAlpha(i);
             yield return null;
@@ -46,7 +44,7 @@ public class BackgroundRandomizer : MonoBehaviour
     }
 
     private void PostFade() {
-        lastTimeSwitched = Time.time;
+        lastTimeSwitched = Time.unscaledTime;
         background.sprite = overlay.sprite;
         SetAlpha(0);
     }

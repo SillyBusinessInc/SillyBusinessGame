@@ -8,7 +8,7 @@ public class FlipCollidor : MonoBehaviour
     {
         if (Collider.gameObject.CompareTag("Enemy"))
         {
-            if (player.Tail.flipDoDamage)
+            if (player.Tail.flipCanDoDamage)
             {
                 float actualDamage =
                 player.Tail.tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
