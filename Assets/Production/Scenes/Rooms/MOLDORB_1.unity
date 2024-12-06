@@ -32439,7 +32439,7 @@ MonoBehaviour:
   - enemyPrefab: {fileID: 4316266649658499361, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
     amount: 5
   cores:
-  - {fileID: 7011026425960828958, guid: 3fa1cf39215f35a47a4d07429a57aaba, type: 3}
+  - {fileID: 2085942067}
   - {fileID: 299617909}
   limit: 10
 --- !u!4 &1771490745
@@ -37738,6 +37738,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8782158723128784215, guid: 3fa1cf39215f35a47a4d07429a57aaba, type: 3}
   m_PrefabInstance: {fileID: 2085942065}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2085942067 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7011026425960828958, guid: 3fa1cf39215f35a47a4d07429a57aaba, type: 3}
+  m_PrefabInstance: {fileID: 2085942065}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5c9c3c4d4f343648ae974f27f0171ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2093625137 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2567812582077174209, guid: 933f0fe68331ab149811fbf5726eca42, type: 3}
