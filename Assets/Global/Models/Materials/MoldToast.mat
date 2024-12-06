@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MoldToast
-  m_Shader: {fileID: -6465566751694194690, guid: 615cb4ea90580f64cb7e24daa177bcd5, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: f2229354cee288043871f0cc87c6d6db, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -30,6 +30,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _BaseTexture:
         m_Texture: {fileID: 2800000, guid: 9f09e3ce0918c17438ff45422504560c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Base_Normal:
+        m_Texture: {fileID: 2800000, guid: 1536160f1877b454bacef50b76adf0e9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Base_Texture:
+        m_Texture: {fileID: 2800000, guid: 6ea5c8b7c226e8c43b78af6113636b12, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -76,6 +84,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Overlay_Normal:
+        m_Texture: {fileID: 2800000, guid: 9c5f5b9eee8aa4e4f8257db7c563c251, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Overlay_Texture:
+        m_Texture: {fileID: 2800000, guid: da274ae51e9056740bae9bfb2d4e0907, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -118,12 +134,15 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0
     - _MoldAmount: 0.89
+    - _Mold_Strength: 0
+    - _Normal_Blend: 0
     - _OcclusionStrength: 1
+    - _Overlay_Density: 1.18
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0.5
+    - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -135,6 +154,7 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Overlay_Direction: {r: 1.67, g: 1, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
