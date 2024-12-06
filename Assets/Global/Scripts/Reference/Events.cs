@@ -22,7 +22,7 @@ public enum Events
     // STATS RELATED EVENTS
     CRUMBS_CHANGED,
     HEALTH_CHANGED,
-    STATISTIC_CHANGED ,
+    STATISTIC_CHANGED,
 
     // player attacks
     PLAYER_ATTACK_STARTED,
