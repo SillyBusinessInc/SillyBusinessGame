@@ -24,6 +24,11 @@ public enum Events
     HEALTH_CHANGED,
     MOLDMETER_CHANGED,
     STATISTIC_CHANGED,
+
+    // player attacks
+    PLAYER_ATTACK_STARTED,
+    PLAYER_ATTACK_ENDED,
     
     DROP_TREASURE_EVENT
+
 }

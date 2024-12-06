@@ -37,6 +37,7 @@ public class SettingsLogic : MonoBehaviour
         int resX = GlobalReference.Settings.Get<int>("resolution_width");
         int resY = GlobalReference.Settings.Get<int>("resolution_height");
         Resolution res = Resolutions.Where((x) => x.width == resX && x.height == resY).FirstOrDefault();
+        resolution.value = -1;
         resolution.value = Array.IndexOf(Resolutions, res);
         fullscreen.isOn = GlobalReference.Settings.Get<bool>("fullscreen");
         masterVolume.value = GlobalReference.Settings.Get<float>("master_volume");
