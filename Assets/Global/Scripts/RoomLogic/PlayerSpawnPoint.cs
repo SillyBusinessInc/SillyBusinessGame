@@ -1,9 +1,27 @@
+using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem.Controls;
 
 public class PlayerSpawnPoint : MonoBehaviour
 {
+    private CinemachineCamera cinemachineCamera;
+    private SmoothTarget smoothCamaraTarget;
+    private Vector3 previousPosition;
+    private Vector3 presentPosition;
+    private Vector3 delta;
+
     public void Start() {
+        cinemachineCamera = GlobalReference.GetReference<PlayerReference>().CinemachineCamera;
+        smoothCamaraTarget = GlobalReference.GetReference<PlayerReference>().SmoothCamaraTarget;
+        previousPosition = smoothCamaraTarget.transform.position;
+
         SpawnPoint();
+
+        presentPosition = smoothCamaraTarget.transform.position;
+        delta = presentPosition - previousPosition;
+
+        // move the camera immidiately to the smoothCamaraTarget's transform
+        cinemachineCamera.OnTargetObjectWarped(smoothCamaraTarget.transform, delta);
     }
 
     public void SpawnPoint() {
@@ -15,15 +33,8 @@ public class PlayerSpawnPoint : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y + 180, this.transform.rotation.eulerAngles.z);
         rb.MoveRotation(targetRotation);
 
-
-        // var SmoothCamaraTarget = GlobalReference.GetReference<PlayerReference>().SmoothCamaraTarget;
-        // var cameraRb = SmoothCamaraTarget.GetComponent<Rigidbody>();
-        // cameraRb.MovePosition(this.transform.position + offset);
-        // SmoothCamaraTarget.transform.rotation = Quaternion.Euler(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y + 180, this.transform.rotation.eulerAngles.z);
-        // SmoothCamaraTarget.transform.rotation = this.transform.rotation;
-
-        // var playerCamera = GlobalReference.GetReference<PlayerReference>().PlayerCamera;
-        // playerCamera.transform.rotation = Quaternion.Euler(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y + 180, this.transform.rotation.eulerAngles.z);
-
+        var SmoothCamaraTarget = GlobalReference.GetReference<PlayerReference>().SmoothCamaraTarget;
+        SmoothCamaraTarget.transform.position = this.transform.position +offset;
+        SmoothCamaraTarget.transform.rotation = targetRotation;
     }
 }
