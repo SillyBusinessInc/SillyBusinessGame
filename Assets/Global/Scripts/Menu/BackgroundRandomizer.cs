@@ -20,7 +20,6 @@ public class BackgroundRandomizer : MonoBehaviour
     void Update() => Switch();
 
     public void Switch() {
-        Debug.Log(lastTimeSwitched);
         if (lastTimeSwitched == -1 || lastTimeSwitched + interval > Time.unscaledTime) return;
         if (background == null) background = transform.GetChild(0).GetComponent<Image>();
         if (overlay == null) overlay = transform.GetChild(1).GetComponent<Image>();
