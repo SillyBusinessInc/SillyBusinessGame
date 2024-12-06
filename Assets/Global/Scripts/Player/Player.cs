@@ -285,9 +285,15 @@ public class Player : MonoBehaviour
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
 
-    public void MultiplyMaxHealth(float reward) => playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
-
-    public void IncreaseMaxHealth(float reward) => playerStatistic.MaxHealth.AddModifier("reward", reward);
+    public void MultiplyMaxHealth(float reward) {
+        playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
+        Heal(1f);
+    }
+    
+    public void IncreaseMaxHealth(float reward) {
+        playerStatistic.MaxHealth.AddModifier("reward", reward);
+        Heal(1f);
+    }
 
     // If we go the event route this should change right?
     [ContextMenu("Die!!!!!")]
