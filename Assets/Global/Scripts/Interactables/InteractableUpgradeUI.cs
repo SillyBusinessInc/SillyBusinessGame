@@ -10,6 +10,8 @@ public class InteractableUpgradeUI : Interactable
     {
         GlobalReference.GetReference<UpgradeOptions>().options = upgradeOptions;
         GlobalReference.GetReference<UpgradeOptions>().ShowOptions();
+        
+        base.TriggerInteraction(interactor);
         IsDisabled = true;
     }
 }
