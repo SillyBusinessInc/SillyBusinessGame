@@ -17,6 +17,10 @@ public class AttackingState : StateBase
 
     public override void Enter()
     {
+        if (Player.isAttacking){
+            Player.SetState(Player.states.Idle);
+            return;
+        }
         Player.targetVelocity *= 0;
         Player.rb.linearVelocity *= 0;
         
