@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +17,7 @@ public class BackgroundRandomizer : MonoBehaviour
     void Start() => Switch();
     void Update() => Switch();
 
-    public void Switch() {
+    private void Switch() {
         if (lastTimeSwitched == -1 || lastTimeSwitched + interval > Time.unscaledTime) return;
         if (background == null) background = transform.GetChild(0).GetComponent<Image>();
         if (overlay == null) overlay = transform.GetChild(1).GetComponent<Image>();
