@@ -284,6 +284,10 @@ PrefabInstance:
       propertyPath: fadeImage
       value: 
       objectReference: {fileID: 1585601264}
+    - target: {fileID: 9169223613212550927, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+      propertyPath: crossfadeController
+      value: 
+      objectReference: {fileID: 491883869}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -304,6 +308,10 @@ PrefabInstance:
     - target: {fileID: 413465058232381112, guid: 5e7833d33c9a64950955a9ed501a287b, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223386798767887826, guid: 5e7833d33c9a64950955a9ed501a287b, type: 3}
+      propertyPath: m_Alpha
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8003627217974666994, guid: 5e7833d33c9a64950955a9ed501a287b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -350,6 +358,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e7833d33c9a64950955a9ed501a287b, type: 3}
+--- !u!114 &491883869 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6393769111776084320, guid: 5e7833d33c9a64950955a9ed501a287b, type: 3}
+  m_PrefabInstance: {fileID: 491883868}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09ebabb1c12984a1f957891b4c3f1b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1585601264 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3832089285249100973, guid: 5e7833d33c9a64950955a9ed501a287b, type: 3}

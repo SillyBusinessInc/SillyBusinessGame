@@ -16,11 +16,6 @@ public static class UILogic
         target.StartCoroutine(Fade(sceneName, fadeImage));
     }
 
-    private static void PostFade(string sceneName) {
-        SceneManager.LoadScene(sceneName);
-        listening = true;
-    }
-
     private static IEnumerator Fade(string sceneName, Image fadeImage) {
         for (float i = 0; i <= 1.1f; i += Time.deltaTime*2)
         {
@@ -28,6 +23,11 @@ public static class UILogic
             yield return null;
         }
         PostFade(sceneName);
+    }
+
+    private static void PostFade(string sceneName) {
+        SceneManager.LoadScene(sceneName);
+        listening = true;
     }
 
     private static void SetAlpha(float alpha, Image fadeImage) {
