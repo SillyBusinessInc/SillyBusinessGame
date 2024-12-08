@@ -72,6 +72,8 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool isHoldingJump = false;
     [HideInInspector] public bool isHoldingDodge = false;
     [HideInInspector] public bool isAttacking = false;
+
+    [HideInInspector] public bool AirComboDone = false;
     // private PlayerInputActions inputActions;
 
     private bool IsLanding = false;
@@ -97,7 +99,7 @@ public class Player : MonoBehaviour
         currentState.Update();
         ApproachTargetVelocity();
         RotatePlayerObj();
-
+        if (isGrounded) AirComboDone = false;
         if (isGrounded) canDodgeRoll = true;
     }
 

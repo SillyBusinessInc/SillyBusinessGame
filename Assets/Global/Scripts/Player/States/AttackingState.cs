@@ -1,11 +1,12 @@
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class AttackingState : StateBase
 {
+
     public AttackingState(Player player)
         : base(player) { }
 
-    public override void Update() { }
 
     public void IncreaseIndex()
     {
@@ -17,13 +18,14 @@ public class AttackingState : StateBase
 
     public override void Enter()
     {
-        if (Player.isAttacking){
-            Player.SetState(Player.states.Idle);
+        if (Player.AirComboDone)
+        {
+            Player.SetState(Player.states.Falling);
             return;
         }
         Player.targetVelocity *= 0;
         Player.rb.linearVelocity *= 0;
-        
+
         if (Player.Tail.activeCooldownTime >= Player.Tail.cooldownTime)
         {
             Player.Tail.activeCooldownTime = 0.0f;
@@ -54,6 +56,21 @@ public class AttackingState : StateBase
                 Player.Tail.attackIndex = 0;
             }
             Player.Tail.currentTail.currentCombo = Player.Tail.currentTail.airCombo;
+        }
+        if (!Player.isGrounded)
+        {
+            if (Player.Tail.attackIndex >= Player.Tail.currentTail.airCombo.Count - 1)
+            {
+                Player.AirComboDone = true;
+            }
+            else
+            {
+                Player.AirComboDone = false;
+            }
+        }
+        else
+        {
+            Player.AirComboDone = false;
         }
         var currentCombo = tail.currentCombo[Player.Tail.attackIndex];
         currentCombo.Start();
