@@ -162,6 +162,8 @@ public class Player : MonoBehaviour
                     if (Vector3.Angle(Vector3.up, hit.normal) < groundCheckAngle)
                     {
                         currentJumps = 0;
+                        if(!isGrounded)
+                            Tail.attackIndex = 0;
                         isGrounded = true;
                         playerAnimationsHandler.SetBool("IsOnGround", true);
                         return;
@@ -174,6 +176,7 @@ public class Player : MonoBehaviour
         {
             isGrounded = false;
             IsLanding = false;
+            Tail.attackIndex = 0;
             timeLeftGrounded = Time.time;
             playerAnimationsHandler.SetBool("IsOnGround", false);
         }

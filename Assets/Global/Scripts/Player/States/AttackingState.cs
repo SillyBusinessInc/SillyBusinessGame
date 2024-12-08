@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,63 +16,24 @@ public class AttackingState : StateBase
                 ? 0
                 : ++Player.Tail.attackIndex;
     }
+    public override void Update()
+    {
 
+    }
     public override void Enter()
     {
-        if (Player.AirComboDone)
+        var tail = Player.Tail.currentTail;
+        if (Player.AirComboDone || !(Player.Tail.activeCooldownTime >= Player.Tail.cooldownTime) || tail.currentCombo.Count == 0)
         {
             Player.SetState(Player.states.Falling);
             return;
         }
         Player.targetVelocity *= 0;
         Player.rb.linearVelocity *= 0;
-
-        if (Player.Tail.activeCooldownTime >= Player.Tail.cooldownTime)
-        {
-            Player.Tail.activeCooldownTime = 0.0f;
-        }
-        else
-        {
-            Player.SetState(Player.states.Idle);
-            return;
-        }
-        var tail = Player.Tail.currentTail;
-        if (tail.currentCombo.Count == 0)
-        {
-            Player.SetState(Player.states.Idle);
-            return;
-        }
-        if (Player.isGrounded)
-        {
-            if (Player.Tail.currentTail.currentCombo != Player.Tail.currentTail.groundCombo)
-            {
-                Player.Tail.attackIndex = 0;
-            }
-            Player.Tail.currentTail.currentCombo = Player.Tail.currentTail.groundCombo;
-        }
-        else
-        {
-            if (Player.Tail.currentTail.currentCombo != Player.Tail.currentTail.airCombo)
-            {
-                Player.Tail.attackIndex = 0;
-            }
-            Player.Tail.currentTail.currentCombo = Player.Tail.currentTail.airCombo;
-        }
-        if (!Player.isGrounded)
-        {
-            if (Player.Tail.attackIndex >= Player.Tail.currentTail.airCombo.Count - 1)
-            {
-                Player.AirComboDone = true;
-            }
-            else
-            {
-                Player.AirComboDone = false;
-            }
-        }
-        else
-        {
-            Player.AirComboDone = false;
-        }
+        Player.Tail.activeCooldownTime = 0.0f;
+        Player.Tail.currentTail.currentCombo = Player.isGrounded? Player.Tail.currentTail.groundCombo : Player.Tail.currentTail.airCombo;
+        Player.AirComboDone = !Player.isGrounded && Player.Tail.attackIndex >= Player.Tail.currentTail.airCombo.Count - 1;
+        
         var currentCombo = tail.currentCombo[Player.Tail.attackIndex];
         currentCombo.Start();
         Player.StartCoroutine(currentCombo.SetStateIdle());
