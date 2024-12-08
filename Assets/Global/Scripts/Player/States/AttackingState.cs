@@ -23,7 +23,7 @@ public class AttackingState : StateBase
     public override void Enter()
     {
         var tail = Player.Tail.currentTail;
-        if (Player.AirComboDone || !(Player.Tail.activeCooldownTime >= Player.Tail.cooldownTime) || tail.currentCombo.Count == 0)
+        if (Player.AirComboDone || !(Player.Tail.activeCooldownTime >= Player.Tail.cooldownTime) || tail.currentCombo.Count == 0 || Player.isAttacking)
         {
             Player.SetState(Player.states.Falling);
             return;
