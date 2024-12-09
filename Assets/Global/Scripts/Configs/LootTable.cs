@@ -21,7 +21,6 @@ public class LootTable : ScriptableObject
         return WeightedSelectionUtility.GetMultipleRandomEntries(Rewards, count, true);
     }
 
-
     [ContextMenu("Export to JSON")]
     public void ExportToJson()
     {
@@ -51,5 +50,4 @@ public class LootTable : ScriptableObject
         Debug.LogError("ImportFromJson is only available in the Unity Editor.");
 #endif
     }
-
 }

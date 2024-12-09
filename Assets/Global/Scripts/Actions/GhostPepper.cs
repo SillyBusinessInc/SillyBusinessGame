@@ -1,4 +1,5 @@
 using UnityEngine;
+
 [CreateAssetMenu(menuName = "Actions/GhostPepper")]
 public class GhostPepper : OneParamAction
 {
@@ -9,7 +10,7 @@ public class GhostPepper : OneParamAction
     {
         GlobalReference
             .GetReference<PlayerReference>()
-            .GetComponent<Player>().playerStatistic.AttackDamageMultiplier.AddMultiplier(actionName, damageMultiplier, true);
+            .GetComponent<Player>().playerStatistic.AttackDamageMultiplier
+            .AddMultiplier(actionName, damageMultiplier, true);
     }
-
 }

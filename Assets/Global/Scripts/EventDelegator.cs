@@ -1,9 +1,7 @@
-using System;
 using UnityEngine;
 
 public class EventDelegator : MonoBehaviour
 {
-
     [SerializeField] private Events from;
     [SerializeField] private Events to;
     

@@ -25,17 +25,20 @@ public class GameManagerReference : Reference
         GlobalReference.GetReference<DoorManager>().Initialize();
     }
 
-    // Rooms
+    #region rooms
+
     public Room activeRoom;
     private readonly List<Room> rooms = new();
 
     public void AddRoom(int id, RoomType roomType) {
         if (rooms.Where((x) => x.id == id).Count() == 0) rooms.Add(new(id, roomType));
     }
+    
     public void RemoveRoom(int id) {
         Room room = rooms.Where((x) => x.id == id).FirstOrDefault();
         if (room != null) rooms.Remove(room); 
     }
+
     public Room GetRoom(int id) => rooms.Where((x) => x.id == id).FirstOrDefault();
     public void ResetRooms() => rooms.Clear();
 
@@ -58,6 +61,8 @@ public class GameManagerReference : Reference
         RoomAmountCombo roomAmount = roomAmountCombo.Find(x => x.type == roomType);
         return roomAmount != null ? roomAmount.amount : 0;
     }
+
+    #endregion
 }
 
 [System.Serializable]

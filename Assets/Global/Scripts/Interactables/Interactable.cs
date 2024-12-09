@@ -4,7 +4,6 @@ using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour
 {
-
     [Header("Interaction Settings")]
     [SerializeField] private string interactionPrompt = "E - Interact";
     [SerializeField] private string disabledPrompt = "Cannot interact";
@@ -13,10 +12,9 @@ public class Interactable : MonoBehaviour
     [SerializeField]
     [Range(-10f, 10f)]
     private float promptYOffset = 1.5f;
-    [SerializeField]
-    private float promptXOffset = 0.0f;
-    [SerializeField]
-    private float promptZOffset = 0.0f;
+
+    [SerializeField] private float promptXOffset = 0.0f;
+    [SerializeField] private float promptZOffset = 0.0f;
 
     [Tooltip("The parent object that the HUD will be attached to, if not set it will be attached to the interactable object")]
     [SerializeField] private Transform hudParent;
@@ -65,19 +63,17 @@ public class Interactable : MonoBehaviour
         IsDisabled = isDisabled;
     }
 
-
-
     public virtual void OnInteract(ActionMetaData metaData)
     {
         // loop over the list of actions and invoke them
         interactionActions.ForEach(action => action.InvokeAction(metaData));
     }
 
-    public virtual void OnFailedInteract() { }
+    public virtual void OnFailedInteract() {}
 
-    public virtual void OnEnableInteraction() { }
+    public virtual void OnEnableInteraction() {}
 
-    public virtual void OnDisableInteraction() { }
+    public virtual void OnDisableInteraction() {}
 
     private void InstantiateHUD()
     {

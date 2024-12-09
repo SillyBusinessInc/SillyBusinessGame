@@ -3,7 +3,9 @@ using UnityEngine;
 public class GlidingState : StateBase
 {
     private float oldDrag;
+    
     public GlidingState(Player player) : base(player) {}
+
     public override void Update()
     {
         // smoothly rotate to desired angle and apply force

@@ -19,8 +19,6 @@ public class WaveSpawnArea : MonoBehaviour
 
     [HideInInspector] public bool waveDone = false;
 
-    
-
     private void Update()
     {
         if(activeEnemies.Count == maxSpawnedEnemies && activeEnemies.TrueForAll(enemy => enemy == null) &&waveDone)
@@ -29,7 +27,6 @@ public class WaveSpawnArea : MonoBehaviour
             GlobalReference.AttemptInvoke(Events.NORMAL_WAVE_DONE);
         }
     }
-
 
     public GameObject SpawnEnemy()
     {

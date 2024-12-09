@@ -26,12 +26,11 @@ public class MoldCore : EnemiesNS.EnemyBase
 
         // Set the local scale based on the radius (X and Z axis)
         spawnArea.localScale = new Vector3(radius, 1, radius);
-
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.black;
         Gizmos.DrawWireSphere(transform.position, radius);
     }
-
 }

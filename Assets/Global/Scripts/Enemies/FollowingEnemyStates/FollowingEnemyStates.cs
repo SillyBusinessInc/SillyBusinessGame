@@ -6,7 +6,6 @@ namespace FollowEnemyStates
         public readonly StateBase Following;
         public readonly StateBase Attacking;
 
-
         public FollowingEnemyStates(FollowEnemy followEnemy)
         {
             Roaming = new RoamingState(followEnemy);

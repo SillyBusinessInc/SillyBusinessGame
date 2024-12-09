@@ -9,7 +9,6 @@ public class PlayerInteraction : MonoBehaviour
     [Header("Raycast Settings [Debug]")]
     [SerializeField] private float rayDistance = 10f;         // Maximum detection distance   
 
-
     private bool isColliding = false;
 
     private void Update()
@@ -70,7 +69,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private bool RaycastFindInteractable(Vector3 origin, Vector3 direction)
     {
-        Ray ray = new Ray(origin, direction);
+        Ray ray = new(origin, direction);
         RaycastHit hit;
 
         // First check for overlap sphere, to see if the start of the ray is already colliding with an interactable

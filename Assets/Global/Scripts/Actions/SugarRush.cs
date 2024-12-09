@@ -1,5 +1,5 @@
-
 using UnityEngine;
+
 [CreateAssetMenu(menuName = "Actions/SugarRush")]
 public class SugarRush : OneParamAction
 {
@@ -10,7 +10,7 @@ public class SugarRush : OneParamAction
     {
         GlobalReference
             .GetReference<PlayerReference>()
-            .GetComponent<Player>().playerStatistic.Speed.AddMultiplier(actionName, increaseSpeedMultiplier, true);
+            .GetComponent<Player>().playerStatistic.Speed
+            .AddMultiplier(actionName, increaseSpeedMultiplier, true);
     }
-
 }

@@ -4,7 +4,7 @@ namespace EnemiesNS
 {
     public class MeleeRoamingState : BaseRoamingState
     {
-        public MeleeRoamingState(MeleeEnemy enemy) : base(enemy) { }
+        public MeleeRoamingState(MeleeEnemy enemy) : base(enemy) {}
 
         public override void Enter()
         {
@@ -16,6 +16,5 @@ namespace EnemiesNS
             enemy.animator.SetBool("Walk", false);
             base.Exit();
         }
-
     }
 }

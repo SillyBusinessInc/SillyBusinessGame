@@ -4,7 +4,7 @@ namespace EnemiesNS
 {
     public class BaseIdleState : StateBase
     {
-        public BaseIdleState(EnemyBase enemy) : base(enemy) { }
+        public BaseIdleState(EnemyBase enemy) : base(enemy) {}
 
         public override void Enter()
         {
@@ -19,6 +19,5 @@ namespace EnemiesNS
         {
             return Random.Range(enemy.idleTime * (1 - enemy.idleVariance), enemy.idleTime * (1 + enemy.idleVariance));
         }
-
     }
 }

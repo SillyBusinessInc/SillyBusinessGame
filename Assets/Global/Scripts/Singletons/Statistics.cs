@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class Statistics : SaveSystem
 {
     protected override string Prefix => "statistics";

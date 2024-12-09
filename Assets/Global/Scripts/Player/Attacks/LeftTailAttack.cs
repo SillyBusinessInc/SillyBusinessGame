@@ -4,8 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "LeftTail")]
 public class LeftTailAttack : TailAttack
 {
-    public LeftTailAttack(string Name, float damage, float cooldown)
-        : base(Name, damage, cooldown) { }
+    public LeftTailAttack(string Name, float damage, float cooldown) : base(Name, damage, cooldown) {}
 
     public override void Start()
     {

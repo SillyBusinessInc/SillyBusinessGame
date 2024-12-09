@@ -14,22 +14,12 @@ public class AnimEventsHandler : MonoBehaviour
             Debug.Log(enemy, this);
         }
     }
-    void AttackAnimStarted()
-    {
-        enemy.AttackAnimStarted();
-    }
-    void AttackAnimEnded()
-    {
-        enemy.AttackAnimEnded();
-    }
 
-    void EnableHitBox()
-    {
-        enemy.EnableWeaponHitBox();
-    }
+    void AttackAnimStarted() => enemy.AttackAnimStarted();
 
-    void DisableHitBox()
-    {
-        enemy.DisableWeaponHitBox();
-    }
+    void AttackAnimEnded() => enemy.AttackAnimEnded();
+
+    void EnableHitBox() => enemy.EnableWeaponHitBox();
+
+    void DisableHitBox() => enemy.DisableWeaponHitBox();
 }

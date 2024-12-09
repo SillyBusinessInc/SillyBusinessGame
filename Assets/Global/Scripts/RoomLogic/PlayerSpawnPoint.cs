@@ -1,6 +1,5 @@
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.InputSystem.Controls;
 
 public class PlayerSpawnPoint : MonoBehaviour
 {

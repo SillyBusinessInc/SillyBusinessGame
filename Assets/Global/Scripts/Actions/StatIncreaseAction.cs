@@ -12,7 +12,6 @@ public class StatIncreaseAction : ThreeParamAction
     [Tooltip("The type of upgrade to apply to the stat")]
     [SerializeField] private UpgradeType param3;
 
-
     public override void InvokeAction(ActionMetaData _, string stat, string value, string upgradeType)
     {
         Player player = GlobalReference.GetReference<PlayerReference>().Player;
@@ -51,13 +50,10 @@ public class StatIncreaseAction : ThreeParamAction
 
             // check the new value
             Debug.Log($"New value of {stat}: {statistic.GetValue()}");
-
         }
         else
         {
             Debug.LogWarning("$[CONFIG] Field {param} not found in PlayerStatistic");
         }
     }
-
-
 }

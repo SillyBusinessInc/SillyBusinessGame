@@ -1,10 +1,8 @@
-using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class FallingState : StateBase
 {
-
     public FallingState(Player player) : base(player) {}
 
     public override void Enter()
@@ -25,8 +23,8 @@ public class FallingState : StateBase
         //         Player.playerAnimationsHandler.SetBool("IsJumpingBool",false);
         //     }
         // }
-        // add gravity to y velocity
 
+        // add gravity to y velocity
         float linearY = ApplyGravity(Player.rb.linearVelocity.y);
 
         // apply horizontal momentum based on input

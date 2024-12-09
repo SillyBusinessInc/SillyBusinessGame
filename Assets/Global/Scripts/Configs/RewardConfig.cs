@@ -12,7 +12,6 @@ public class RewardConfig : ScriptableObject
         public LootTable lootTable;
     }
 
-
     [SerializeField] private List<EventLootTablePair> eventLootTablePairs;
     [SerializeField] private LootTable fallBackLootTable;
 

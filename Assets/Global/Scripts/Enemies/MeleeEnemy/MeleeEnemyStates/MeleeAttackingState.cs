@@ -4,7 +4,7 @@ namespace EnemiesNS
 {
     public class MeleeAttackingState : BaseAttackingState
     {
-        public MeleeAttackingState(MeleeEnemy enemy) : base(enemy) { }
+        public MeleeAttackingState(MeleeEnemy enemy) : base(enemy) {}
 
         public override void Enter()
         {
@@ -25,6 +25,5 @@ namespace EnemiesNS
             enemy.animator.SetTrigger("PlayAttack");
             base.Attack();
         }
-
     }
 }

@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine; 
-[System.Serializable]
+
 // For instantiating the item
+[System.Serializable]
 public class WeightableEntry<T>
 { 
-    
     public string Name;
     public float Weight;
     public T Entry;
@@ -17,7 +17,6 @@ public class WeightableEntry<T>
         Entry = entry;
     }
 }
-
 
 public static class WeightedSelectionUtility
 {

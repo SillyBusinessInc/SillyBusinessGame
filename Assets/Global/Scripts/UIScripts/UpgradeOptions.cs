@@ -45,13 +45,10 @@ public class UpgradeOptions : Reference
         return transform.GetChild(index).gameObject;;
     }
 
-
     void Update()
     {
-        if(!isShown)
-        {
-            return;
-        }
+        if (!isShown) return;
+
         if (Input.GetKeyDown("1"))
         {
             foreach(ActionParamPair action in options[0].interactionActions)

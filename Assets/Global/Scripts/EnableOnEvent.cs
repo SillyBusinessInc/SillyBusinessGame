@@ -6,7 +6,6 @@ public class EnableOnEvent : MonoBehaviour
     [SerializeField] private List<GameObject> objectsToEnable;
     [SerializeField] private Events enableEvent;
     
-    
     void Start()
     {
         foreach (var obj in objectsToEnable)

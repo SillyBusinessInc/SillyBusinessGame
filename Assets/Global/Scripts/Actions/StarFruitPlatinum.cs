@@ -12,7 +12,7 @@ public class StarFruitPlatinum : OneParamAction
     {
         GlobalReference
             .GetReference<PlayerReference>()
-            .GetComponent<Player>().
-            playerStatistic.AttackSpeedMultiplier.AddMultiplier(actionName, increaseAttackSpeedMultiplier, true);
+            .GetComponent<Player>().playerStatistic.AttackSpeedMultiplier
+            .AddMultiplier(actionName, increaseAttackSpeedMultiplier, true);
     }
 }

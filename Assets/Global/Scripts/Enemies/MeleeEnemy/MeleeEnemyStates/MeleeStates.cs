@@ -2,7 +2,7 @@ namespace EnemiesNS
 {
     public class MeleeStates : BaseStates
     {
-        public MeleeStates(MeleeEnemy enemy) : base(enemy) { }
+        public MeleeStates(MeleeEnemy enemy) : base(enemy) {}
 
         // Override the creation methods to return Melee-specific states
         protected override BaseIdleState CreateIdleState(EnemyBase enemy) => new MeleeIdleState((MeleeEnemy)enemy);

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Healthbar : MonoBehaviour
 {
@@ -52,6 +51,7 @@ public class Healthbar : MonoBehaviour
             ChangeHealthWidth(OverlayHalfHealth, 0);
         }
     }
+    
     public void UpdateMaxHealth() {
         // doing maxHealth / 2 because 1hp is a half heart
         float maxHealth = player.playerStatistic.MaxHealth.GetValue();
