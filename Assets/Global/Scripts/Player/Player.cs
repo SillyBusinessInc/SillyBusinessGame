@@ -82,6 +82,8 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        playerStatistic.Generate();
+        
         playerAnimationsHandler = GetComponent<PlayerAnimationsHandler>();
         states = new PlayerStates(this);
         SetState(states.Idle);

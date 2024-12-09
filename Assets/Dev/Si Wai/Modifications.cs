@@ -1,18 +1,15 @@
 using UnityEngine;
-using TMPro;
 
 public class Modifications : MonoBehaviour
 {
-    void Start() 
-    {
-        // this is for testing
-        // Debug.Log($"crumbs: {GlobalReference.PermanentPlayerStatistic.Get<int>("crumbs")}");
-        var speed = GlobalReference.PermanentPlayerStatistic.Get<PermanentStatistic>("speed");
+    // this is for testing
+    [ContextMenu("increase maxHealth")]
+    public void IncreaseMaxHealth() {
+        var maxHealth = GlobalReference.PermanentPlayerStatistic.Get<string>("maxHealth");
+        Debug.Log($"maxHealth before adding: {maxHealth}");
 
-        speed.AddModifier("speed", 1f);
-        Debug.Log($"speed: {speed}");
-
-        // var jsonString = GlobalReference.PermanentPlayerStatistic.Get<string>("speed");
-        // speed.DeserializeModifications();
+        GlobalReference.PermanentPlayerStatistic.MaxHealth.RemoveModifier("maxHealth");
+        var maxHealth1 = GlobalReference.PermanentPlayerStatistic.Get<string>("maxHealth");
+        Debug.Log($"maxHealth after adding: {maxHealth1}");
     }
 }

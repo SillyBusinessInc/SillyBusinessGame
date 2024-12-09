@@ -12,16 +12,28 @@ using UnityEngine;
 public class PlayerStatistic
 {
     // this is for the current stats of the player
-    public CurrentStatistic Speed = new(10f, GlobalReference.PermanentPlayerStatistic.Get<PermanentStatistic>("speed"));
-    public CurrentStatistic JumpForce = new(2f, GlobalReference.PermanentPlayerStatistic.Get<PermanentStatistic>("jumpForce"));
-    public CurrentStatistic MaxHealth = new(6f, GlobalReference.PermanentPlayerStatistic.Get<PermanentStatistic>("maxHealth"));
+    public CurrentStatistic Speed;
+    public CurrentStatistic JumpForce;
+    public CurrentStatistic MaxHealth;
     private float health;
     public float Health { 
         get => health = Mathf.Min(health, MaxHealth.GetValue());
         set => health = value > 0 ? value : 0;
     }
-    public CurrentStatistic AttackSpeedMultiplier = new(1f, GlobalReference.PermanentPlayerStatistic.Get<PermanentStatistic>("attackSpeedMultiplier"));
-    public CurrentStatistic AttackDamageMultiplier = new(1f, GlobalReference.PermanentPlayerStatistic.Get<PermanentStatistic>("attackDamageMultiplier"));
-    public CurrentStatistic DodgeCooldown = new(1f, GlobalReference.PermanentPlayerStatistic.Get<PermanentStatistic>("dodgeCooldown"));
-    public CurrentStatistic DoubleJumpsCount = new(2f, GlobalReference.PermanentPlayerStatistic.Get<PermanentStatistic>("doubleJumpsCount"));
+    public CurrentStatistic AttackSpeedMultiplier;
+    public CurrentStatistic AttackDamageMultiplier;
+    public CurrentStatistic DodgeCooldown;
+    public CurrentStatistic DoubleJumpsCount;
+
+    public void Generate() {
+        GlobalReference.PermanentPlayerStatistic.Generate();
+        
+        Speed = new(10f, GlobalReference.PermanentPlayerStatistic.Speed);
+        JumpForce = new(2f, GlobalReference.PermanentPlayerStatistic.JumpForce);
+        MaxHealth = new(6f, GlobalReference.PermanentPlayerStatistic.MaxHealth);
+        AttackSpeedMultiplier = new(1f, GlobalReference.PermanentPlayerStatistic.AttackSpeedMultiplier);
+        AttackDamageMultiplier = new(1f, GlobalReference.PermanentPlayerStatistic.AttackDamageMultiplier);
+        DodgeCooldown = new(1f, GlobalReference.PermanentPlayerStatistic.DodgeCooldown);
+        DoubleJumpsCount = new(2f, GlobalReference.PermanentPlayerStatistic.DoubleJumpsCount);
+    }
 }

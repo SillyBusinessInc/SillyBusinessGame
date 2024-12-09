@@ -3,76 +3,56 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using Newtonsoft.Json;
 
 [Serializable]
 public class PermanentStatistic : BaseStatistic
 {
     // using these classes to convert the list into json strings and back
-    private class SerializableKeyValuePair {
-        public string key;
-        public float value;
-    }
-
-    private class SerializationWrapper {
-        public List<SerializableKeyValuePair> items;
+    private class KeyValue
+    {
+        public string Key { get; set; }
+        public float Value { get; set; }
     }
 
     // fields
     public readonly string Param;
     private readonly SecureSaveSystem SaveSystem;
-    public PermanentStatistic(string param, SecureSaveSystem saveSystem) {
+    public PermanentStatistic(string param, SecureSaveSystem saveSystem = null) {
         Param = param;
         SaveSystem = saveSystem;
     }
 
-    public DictionaryWrapper SerializeModifications() {
-        Dictionary<string, string> Modifications = new() {
+    public string SerializeModifications() {
+        Dictionary<string, string> modifications = new() {
             {"baseMultipliers", ListToJson(baseMultipliers)},
             {"finalMultipliers", ListToJson(finalMultipliers)},
             {"modifiers", ListToJson(modifiers)}
         };
 
-        return new DictionaryWrapper(Modifications);
+        return JsonConvert.SerializeObject(modifications);
     }
 
     // convert a list of KeyValuePair to JSON string
-    private string ListToJson(List<KeyValuePair<string, float>> list) {
-        List<SerializableKeyValuePair> serializableList = new();
-        foreach (var kvp in list) { // json does not serialize KeyValuePair
-            serializableList.Add(new SerializableKeyValuePair { key = kvp.Key, value = kvp.Value });
-        }
-
-        return JsonUtility.ToJson(new SerializationWrapper { items = serializableList });
-    }
+    string ListToJson(List<KeyValuePair<string, float>> list) => JsonConvert.SerializeObject(list);
 
     public void DeserializeModifications(string jsonString) {
         if (!string.IsNullOrEmpty(jsonString)) {
-            var wrapper = JsonUtility.FromJson<DictionaryWrapper>(jsonString);
+            Dictionary<string, string> modifications = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
 
-            if (wrapper != null && wrapper.Dictionary != null) {
-                if (wrapper.Dictionary.TryGetValue("baseMultipliers", out string baseMultipliersJson)) {
-                    baseMultipliers = JsonToList(baseMultipliersJson);
-                }
-                if (wrapper.Dictionary.TryGetValue("finalMultipliers", out string finalMultipliersJson)) {
-                    finalMultipliers = JsonToList(finalMultipliersJson);
-                }
-                if (wrapper.Dictionary.TryGetValue("modifiers", out string modifiersJson)) {
-                    modifiers = JsonToList(modifiersJson);
-                }
-            }
+            baseMultipliers = JsonToList(modifications["baseMultipliers"]);
+            finalMultipliers = JsonToList(modifications["finalMultipliers"]);
+            modifiers = JsonToList(modifications["modifiers"]);
         }
     }
 
     // converts JSON string back to a list of KeyValuePair
-    private List<KeyValuePair<string, float>> JsonToList(string jsonString) {
-        SerializationWrapper wrapper = JsonUtility.FromJson<SerializationWrapper>(jsonString);
-        List<KeyValuePair<string, float>> list = new();
-        foreach (var item in wrapper.items) {
-            list.Add(new KeyValuePair<string, float>(item.key, item.value));
-        }
-        return list;
+    List<KeyValuePair<string, float>> JsonToList(string jsonString) {
+        var list = JsonConvert.DeserializeObject<List<KeyValue>>(jsonString);
+        return list ? .Select(kv => new KeyValuePair<string, float>(kv.Key, kv.Value)).ToList();
     }
 
+    // automatically saves when adding modifiers and multipliers
     public new void AddModifier(string key, float modifier)
     {
         base.AddModifier(key, modifier);
@@ -98,9 +78,8 @@ public class PermanentStatistic : BaseStatistic
     }
 
     private void Save() {
-        var json = SerializeModifications();
-        SaveSystem.Set(Param, json);
-        SaveSystem.SaveAll();
+        SaveSystem?.Set(Param, SerializeModifications());
+        SaveSystem?.SaveAll();
     }
 }
 
