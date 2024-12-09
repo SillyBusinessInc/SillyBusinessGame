@@ -35,6 +35,7 @@ public class AttackingState : StateBase
 
     public override void Exit()
     {
+        Player.playerAnimationsHandler.animator.speed = 1.0f;
         float animatorTailAttack = GlobalReference
             .GetReference<PlayerReference>()
             .GetComponent<Player>()

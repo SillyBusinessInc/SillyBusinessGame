@@ -11,10 +11,7 @@ public abstract class TailAttack : Attack
     public override void Start()
     {
         player = GlobalReference.GetReference<PlayerReference>().GetComponent<Player>();
-        Vector3 dodgeDirection = player.GetDirection();
-        dodgeDirection = player.rb.transform.forward.normalized;
-        player.rb.linearVelocity = dodgeDirection * player.Tail.tailStatistic.forwardSpeedAttack.GetValue();
-        player.targetVelocity = new(player.targetVelocity.x, 0, player.targetVelocity.z);
+        MoveForward();
     }
 
     public override IEnumerator SetStateIdle()
@@ -33,5 +30,4 @@ public abstract class TailAttack : Attack
         player.rb.linearVelocity = dodgeDirection * player.Tail.tailStatistic.forwardSpeedAttack.GetValue();
         player.targetVelocity = new(player.targetVelocity.x, 0, player.targetVelocity.z);
     }
-
 }
