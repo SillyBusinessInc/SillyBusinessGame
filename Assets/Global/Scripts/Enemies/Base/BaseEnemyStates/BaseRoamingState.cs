@@ -5,7 +5,7 @@ namespace EnemiesNS
 {
     public class BaseRoamingState : StateBase
     {
-        public BaseRoamingState(EnemyBase enemy) : base(enemy) { }
+        public BaseRoamingState(EnemyBase enemy) : base(enemy) {}
 
         public override void Enter()
         {
@@ -15,14 +15,9 @@ namespace EnemiesNS
             // new Destination
             enemy.roamDestination = GetDestination();
             enemy.agent.SetDestination(enemy.roamDestination);
-
         }
 
-        public override void Update()
-        {
-            base.Update();
-
-        }
+        public override void Update() => base.Update();
 
         private Vector3 GetDestination()
         {

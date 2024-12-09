@@ -100,7 +100,6 @@ public class DoorManager : Reference
         }
     }
 
-
     public List<Room> GetConnectedRooms()
     {
         return gameManagerReference.GetNextRooms();
@@ -113,5 +112,4 @@ public class DoorManager : Reference
         ConnectDoorsToRooms();
         doors.ForEach(x => x.GetComponent<RoomTransitionDoor>().Initialize());
     }
-
 }

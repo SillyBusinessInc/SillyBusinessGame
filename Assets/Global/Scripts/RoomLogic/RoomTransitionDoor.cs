@@ -24,7 +24,6 @@ public class RoomTransitionDoor : Interactable
 
     private string currentScenename;
 
-
     private void Awake()
     {
         IsDisabled = IsDisabled; // ugly fix so maybe we have to change in the future
@@ -38,7 +37,6 @@ public class RoomTransitionDoor : Interactable
         roomAmounts = gameManagerReference.GetAmountForRoomType(nextRoomType);
         int randomIndex = Random.Range(1, roomAmounts + 1);
         nextRoomName = nextRoomType.ToString() + "_" + randomIndex;
-
     }
 
     private void RoomFinished()
@@ -118,26 +116,8 @@ public class RoomTransitionDoor : Interactable
         animator.SetTrigger("TriggerDoorOpen");
     }
 
-
-    [ContextMenu("Unlock Door")]
-    void UnlockDoorTest()
-    {
-        IsDisabled = false;
-    }
-    [ContextMenu("Lock Door")]
-    void LockDoorTest()
-    {
-        IsDisabled = true;
-    }
-    [ContextMenu("Open Door")]
-    void OpenDoorTest()
-    {
-        OpenDoorAnimation();
-    }
-
-    [ContextMenu("Invoke room finish event")]
-    void InvoteRoomFinishedEvent()
-    {
-        GlobalReference.AttemptInvoke(Events.ROOM_FINISHED);
-    }
+    [ContextMenu("Unlock Door")] void UnlockDoorTest() => IsDisabled = false;
+    [ContextMenu("Lock Door")] void LockDoorTest() => IsDisabled = true;
+    [ContextMenu("Open Door")] void OpenDoorTest() => OpenDoorAnimation();
+    [ContextMenu("Invoke room finish event")] void InvoteRoomFinishedEvent() => GlobalReference.AttemptInvoke(Events.ROOM_FINISHED);
 }

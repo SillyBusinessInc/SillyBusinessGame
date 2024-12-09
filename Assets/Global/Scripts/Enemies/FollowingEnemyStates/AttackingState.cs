@@ -4,7 +4,7 @@ namespace FollowEnemyStates
 {
     public class AttackingState : StateBase
     {
-        public AttackingState(FollowEnemy followEnemy) : base(followEnemy) { }
+        public AttackingState(FollowEnemy followEnemy) : base(followEnemy) {}
 
         public override void Enter()
         {
