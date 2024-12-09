@@ -909,6 +909,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  idleTime: 0.5
+  idleVariance: 0.5
+  idleWaitElapsed: 0
+  idleWaitTime: 0
+  isIdling: 0
+  roamRange: 15
+  roamingSpeed: 3.5
+  roamingAcceleration: 8
+  spawnPos: {x: 0, y: 0, z: 0}
+  roamDestination: {x: 0, y: 0, z: 0}
+  chaseRange: 25
+  chaseSpeed: 3.5
+  chaseAcceleration: 8
+  minDistanceToPlayer: 2
+  chaseWaitTime: 1
+  chaseWaitElapsed: 0
+  isChasing: 0
+  isWaiting: 0
+  distanceToPlayer: 0
+  attackRange: 2
+  attackCooldown: 2
+  attackRecoveryTime: 0.3
+  attacksPerCooldown: 1
+  attackDamage: 1
+  facingPlayerVarianceAngle: 5
+  attackKnockback: 0
+  knockbackStunTime: 0.5
+  canAttack: 1
+  isRecovering: 0
+  attackCooldownElapsed: 0
+  attackRecoveryElapsed: 0
+  inAttackAnim: 0
+  target: {fileID: 0}
+  animator: {fileID: 0}
+  agent: {fileID: 0}
+  weapon: {fileID: 0}
+  currentStateName: 
+  agentIsStopped: 0
   radius: 5
 --- !u!135 &450507610
 SphereCollider:
@@ -1015,7 +1053,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &500066567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1191,6 +1229,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  idleTime: 0.5
+  idleVariance: 0.5
+  idleWaitElapsed: 0
+  idleWaitTime: 0
+  isIdling: 0
+  roamRange: 15
+  roamingSpeed: 3.5
+  roamingAcceleration: 8
+  spawnPos: {x: 0, y: 0, z: 0}
+  roamDestination: {x: 0, y: 0, z: 0}
+  chaseRange: 25
+  chaseSpeed: 3.5
+  chaseAcceleration: 8
+  minDistanceToPlayer: 2
+  chaseWaitTime: 1
+  chaseWaitElapsed: 0
+  isChasing: 0
+  isWaiting: 0
+  distanceToPlayer: 0
+  attackRange: 2
+  attackCooldown: 2
+  attackRecoveryTime: 0.3
+  attacksPerCooldown: 1
+  attackDamage: 1
+  facingPlayerVarianceAngle: 5
+  attackKnockback: 0
+  knockbackStunTime: 0.5
+  canAttack: 1
+  isRecovering: 0
+  attackCooldownElapsed: 0
+  attackRecoveryElapsed: 0
+  inAttackAnim: 0
+  target: {fileID: 0}
+  animator: {fileID: 0}
+  agent: {fileID: 0}
+  weapon: {fileID: 0}
+  currentStateName: 
+  agentIsStopped: 0
   radius: 5
 --- !u!135 &616697160
 SphereCollider:
@@ -1281,6 +1357,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1239514101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &670604874
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1587067519520307107, guid: bf73c6eb408563b4495411d820345243, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -13.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587067519520307107, guid: bf73c6eb408563b4495411d820345243, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587067519520307107, guid: bf73c6eb408563b4495411d820345243, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587067519520307107, guid: bf73c6eb408563b4495411d820345243, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587067519520307107, guid: bf73c6eb408563b4495411d820345243, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587067519520307107, guid: bf73c6eb408563b4495411d820345243, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587067519520307107, guid: bf73c6eb408563b4495411d820345243, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587067519520307107, guid: bf73c6eb408563b4495411d820345243, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587067519520307107, guid: bf73c6eb408563b4495411d820345243, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587067519520307107, guid: bf73c6eb408563b4495411d820345243, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267703782720431196, guid: bf73c6eb408563b4495411d820345243, type: 3}
+      propertyPath: attackRange
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4316266649658499361, guid: bf73c6eb408563b4495411d820345243, type: 3}
+      propertyPath: m_Name
+      value: Range Enemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bf73c6eb408563b4495411d820345243, type: 3}
 --- !u!1 &808061055
 GameObject:
   m_ObjectHideFlags: 0
@@ -2430,31 +2567,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.203953
+      value: 12.329825
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 101.27459
+      value: 101.25668
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15.124755
+      value: 14.720776
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.48716393
+      value: -0.6078693
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.20069526
+      value: -0.24381247
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.773436
+      value: 0.68608254
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.3524053
+      value: -0.31676683
       objectReference: {fileID: 0}
     - target: {fileID: 4811859323897289456, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2498,19 +2635,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5260001915288532325, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.48716393
+      value: -0.6078693
       objectReference: {fileID: 0}
     - target: {fileID: 5260001915288532325, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.20069526
+      value: -0.24381247
       objectReference: {fileID: 0}
     - target: {fileID: 5260001915288532325, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.773436
+      value: 0.68608254
       objectReference: {fileID: 0}
     - target: {fileID: 5260001915288532325, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.3524053
+      value: -0.31676683
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2748,6 +2885,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  idleTime: 0.5
+  idleVariance: 0.5
+  idleWaitElapsed: 0
+  idleWaitTime: 0
+  isIdling: 0
+  roamRange: 15
+  roamingSpeed: 3.5
+  roamingAcceleration: 8
+  spawnPos: {x: 0, y: 0, z: 0}
+  roamDestination: {x: 0, y: 0, z: 0}
+  chaseRange: 25
+  chaseSpeed: 3.5
+  chaseAcceleration: 8
+  minDistanceToPlayer: 2
+  chaseWaitTime: 1
+  chaseWaitElapsed: 0
+  isChasing: 0
+  isWaiting: 0
+  distanceToPlayer: 0
+  attackRange: 2
+  attackCooldown: 2
+  attackRecoveryTime: 0.3
+  attacksPerCooldown: 1
+  attackDamage: 1
+  facingPlayerVarianceAngle: 5
+  attackKnockback: 0
+  knockbackStunTime: 0.5
+  canAttack: 1
+  isRecovering: 0
+  attackCooldownElapsed: 0
+  attackRecoveryElapsed: 0
+  inAttackAnim: 0
+  target: {fileID: 0}
+  animator: {fileID: 0}
+  agent: {fileID: 0}
+  weapon: {fileID: 0}
+  currentStateName: 
+  agentIsStopped: 0
   radius: 5
 --- !u!135 &2051042208
 SphereCollider:
@@ -2957,3 +3132,4 @@ SceneRoots:
   - {fileID: 1042038922}
   - {fileID: 500066568}
   - {fileID: 1701719245}
+  - {fileID: 670604874}
