@@ -16,6 +16,8 @@ using UnityEngine;
 
     To get the crumbs, you can to call
     GlobalReference.PermanentPlayerStatistic.Get<int>("crumbs")
+    adding crumbs -> GlobalReference.PermanentPlayerStatistic.ModifyCrumbs(amount);
+    removing crumbs -> GlobalReference.PermanentPlayerStatistic.ModifyCrumbs(-amount);
 
     For the other statistics, you are not able to get the permanentStatistics directly. You need to instantiate the PlayerStatistic class. 
     Then you can call PlayerStatistic.GetValue() which will give you the value with all the added multipliers and modifiers including the permanent ones
@@ -68,8 +70,8 @@ public class PermanentPlayerStatistic : SecureSaveSystem
         }
     }
 
-    public void ModifyCrumbs(int delta) {
-        var crumbs = Get<int>("crumbs") + delta;
+    public void ModifyCrumbs(int amount) {
+        var crumbs = Get<int>("crumbs") + amount;
         Set("crumbs", crumbs);
         SaveAll();
         GlobalReference.AttemptInvoke(Events.CRUMBS_CHANGED);
