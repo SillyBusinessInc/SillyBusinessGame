@@ -34,7 +34,7 @@ public class PlayerInteraction : MonoBehaviour
         bool interactableFound = RaycastFindInteractable(origin, forward);
 
         // If no interactable was found, clear the current interactable
-        if (!interactableFound && currentInteractable != null)
+        if (!interactableFound && currentInteractable != null && !isColliding)
         {
             Debug.Log("Clearing current interactable");
             currentInteractable.ShowPrompt(false);

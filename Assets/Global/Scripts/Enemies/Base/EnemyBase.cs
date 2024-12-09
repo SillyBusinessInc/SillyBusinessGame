@@ -151,7 +151,7 @@ namespace EnemiesNS
 
         //TODO: this is a quick fix to get the demo out the door, make this nicer
         // this should be cleaned up and placed higher up somewhere
-        protected bool playerHit = false;
+
 
         protected virtual void Start()
         {
@@ -246,12 +246,12 @@ namespace EnemiesNS
             if (!isWaiting) chaseWaitElapsed = 0f;
         }
 
-        public virtual void toggleInAttackAnim(bool v, float normalizedTime)
-        {
-            inAttackAnim = v;
-            if (normalizedTime >= 1) playerHit = false;
-            if (normalizedTime >= 1) Debug.Log("anim set to false");
-        }
+        // public virtual void toggleInAttackAnim(bool v, float normalizedTime)
+        // {
+        //     inAttackAnim = v;
+        //     if (normalizedTime >= 1) playerHit = false;
+        //     if (normalizedTime >= 1) Debug.Log("anim set to false");
+        // }
 
         public void FreezeMovement(bool v)
         {
