@@ -86,12 +86,14 @@ public class Player : MonoBehaviour
     void Awake()
     {
         playerStatistic = new();
+        playerStatistic.Generate();
+
+        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
+        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
     }
 
     void Start()
     {
-        playerStatistic.Generate();
-        
         playerAnimationsHandler = GetComponent<PlayerAnimationsHandler>();
         states = new PlayerStates(this);
         SetState(states.Idle);
@@ -116,11 +118,6 @@ public class Player : MonoBehaviour
 
     private void attackingAnimation() => isAttacking = true;
     private void attackingStoppedAnimation() => isAttacking = false;
-    private void Awake()
-    {
-        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
-        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
-    }
 
     private void OnDestroy()
     {
