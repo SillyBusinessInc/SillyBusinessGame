@@ -1,12 +1,10 @@
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "RightTail")]
 public class RightTailAttack : TailAttack
 {
-    public RightTailAttack(string Name, float damage, float cooldown)
-        : base(Name, damage, cooldown) { }
+    public RightTailAttack(string Name, float damage, float cooldown) : base(Name, damage, cooldown) {}
 
     public override void Start()
     {

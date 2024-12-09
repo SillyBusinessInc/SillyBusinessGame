@@ -16,34 +16,26 @@ public class Tail : MonoBehaviour
 
     public TailStatistic tailStatistic = new(); 
 
-    [HideInInspector]
-    public int attackIndex;
+    [HideInInspector] public int attackIndex;
 
-    [HideInInspector]
-    public float tailDoDamage;
-    [HideInInspector]
-    public float cooldownTime,activeCooldownTime;
-    [HideInInspector]
-    public float activeResetComboTime;
+    [HideInInspector] public float tailDoDamage;
+    [HideInInspector] public float cooldownTime, activeCooldownTime;
+    [HideInInspector] public float activeResetComboTime;
 
-    [HideInInspector]
-    public bool tailCanDoDamage,flipCanDoDamage = false;
+    [HideInInspector] public bool tailCanDoDamage, flipCanDoDamage = false;
     
-    [HideInInspector]
-    public GameObject slamObject;
-    [HideInInspector]
-    public float slamObjectSize = 1.0f;
+    [HideInInspector] public GameObject slamObject;
+    [HideInInspector] public float slamObjectSize = 1.0f;
 
-    public void Start()
-    {
-        
-    }
+    public void Start() {}
+
     public void Update()
     {
         activeResetComboTime =
             player.currentState.GetType().Name != "AttackingState"
                 ? activeResetComboTime + Time.deltaTime
                 : 0.0f;
+
         if (activeResetComboTime >= tailStatistic.comboResetTime.GetValue())
         {
             attackIndex = 0;
@@ -90,26 +82,17 @@ public class Tail : MonoBehaviour
         currentTail.groundCombo.Add(attacks.Where(x => x.Name == "FlipAttack").Single());
         tailStatistic.increaseTailSpeed.RemoveMultiplier("DoubleTap", true);
     }
+
     public void OnTriggerEnter(Collider Collider)
     {
-        if (Collider.gameObject.CompareTag("Enemy"))
-        {
-            if (tailCanDoDamage)
-            {
-                if (player.collidersEnemy.Contains(Collider))
-                {
-                    return;
-                }
-                player.collidersEnemy.Add(Collider);
-                float actualDamage =
-                    tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
-                if (Collider.GetComponent<EnemiesNS.EnemyBase>() != null)
-                {
-                    Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
-                }
-            }
-        }
-    }
+        if (!Collider.gameObject.CompareTag("Enemy")    ||
+            !tailCanDoDamage                            ||
+            player.collidersEnemy.Contains(Collider)    ||
+            Collider.GetComponent<EnemiesNS.EnemyBase>() == null
+        ) return;
 
-    
+        player.collidersEnemy.Add(Collider);
+        float actualDamage = tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
+        Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
+    }
 }

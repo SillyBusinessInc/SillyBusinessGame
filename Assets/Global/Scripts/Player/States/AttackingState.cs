@@ -1,13 +1,8 @@
-using System;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class AttackingState : StateBase
 {
-
-    public AttackingState(Player player)
-        : base(player) { }
-
+    public AttackingState(Player player) : base(player) {}
 
     public void IncreaseIndex()
     {
@@ -16,10 +11,9 @@ public class AttackingState : StateBase
                 ? 0
                 : ++Player.Tail.attackIndex;
     }
-    public override void Update()
-    {
 
-    }
+    public override void Update() {}
+
     public override void Enter()
     {
         var tail = Player.Tail.currentTail;
@@ -55,5 +49,5 @@ public class AttackingState : StateBase
             .Tail.WaffleAnimator.speed = 1.0f;
     }
 
-    public override void Attack(InputAction.CallbackContext ctx) { }
+    public override void Attack(InputAction.CallbackContext ctx) {}
 }
