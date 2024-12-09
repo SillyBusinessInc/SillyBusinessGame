@@ -82,12 +82,3 @@ public class PermanentStatistic : BaseStatistic
         SaveSystem?.SaveAll();
     }
 }
-
-[Serializable]
-public class DictionaryWrapper {
-    public Dictionary<string, string> Dictionary;
-
-    public DictionaryWrapper(Dictionary<string, string> dictionary) {
-        Dictionary = dictionary;
-    }
-}
