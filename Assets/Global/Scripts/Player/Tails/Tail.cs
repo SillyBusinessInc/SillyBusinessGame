@@ -10,7 +10,6 @@ public class Tail : MonoBehaviour
     public Player player;
     public BaseTail currentTail;
     public List<BaseTail> tails;
-
     public List<Attack> attacks;
 
     public Animator WaffleAnimator;
@@ -37,20 +36,8 @@ public class Tail : MonoBehaviour
 
     public void Start()
     {
-        // Initialize();
+        
     }
-    //leave this for the future
-    // public void Initialize()
-    // {
-    //     tailStatistic.groundCombo = currentTail.groundCombo;
-    //     tailStatistic.airCombo = currentTail.airCombo;
-    // }
-
-    //Let this stay here for the future
-    // public void SwapTail()
-    // {
-
-    // }
     public void Update()
     {
         activeResetComboTime =

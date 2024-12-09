@@ -76,6 +76,8 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool isHoldingJump = false;
     [HideInInspector] public bool isHoldingDodge = false;
     [HideInInspector] public bool isAttacking = false;
+
+    [HideInInspector] public bool AirComboDone = false;
     // private PlayerInputActions inputActions;
 
     private bool IsLanding = false;
@@ -102,7 +104,7 @@ public class Player : MonoBehaviour
         currentState.Update();
         ApproachTargetVelocity();
         RotatePlayerObj();
-
+        if (isGrounded) AirComboDone = false;
         if (isGrounded) canDodgeRoll = true;
     }
 
@@ -165,6 +167,8 @@ public class Player : MonoBehaviour
                     if (Vector3.Angle(Vector3.up, hit.normal) < groundCheckAngle)
                     {
                         currentJumps = 0;
+                        if(!isGrounded)
+                            Tail.attackIndex = 0;
                         isGrounded = true;
                         playerAnimationsHandler.SetBool("IsOnGround", true);
                         return;
@@ -177,6 +181,7 @@ public class Player : MonoBehaviour
         {
             isGrounded = false;
             IsLanding = false;
+            Tail.attackIndex = 0;
             timeLeftGrounded = Time.time;
             playerAnimationsHandler.SetBool("IsOnGround", false);
         }
