@@ -51,7 +51,7 @@ public class Table
         if (seed < 0) random = new(Guid.NewGuid().GetHashCode());
         else random = new(seed);
 
-        shopDepth = shopDepthOverride >= 1 ? shopDepth : random.Next(2, targetDepth);
+        shopDepth = shopDepthOverride >= -1 ? shopDepth : random.Next(2, targetDepth);
 
         GlobalReference.GetReference<GameManagerReference>().ResetRooms();
 

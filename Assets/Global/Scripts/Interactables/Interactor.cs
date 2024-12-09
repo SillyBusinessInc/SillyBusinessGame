@@ -21,7 +21,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (currentInteractable != null && !currentInteractable.IsDisabled && ctx.started)
         {
-            currentInteractable.TriggerInteraction();
+            currentInteractable.TriggerInteraction(this);
         }
     }
 
@@ -47,6 +47,11 @@ public class PlayerInteraction : MonoBehaviour
         var interactable = collision.collider.GetComponent<Interactable>();
         if (interactable != null)
         {
+            if (currentInteractable != null && currentInteractable != interactable)
+            {
+                currentInteractable.ShowPrompt(false);
+            }
+
             isColliding = true;
             SetInteractable(interactable);
         }

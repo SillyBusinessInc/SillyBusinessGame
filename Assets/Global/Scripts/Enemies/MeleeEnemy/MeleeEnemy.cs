@@ -4,11 +4,7 @@ namespace EnemiesNS
 {
     public class MeleeEnemy : EnemyBase
     {
-        //TODO: this is a quick fix to get the demo out the door, make this nicer
-        // [Header("Melee Character Specific settings")]
-        // [Tooltip("Reference to the weapon's hitbox")]
-
-
+        private bool playerHit = false;
 
         //
         // called in animations as events
@@ -21,6 +17,7 @@ namespace EnemiesNS
         public override void DisableWeaponHitBox()
         {
             weapon.enabled = false;
+            playerHit = false;
         }
 
         public override void PlayerHit(PlayerObject playerObject, int damage)

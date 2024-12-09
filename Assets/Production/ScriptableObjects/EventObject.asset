@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f9eb868c624b9e8d81a3ad00c36b03, type: 3}
   m_Name: EventObject
   m_EditorClassIdentifier: 
-  events: 00000000
+  events: 01000000
