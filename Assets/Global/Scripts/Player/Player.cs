@@ -290,6 +290,7 @@ public class Player : MonoBehaviour
     {
         playerStatistic.Health -= damage;
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
+        GlobalReference.AttemptInvoke(Events.MOLDMETER_CHANGED);
 
         if (playerStatistic.Health <= 0) OnDeath();
     }
