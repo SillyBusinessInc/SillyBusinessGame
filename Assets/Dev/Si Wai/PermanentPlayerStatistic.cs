@@ -27,40 +27,30 @@ public class PermanentPlayerStatistic : SecureSaveSystem
     public override void Init() {
         Setup();
         
-        Add("speed", "");
-        Add("jumpForce", "");
-        Add("maxHealth", "");
-        Add("attackSpeedMultiplier", "");
-        Add("attackDamageMultiplier", "");
-        Add("dodgeCooldown", "");
-        Add("doubleJumpsCount", "");
+        var stats = new[] {
+            Speed, JumpForce, MaxHealth, AttackSpeedMultiplier, AttackDamageMultiplier, DodgeCooldown, DoubleJumpsCount
+        };
+        
+        // these are just default values
+        foreach (var stat in stats) {
+            Add(stat.Param, "");
+        }
         Add("crumbs", 0);
     }
 
-    // putting the saved values to the 
-    public void Generate() {
-        Speed.DeserializeModifications(Get<string>("speed"));
-        JumpForce.DeserializeModifications(Get<string>("jumpForce"));
-        MaxHealth.DeserializeModifications(Get<string>("maxHealth"));
-        AttackSpeedMultiplier.DeserializeModifications(Get<string>("attackSpeedMultiplier"));
-        AttackDamageMultiplier.DeserializeModifications(Get<string>("attackDamageMultiplier"));
-        DodgeCooldown.DeserializeModifications(Get<string>("dodgeCooldown"));
-        DoubleJumpsCount.DeserializeModifications(Get<string>("doubleJumpsCount"));
+     public void Generate() {
+        var stats = new[] {
+            Speed, JumpForce, MaxHealth, AttackSpeedMultiplier, AttackDamageMultiplier, DodgeCooldown, DoubleJumpsCount
+        };
+
+        // putting the saved values in the multipliers and modifiers list
+        foreach (var stat in stats) {
+            stat.DeserializeModifications(Get<string>(stat.Param));
+        }
     }
 
-    public void IncreaseCrumbs(int reward) {
-        int crumbs = Get<int>("crumbs");
-        crumbs += reward;
-        SaveCrumbs(crumbs);
-    }
-
-    public void DecreaseCrumbs(int price) {
-        int crumbs = Get<int>("crumbs");
-        crumbs -= price;
-        SaveCrumbs(crumbs);
-    }
-
-    private void SaveCrumbs(int crumbs) {
+    public void ModifyCrumbs(int delta) {
+        var crumbs = Get<int>("crumbs") + delta;
         Set("crumbs", crumbs);
         SaveAll();
         GlobalReference.AttemptInvoke(Events.CRUMBS_CHANGED);
