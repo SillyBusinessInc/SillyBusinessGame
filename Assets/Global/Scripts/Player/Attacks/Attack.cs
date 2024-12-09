@@ -19,6 +19,10 @@ public abstract class Attack : ScriptableObject
     public void ClipDuration(Animator animator, float targetDuration, string clip)
     {
         AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+        foreach(var animationClip in clips)
+        {
+            Debug.Log(animationClip.name);    
+        }
         AnimationClip clipToChange = Array.Find(clips, x => x.name == clip);
         animator.speed *= clipToChange.length / targetDuration;
     }

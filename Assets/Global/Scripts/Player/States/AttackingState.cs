@@ -36,17 +36,9 @@ public class AttackingState : StateBase
     public override void Exit()
     {
         Player.playerAnimationsHandler.animator.speed = 1.0f;
-        float animatorTailAttack = GlobalReference
-            .GetReference<PlayerReference>()
-            .GetComponent<Player>()
-            .Tail.WaffleAnimator.speed = 1.0f;
         Player.Tail.flipCanDoDamage = false;
         Player.Tail.tailCanDoDamage = false;
         Player.collidersEnemy.Clear();
-        GlobalReference
-            .GetReference<PlayerReference>()
-            .GetComponent<Player>()
-            .Tail.WaffleAnimator.speed = 1.0f;
     }
 
     public override void Attack(InputAction.CallbackContext ctx) { }
