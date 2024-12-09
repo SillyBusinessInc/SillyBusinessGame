@@ -7,11 +7,13 @@ public class DoorManager : Reference
     private List<Room> connectedRooms = new List<Room>(); 
     private List<GameObject> doors;
     private GameManagerReference gameManagerReference;
-    private int previousId=0;
-    [HideInInspector] public int currentId=0;
+    private int previousId;
+    [HideInInspector] public int currentId;
 
     public void Initialize()
     {
+        previousId = 0;
+        currentId = 0;
         gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
         doors = GameObject.FindGameObjectsWithTag("DoorPrefab").ToList();
         SetupDoors();
