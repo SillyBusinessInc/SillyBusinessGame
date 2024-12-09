@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 // using System.Numerics;
 
@@ -79,6 +80,7 @@ public class Player : MonoBehaviour
 
     private bool IsLanding = false;
     [SerializeField] private Image fadeImage;
+    [SerializeField] private CrossfadeController crossfadeController;
 
 
     void Start()
@@ -318,11 +320,14 @@ public class Player : MonoBehaviour
     [ContextMenu("Die!!!!!")]
     private void OnDeath()
     {
-        Debug.Log("Player died", this);
-        MoveToMenu();
+        StartCoroutine(DeathScreen());
     }
-    
-    private void MoveToMenu() => UILogic.FadeToScene("Death", fadeImage, this);
+    private IEnumerator DeathScreen() {
+        Debug.Log("Player died", this);
+        yield return StartCoroutine(crossfadeController.Crossfade_Start());
+        yield return new WaitForSeconds(0.3f); // temporary fix
+        SceneManager.LoadScene("Death");
+    }
 
 
     IEnumerator KnockbackStunRoutine(float time = 0.5f)
