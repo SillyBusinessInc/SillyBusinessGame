@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 // using System.Numerics;
 
@@ -40,6 +41,9 @@ public class Player : MonoBehaviour
     [FormerlySerializedAs("playerRb")]
     public Rigidbody rb;
     public Transform orientation;
+    public ParticleSystem particleSystemJump;
+    public ParticleSystem particleSystemDash;
+    public ParticleSystem particleSystemWalk;
 
     [HideInInspector] public PlayerAnimationsHandler playerAnimationsHandler;
     [HideInInspector] public bool slamCanDoDamage = false;
@@ -71,9 +75,13 @@ public class Player : MonoBehaviour
     [HideInInspector] public Color debug_lineColor;
     [HideInInspector] public bool isHoldingJump = false;
     [HideInInspector] public bool isHoldingDodge = false;
+    [HideInInspector] public bool isAttacking = false;
+
+    [HideInInspector] public bool AirComboDone = false;
     // private PlayerInputActions inputActions;
     private bool IsLanding = false;
     [SerializeField] private Image fadeImage;
+    [SerializeField] private CrossfadeController crossfadeController;
 
     void Awake()
     {
@@ -101,8 +109,23 @@ public class Player : MonoBehaviour
         currentState.Update();
         ApproachTargetVelocity();
         RotatePlayerObj();
-
+        if (isGrounded) AirComboDone = false;
         if (isGrounded) canDodgeRoll = true;
+    }
+
+
+    private void attackingAnimation() => isAttacking = true;
+    private void attackingStoppedAnimation() => isAttacking = false;
+    private void Awake()
+    {
+        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
+        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
+    }
+
+    private void OnDestroy()
+    {
+        GlobalReference.UnsubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
+        GlobalReference.UnsubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
     }
     
     private void OnDrawGizmos()
@@ -149,6 +172,8 @@ public class Player : MonoBehaviour
                     if (Vector3.Angle(Vector3.up, hit.normal) < groundCheckAngle)
                     {
                         currentJumps = 0;
+                        if(!isGrounded)
+                            Tail.attackIndex = 0;
                         isGrounded = true;
                         playerAnimationsHandler.SetBool("IsOnGround", true);
                         return;
@@ -161,6 +186,7 @@ public class Player : MonoBehaviour
         {
             isGrounded = false;
             IsLanding = false;
+            Tail.attackIndex = 0;
             timeLeftGrounded = Time.time;
             playerAnimationsHandler.SetBool("IsOnGround", false);
         }
@@ -303,11 +329,14 @@ public class Player : MonoBehaviour
     [ContextMenu("Die!!!!!")]
     private void OnDeath()
     {
-        Debug.Log("Player died", this);
-        MoveToMenu();
+        StartCoroutine(DeathScreen());
     }
-    
-    private void MoveToMenu() => UILogic.FadeToScene("Death", fadeImage, this);
+    private IEnumerator DeathScreen() {
+        Debug.Log("Player died", this);
+        yield return StartCoroutine(crossfadeController.Crossfade_Start());
+        yield return new WaitForSeconds(0.3f); // temporary fix
+        SceneManager.LoadScene("Death");
+    }
 
 
     IEnumerator KnockbackStunRoutine(float time = 0.5f)
