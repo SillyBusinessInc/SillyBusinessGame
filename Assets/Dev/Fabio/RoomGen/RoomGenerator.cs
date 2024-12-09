@@ -20,6 +20,7 @@ public class RoomGenerator : MonoBehaviour
     void Start() {
         table = new();
         Generate();
+        table.PrintTableAsTree();
     }
 
     public void Generate() {

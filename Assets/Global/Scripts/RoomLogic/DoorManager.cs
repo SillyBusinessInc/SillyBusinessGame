@@ -34,7 +34,7 @@ public class DoorManager : Reference
         {
             lastSceneName = currentSceneName;
             doors = GameObject.FindGameObjectsWithTag("DoorPrefab").ToList();
-            SetupDoors();
+            // SetupDoors();
         }
     }
 
