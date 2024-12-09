@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEngine.SceneManagement;
 
 public class DoorManager : Reference
 {
     private List<Room> connectedRooms = new List<Room>(); 
     private List<GameObject> doors;
     private GameManagerReference gameManagerReference;
-    public int previousId=0;
-    public int currentId=0;
+    private int previousId=0;
+    [HideInInspector] public int currentId=0;
 
     public void Initialize()
     {
