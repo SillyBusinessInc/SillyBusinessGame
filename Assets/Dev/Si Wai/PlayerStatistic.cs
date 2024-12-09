@@ -9,26 +9,31 @@ using UnityEngine;
 
 [System.Serializable]
 //[CreateAssetMenu(fileName = "PlayerStatistic", menuName = "PlayerStatistic")]
-public class PlayerStatistic //: ScriptableObject
+public class PlayerStatistic
 {
+    // this is for the current stats of the player
+    public CurrentStatistic Speed;
+    public CurrentStatistic JumpForce;
+    public CurrentStatistic MaxHealth;
     private float health;
     public float Health { 
         get => health = Mathf.Min(health, MaxHealth.GetValue());
         set => health = value > 0 ? value : 0;
     }
-    private int crumbs;
-    public int Crumbs
-    {
-        get => crumbs;
-        set => crumbs = value > 0 ? value : 0;
-    }
+    public CurrentStatistic AttackSpeedMultiplier;
+    public CurrentStatistic AttackDamageMultiplier;
+    public CurrentStatistic DodgeCooldown;
+    public CurrentStatistic DoubleJumpsCount;
 
-    public Statistic Speed = new(10f);
-    public Statistic JumpForce = new(2f);
-    public Statistic MaxHealth = new(10f);
-    public Statistic AttackSpeedMultiplier = new(1f);
-    public Statistic AttackDamageMultiplier = new(1f);
-    public Statistic DodgeCooldown = new(1f);
-    public Statistic DoubleJumpsCount = new(2f);
-    
+    public void Generate() {
+        GlobalReference.PermanentPlayerStatistic.Generate();
+        
+        Speed = new(10f, GlobalReference.PermanentPlayerStatistic.Speed);
+        JumpForce = new(2f, GlobalReference.PermanentPlayerStatistic.JumpForce);
+        MaxHealth = new(6f, GlobalReference.PermanentPlayerStatistic.MaxHealth);
+        AttackSpeedMultiplier = new(1f, GlobalReference.PermanentPlayerStatistic.AttackSpeedMultiplier);
+        AttackDamageMultiplier = new(1f, GlobalReference.PermanentPlayerStatistic.AttackDamageMultiplier);
+        DodgeCooldown = new(1f, GlobalReference.PermanentPlayerStatistic.DodgeCooldown);
+        DoubleJumpsCount = new(2f, GlobalReference.PermanentPlayerStatistic.DoubleJumpsCount);
+    }
 }

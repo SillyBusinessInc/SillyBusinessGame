@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
 
 
     [Header("Stats")]
-    public PlayerStatistic playerStatistic = new();
+    public PlayerStatistic playerStatistic;
 
     public Tail Tail;
 
@@ -79,11 +79,18 @@ public class Player : MonoBehaviour
 
     [HideInInspector] public bool AirComboDone = false;
     // private PlayerInputActions inputActions;
-
     private bool IsLanding = false;
     [SerializeField] private Image fadeImage;
     [SerializeField] private CrossfadeController crossfadeController;
 
+    void Awake()
+    {
+        playerStatistic = new();
+        playerStatistic.Generate();
+
+        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
+        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
+    }
 
     void Start()
     {
@@ -111,11 +118,6 @@ public class Player : MonoBehaviour
 
     private void attackingAnimation() => isAttacking = true;
     private void attackingStoppedAnimation() => isAttacking = false;
-    private void Awake()
-    {
-        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
-        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
-    }
 
     private void OnDestroy()
     {
@@ -290,11 +292,10 @@ public class Player : MonoBehaviour
     {
         playerStatistic.Health -= damage;
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
-
         if (playerStatistic.Health <= 0) OnDeath();
     }
 
-    public void applyKnockback(Vector3 knockback, float time)
+    public void ApplyKnockback(Vector3 knockback, float time)
     {
         //
         // TODO: Need to be written once we have reworked movement

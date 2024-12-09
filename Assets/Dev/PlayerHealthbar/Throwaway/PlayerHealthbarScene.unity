@@ -1038,12 +1038,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   agent: {fileID: 0}
+  animator: {fileID: 0}
   roamingRadius: 5
   roamingAngleRange: 90
-  playerObject: {fileID: 1721697195}
+  playerObject: {fileID: 0}
   target: {fileID: 0}
   visionAngle: 45
   visionRange: 10
+  memoryDuration: 2
+  lastSeenTime: 0
+  lastSeenLocation: {x: 0, y: 0, z: 0}
   attackDamage: 25
   attackRange: 1
   attackCooldown: 5
@@ -2036,11 +2040,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1710854550}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!136 &1721697195 stripped
-CapsuleCollider:
-  m_CorrespondingSourceObject: {fileID: 7191464586079592423, guid: f39688a7a7366934c95fc24f9dd976ea, type: 3}
-  m_PrefabInstance: {fileID: 337264339}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1748279359
 GameObject:
   m_ObjectHideFlags: 0

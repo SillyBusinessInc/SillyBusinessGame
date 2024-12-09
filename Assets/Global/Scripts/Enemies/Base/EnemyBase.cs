@@ -279,7 +279,7 @@ namespace EnemiesNS
             Player player = playerObject.GetComponentInParent<Player>();
             if (!player) return;
             player.OnHit(damage);
-            player.applyKnockback(CalculatedKnockback(playerObject), knockbackStunTime);
+            player.ApplyKnockback(CalculatedKnockback(playerObject), knockbackStunTime);
         }
 
         public virtual void EnableWeaponHitBox() { }
