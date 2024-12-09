@@ -40,4 +40,16 @@ public class WalkingState : StateBase
         // set player to idle if not moving
         if (Player.rb.linearVelocity == Vector3.zero && Player.targetVelocity == Vector3.zero) Player.SetState(Player.states.Idle);
     }
+
+    public override void Enter()
+    {
+        // play animation
+        Player.particleSystemWalk.Play();
+    }
+
+    public override void Exit()
+    {
+        // play animation
+        Player.particleSystemWalk.Stop();
+    }
 }
