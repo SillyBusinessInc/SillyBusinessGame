@@ -445,6 +445,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 248530924}
     m_Modifications:
+    - target: {fileID: 1499393842449798832, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1875510034735515812, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
       propertyPath: enemyBase
       value: 
@@ -453,13 +457,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyHealthbar
       objectReference: {fileID: 0}
+    - target: {fileID: 2096797852946635833, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5182251390629889562, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5429108669858505263, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5429108669858505263, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6126508531114296545, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
       propertyPath: m_Pivot.x
@@ -804,9 +816,8 @@ Transform:
   m_LocalPosition: {x: 0, y: -0.02, z: 0.13}
   m_LocalScale: {x: 2, y: 1, z: 2}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1393860939}
-  m_Father: {fileID: 479372376}
+  m_Children: []
+  m_Father: {fileID: 1330575937}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &906626083
 MonoBehaviour:
@@ -820,7 +831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd89bd1a48a7c4b439fb2a2b4c5a6c24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 479372376}
+  player: {fileID: 0}
   maxHeight: 4
   minScale: 1.5
   maxScale: 4
@@ -987,6 +998,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!4 &1330575937 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4764116892959088292, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+  m_PrefabInstance: {fileID: 154553823}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1354209892
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1035,6 +1051,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1710052168369373784, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: HealthBarPrefab
+      value: 
+      objectReference: {fileID: 1603294700}
     - target: {fileID: 4316266649658499361, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
       propertyPath: m_Name
       value: Melee Enemy
@@ -1056,6 +1076,11 @@ PrefabInstance:
       addedObject: {fileID: 476823423}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+--- !u!1 &1603294700 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2096797852946635833, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
+  m_PrefabInstance: {fileID: 537907707}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1636242423
 PrefabInstance:
   m_ObjectHideFlags: 0

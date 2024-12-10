@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 public class EnemyHealthBar : MonoBehaviour
@@ -8,7 +7,7 @@ public class EnemyHealthBar : MonoBehaviour
 
     void Start()
     {
-        healthSlider.maxValue = enemyBase.health;
+        healthSlider.maxValue = enemyBase.maxHealth;
     }
     void Update()
     {
