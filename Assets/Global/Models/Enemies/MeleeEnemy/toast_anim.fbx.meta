@@ -38,12 +38,12 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Knife
-    second: {fileID: 2800000, guid: 2e2c86310b531a941b77b4026f285fd2, type: 3}
+    second: {fileID: 2800000, guid: 920f6e1a169422843aba233e57e2fb57, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Toast (Without mold)_noeyesshadow
-    second: {fileID: 2800000, guid: 7ff8736dffca5cc42b1d81236b7aaf9f, type: 3}
+    second: {fileID: 2800000, guid: c382a17734a2a944f857253e628e87c5, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

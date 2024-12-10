@@ -3,11 +3,11 @@ using UnityEngine;
 
 public abstract class TailAttack : Attack
 {
-    public TailAttack(string Name, float damage, float cooldown) : base(Name, damage, cooldown)
-    {
-    }
+    public TailAttack(string Name, float damage, float cooldown) : base(Name, damage, cooldown) {}
+    
     protected Player player;
     public float duration;
+
     public override void Start()
     {
         player = GlobalReference.GetReference<PlayerReference>().GetComponent<Player>();

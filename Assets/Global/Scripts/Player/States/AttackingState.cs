@@ -2,10 +2,7 @@ using UnityEngine.InputSystem;
 
 public class AttackingState : StateBase
 {
-
-    public AttackingState(Player player)
-        : base(player) { }
-
+    public AttackingState(Player player) : base(player) {}
 
     public void IncreaseIndex()
     {
@@ -14,6 +11,7 @@ public class AttackingState : StateBase
                 ? 0
                 : ++Player.Tail.attackIndex;
     }
+    
     public override void Enter()
     {
         var tail = Player.Tail.currentTail;
@@ -41,5 +39,5 @@ public class AttackingState : StateBase
         Player.collidersEnemy.Clear();
     }
 
-    public override void Attack(InputAction.CallbackContext ctx) { }
+    public override void Attack(InputAction.CallbackContext ctx) {}
 }

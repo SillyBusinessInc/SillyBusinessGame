@@ -78,7 +78,6 @@ public class EnemyWaveManager : MonoBehaviour
                 Debug.LogError("No spawn area found");
             }
         }
-       
     }
 
     private void OnEnemyDeath()
@@ -106,6 +105,5 @@ public class EnemyWaveManager : MonoBehaviour
             currentWave++;
             GlobalReference.AttemptInvoke(Events.NORMAL_WAVE_START);
         }
-
     }
 }
