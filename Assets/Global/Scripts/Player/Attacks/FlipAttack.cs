@@ -6,8 +6,7 @@ using UnityEngine.InputSystem.Utilities;
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "FlipTail")]
 public class FlipAttack : TailAttack
 {
-    public FlipAttack(string Name, float damage, float cooldown)
-        : base(Name, damage, cooldown) { }
+    public FlipAttack(string Name, float damage, float cooldown) : base(Name, damage, cooldown) {}
 
     public override void Start()
     {
@@ -18,15 +17,10 @@ public class FlipAttack : TailAttack
         player.Tail.tailDoDamage = player.Tail.tailStatistic.flipTailDamage.GetValue();
         player.Tail.cooldownTime = player.Tail.tailStatistic.flipTailCooldown.GetValue();
         player.Tail.tailDoDamage *= player.playerStatistic.AttackDamageMultiplier.GetValue();
-        Animator animatorTailAttack = GlobalReference
-            .GetReference<PlayerReference>()
-            .GetComponent<Player>()
-            .Tail.WaffleAnimator;
-        AnimationClip[] clips = animatorTailAttack.runtimeAnimatorController.animationClips;
-        AnimationClip clip = clips.Where(x => x.name == "FlipAttack").Single();
-        animatorTailAttack.speed *= clip.length / duration;
-        animatorTailAttack.speed *= player.playerStatistic.AttackSpeedMultiplier.GetValue();
-        animatorTailAttack.SetTrigger("FlipAttack");
+        Animator animator = player.playerAnimationsHandler.animator;
+        ClipDuration(animator, duration, "Breadaplus|Bradley_attack2_frontflip");
+        animator.speed *= player.playerStatistic.AttackSpeedMultiplier.GetValue();
+
         player.playerAnimationsHandler.resetStates();
         player.playerAnimationsHandler.SetInt("AttackType", 2);
         player.playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");

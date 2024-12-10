@@ -15,7 +15,6 @@ namespace EnemiesNS
             enemy.FreezeMovement(true);
         }
 
-
         public override void Exit()
         {
             attacksThisState = 0;
@@ -42,7 +41,6 @@ namespace EnemiesNS
 
         protected virtual void Attack()
         {
-
             enemy.inAttackAnim = true;
             // Proceed with the attack if the player exists and can be damaged
             attacksThisState++;

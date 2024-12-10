@@ -1,8 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using NUnit.Framework;
-using UnityEngine;
-
 public class DevSettings : SaveSystem
 {
     protected override string Prefix => "dev_settings";
@@ -13,7 +8,7 @@ public class DevSettings : SaveSystem
         Add("minBranchCount", 2);
         Add("maxBranchCount", 3);
         Add("targetDepth", 5);
-        Add("bonusChance", 20);
+        Add("bonusChance", 0);
         Add("seed", -1);
         Add("shopDepthOverride", -2);
     }

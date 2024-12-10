@@ -22,7 +22,6 @@ public class ShopLootTable : ScriptableObject
 {
     public List<WeightableEntry<ShopTier>> Tiers = new();
 
-
     [ContextMenu("Pick Shop Item")]
     public void PickShopItem()
     {
@@ -30,7 +29,6 @@ public class ShopLootTable : ScriptableObject
         if (reward != null)
         {
             Debug.Log($"Selected reward: {reward}");
-
         }
     }
 

@@ -1,56 +1,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEngine.SceneManagement;
 
 public class DoorManager : Reference
 {
     private List<Room> connectedRooms = new List<Room>(); 
     private List<GameObject> doors;
     private GameManagerReference gameManagerReference;
-    private string lastSceneName;
+    private int previousId;
+    [HideInInspector] public int currentId;
 
     public void Initialize()
     {
+        previousId = 0;
+        currentId = 0;
         gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
-
-        lastSceneName = GetNonBaseSceneName();
-        if (!string.IsNullOrEmpty(lastSceneName))
-        {
-            doors = GameObject.FindGameObjectsWithTag("DoorPrefab").ToList();
-            SetupDoors();
-        }
-        else
-        {
-            Debug.LogWarning("No non-BaseScene found!");
-        }
+        doors = GameObject.FindGameObjectsWithTag("DoorPrefab").ToList();
+        SetupDoors();
     }
 
     void Update()
     {
         if (Time.timeScale == 0) return;
-        string currentSceneName = GetNonBaseSceneName();
-        if (!string.IsNullOrEmpty(currentSceneName) && currentSceneName != lastSceneName)
+        if (currentId != 0 && currentId != previousId)
         {
-            lastSceneName = currentSceneName;
+            previousId = currentId;
             doors = GameObject.FindGameObjectsWithTag("DoorPrefab").ToList();
             SetupDoors();
         }
     }
-
-    private string GetNonBaseSceneName()
-    {
-        for (int i = 0; i < SceneManager.sceneCount; i++)
-        {
-            Scene scene = SceneManager.GetSceneAt(i);
-            if (scene.name != "BaseScene" && scene.isLoaded)
-            {
-                return scene.name;
-            }
-        }
-        return null;
-    }
-
 
     void LoadConnectedRooms()
     {
@@ -100,7 +78,6 @@ public class DoorManager : Reference
         }
     }
 
-
     public List<Room> GetConnectedRooms()
     {
         return gameManagerReference.GetNextRooms();
@@ -113,5 +90,4 @@ public class DoorManager : Reference
         ConnectDoorsToRooms();
         doors.ForEach(x => x.GetComponent<RoomTransitionDoor>().Initialize());
     }
-
 }

@@ -15,4 +15,4 @@ MonoBehaviour:
   Name: LeftTailAttack
   cooldown: 0
   damage: 10
-  duration: 0.5
+  duration: 0.35

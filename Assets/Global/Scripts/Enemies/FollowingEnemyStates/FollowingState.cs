@@ -4,9 +4,7 @@ namespace FollowEnemyStates
 {
     public class FollowingState : StateBase
     {
-        public FollowingState(FollowEnemy followEnemy) : base(followEnemy)
-        {
-        }
+        public FollowingState(FollowEnemy followEnemy) : base(followEnemy) {}
 
         public override void Update()
         {
