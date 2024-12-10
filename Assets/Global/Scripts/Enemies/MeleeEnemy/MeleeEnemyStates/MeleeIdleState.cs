@@ -4,7 +4,7 @@ namespace EnemiesNS
 {
     public class MeleeIdleState : BaseIdleState
     {
-        public MeleeIdleState(MeleeEnemy enemy) : base(enemy) { }
+        public MeleeIdleState(MeleeEnemy enemy) : base(enemy) {}
         public override void Enter()
         {
             int i = Random.Range(0, 2);
@@ -17,6 +17,5 @@ namespace EnemiesNS
             enemy.animator.SetBool("Idle", false);
             base.Exit();
         }
-
     }
 }

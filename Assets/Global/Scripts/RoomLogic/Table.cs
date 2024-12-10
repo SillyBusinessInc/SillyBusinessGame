@@ -136,6 +136,7 @@ public class Table
         GlobalReference.GetReference<GameManagerReference>().AddRoom(newRow.id, roomType);
         return newRow.id;
     }
+
     private int GetIdFromOldRow(List<Row> existingBranches) {
         Row newRow = existingBranches[random.Next(0, existingBranches.Count)];
         existingBranches.Remove(newRow);
@@ -157,7 +158,6 @@ public class Table
     //         PrintRowRecursive(branch, indentLevel + 1);
     //     }
     // }
-    
 }
 
 public struct Row {
