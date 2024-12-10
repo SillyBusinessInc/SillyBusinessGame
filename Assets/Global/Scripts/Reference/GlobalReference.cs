@@ -6,21 +6,13 @@ public static class GlobalReference
 {
     // Non monobehavior singletons
     private static Statistics statistics;
-    public static Statistics Statistics
-    {
-        get => statistics ??= new();
-    }
+    public static Statistics Statistics => statistics ??= new();
 
     private static Settings settings;
-    public static Settings Settings
-    {
-        get => settings ??= new();
-    }
+    public static Settings Settings => settings ??= new();
+
     private static DevSettings devSettings;
-    public static DevSettings DevSettings
-    {
-        get => devSettings ??= new();
-    }
+    public static DevSettings DevSettings => devSettings ??= new();
 
     public static void Save()
     {
@@ -36,14 +28,14 @@ public static class GlobalReference
     {
         if (!ref_)
         {
-            // Debug.LogWarning("Could not register object because no reference was given");
+            Debug.LogWarning("Could not register object because no reference was given");
             return;
         }
 
         string name = ref_.GetType().Name;
         if (referenceList.ContainsKey(name))
         {
-            // Debug.LogError($"{name} is already assigned and can not be assigned multiple times. Please ensure there is only one {name} in this scene");
+            Debug.LogError($"{name} is already assigned and can not be assigned multiple times. Please ensure there is only one {name} in this scene");
             return;
         }
 
@@ -54,14 +46,14 @@ public static class GlobalReference
     {
         if (!ref_)
         {
-            // Debug.LogWarning("Could not unregister object because no reference was given");
+            Debug.LogWarning("Could not unregister object because no reference was given");
             return;
         }
 
         string name = ref_.GetType().Name;
         if (!referenceList.ContainsKey(name))
         {
-            // Debug.LogWarning($"{name} cannot be unassigned because it has not been assigned in the first place");
+            Debug.LogWarning($"{name} cannot be unassigned because it has not been assigned in the first place");
             return;
         }
 
@@ -92,13 +84,13 @@ public static class GlobalReference
     public static void AttemptInvoke(Events eventName)
     {
         // This log is allowed to stay :P, it's so useful
-        Debug.Log($"Object Invoked ({eventName})");
+        Debug.Log($"Event Invoked ({eventName})");
         TryGetEvent(eventName).Invoke();
     }
     public static void AttemptInvoke<T>(Events eventName, T parameter)
     {
         // This log is allowed to stay :P, it's so useful
-        Debug.Log($"Object Invoked ({eventName}) with parameter: ({parameter})");
+        Debug.Log($"Event Invoked ({eventName}), with parameter: ({parameter})");
         TryGetEvent<T>(eventName).Invoke(parameter);
     }
 

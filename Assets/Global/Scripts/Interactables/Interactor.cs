@@ -77,7 +77,7 @@ public class PlayerInteraction : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(origin, 0.1f, ~ignoreLayers);
         foreach (var collider in colliders)
         {
-            var interactable = collider.GetComponent<Interactable>();
+            Interactable interactable = collider.GetComponent<Interactable>();
             if (interactable != null)
             {
                 SetInteractable(interactable);

@@ -4,10 +4,14 @@ using UnityEngine.Events;
 
 public class InteractableUpgradeUI : Interactable
 {
-    public List<UpgradeOption> upgradeOptions;
-
     public override void TriggerInteraction(PlayerInteraction interactor)
     {
+        List<UpgradeOption> upgradeOptions = new() {
+            GlobalReference.GetReference<RewardManagerReference>().GetRandomUpgrade(),
+            GlobalReference.GetReference<RewardManagerReference>().GetRandomUpgrade(),
+            GlobalReference.GetReference<RewardManagerReference>().GetRandomUpgrade()
+        };
+
         GlobalReference.GetReference<UpgradeOptions>().options = upgradeOptions;
         GlobalReference.GetReference<UpgradeOptions>().ShowOptions();
         
