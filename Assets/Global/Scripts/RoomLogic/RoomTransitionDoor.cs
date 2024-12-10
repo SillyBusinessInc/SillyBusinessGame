@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 
@@ -20,11 +17,9 @@ public class RoomTransitionDoor : Interactable
     public int nextRoomId;
     private int roomAmounts;
 
-    private PlayerSpawnPoint playerSpawnPoint;
-    private DoorManager doorManager;
     private GameManagerReference gameManagerReference;
     private CrossfadeController crossfadeController;
-    private int randomNum;
+    private DoorManager doorManager;
 
     private string currentScenename;
 
@@ -39,10 +34,10 @@ public class RoomTransitionDoor : Interactable
     public void Initialize()
     {
         gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
+        doorManager = GlobalReference.GetReference<DoorManager>();
         roomAmounts = gameManagerReference.GetAmountForRoomType(nextRoomType);
         int randomIndex = Random.Range(1, roomAmounts + 1);
         nextRoomName = nextRoomType.ToString() + "_" + randomIndex;
-
     }
 
     private void RoomFinished()
@@ -60,7 +55,6 @@ public class RoomTransitionDoor : Interactable
     {
         yield return StartCoroutine(crossfadeController.Crossfade_Start());
         yield return StartCoroutine(LoadRoomCoroutine());
-        // yield return StartCoroutine(crossfadeController.Crossfade_End());
     }
 
     public IEnumerator LoadRoomCoroutine()
@@ -80,6 +74,7 @@ public class RoomTransitionDoor : Interactable
         var gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
         if (gameManagerReference != null)
         {
+            doorManager.currentId = nextRoomId; 
             Room nextRoom = gameManagerReference.GetRoom(nextRoomId);
             if (nextRoom != null)
             {
@@ -94,7 +89,6 @@ public class RoomTransitionDoor : Interactable
         {
             Debug.LogError("GameManagerReference is null");
         }
-
 
         AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(currentScenename);
         while (!unloadOperation.isDone)
