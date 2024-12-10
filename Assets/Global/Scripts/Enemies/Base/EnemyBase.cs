@@ -137,8 +137,13 @@ namespace EnemiesNS
         [SerializeField]
         public NavMeshAgent agent;
 
-        [Tooltip("")]
+        [Tooltip("Reference to this enemy's weapon")]
         [SerializeField] public Collider weapon;
+
+        [Tooltip("Reference to this Enemy's walking particle system")]
+        public ParticleSystem particleSystemWalk;
+        [Tooltip("Reference to this Enemy's onDeath particle system")]
+        public ParticleSystem particleSystemDeath;
 
         [Header("States")]
         [HideInInspector] public BaseStates states;
@@ -284,8 +289,8 @@ namespace EnemiesNS
             player.applyKnockback(CalculatedKnockback(playerObject), knockbackStunTime);
         }
 
-        public virtual void EnableWeaponHitBox() {}
-        public virtual void DisableWeaponHitBox() {}
+        public virtual void EnableWeaponHitBox() { }
+        public virtual void DisableWeaponHitBox() { }
 
         public virtual Vector3 CalculatedKnockback(PlayerObject playerObject)
         {
