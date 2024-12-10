@@ -181,7 +181,7 @@ MonoBehaviour:
   healthSlider: {fileID: 6540148335669250048}
   maxHealth: 100
   currentHealth: 0
-  enemyBase: {fileID: 0}
+  enemyBase: {fileID: 1710052168369373784}
 --- !u!114 &8450700688145694880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,7 +194,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63034f8dfe13f834eb55bdc5e8d623f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!1 &1524605638376804949
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.35220122, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
