@@ -35,7 +35,6 @@ namespace EnemiesNS
 
             // check if we can still attack, then early return so we dont run the base update and dont trigger attack cooldown.
             if (attacksThisState < enemy.attacksPerCooldown && IsWithinAttackRange()) return;
-
             enemy.toggleCanAttack(false);
             base.Update();
         }

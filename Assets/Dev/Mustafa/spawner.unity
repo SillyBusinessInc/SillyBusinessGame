@@ -944,7 +944,6 @@ MonoBehaviour:
   target: {fileID: 0}
   animator: {fileID: 0}
   agent: {fileID: 0}
-  weapon: {fileID: 0}
   currentStateName: 
   agentIsStopped: 0
   radius: 5
@@ -1264,7 +1263,6 @@ MonoBehaviour:
   target: {fileID: 0}
   animator: {fileID: 0}
   agent: {fileID: 0}
-  weapon: {fileID: 0}
   currentStateName: 
   agentIsStopped: 0
   radius: 5
@@ -1406,18 +1404,83 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3267703782720431196, guid: bf73c6eb408563b4495411d820345243, type: 3}
-      propertyPath: attackRange
-      value: 12
+      propertyPath: weapon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4316266649658499361, guid: bf73c6eb408563b4495411d820345243, type: 3}
       propertyPath: m_Name
       value: Range Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503590916145919650, guid: bf73c6eb408563b4495411d820345243, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483071013426085859, guid: bf73c6eb408563b4495411d820345243, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf73c6eb408563b4495411d820345243, type: 3}
+--- !u!1001 &740874465
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.3472824
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -13.767857
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4316266649658499361, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_Name
+      value: Melee Enemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
 --- !u!1 &808061055
 GameObject:
   m_ObjectHideFlags: 0
@@ -2595,7 +2658,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4811859323897289456, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -42.2
       objectReference: {fileID: 0}
     - target: {fileID: 4811859323897289456, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2920,7 +2983,6 @@ MonoBehaviour:
   target: {fileID: 0}
   animator: {fileID: 0}
   agent: {fileID: 0}
-  weapon: {fileID: 0}
   currentStateName: 
   agentIsStopped: 0
   radius: 5
@@ -3133,3 +3195,4 @@ SceneRoots:
   - {fileID: 500066568}
   - {fileID: 1701719245}
   - {fileID: 670604874}
+  - {fileID: 740874465}

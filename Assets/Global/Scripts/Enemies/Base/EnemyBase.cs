@@ -131,9 +131,7 @@ namespace EnemiesNS
         [Tooltip("OPTIONAL: Reference to the NavMeshAgent of this enemy. Has Default")]
         [SerializeField]
         public NavMeshAgent agent;
-        [Tooltip("")]
-        [SerializeField]
-        public Collider weapon;
+        
 
         [Header("States")]
         [HideInInspector]

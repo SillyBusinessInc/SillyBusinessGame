@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cef32fe1263e52f4287d893525b62ceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 40
   idleTime: 0.5
   idleVariance: 0.5
   idleWaitElapsed: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   roamingAcceleration: 8
   spawnPos: {x: 0, y: 0, z: 0}
   roamDestination: {x: 0, y: 0, z: 0}
-  chaseRange: 25
+  chaseRange: 18
   chaseSpeed: 3.5
   chaseAcceleration: 8
   minDistanceToPlayer: 2
@@ -111,9 +111,9 @@ MonoBehaviour:
   isChasing: 0
   isWaiting: 0
   distanceToPlayer: 0
-  attackRange: 0
+  attackRange: 25
   attackCooldown: 2
-  attackRecoveryTime: 0.3
+  attackRecoveryTime: 0
   attacksPerCooldown: 1
   attackDamage: 1
   facingPlayerVarianceAngle: 5
@@ -127,13 +127,12 @@ MonoBehaviour:
   target: {fileID: 0}
   animator: {fileID: 5452983560052617153}
   agent: {fileID: 5608345331629188897}
-  weapon: {fileID: 9053967190554233472}
   currentStateName: 
   agentIsStopped: 0
   BulletsNeedtoShoot: 3
   bulletSpawnPoint: {fileID: 183695346255901166}
   bulletPrefab: {fileID: 1033295440354773173, guid: 84a072b284dafac4ba0649b445786103, type: 3}
-  shotInterval: 1
+  shotInterval: 2
 --- !u!1 &5503590916145919650
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,7 +142,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 183695346255901166}
-  - component: {fileID: 9053967190554233472}
   - component: {fileID: 5359195378302463692}
   m_Layer: 8
   m_Name: Weapon
@@ -167,27 +165,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1587067519520307107}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &9053967190554233472
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5503590916145919650}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.62, y: 1, z: 3.8815174}
-  m_Center: {x: -1.46, y: 0.23, z: 0.27}
 --- !u!114 &5359195378302463692
 MonoBehaviour:
   m_ObjectHideFlags: 0

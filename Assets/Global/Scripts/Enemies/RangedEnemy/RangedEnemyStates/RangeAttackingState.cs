@@ -22,11 +22,12 @@ namespace EnemiesNS
         public override void Update()
         {
             base.Update();
+            
             currentTime += Time.deltaTime;
+
             // Check if it's time to shoot
-            if (currentTime > 1f && stillNeedToShoot < enemy.BulletsNeedtoShoot)
+            if (currentTime > enemy.shotInterval && stillNeedToShoot < enemy.BulletsNeedtoShoot)
             {
-                Debug.Log("Shooting");
                 // Instantiate the bullet
                 GameObject bullet = Object.Instantiate(enemy.bulletPrefab, enemy.bulletSpawnPoint.position, Quaternion.identity);
                 
@@ -34,15 +35,26 @@ namespace EnemiesNS
                 Bullet bulletScript = bullet.GetComponent<Bullet>();
                 if (bulletScript != null)
                 {
-                    bulletScript.bulletDirection = enemy.bulletSpawnPoint.forward;
+                    bulletScript.bulletDirection = (GlobalReference.GetReference<PlayerReference>().PlayerObj.transform.position - enemy.bulletSpawnPoint.position).normalized;
                 }
 
                 // Reset the timer and increment the shot count
                 currentTime = 0;
                 stillNeedToShoot++;
             }
-
+            if (stillNeedToShoot >= enemy.BulletsNeedtoShoot)
+            {
+                attacksThisState +=1;
+                enemy.inAttackAnim = false;
+            }else if (!IsWithinAttackRange()){
+                attacksThisState +=1;
+                enemy.inAttackAnim = false;
+            }
+            if (enemy.distanceToPlayer >= 2) {
+                FacePlayer();
+            }
         }
+
 
 
         public override void Exit()

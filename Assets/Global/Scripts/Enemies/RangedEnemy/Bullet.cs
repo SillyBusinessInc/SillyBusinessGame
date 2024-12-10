@@ -22,16 +22,20 @@ namespace EnemiesNS
         {
             Debug.Log("Shooting spawned");
             // enemy = this.GetComponentInParent<EnemyBase>();
-            shot();
+            Shot();
         }
 
         
 
         void OnTriggerEnter(Collider hit)
         {
+            Debug.Log(hit.gameObject.name);
             hit.TryGetComponent(out PlayerObject player);
-            if (!player) return;
-            PlayerHit(player, bulletDamage);
+            if (player){
+                PlayerHit(player, bulletDamage);
+            }else if (hit.gameObject.tag == "Enemy"){
+                return;
+            }
             Destroy(gameObject);
         }
 
@@ -52,10 +56,16 @@ namespace EnemiesNS
             return directionToPlayer * attackKnockback;
         }
 
-        void shot(){
+        void Shot()
+        {
             Rigidbody rb = GetComponent<Rigidbody>();
+
             rb.linearVelocity = bulletDirection * bulletSpeed;
+            
+
+            // Destroy the bullet after its lifetime
             Destroy(gameObject, bulletLifeTime);
         }
+
     }
 }
