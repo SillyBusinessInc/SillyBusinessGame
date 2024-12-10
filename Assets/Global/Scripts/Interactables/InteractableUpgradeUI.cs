@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class InteractableUpgradeUI : Interactable
 {
@@ -9,6 +10,8 @@ public class InteractableUpgradeUI : Interactable
             GlobalReference.GetReference<RewardManagerReference>().GetRandomUpgrade(),
             GlobalReference.GetReference<RewardManagerReference>().GetRandomUpgrade()
         };
+
+        upgradeOptions.ForEach((u) => Debug.LogWarning(u.name));
 
         GlobalReference.GetReference<UpgradeOptions>().options = upgradeOptions;
         GlobalReference.GetReference<UpgradeOptions>().ShowOptions();

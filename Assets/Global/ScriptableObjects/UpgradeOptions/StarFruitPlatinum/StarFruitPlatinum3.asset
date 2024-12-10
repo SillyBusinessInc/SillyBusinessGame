@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7f58623c8fcc854e88b271402b2c7d0, type: 3}
   m_Name: StarFruitPlatinum3
   m_EditorClassIdentifier: 
-  image: {fileID: 21300000, guid: ecab69acc5bacde41909a0f9cc9f32b4, type: 3}
+  image: {fileID: 21300000, guid: 46b4f6eb0a106c74983a6d48f635a8f7, type: 3}
   name: StarFruitPlatinum
-  description: 
-  rarity: 0
+  description: Increases attack speed
+  rarity: 3
   interactionActions:
-  - action: {fileID: 11400000, guid: 4b876b3ca6ca96343a9498c9840e301e, type: 2}
+  - action: {fileID: 0}
     parameters:
     - starfruitplatinum
