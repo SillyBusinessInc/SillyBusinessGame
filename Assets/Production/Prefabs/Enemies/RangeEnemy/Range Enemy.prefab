@@ -118,7 +118,7 @@ MonoBehaviour:
   attackDamage: 1
   facingPlayerVarianceAngle: 5
   attackKnockback: 0
-  knockbackStunTime: 0.5
+  knockbackStunTime: 0
   canAttack: 1
   isRecovering: 0
   attackCooldownElapsed: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   agentIsStopped: 0
   BulletsNeedtoShoot: 3
   bulletSpawnPoint: {fileID: 183695346255901166}
-  bulletPrefab: {fileID: 1033295440354773173, guid: 84a072b284dafac4ba0649b445786103, type: 3}
+  bulletPrefab: {fileID: 1033295440354773173, guid: c709c6fb45dfccf41a4fe46fbac3a9ae, type: 3}
   shotInterval: 2
 --- !u!1 &5503590916145919650
 GameObject:
