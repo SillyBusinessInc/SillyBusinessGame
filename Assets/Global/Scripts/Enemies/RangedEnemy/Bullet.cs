@@ -13,7 +13,7 @@ namespace EnemiesNS
         [Tooltip("The amount of knockback this enemy's attacks will apply")]
         [SerializeField]
         [Range(0f, 100f)]
-        public float attackKnockback = 10f;
+        public float attackKnockback = 2f;
         public Bullet(Vector3 position)
         {
             bulletDirection = position;
@@ -43,7 +43,7 @@ namespace EnemiesNS
             Player player = GlobalReference.GetReference<PlayerReference>().Player;
             if (!player) return;
             player.OnHit(damage);
-            // player.applyKnockback(CalculatedKnockback(playerObject), attackKnockback);
+            player.applyKnockback(CalculatedKnockback(playerObject), attackKnockback);
         }
 
         private Vector3 CalculatedKnockback(PlayerObject playerObject)

@@ -126,7 +126,7 @@ MonoBehaviour:
   bulletLifeTime: 10
   bulletDamage: 1
   bulletDirection: {x: 0, y: 0, z: 0}
-  attackKnockback: 2.5
+  attackKnockback: 0
 --- !u!54 &2774876018155544112
 Rigidbody:
   m_ObjectHideFlags: 0
