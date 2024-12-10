@@ -67,7 +67,8 @@ public class Table
 
         // init
         RoomType roomType = RoomType.OTHER;
-        if (GlobalReference.GetReference<GameManagerReference>().GetRoom(row.id).IsStandard() && random.Next(0, 100) < bonusChance) AddBonusRoom(row);
+        var isStandard = GlobalReference.GetReference<GameManagerReference>().GetRoom(row.id).IsStandard();
+        if (isStandard && random.Next(0, 100) < bonusChance) AddBonusRoom(row);
 
         // get total branches to apply
         int branchesToApply = random.Next(minBranchCount, maxBranchCount+1);
