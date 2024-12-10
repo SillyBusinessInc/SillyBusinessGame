@@ -78,7 +78,6 @@ public class DoorManager : Reference
         }
     }
 
-
     public List<Room> GetConnectedRooms()
     {
         return gameManagerReference.GetNextRooms();

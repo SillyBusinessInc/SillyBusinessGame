@@ -8,6 +8,4 @@ public class LogAction : OneParamAction
     {
         Debug.Log($"{actionName} - {param}");
     }
-
 }
-

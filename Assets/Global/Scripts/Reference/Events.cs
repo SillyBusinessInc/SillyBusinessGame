@@ -2,13 +2,18 @@ using UnityEngine;
 
 public enum Events
 {
+    #region general
     PICKUP_COLLECTED,
     ROOM_FINISHED,
+    DROP_TREASURE_EVENT,
+    #endregion
     
+    #region enemy
     ENEMY_KILLED,
     ENEMY_SPAWNED,
+    #endregion
     
-    // WAVES RELATED EVENTS
+    #region waves
     ALL_ENEMIES_DEAD,
     NORMAL_WAVE_DONE,
     NORMAL_WAVE_START,
@@ -18,16 +23,16 @@ public enum Events
     MOLD_CORE_KILLED,
     NEXT_SPAWNER,
     ALL_NEXT_SPAWNERS_DONE,
+    #endregion
 
-    // STATS RELATED EVENTS
+    #region stats
     CRUMBS_CHANGED,
     HEALTH_CHANGED,
     STATISTIC_CHANGED,
+    #endregion
 
-    // player attacks
+    #region player attack
     PLAYER_ATTACK_STARTED,
     PLAYER_ATTACK_ENDED,
-    
-    DROP_TREASURE_EVENT
-
+    #endregion
 }

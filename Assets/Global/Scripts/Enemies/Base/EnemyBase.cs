@@ -17,141 +17,144 @@ namespace EnemiesNS
         [SerializeField]
         [Range(0f, 300f)]
         public float idleTime = 0.5f;
+
         [Tooltip("Idle variance allows to finetune the randomisation of the idle time, 0.5 means idle variance will be between 50% and 150% of the given idle time.")]
         [SerializeField]
         [Range(0f, 1f)]
         public float idleVariance = 0.5f;
-        [HideInInspector]
-        public float idleWaitElapsed;
-        [HideInInspector]
-        public float idleWaitTime;
-        [HideInInspector]
-        public bool isIdling = false;
+
+        [HideInInspector] public float idleWaitElapsed;
+        [HideInInspector] public float idleWaitTime;
+        [HideInInspector] public bool isIdling = false;
 
         [Header("Base roam settings | ignored on moldcores")]
         [Tooltip("How far this enemy will travel from it's original spawn while roaming | ignored on moldcores")]
         [SerializeField]
         [Range(0f, 250f)]
         public float roamRange = 15f;
+
         [Tooltip("Movement speed while roaming")]
         [SerializeField]
         [Range(0f, 250f)]
         public float roamingSpeed = 3.5f;
+
         [Tooltip("Acceleration while roaming")]
         [SerializeField]
         [Range(0f, 250f)]
         public float roamingAcceleration = 8f;
-        [HideInInspector]
-        public Vector3 spawnPos;
-        [HideInInspector]
-        public Vector3 roamDestination;
+
+        [HideInInspector] public Vector3 spawnPos;
+        [HideInInspector] public Vector3 roamDestination;
 
         [Header("Base chase settings | ignored on moldcores")]
         [Tooltip("How close the target needs to get before triggering the chasing behavior")]
         [SerializeField]
         [Range(0f, 250f)]
         public float chaseRange = 25f;
+
         [Tooltip("Movement speed while chasing")]
         [SerializeField]
         [Range(0f, 250f)]
         public float chaseSpeed = 3.5f;
+
         [Tooltip("Acceleration while chasing")]
         [SerializeField]
         [Range(0f, 250f)]
         public float chaseAcceleration = 8f;
+
         [Tooltip("the minimum distance to keep from the player.")]
         [SerializeField]
         [Range(0f, 5f)]
         public float minDistanceToPlayer = 2f;
+
         [Tooltip("Time for the chasing enemy to hold position once it gets into attackingrange but still on attack cooldown. Used to keep the enemy from hugging the player.")]
         [SerializeField]
         [Range(0f, 5f)]
         public float chaseWaitTime = 1f;
-        [HideInInspector]
-        public float chaseWaitElapsed = 0;
-        [HideInInspector]
-        public bool isChasing = false;
-        [HideInInspector]
-        public bool isWaiting = false;
-        [HideInInspector]
-        public float distanceToPlayer;
+
+        [HideInInspector] public float chaseWaitElapsed = 0;
+        [HideInInspector] public bool isChasing = false;
+        [HideInInspector] public bool isWaiting = false;
+        [HideInInspector] public float distanceToPlayer;
 
         [Header("Base attack settings | ignored on moldcores")]
         [Tooltip("The range of the attack")]
         [SerializeField]
         [Range(0f, 250f)]
         public float attackRange = 2f;
+
         [Tooltip("The time between attacking states")]
         [SerializeField]
         [Range(0f, 300f)]
         public float attackCooldown = 2f;
+
         [Tooltip("The amount of time this character will have to recover from attacking, and be standing still before able to attack again")]
         [SerializeField]
         [Range(0f, 10f)]
         public float attackRecoveryTime = 0.3f;
+
         [Tooltip("number of attacks before triggering cooldown.")]
         [SerializeField]
         [Range(1, 10)]
         public int attacksPerCooldown = 1;
+
         [Tooltip("The base damage of the attack")]
         [SerializeField]
         [Range(0, 10)]
         public int attackDamage = 1;
+
         [Tooltip("The angle the enemy can be off while trying to face the player")]
         [SerializeField]
         [Range(0f, 180f)]
         public float facingPlayerVarianceAngle = 5f;
+
         [Tooltip("The amount of knockback this enemy's attacks will apply")]
         [SerializeField]
         [Range(0f, 100f)]
         public float attackKnockback;
+
         [Tooltip("The time the hit object will be stunned due to knockback")]
         [SerializeField]
         [Range(0f, 5f)]
         public float knockbackStunTime = 0.5f;
 
-        [HideInInspector]
-        public bool canAttack = true;
-        [HideInInspector]
-        public bool isRecovering = false;
-        [HideInInspector]
-        public float attackCooldownElapsed = 0;
-        [HideInInspector]
-        public float attackRecoveryElapsed = 0;
-        [HideInInspector]
-        public bool inAttackAnim = false;
+        [HideInInspector] public bool canAttack = true;
+        [HideInInspector] public bool isRecovering = false;
+        [HideInInspector] public float attackCooldownElapsed = 0;
+        [HideInInspector] public float attackRecoveryElapsed = 0;
+        [HideInInspector] public bool inAttackAnim = false;
 
         [Header("References")]
         [Tooltip("OPTIONAL: Reference to the target's Transform. Default: Player")]
         [SerializeField]
         public Transform target;
+
         [Tooltip("OPTIONAL: Reference to the Animator of this enemy. Has Default")]
         [SerializeField]
         public Animator animator;
+
         [Tooltip("OPTIONAL: Reference to the NavMeshAgent of this enemy. Has Default")]
         [SerializeField]
         public NavMeshAgent agent;
+
         [Tooltip("")]
-        [SerializeField]
-        public Collider weapon;
+        [SerializeField] public Collider weapon;
 
         [Header("States")]
-        [HideInInspector]
-        public BaseStates states;
-        [HideInInspector]
-        public StateBase currentState;
+        [HideInInspector] public BaseStates states;
+        [HideInInspector] public StateBase currentState;
 
         [Header("DEBUGGING")]
         [Tooltip("DO NOT SET | shows the current state's name")]
         [SerializeField]
         protected string currentStateName;
+
         [Tooltip("DO NOT SET | shows the current state's name")]
         [SerializeField]
         protected bool agentIsStopped = false;
 
         //TODO: this is a quick fix to get the demo out the door, make this nicer
         // this should be cleaned up and placed higher up somewhere
-
 
         protected virtual void Start()
         {
@@ -167,6 +170,7 @@ namespace EnemiesNS
             UpdateTimers();
             currentState?.Update();
         }
+
         protected void FxedUpdate() => currentState?.FixedUpdate();
 
         public virtual void OnHit(int damage)
@@ -179,14 +183,12 @@ namespace EnemiesNS
                 return;
             }
             animator.SetTrigger("PlayDamage");
-
         }
 
         protected virtual void OnDeath()
         {
             ChangeState(states.Dead);
             StartCoroutine(DestroyWait()); //Temp in place of waiting for the non-existent death anim to finish
-
         }
 
         protected virtual void OnDestroy()
@@ -282,8 +284,8 @@ namespace EnemiesNS
             player.applyKnockback(CalculatedKnockback(playerObject), knockbackStunTime);
         }
 
-        public virtual void EnableWeaponHitBox() { }
-        public virtual void DisableWeaponHitBox() { }
+        public virtual void EnableWeaponHitBox() {}
+        public virtual void DisableWeaponHitBox() {}
 
         public virtual Vector3 CalculatedKnockback(PlayerObject playerObject)
         {
