@@ -11,9 +11,7 @@ public class AttackingState : StateBase
                 ? 0
                 : ++Player.Tail.attackIndex;
     }
-
-    public override void Update() {}
-
+    
     public override void Enter()
     {
         var tail = Player.Tail.currentTail;
@@ -27,7 +25,6 @@ public class AttackingState : StateBase
         Player.Tail.activeCooldownTime = 0.0f;
         Player.Tail.currentTail.currentCombo = Player.isGrounded? Player.Tail.currentTail.groundCombo : Player.Tail.currentTail.airCombo;
         Player.AirComboDone = !Player.isGrounded && Player.Tail.attackIndex >= Player.Tail.currentTail.airCombo.Count - 1;
-        
         var currentCombo = tail.currentCombo[Player.Tail.attackIndex];
         currentCombo.Start();
         Player.StartCoroutine(currentCombo.SetStateIdle());
@@ -36,17 +33,10 @@ public class AttackingState : StateBase
 
     public override void Exit()
     {
-        float animatorTailAttack = GlobalReference
-            .GetReference<PlayerReference>()
-            .GetComponent<Player>()
-            .Tail.WaffleAnimator.speed = 1.0f;
+        Player.playerAnimationsHandler.animator.speed = 1.0f;
         Player.Tail.flipCanDoDamage = false;
         Player.Tail.tailCanDoDamage = false;
         Player.collidersEnemy.Clear();
-        GlobalReference
-            .GetReference<PlayerReference>()
-            .GetComponent<Player>()
-            .Tail.WaffleAnimator.speed = 1.0f;
     }
 
     public override void Attack(InputAction.CallbackContext ctx) {}

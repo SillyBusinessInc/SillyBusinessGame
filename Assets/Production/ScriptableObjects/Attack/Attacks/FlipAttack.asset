@@ -15,4 +15,4 @@ MonoBehaviour:
   Name: FlipAttack
   cooldown: 0
   damage: 20
-  duration: 0.5
+  duration: 1

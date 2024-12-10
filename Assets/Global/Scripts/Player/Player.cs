@@ -327,7 +327,6 @@ public class Player : MonoBehaviour
     private IEnumerator DeathScreen() {
         Debug.Log("Player died", this);
         yield return StartCoroutine(crossfadeController.Crossfade_Start());
-        yield return new WaitForSeconds(0.3f); // temporary fix
         SceneManager.LoadScene("Death");
     }
 
