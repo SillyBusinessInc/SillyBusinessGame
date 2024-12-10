@@ -14,16 +14,11 @@ public class LeftTailAttack : TailAttack
         player.Tail.tailDoDamage = player.Tail.tailStatistic.leftTailDamage.GetValue();
         player.Tail.tailDoDamage *= player.playerStatistic.AttackDamageMultiplier.GetValue();
         player.Tail.cooldownTime = player.Tail.tailStatistic.leftTailCooldown.GetValue();
-        Animator animatorTailAttack = GlobalReference
-            .GetReference<PlayerReference>()
-            .GetComponent<Player>()
-            .Tail.WaffleAnimator;
-        AnimationClip[] clips = animatorTailAttack.runtimeAnimatorController.animationClips;
-        AnimationClip clip = clips.Where(x => x.name == "LeftTailAttack").Single();
-        animatorTailAttack.speed *= (clip.length / duration);
-        animatorTailAttack.speed *= player.Tail.tailStatistic.increaseTailSpeed.GetValue();
-        animatorTailAttack.speed *= player.playerStatistic.AttackSpeedMultiplier.GetValue();
-        animatorTailAttack.SetTrigger("LeftAttack");
+        Animator animator = player.playerAnimationsHandler.animator;
+        ClipDuration(animator, duration, "Breadaplus|Bradley_attack1_L");
+        animator.speed *= player.Tail.tailStatistic.increaseTailSpeed.GetValue();
+        animator.speed *= player.playerStatistic.AttackSpeedMultiplier.GetValue();
+        animator.SetTrigger("LeftAttack");
 
         player.playerAnimationsHandler.resetStates();
         player.playerAnimationsHandler.SetInt("AttackType", 1);

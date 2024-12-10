@@ -13,4 +13,5 @@ public class TailStatistic
     public CurrentStatistic leftTailCooldown = new(0.0f);
     public CurrentStatistic rightTailCooldown = new(0.0f);
     public CurrentStatistic flipTailCooldown = new(0.0f);
+    public CurrentStatistic forwardSpeedAttack = new (100.0f);
 }
