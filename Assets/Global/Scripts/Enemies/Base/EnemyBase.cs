@@ -12,7 +12,7 @@ namespace EnemiesNS
         [Range(0, 1000)]
         public int health = 100;
         [HideInInspector]
-        public int maxHealth;   
+        public int maxHealth;
         [Header("Base idle settings | ignored on moldcores ")]
         [Tooltip("For how long the enemy will idle before roaming to new position. NOTE: this is the base value, there will be randomisation applied to make it the idling seem more natural")]
         [SerializeField]
@@ -185,7 +185,10 @@ namespace EnemiesNS
 
         public virtual void OnHit(int damage)
         {
-            HealthBarPrefab.SetActive(true);
+            if (HealthBarPrefab != null)
+            {
+                HealthBarPrefab.SetActive(true);
+            }
             health -= damage;
             //TODO: add visual indicator of hit
             if (health <= 0)
@@ -296,8 +299,8 @@ namespace EnemiesNS
             player.applyKnockback(CalculatedKnockback(playerObject), knockbackStunTime);
         }
 
-        public virtual void EnableWeaponHitBox() {}
-        public virtual void DisableWeaponHitBox() {}
+        public virtual void EnableWeaponHitBox() { }
+        public virtual void DisableWeaponHitBox() { }
 
         public virtual Vector3 CalculatedKnockback(PlayerObject playerObject)
         {
