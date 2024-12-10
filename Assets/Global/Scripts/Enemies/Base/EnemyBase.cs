@@ -10,7 +10,7 @@ namespace EnemiesNS
         [Tooltip("HP for this enemy: integer")]
         [SerializeField]
         [Range(0, 1000)]
-        protected int health = 100;
+        public int health = 100;
 
         [Header("Base idle settings | ignored on moldcores ")]
         [Tooltip("For how long the enemy will idle before roaming to new position. NOTE: this is the base value, there will be randomisation applied to make it the idling seem more natural")]

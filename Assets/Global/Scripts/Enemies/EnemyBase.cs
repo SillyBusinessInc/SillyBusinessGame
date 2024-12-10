@@ -10,7 +10,7 @@ public abstract class EnemyBase : MonoBehaviour
     [Header("Base Enemy Fields")]
     [SerializeField]
     [Range(0, 250)]
-    protected int health = 100;
+    public int health = 100;
 
     protected void Start()
     {
