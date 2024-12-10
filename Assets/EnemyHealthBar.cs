@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class EnemyHealthBar : MonoBehaviour
 {
     public Slider healthSlider;
-    private float maxHealth = 100f;
+    private float maxHealth;
     private float currentHealth;
     public EnemiesNS.EnemyBase enemyBase;
 
