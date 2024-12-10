@@ -23,7 +23,7 @@ public class CurrentStatistic : BaseStatistic
         // first, apply the base multipliers
         float baseMultiplier = BaseMultipliers();
         float permanentBaseMultiplier = permanentStatistic?.BaseMultipliers() ?? 1; // if Perm is null, it will be 1
-        value = value * baseMultiplier * permanentBaseMultiplier; // add current * permanent baseMultipliers
+        value *= (baseMultiplier + permanentBaseMultiplier); // add current + permanent baseMultipliers
         
         // then, add the static modifiers
         modifiers.ForEach(pair => value += pair.Value);
@@ -32,7 +32,7 @@ public class CurrentStatistic : BaseStatistic
         // lastly, combine the final multipliers
         float finalMultiplier = FinalMultipliers();
         float permanentFinalMultiplier = permanentStatistic?.FinalMultipliers() ?? 1;
-        value = value * finalMultiplier * permanentFinalMultiplier;
+        value *= (finalMultiplier + permanentFinalMultiplier);
 
         return value;
     }
