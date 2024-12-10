@@ -110,9 +110,6 @@ public abstract class SecureSaveSystem
                 }
             }
             IsDirty = false;
-        } 
-        else {
-            Debug.LogError($"you are trying to load file {SavePath} which doesn't exist on this device");
         }
     }
 

@@ -76,7 +76,6 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool isHoldingJump = false;
     [HideInInspector] public bool isHoldingDodge = false;
     [HideInInspector] public bool isAttacking = false;
-
     [HideInInspector] public bool AirComboDone = false;
     // private PlayerInputActions inputActions;
 
@@ -261,8 +260,6 @@ public class Player : MonoBehaviour
         // return if there is no target velocity to move towards | currently disabled as I'm investigating it's necessity
         // if (targetVelocity == Vector3.zero) return;
         
-        
-
         // slowly move to target velocity
         Vector3 newVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, currentMovementLerpSpeed * Time.deltaTime);
 
@@ -332,7 +329,6 @@ public class Player : MonoBehaviour
         yield return StartCoroutine(crossfadeController.Crossfade_Start());
         SceneManager.LoadScene("Death");
     }
-
 
     IEnumerator KnockbackStunRoutine(float time = 0.5f)
     {

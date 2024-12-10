@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class RoomTransitionDoor : Interactable
 {
     [Header("Materials")]
@@ -22,7 +21,6 @@ public class RoomTransitionDoor : Interactable
     private DoorManager doorManager;
 
     private string currentScenename;
-
 
     private void Awake()
     {
@@ -116,26 +114,8 @@ public class RoomTransitionDoor : Interactable
         animator.SetTrigger("TriggerDoorOpen");
     }
 
-
-    [ContextMenu("Unlock Door")]
-    void UnlockDoorTest()
-    {
-        IsDisabled = false;
-    }
-    [ContextMenu("Lock Door")]
-    void LockDoorTest()
-    {
-        IsDisabled = true;
-    }
-    [ContextMenu("Open Door")]
-    void OpenDoorTest()
-    {
-        OpenDoorAnimation();
-    }
-
-    [ContextMenu("Invoke room finish event")]
-    void InvoteRoomFinishedEvent()
-    {
-        GlobalReference.AttemptInvoke(Events.ROOM_FINISHED);
-    }
+    [ContextMenu("Unlock Door")] void UnlockDoorTest() => IsDisabled = false;
+    [ContextMenu("Lock Door")] void LockDoorTest() => IsDisabled = true;
+    [ContextMenu("Open Door")] void OpenDoorTest() => OpenDoorAnimation();
+    [ContextMenu("Invoke room finish event")] void InvoteRoomFinishedEvent() => GlobalReference.AttemptInvoke(Events.ROOM_FINISHED);
 }

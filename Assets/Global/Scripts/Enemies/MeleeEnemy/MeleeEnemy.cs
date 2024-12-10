@@ -1,5 +1,5 @@
-
 using UnityEngine;
+
 namespace EnemiesNS
 {
     public class MeleeEnemy : EnemyBase
@@ -32,6 +32,5 @@ namespace EnemiesNS
             states = new MeleeStates(this);
             ChangeState(states.Idle);
         }
-
     }
 }

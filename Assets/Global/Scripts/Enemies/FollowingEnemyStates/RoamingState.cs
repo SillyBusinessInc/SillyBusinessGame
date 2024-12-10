@@ -1,12 +1,11 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-
 namespace FollowEnemyStates
 {
     public class RoamingState : StateBase
     {
-        public RoamingState(FollowEnemy followEnemy) : base(followEnemy) { }
+        public RoamingState(FollowEnemy followEnemy) : base(followEnemy) {}
 
         public override void Enter()
         {
@@ -16,9 +15,7 @@ namespace FollowEnemyStates
             SetNewDestination();
         }
 
-        public override void Exit()
-        {
-        }
+        public override void Exit() {}
 
         public override void Update()
         {

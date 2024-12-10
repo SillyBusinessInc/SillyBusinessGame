@@ -4,7 +4,7 @@ namespace EnemiesNS
 {
     public class MeleeChasingState : BaseChasingState
     {
-        public MeleeChasingState(MeleeEnemy enemy) : base(enemy) { }
+        public MeleeChasingState(MeleeEnemy enemy) : base(enemy) {}
 
         public override void Enter()
         {
@@ -17,6 +17,5 @@ namespace EnemiesNS
             enemy.animator.SetBool("Walk", false);
             base.Exit();
         }
-
     }
 }

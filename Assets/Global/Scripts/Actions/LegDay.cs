@@ -1,4 +1,5 @@
 using UnityEngine;
+
 [CreateAssetMenu(menuName = "Actions/LegDay")]
 public class LegDay : OneParamAction
 {
@@ -9,7 +10,7 @@ public class LegDay : OneParamAction
     {
         GlobalReference
             .GetReference<PlayerReference>()
-            .GetComponent<Player>().playerStatistic.DoubleJumpsCount.AddModifier(actionName, doubleJumpsCountincrease);
+            .GetComponent<Player>().playerStatistic.DoubleJumpsCount
+            .AddModifier(actionName, doubleJumpsCountincrease);
     }
-
 }
