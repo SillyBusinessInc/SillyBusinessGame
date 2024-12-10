@@ -282,10 +282,16 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         playerStatistic.Health -= damage;
-        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
-        GlobalReference.AttemptInvoke(Events.MOLDMETER_CHANGED);
-
         if (playerStatistic.Health <= 0) OnDeath();
+
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
+
+        AddMold(5f); // add 5% to the moldmeter
+    }
+
+    public void AddMold(float percentage) {
+        playerStatistic.Moldmeter += percentage;
+        GlobalReference.AttemptInvoke(Events.MOLDMETER_CHANGED);
     }
 
     public void applyKnockback(Vector3 knockback, float time)
