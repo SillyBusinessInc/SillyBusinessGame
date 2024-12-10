@@ -10,8 +10,9 @@ namespace EnemiesNS
         [Tooltip("HP for this enemy: integer")]
         [SerializeField]
         [Range(0, 1000)]
-        protected int health = 100;
-
+        public int health = 100;
+        [HideInInspector]
+        public int maxHealth;
         [Header("Base idle settings | ignored on moldcores ")]
         [Tooltip("For how long the enemy will idle before roaming to new position. NOTE: this is the base value, there will be randomisation applied to make it the idling seem more natural")]
         [SerializeField]
@@ -118,11 +119,19 @@ namespace EnemiesNS
         [Range(0f, 5f)]
         public float knockbackStunTime = 0.5f;
 
-        [HideInInspector] public bool canAttack = true;
-        [HideInInspector] public bool isRecovering = false;
-        [HideInInspector] public float attackCooldownElapsed = 0;
-        [HideInInspector] public float attackRecoveryElapsed = 0;
-        [HideInInspector] public bool inAttackAnim = false;
+        public GameObject HealthBarPrefab;
+        [HideInInspector]
+        public bool canAttack = true;
+        [HideInInspector]
+        public bool isRecovering = false;
+        [HideInInspector]
+        public float attackCooldownElapsed = 0;
+        [HideInInspector]
+        public float attackRecoveryElapsed = 0;
+        [HideInInspector]
+        public bool inAttackAnim = false;
+        [HideInInspector]
+        public bool HealthBarDestroy = false;
 
         [Header("References")]
         [Tooltip("OPTIONAL: Reference to the target's Transform. Default: Player")]
@@ -158,6 +167,7 @@ namespace EnemiesNS
 
         protected virtual void Start()
         {
+            maxHealth = health;
             spawnPos = this.transform.position;
             setReferences();
             SetupStateMachine();
@@ -175,6 +185,10 @@ namespace EnemiesNS
 
         public virtual void OnHit(int damage)
         {
+            if (HealthBarPrefab != null)
+            {
+                HealthBarPrefab.SetActive(true);
+            }
             health -= damage;
             //TODO: add visual indicator of hit
             if (health <= 0)
@@ -187,6 +201,7 @@ namespace EnemiesNS
 
         protected virtual void OnDeath()
         {
+            HealthBarDestroy = true;
             ChangeState(states.Dead);
             StartCoroutine(DestroyWait()); //Temp in place of waiting for the non-existent death anim to finish
         }
@@ -284,8 +299,8 @@ namespace EnemiesNS
             player.applyKnockback(CalculatedKnockback(playerObject), knockbackStunTime);
         }
 
-        public virtual void EnableWeaponHitBox() {}
-        public virtual void DisableWeaponHitBox() {}
+        public virtual void EnableWeaponHitBox() { }
+        public virtual void DisableWeaponHitBox() { }
 
         public virtual Vector3 CalculatedKnockback(PlayerObject playerObject)
         {
