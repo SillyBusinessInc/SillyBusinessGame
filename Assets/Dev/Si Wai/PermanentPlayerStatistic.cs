@@ -70,6 +70,7 @@ public class PermanentPlayerStatistic : SecureSaveSystem
 
     public void ModifyCrumbs(int amount) {
         var crumbs = Get<int>("crumbs") + amount;
+        if (crumbs < 0) crumbs = 0;
         Set("crumbs", crumbs);
         SaveAll();
         GlobalReference.AttemptInvoke(Events.CRUMBS_CHANGED);
