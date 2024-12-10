@@ -14,7 +14,7 @@ public class EnemyHealthBar : MonoBehaviour
     }
     void Update()
     {
-        if (enemyBase.HealthBarDetroy)
+        if (enemyBase.HealthBarDestroy)
         {
             Destroy(gameObject);
         }
