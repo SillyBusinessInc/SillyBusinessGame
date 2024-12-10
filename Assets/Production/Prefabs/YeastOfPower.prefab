@@ -139,7 +139,7 @@ MonoBehaviour:
   upgradeOptions:
   - {fileID: 11400000, guid: 4c2ad7e5d0149324783edc80d41a40e6, type: 2}
   - {fileID: 11400000, guid: 160c588ef0f42544f82a86ccbad2d0df, type: 2}
-  - {fileID: 11400000, guid: a0b273ea1ef418e419e480d131e05ef1, type: 2}
+  - {fileID: 11400000, guid: 07a2fdf1414d5364ebb84dd4e4cbdac6, type: 2}
 --- !u!1 &3030290548714589633
 GameObject:
   m_ObjectHideFlags: 0

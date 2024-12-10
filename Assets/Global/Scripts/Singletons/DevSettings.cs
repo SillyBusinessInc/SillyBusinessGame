@@ -13,7 +13,7 @@ public class DevSettings : SaveSystem
         Add("minBranchCount", 2);
         Add("maxBranchCount", 3);
         Add("targetDepth", 5);
-        Add("bonusChance", 20);
+        Add("bonusChance", 0);
         Add("seed", -1);
         Add("shopDepthOverride", -2);
     }
