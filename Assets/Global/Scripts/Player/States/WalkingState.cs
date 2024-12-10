@@ -1,16 +1,12 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class WalkingState : StateBase
 {
-
     public WalkingState(Player player) : base(player) {}
-
 
     public Vector3 debug_hitpos;
     public override void Update()
     {
-
         Player.playerAnimationsHandler.resetStates();
         Player.playerAnimationsHandler.SetBool("IsRunning", true);
         
@@ -43,13 +39,13 @@ public class WalkingState : StateBase
 
     public override void Enter()
     {
-        // play animation
+        // play particleSystem
         Player.particleSystemWalk.Play();
     }
 
     public override void Exit()
     {
-        // play animation
+        // stop particleSystem
         Player.particleSystemWalk.Stop();
     }
 }
