@@ -58,13 +58,14 @@ namespace EnemiesNS
             // Calculate the rotation required to face the player
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
 
-            // Smoothly rotate towards the player
-            enemy.transform.rotation = Quaternion.Slerp(
+            // Smoothly rotate towards the player using Lerp
+            enemy.transform.rotation = Quaternion.RotateTowards(
                 enemy.transform.rotation,
                 targetRotation,
-                Time.deltaTime * enemy.agent.angularSpeed
+                enemy.agent.angularSpeed * Time.deltaTime
             );
         }
+        
 
         protected bool IsFacingPlayer()
         {

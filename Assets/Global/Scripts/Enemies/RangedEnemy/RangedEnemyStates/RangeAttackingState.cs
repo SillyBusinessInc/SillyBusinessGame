@@ -35,7 +35,7 @@ namespace EnemiesNS
                 Bullet bulletScript = bullet.GetComponent<Bullet>();
                 if (bulletScript != null)
                 {
-                    bulletScript.bulletDirection = (GlobalReference.GetReference<PlayerReference>().PlayerObj.transform.position - enemy.bulletSpawnPoint.position).normalized;
+                    bulletScript.bulletDirection = (GlobalReference.GetReference<PlayerReference>().SmoothCamaraTarget.transform.position - enemy.bulletSpawnPoint.position).normalized;
                 }
 
                 // Reset the timer and increment the shot count

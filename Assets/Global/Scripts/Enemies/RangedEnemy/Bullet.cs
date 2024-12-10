@@ -29,7 +29,6 @@ namespace EnemiesNS
 
         void OnTriggerEnter(Collider hit)
         {
-            Debug.Log(hit.gameObject.name);
             hit.TryGetComponent(out PlayerObject player);
             if (player){
                 PlayerHit(player, bulletDamage);
@@ -41,10 +40,10 @@ namespace EnemiesNS
 
         private void PlayerHit(PlayerObject playerObject, int damage)
         {
-            Player player = playerObject.GetComponentInParent<Player>();
+            Player player = GlobalReference.GetReference<PlayerReference>().Player;
             if (!player) return;
             player.OnHit(damage);
-            player.applyKnockback(CalculatedKnockback(playerObject), attackKnockback);
+            // player.applyKnockback(CalculatedKnockback(playerObject), attackKnockback);
         }
 
         private Vector3 CalculatedKnockback(PlayerObject playerObject)
