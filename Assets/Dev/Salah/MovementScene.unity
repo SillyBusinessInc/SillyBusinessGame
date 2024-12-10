@@ -1281,6 +1281,11 @@ PrefabInstance:
       addedObject: {fileID: 1011991483}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+--- !u!4 &1598672142 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1367837106214492311, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
+  m_PrefabInstance: {fileID: 154553823}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1636242423
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1617,6 +1622,7 @@ GameObject:
   - component: {fileID: 1920588689}
   - component: {fileID: 1920588691}
   - component: {fileID: 1920588690}
+  - component: {fileID: 1920588692}
   m_Layer: 5
   m_Name: Health Bar
   m_TagString: Untagged
@@ -1711,6 +1717,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1920588692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1920588688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63034f8dfe13f834eb55bdc5e8d623f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 1598672142}
 --- !u!1 &1978057121
 GameObject:
   m_ObjectHideFlags: 0
