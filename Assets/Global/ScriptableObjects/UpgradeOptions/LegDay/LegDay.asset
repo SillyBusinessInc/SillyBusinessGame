@@ -16,7 +16,4 @@ MonoBehaviour:
   name: LegDay
   description: Gain 1 extra jump
   rarity: 4
-  interactionActions:
-  - action: {fileID: 0}
-    parameters:
-    - LegDay
+  interactionActions: []

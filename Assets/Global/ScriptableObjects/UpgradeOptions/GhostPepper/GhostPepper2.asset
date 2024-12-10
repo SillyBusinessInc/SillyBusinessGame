@@ -16,6 +16,4 @@ MonoBehaviour:
   name: GhostPepper
   description: Increases damage dealt
   rarity: 2
-  interactionActions:
-  - action: {fileID: 0}
-    parameters: []
+  interactionActions: []

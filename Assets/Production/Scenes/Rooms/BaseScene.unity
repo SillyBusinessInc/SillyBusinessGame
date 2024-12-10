@@ -127,30 +127,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 754475757132133715, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1037710351125607518, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: rarity_epic
-      value: 
-      objectReference: {fileID: 21300000, guid: 37d3c3f395e998f498ffdcf6429c649a, type: 3}
-    - target: {fileID: 1037710351125607518, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: rarity_rare
-      value: 
-      objectReference: {fileID: 21300000, guid: c4fce13cd3a8afa4197ba9aef24097d3, type: 3}
-    - target: {fileID: 1037710351125607518, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: rarity_common
-      value: 
-      objectReference: {fileID: 21300000, guid: 36f689d170af68845b1d638af2f62810, type: 3}
-    - target: {fileID: 1037710351125607518, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: rarity_uncommon
-      value: 
-      objectReference: {fileID: 21300000, guid: c4fce13cd3a8afa4197ba9aef24097d3, type: 3}
-    - target: {fileID: 1037710351125607518, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: rarity_legendary
-      value: 
-      objectReference: {fileID: 21300000, guid: 134b751aea14ee34cbd136b14b210d34, type: 3}
     - target: {fileID: 2151410652353034704, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -231,69 +207,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2766818273673618621, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: rarity_epic
-      value: 
-      objectReference: {fileID: 21300000, guid: 37d3c3f395e998f498ffdcf6429c649a, type: 3}
-    - target: {fileID: 2766818273673618621, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: rarity_rare
-      value: 
-      objectReference: {fileID: 21300000, guid: c4fce13cd3a8afa4197ba9aef24097d3, type: 3}
-    - target: {fileID: 2766818273673618621, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: rarity_common
-      value: 
-      objectReference: {fileID: 21300000, guid: 36f689d170af68845b1d638af2f62810, type: 3}
-    - target: {fileID: 2766818273673618621, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: rarity_uncommon
-      value: 
-      objectReference: {fileID: 21300000, guid: c4fce13cd3a8afa4197ba9aef24097d3, type: 3}
-    - target: {fileID: 2766818273673618621, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: rarity_legendary
-      value: 
-      objectReference: {fileID: 21300000, guid: 134b751aea14ee34cbd136b14b210d34, type: 3}
-    - target: {fileID: 3180387593742868230, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3956401023284220915, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: m_Name
-      value: RarityBackground
-      objectReference: {fileID: 0}
-    - target: {fileID: 6666611326485973459, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6683048801453430899, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
       propertyPath: m_Name
       value: UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 7118138088269620688, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: rarity_epic
-      value: 
-      objectReference: {fileID: 21300000, guid: 37d3c3f395e998f498ffdcf6429c649a, type: 3}
-    - target: {fileID: 7118138088269620688, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: rarity_rare
-      value: 
-      objectReference: {fileID: 21300000, guid: c4fce13cd3a8afa4197ba9aef24097d3, type: 3}
-    - target: {fileID: 7118138088269620688, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: rarity_common
-      value: 
-      objectReference: {fileID: 21300000, guid: 36f689d170af68845b1d638af2f62810, type: 3}
-    - target: {fileID: 7118138088269620688, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: rarity_uncommon
-      value: 
-      objectReference: {fileID: 21300000, guid: c4fce13cd3a8afa4197ba9aef24097d3, type: 3}
-    - target: {fileID: 7118138088269620688, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: rarity_legendary
-      value: 
-      objectReference: {fileID: 21300000, guid: 134b751aea14ee34cbd136b14b210d34, type: 3}
-    - target: {fileID: 7514219831669472837, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: m_Name
-      value: RarityBackground
-      objectReference: {fileID: 0}
-    - target: {fileID: 7862270362768877964, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-      propertyPath: m_Name
-      value: RarityBackground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

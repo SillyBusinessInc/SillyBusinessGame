@@ -16,7 +16,4 @@ MonoBehaviour:
   name: StarFruitPlatinum
   description: Increases attack speed
   rarity: 1
-  interactionActions:
-  - action: {fileID: 0}
-    parameters:
-    - starfruitplatinum
+  interactionActions: []

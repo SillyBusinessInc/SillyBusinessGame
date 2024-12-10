@@ -16,7 +16,4 @@ MonoBehaviour:
   name: SugarRush
   description: Increases player speed
   rarity: 3
-  interactionActions:
-  - action: {fileID: 11400000, guid: 181002bb34567c840a397857a3be768e, type: 2}
-    parameters:
-    - SugarRush
+  interactionActions: []
