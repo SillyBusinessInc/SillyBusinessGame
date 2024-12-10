@@ -120,6 +120,8 @@ namespace EnemiesNS
         public float attackRecoveryElapsed = 0;
         [HideInInspector]
         public bool inAttackAnim = false;
+        [HideInInspector]
+        public bool HealthBarDetroy = false;
 
         [Header("References")]
         [Tooltip("OPTIONAL: Reference to the target's Transform. Default: Player")]
@@ -184,9 +186,9 @@ namespace EnemiesNS
 
         protected virtual void OnDeath()
         {
+            HealthBarDetroy = true;
             ChangeState(states.Dead);
             StartCoroutine(DestroyWait()); //Temp in place of waiting for the non-existent death anim to finish
-
         }
 
         protected virtual void OnDestroy()

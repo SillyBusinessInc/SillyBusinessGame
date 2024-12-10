@@ -1,10 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 public class EnemyHealthBar : MonoBehaviour
 {
     public Slider healthSlider;
-    public float maxHealth = 100f;
-    public float currentHealth;
+    private float maxHealth = 100f;
+    private float currentHealth;
     public EnemiesNS.EnemyBase enemyBase;
 
     void Start()
@@ -13,6 +14,10 @@ public class EnemyHealthBar : MonoBehaviour
     }
     void Update()
     {
+        if (enemyBase.HealthBarDetroy)
+        {
+            Destroy(gameObject);
+        }
         healthSlider.value = enemyBase.health;
     }
 

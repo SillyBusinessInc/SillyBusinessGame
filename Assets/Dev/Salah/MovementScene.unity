@@ -192,17 +192,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
---- !u!114 &248530922 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1710052168369373784, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
-  m_PrefabInstance: {fileID: 1354209892}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3152f9b0947e49640a21aa2b62687a6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &346795089
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,10 +832,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2184507967803968042, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
-      propertyPath: enemyBase
-      value: 
-      objectReference: {fileID: 248530922}
     - target: {fileID: 4316266649658499361, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
       propertyPath: m_Name
       value: Melee Enemy
@@ -859,20 +844,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8450700688145694880, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
-      propertyPath: cam
-      value: 
-      objectReference: {fileID: 1598672142}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
---- !u!4 &1598672142 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1367837106214492311, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
-  m_PrefabInstance: {fileID: 154553823}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1636242423
 PrefabInstance:
   m_ObjectHideFlags: 0
