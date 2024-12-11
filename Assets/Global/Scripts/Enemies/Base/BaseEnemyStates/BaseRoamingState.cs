@@ -5,16 +5,23 @@ namespace EnemiesNS
 {
     public class BaseRoamingState : StateBase
     {
-        public BaseRoamingState(EnemyBase enemy) : base(enemy) {}
+        public BaseRoamingState(EnemyBase enemy) : base(enemy) { }
 
         public override void Enter()
         {
             base.Enter();
+            if (enemy.particleSystemWalk) enemy.particleSystemWalk.Play();
             enemy.agent.speed = enemy.roamingSpeed;
             enemy.agent.acceleration = enemy.roamingAcceleration;
             // new Destination
             enemy.roamDestination = GetDestination();
             enemy.agent.SetDestination(enemy.roamDestination);
+        }
+
+        public override void Exit()
+        {
+            if (enemy.particleSystemWalk) enemy.particleSystemWalk.Stop();
+            base.Exit();
         }
 
         public override void Update() => base.Update();
