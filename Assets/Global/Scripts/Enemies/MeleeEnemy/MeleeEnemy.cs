@@ -4,6 +4,7 @@ namespace EnemiesNS
 {
     public class MeleeEnemy : EnemyBase
     {
+        public Collider weapon;
         private bool playerHit = false;
 
         //

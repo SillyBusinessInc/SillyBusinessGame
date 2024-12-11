@@ -99,7 +99,7 @@ public static class GlobalReference
     public static void AttemptInvoke(Events eventName)
     {
         // This log is allowed to stay :P, it's so useful
-        Debug.Log($"Object Invoked ({eventName})");
+        // Debug.Log($"Object Invoked ({eventName})");
         TryGetEvent(eventName).Invoke();
     }
     public static void AttemptInvoke<T>(Events eventName, T parameter)
