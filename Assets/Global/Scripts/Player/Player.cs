@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 // using System.Numerics;
 
@@ -75,10 +76,12 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool isHoldingJump = false;
     [HideInInspector] public bool isHoldingDodge = false;
     [HideInInspector] public bool isAttacking = false;
+    [HideInInspector] public bool AirComboDone = false;
     // private PlayerInputActions inputActions;
 
     private bool IsLanding = false;
     [SerializeField] private Image fadeImage;
+    [SerializeField] private CrossfadeController crossfadeController;
 
 
     void Start()
@@ -100,7 +103,7 @@ public class Player : MonoBehaviour
         currentState.Update();
         ApproachTargetVelocity();
         RotatePlayerObj();
-
+        if (isGrounded) AirComboDone = false;
         if (isGrounded) canDodgeRoll = true;
     }
 
@@ -163,6 +166,8 @@ public class Player : MonoBehaviour
                     if (Vector3.Angle(Vector3.up, hit.normal) < groundCheckAngle)
                     {
                         currentJumps = 0;
+                        if(!isGrounded)
+                            Tail.attackIndex = 0;
                         isGrounded = true;
                         playerAnimationsHandler.SetBool("IsOnGround", true);
                         return;
@@ -175,6 +180,7 @@ public class Player : MonoBehaviour
         {
             isGrounded = false;
             IsLanding = false;
+            Tail.attackIndex = 0;
             timeLeftGrounded = Time.time;
             playerAnimationsHandler.SetBool("IsOnGround", false);
         }
@@ -254,8 +260,6 @@ public class Player : MonoBehaviour
         // return if there is no target velocity to move towards | currently disabled as I'm investigating it's necessity
         // if (targetVelocity == Vector3.zero) return;
         
-        
-
         // slowly move to target velocity
         Vector3 newVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, currentMovementLerpSpeed * Time.deltaTime);
 
@@ -325,12 +329,13 @@ public class Player : MonoBehaviour
     [ContextMenu("Die!!!!!")]
     private void OnDeath()
     {
-        Debug.Log("Player died", this);
-        MoveToMenu();
+        StartCoroutine(DeathScreen());
     }
-    
-    private void MoveToMenu() => UILogic.FadeToScene("Death", fadeImage, this);
-
+    private IEnumerator DeathScreen() {
+        Debug.Log("Player died", this);
+        yield return StartCoroutine(crossfadeController.Crossfade_Start());
+        SceneManager.LoadScene("Death");
+    }
 
     IEnumerator KnockbackStunRoutine(float time = 0.5f)
     {

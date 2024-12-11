@@ -1,17 +1,15 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class DodgeRollState : StateBase
 {
-
     private float timer;
 
     public DodgeRollState(Player player) : base(player) {}
 
     public override void Enter()
     {
-        // play animation
+        // play particleSystem
         Player.particleSystemDash.Play();
 
         // return if on cooldown

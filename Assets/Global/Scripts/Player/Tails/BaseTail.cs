@@ -11,10 +11,10 @@ public class BaseTail : ScriptableObject
         groundCombo = GroundCombo;
         airCombo = AirCombo;
     }
+    
     public string Name;
     public List<Attack> groundCombo;
     public List<Attack> airCombo;
 
-    [HideInInspector]
-    public List<Attack> currentCombo;
+    [HideInInspector] public List<Attack> currentCombo;
 }

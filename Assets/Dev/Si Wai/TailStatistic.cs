@@ -13,4 +13,6 @@ public class TailStatistic
     public Statistic leftTailCooldown = new(0.0f);
     public Statistic rightTailCooldown = new(0.0f);
     public Statistic flipTailCooldown = new(0.0f);
+
+    public Statistic forwardSpeedAttack = new (100.0f);
 }
