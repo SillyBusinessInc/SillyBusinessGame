@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace EnemiesNS
 {
-    public class RangeDeadState : BaseDeadState
+    public class RangedDeadState : BaseDeadState
     {
-        public RangeDeadState(RangedEnemy enemy) : base(enemy) { }
+        public RangedDeadState(RangedEnemy enemy) : base(enemy) { }
 
         public override void Enter()
         {

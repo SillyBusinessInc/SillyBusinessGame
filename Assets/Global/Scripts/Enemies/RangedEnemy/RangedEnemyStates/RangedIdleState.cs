@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace EnemiesNS
 {
-    public class RangeIdleState : BaseIdleState
+    public class RangedIdleState : BaseIdleState
     {
-        public RangeIdleState(RangedEnemy enemy) : base(enemy) { }
+        public RangedIdleState(RangedEnemy enemy) : base(enemy) { }
         public override void Enter()
         {
             int i = Random.Range(0, 2);

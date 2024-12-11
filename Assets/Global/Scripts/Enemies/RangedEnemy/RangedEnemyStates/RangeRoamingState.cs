@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace EnemiesNS
 {
-    public class RangeRoamingState : BaseRoamingState
+    public class RangedRoamingState : BaseRoamingState
     {
-        public RangeRoamingState(RangedEnemy enemy) : base(enemy) { }
+        public RangedRoamingState(RangedEnemy enemy) : base(enemy) { }
 
         public override void Enter()
         {

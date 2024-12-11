@@ -5,17 +5,17 @@ namespace EnemiesNS
         public RangedStated(RangedEnemy enemy) : base(enemy) { }
 
         // Override the creation methods to return Melee-specific states
-        protected override BaseIdleState CreateIdleState(EnemyBase enemy) => new RangeIdleState((RangedEnemy)enemy);
-        protected override BaseRoamingState CreateRoamingState(EnemyBase enemy) => new RangeRoamingState((RangedEnemy)enemy);
-        protected override BaseChasingState CreateChasingState(EnemyBase enemy) => new RangeChasingState((RangedEnemy)enemy);
+        protected override BaseIdleState CreateIdleState(EnemyBase enemy) => new RangedIdleState((RangedEnemy)enemy);
+        protected override BaseRoamingState CreateRoamingState(EnemyBase enemy) => new RangedRoamingState((RangedEnemy)enemy);
+        protected override BaseChasingState CreateChasingState(EnemyBase enemy) => new RangedChasingState((RangedEnemy)enemy);
         protected override BaseAttackingState CreateAttackingState(EnemyBase enemy) => new RangeAttackingState((RangedEnemy)enemy);
-        protected override BaseDeadState CreateDeadState(EnemyBase enemy) => new RangeDeadState((RangedEnemy)enemy);
+        protected override BaseDeadState CreateDeadState(EnemyBase enemy) => new RangedDeadState((RangedEnemy)enemy);
 
         // New properties to provide type-specific access if needed
-        public new RangeIdleState Idle => (RangeIdleState)base.Idle;
-        public new RangeRoamingState Roaming => (RangeRoamingState)base.Roaming;
-        public new RangeChasingState Chasing => (RangeChasingState)base.Chasing;
+        public new RangedIdleState Idle => (RangedIdleState)base.Idle;
+        public new RangedRoamingState Roaming => (RangedRoamingState)base.Roaming;
+        public new RangedChasingState Chasing => (RangedChasingState)base.Chasing;
         public new RangeAttackingState Attacking => (RangeAttackingState)base.Attacking;
-        public new RangeDeadState Dead => (RangeDeadState)base.Dead;
+        public new RangedDeadState Dead => (RangedDeadState)base.Dead;
     }
 }

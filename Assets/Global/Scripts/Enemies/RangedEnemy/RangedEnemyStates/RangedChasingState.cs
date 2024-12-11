@@ -3,10 +3,12 @@ using UnityEngine.AI;
 
 namespace EnemiesNS
 {
-    public class RangeChasingState : BaseChasingState
+    public class RangedChasingState : BaseChasingState
     {
         private bool isMovingToRandomPosition = false;
-        public RangeChasingState(RangedEnemy enemy) : base(enemy) { }
+        public RangedChasingState(RangedEnemy enemy) : base(enemy) { }
+        private float timeSinceLastRandomMove = 0f;
+        private float randomMoveCooldown = 2f; // Cooldown time in seconds
 
         public override void Enter()
         {
@@ -19,11 +21,6 @@ namespace EnemiesNS
             enemy.animator.SetBool("Walk", false);
             base.Exit();
         }
-
-
-        private float timeSinceLastRandomMove = 0f;
-        private float randomMoveCooldown = 2f; // Cooldown time in seconds
-
         public override void Update()
         {
             if (!enemy.isWaiting)
@@ -41,7 +38,7 @@ namespace EnemiesNS
                         CheckState(); // Allow state change here
                     }
                 }
-                else if (IsWithinAttackRange())
+                else if (IsWithinAttackRange() )
                 {
                     // Prevent random movement if cooldown hasn't expired
                     if (!isMovingToRandomPosition && Time.time >= timeSinceLastRandomMove + randomMoveCooldown)
@@ -50,21 +47,23 @@ namespace EnemiesNS
                         enemy.agent.SetDestination(randomDestination);
                         isMovingToRandomPosition = true; // Set the flag
                     }
-                }
+                } 
                 else
                 {
                     // Chase the player
                     enemy.agent.SetDestination(enemy.target.transform.position);
                 }
             }
-
             // Update the walking speed for animation
             enemy.animator.SetFloat("WalkingSpeed", enemy.agent.velocity.magnitude);
             CalculateDistanceToPlayer(); // Decide if needed every frame
 
-            // Only check state if the enemy is not moving to a random position
-            if (!isMovingToRandomPosition)
+            if (!isMovingToRandomPosition && IsWithinAttackRange())
             {
+                enemy.FreezeMovement(true);
+                enemy.isRecovering = false;
+                enemy.canAttack = true;
+                enemy.inAttackAnim = false;
                 CheckState();
             }
         }

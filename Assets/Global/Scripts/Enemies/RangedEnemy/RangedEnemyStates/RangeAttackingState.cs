@@ -6,7 +6,6 @@ namespace EnemiesNS
     {
         private RangedEnemy enemy;
         private float currentTime;
-        private int stillNeedToShoot = 0;
         public RangeAttackingState(RangedEnemy enemy) : base(enemy) { this.enemy = enemy; }
 
         public override void Enter()
@@ -15,46 +14,30 @@ namespace EnemiesNS
             // enemy.animator.SetBool("Attack", true);
             base.Enter();
             currentTime = 0;
-            stillNeedToShoot = 0;
-            //spawn a prefab of the projectile
-            
+            attacksThisState = 1;
         }
         public override void Update()
         {
             base.Update();
-            
             currentTime += Time.deltaTime;
-
             // Check if it's time to shoot
-            if (currentTime > enemy.attackRecoveryTime && stillNeedToShoot < enemy.attacksPerCooldown)
+            if (currentTime > enemy.attackRecoveryTime && CheckingInRange() == true )
             {
-                // Instantiate the bullet
-                GameObject bullet = Object.Instantiate(enemy.bulletPrefab, enemy.bulletSpawnPoint.position, Quaternion.identity);
-                
-                // Assign the forward direction of the enemy to the bullet
-                Bullet bulletScript = bullet.GetComponent<Bullet>();
-                if (bulletScript != null)
-                {
-                    bulletScript.bulletDirection = (GlobalReference.GetReference<PlayerReference>().SmoothCamaraTarget.transform.position - enemy.bulletSpawnPoint.position).normalized;
-                }
-
-                // Reset the timer and increment the shot count
-                currentTime = 0;
-                stillNeedToShoot++;
-            }
-            if (stillNeedToShoot >= enemy.attacksPerCooldown)
-            {
-                attacksThisState +=1;
-                enemy.inAttackAnim = false;
-            }else if (!IsWithinAttackRange()){
-                attacksThisState +=1;
-                enemy.inAttackAnim = false;
+                Attack();
             }
             if (enemy.distanceToPlayer >= 2) {
                 FacePlayer();
             }
         }
-
+        public bool CheckingInRange(){
+            if (!IsWithinAttackRange() || attacksThisState >= enemy.attacksPerCooldown){
+                attacksThisState +=1000;
+                enemy.inAttackAnim = false;   
+                enemy.toggleCanAttack(false);
+                return false;             
+            }
+            return true;
+        }
 
 
         public override void Exit()
@@ -65,8 +48,25 @@ namespace EnemiesNS
 
         protected override void Attack()
         {
+            if (CheckingInRange())
+            {
+                GameObject bullet = Object.Instantiate(enemy.bulletPrefab, enemy.bulletSpawnPoint.position, Quaternion.identity);
+                
+                // Assign the forward direction of the enemy to the bullet
+                Bullet bulletScript = bullet.GetComponent<Bullet>();
+                if (bulletScript != null)
+                {
+                    bulletScript.bulletDirection = (GlobalReference.GetReference<PlayerReference>().SmoothCamaraTarget.transform.position - enemy.bulletSpawnPoint.position).normalized;
+                }
+                
+                // Reset the timer and increment the shot count
+                currentTime = 0;
+                // attacksThisState++;
+                enemy.inAttackAnim = true;
+                attacksThisState += 1;
+                enemy.toggleIsRecovering(true);
+            }
             // enemy.animator.SetTrigger("PlayAttack");
-            base.Attack();
         }
 
     }

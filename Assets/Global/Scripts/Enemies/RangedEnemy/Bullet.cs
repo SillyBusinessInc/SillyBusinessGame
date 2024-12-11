@@ -9,6 +9,7 @@ namespace EnemiesNS
         public float bulletSpeed = 10f;
         public float bulletLifeTime = 2f;
         public int bulletDamage = 1;
+        public int bulletEnemyDamage = 5;
         public Vector3 bulletDirection;
         [Tooltip("The amount of knockback this enemy's attacks will apply")]
         [SerializeField]
@@ -26,24 +27,24 @@ namespace EnemiesNS
         
 
         void OnTriggerEnter(Collider hit)
-        {
-            hit.TryGetComponent(out PlayerObject player);
-            if (player){
-                PlayerHit(player, bulletDamage);
+        {   
+            if (hit.gameObject.layer == 7 || hit.gameObject.layer == 9){
+                PlayerHit(bulletDamage);
             }else if (hit.gameObject.tag == "Enemy"){
                 //damage enemy
-                // hit.gameObject.GetComponent<EnemyBase>().OnHit(bulletDamage);
+                hit.gameObject.GetComponent<EnemyBase>().OnHit(bulletEnemyDamage);
+            }if(hit.gameObject.layer == 1 || hit.gameObject.layer == 2 || hit.gameObject.layer == 5 || hit.gameObject.layer == 10){
                 return;
             }
             Destroy(gameObject);
         }
 
-        private void PlayerHit(PlayerObject playerObject, int damage)
+        private void PlayerHit(int damage)
         {
             Player player = GlobalReference.GetReference<PlayerReference>().Player;
             if (!player) return;
             player.OnHit(damage);
-            player.applyKnockback(CalculatedKnockback(playerObject), attackKnockback);
+            // player.applyKnockback(CalculatedKnockback(playerObject), attackKnockback);
         }
 
         private Vector3 CalculatedKnockback(PlayerObject playerObject)
