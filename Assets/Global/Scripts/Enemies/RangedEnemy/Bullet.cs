@@ -20,8 +20,6 @@ namespace EnemiesNS
         }
         void Start()
         {
-            Debug.Log("Shooting spawned");
-            // enemy = this.GetComponentInParent<EnemyBase>();
             Shot();
         }
 
@@ -33,6 +31,8 @@ namespace EnemiesNS
             if (player){
                 PlayerHit(player, bulletDamage);
             }else if (hit.gameObject.tag == "Enemy"){
+                //damage enemy
+                // hit.gameObject.GetComponent<EnemyBase>().OnHit(bulletDamage);
                 return;
             }
             Destroy(gameObject);

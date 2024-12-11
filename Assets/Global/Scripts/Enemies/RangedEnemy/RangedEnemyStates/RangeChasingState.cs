@@ -38,7 +38,6 @@ namespace EnemiesNS
                     {
                         isMovingToRandomPosition = false; // Reset the flag
                         timeSinceLastRandomMove = Time.time; // Start cooldown
-                        Debug.Log("Reached Random Destination.");
                         CheckState(); // Allow state change here
                     }
                 }
@@ -48,7 +47,6 @@ namespace EnemiesNS
                     if (!isMovingToRandomPosition && Time.time >= timeSinceLastRandomMove + randomMoveCooldown)
                     {
                         Vector3 randomDestination = GetRandomNavMeshPosition(enemy.transform.position, enemy.attackRange / 2);
-                        Debug.Log($"Random Destination: {randomDestination}");
                         enemy.agent.SetDestination(randomDestination);
                         isMovingToRandomPosition = true; // Set the flag
                     }
