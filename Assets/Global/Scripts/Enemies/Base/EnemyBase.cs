@@ -124,6 +124,16 @@ namespace EnemiesNS
         [HideInInspector] public float attackRecoveryElapsed = 0;
         [HideInInspector] public bool inAttackAnim = false;
 
+        [Header("Death Particle Effect settings")]
+        [Tooltip("Reference to the Enemies Particle Death Prefab")]
+        [SerializeField]
+        private ParticleSystem PrefabDeathParticles;
+        [Tooltip("Origin point for the death particle effect")]
+        [SerializeField]
+        private Transform DeathParticleOrigin;
+
+        private ParticleSystem particleSystemDeath;
+
         [Header("References")]
         [Tooltip("OPTIONAL: Reference to the target's Transform. Default: Player")]
         [SerializeField]
@@ -142,8 +152,7 @@ namespace EnemiesNS
 
         [Tooltip("Reference to this Enemy's walking particle system")]
         public ParticleSystem particleSystemWalk;
-        [Tooltip("Reference to this Enemy's onDeath particle system")]
-        public ParticleSystem particleSystemDeath;
+
 
         [Header("States")]
         [HideInInspector] public BaseStates states;
@@ -193,7 +202,6 @@ namespace EnemiesNS
         protected virtual void OnDeath()
         {
             ChangeState(states.Dead);
-            StartCoroutine(DestroyWait()); //Temp in place of waiting for the non-existent death anim to finish
         }
 
         protected virtual void OnDestroy()
@@ -227,6 +235,10 @@ namespace EnemiesNS
             {
                 animator = this.GetComponent<Animator>();
             }
+            if (!DeathParticleOrigin)
+            {
+                Debug.LogWarning("NULLREFERENCE: Death Paricle Origin not set. This will result in malfunctioning OnDeath() behavior.", this);
+            }
         }
 
         public void toggleCanAttack(bool v)
@@ -252,13 +264,6 @@ namespace EnemiesNS
             isWaiting = v;
             if (!isWaiting) chaseWaitElapsed = 0f;
         }
-
-        // public virtual void toggleInAttackAnim(bool v, float normalizedTime)
-        // {
-        //     inAttackAnim = v;
-        //     if (normalizedTime >= 1) playerHit = false;
-        //     if (normalizedTime >= 1) Debug.Log("anim set to false");
-        // }
 
         public void FreezeMovement(bool v)
         {
@@ -301,11 +306,6 @@ namespace EnemiesNS
             return directionToPlayer * attackKnockback;
         }
 
-        IEnumerator DestroyWait()
-        {
-            yield return new WaitForSecondsRealtime(1);
-            Destroy(gameObject);
-        }
 
         //
         // Used as events in animations
@@ -318,6 +318,23 @@ namespace EnemiesNS
         {
             inAttackAnim = false;
         }
+        public void DeathAnimEnded()
+        {
+            // animator is on the Model's GameObject, so we can reach that GameObject through this.
+            if (animator != null)
+            {
+                animator.gameObject.SetActive(false);
+            }
+
+            // Instantiate and play the death particle effect
+            if (!DeathParticleOrigin) return;
+            particleSystemDeath = Instantiate(PrefabDeathParticles, DeathParticleOrigin);
+            particleSystemDeath.Play();
+
+            // Start a coroutine to destroy the particle system and the enemy once the particles finish playing
+            StartCoroutine(DestroyAfterParticles(particleSystemDeath));
+        }
+
 
         //
         // When creating your own enemy, override this to use your enemy specific BaseStates class. And set the set to your desired default state.
@@ -345,6 +362,23 @@ namespace EnemiesNS
             // Draw the Roam Range around the spawn position
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(spawnPos, roamRange);
+        }
+
+
+
+        private IEnumerator DestroyAfterParticles(ParticleSystem particles)
+        {
+            if (particles != null)
+            {
+                // Wait until the particle system finishes playing
+                yield return new WaitWhile(() => particles.isPlaying);
+
+                // Destroy the particle system
+                Destroy(particles.gameObject);
+            }
+
+            // Destroy the enemy object
+            Destroy(this.gameObject);
         }
     }
 }
