@@ -82,12 +82,9 @@ public class Player : MonoBehaviour
 
     private bool IsLanding = false;
     [SerializeField] private Image fadeImage;
-<<<<<<< Updated upstream
     [SerializeField] private CrossfadeController crossfadeController;
 
-=======
     private bool isInvulnerable = false;
->>>>>>> Stashed changes
 
     void Start()
     {
@@ -112,7 +109,6 @@ public class Player : MonoBehaviour
         if (isGrounded) canDodgeRoll = true;
     }
 
-<<<<<<< Updated upstream
 
     private void attackingAnimation() => isAttacking = true;
     private void attackingStoppedAnimation() => isAttacking = false;
@@ -127,9 +123,7 @@ public class Player : MonoBehaviour
         GlobalReference.UnsubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
         GlobalReference.UnsubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
     }
-    
-=======
->>>>>>> Stashed changes
+
     private void OnDrawGizmos()
     {
         Debug.DrawLine(rb.position, rb.position + targetVelocity, debug_lineColor, 0, true);
@@ -174,7 +168,7 @@ public class Player : MonoBehaviour
                     if (Vector3.Angle(Vector3.up, hit.normal) < groundCheckAngle)
                     {
                         currentJumps = 0;
-                        if(!isGrounded)
+                        if (!isGrounded)
                             Tail.attackIndex = 0;
                         isGrounded = true;
                         playerAnimationsHandler.SetBool("IsOnGround", true);
@@ -265,15 +259,12 @@ public class Player : MonoBehaviour
 
     private void ApproachTargetVelocity()
     {
+
+
+
         // return if there is no target velocity to move towards | currently disabled as I'm investigating it's necessity
         // if (targetVelocity == Vector3.zero) return;
-<<<<<<< Updated upstream
-        
-=======
 
-
-
->>>>>>> Stashed changes
         // slowly move to target velocity
         Vector3 newVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, currentMovementLerpSpeed * Time.deltaTime);
 
@@ -350,17 +341,15 @@ public class Player : MonoBehaviour
     {
         StartCoroutine(DeathScreen());
     }
-    private IEnumerator DeathScreen() {
+    private IEnumerator DeathScreen()
+    {
         Debug.Log("Player died", this);
         yield return StartCoroutine(crossfadeController.Crossfade_Start());
         SceneManager.LoadScene("Death");
     }
-<<<<<<< Updated upstream
-=======
 
     private void MoveToMenu() => UILogic.FadeToScene("Death", fadeImage, this);
 
->>>>>>> Stashed changes
 
     IEnumerator KnockbackStunRoutine(float time = 0.5f)
     {

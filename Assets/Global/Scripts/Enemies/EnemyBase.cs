@@ -11,13 +11,9 @@ public abstract class EnemyBase : MonoBehaviour
     [Header("Base Enemy Fields")]
     [SerializeField]
     [Range(0, 250)]
-<<<<<<< Updated upstream
-    public int health = 100;
-=======
     protected int health = 100;
     [SerializeField] private float invulnerabilityTime = 0.75f;
     private bool isInvulnerable = false;
->>>>>>> Stashed changes
 
     protected void Start()
     {

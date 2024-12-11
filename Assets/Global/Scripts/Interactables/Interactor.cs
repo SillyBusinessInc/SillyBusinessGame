@@ -8,11 +8,7 @@ public class PlayerInteraction : MonoBehaviour
     private Interactable currentInteractable;
 
     [Header("Raycast Settings [Debug]")]
-<<<<<<< Updated upstream
     [SerializeField] private float rayDistance = 10f;         // Maximum detection distance   
-=======
-    [SerializeField] private float rayDistance = 10f;         // Maximum detection distance
->>>>>>> Stashed changes
 
     private bool isColliding = false;
 
@@ -74,11 +70,6 @@ public class PlayerInteraction : MonoBehaviour
 
     private bool RaycastFindInteractable(Vector3 origin, Vector3 direction)
     {
-<<<<<<< Updated upstream
-        Ray ray = new(origin, direction);
-        RaycastHit hit;
-=======
->>>>>>> Stashed changes
 
         Vector3[] rayOffsets = { origin + Vector3.up * .75f, origin + Vector3.up * .5f, origin + Vector3.up * 0.1f };
 
