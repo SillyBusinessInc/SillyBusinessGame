@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -69,40 +70,47 @@ public class PlayerInteraction : MonoBehaviour
 
     private bool RaycastFindInteractable(Vector3 origin, Vector3 direction)
     {
-        Ray ray = new(origin, direction);
-        RaycastHit hit;
 
-        // First check for overlap sphere, to see if the start of the ray is already colliding with an interactable
-        Collider[] colliders = Physics.OverlapSphere(origin, 0.1f, ~ignoreLayers);
-        foreach (var collider in colliders)
+        Vector3[] rayOffsets = { origin + Vector3.up * .75f, origin + Vector3.up * .5f, origin + Vector3.up * 0.1f };
+
+        foreach (var rayOffset in rayOffsets)
+
         {
-            var interactable = collider.GetComponent<Interactable>();
-            if (interactable != null)
+            Ray ray = new(rayOffset, direction);
+
+            // First check for overlap sphere, to see if the start of the ray is already colliding with an interactable
+            Collider[] colliders = Physics.OverlapSphere(rayOffset, 0.1f, ~ignoreLayers);
+            foreach (var collider in colliders)
             {
-                SetInteractable(interactable);
-                return true;
-            }
-        }
-
-        // Debug visualization
-        // Debug.DrawRay(origin, direction * rayDistance, Color.green, 0.1f);
-
-        // Then check for raycast hit
-        if (Physics.Raycast(ray, out hit, rayDistance, ~ignoreLayers))
-        {
-            var interactable = hit.collider.GetComponent<Interactable>();
-
-            if (interactable != null)
-            {
-                float rayHitDistance = Vector3.Distance(transform.position, hit.point);
-
-                if (interactable.IsWithinInteractionRange(rayHitDistance))
+                var interactable = collider.GetComponent<Interactable>();
+                if (interactable != null)
                 {
                     SetInteractable(interactable);
                     return true;
-
                 }
             }
+
+            // Debug visualization
+            // Debug.DrawRay(rayOffset, direction * rayDistance, Color.green, 0.1f);
+
+            // Then check for raycast hit
+            if (Physics.Raycast(ray, out RaycastHit hit, rayDistance, ~ignoreLayers))
+            {
+                var interactable = hit.collider.GetComponent<Interactable>();
+
+                if (interactable != null)
+                {
+                    float rayHitDistance = Vector3.Distance(transform.position, hit.point);
+
+                    if (interactable.IsWithinInteractionRange(rayHitDistance))
+                    {
+                        SetInteractable(interactable);
+                        return true;
+
+                    }
+                }
+            }
+
         }
         return false;
     }
