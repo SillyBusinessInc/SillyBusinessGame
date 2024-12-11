@@ -1,8 +1,8 @@
 namespace EnemiesNS
 {
-    public class RangeStates : BaseStates
+    public class RangedStated : BaseStates
     {
-        public RangeStates(RangedEnemy enemy) : base(enemy) { }
+        public RangedStated(RangedEnemy enemy) : base(enemy) { }
 
         // Override the creation methods to return Melee-specific states
         protected override BaseIdleState CreateIdleState(EnemyBase enemy) => new RangeIdleState((RangedEnemy)enemy);

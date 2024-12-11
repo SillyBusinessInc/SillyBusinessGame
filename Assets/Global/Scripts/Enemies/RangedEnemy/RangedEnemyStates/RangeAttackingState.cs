@@ -6,7 +6,7 @@ namespace EnemiesNS
     {
         private RangedEnemy enemy;
         private float currentTime;
-        private float stillNeedToShoot = 0;
+        private int stillNeedToShoot = 0;
         public RangeAttackingState(RangedEnemy enemy) : base(enemy) { this.enemy = enemy; }
 
         public override void Enter()
@@ -26,7 +26,7 @@ namespace EnemiesNS
             currentTime += Time.deltaTime;
 
             // Check if it's time to shoot
-            if (currentTime > enemy.shotInterval && stillNeedToShoot < enemy.BulletsNeedtoShoot)
+            if (currentTime > enemy.attackRecoveryTime && stillNeedToShoot < enemy.attacksPerCooldown)
             {
                 // Instantiate the bullet
                 GameObject bullet = Object.Instantiate(enemy.bulletPrefab, enemy.bulletSpawnPoint.position, Quaternion.identity);
@@ -42,7 +42,7 @@ namespace EnemiesNS
                 currentTime = 0;
                 stillNeedToShoot++;
             }
-            if (stillNeedToShoot >= enemy.BulletsNeedtoShoot)
+            if (stillNeedToShoot >= enemy.attacksPerCooldown)
             {
                 attacksThisState +=1;
                 enemy.inAttackAnim = false;
