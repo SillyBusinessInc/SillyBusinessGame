@@ -5,43 +5,19 @@ using System.Linq;
 using System;
 
 [Serializable]
-public class Statistic
+public class BaseStatistic
 {
-    [SerializeField]
-    private float baseValue;  // Starting value, read-only
-
     // Lists of multipliers and modifiers with their associated keys
-    private List<KeyValuePair<string, float>> baseMultipliers = new();
-    private List<KeyValuePair<string, float>> finalMultipliers = new();
-    private List<KeyValuePair<string, float>> modifiers = new();
+    protected List<KeyValuePair<string, float>> baseMultipliers = new();
+    protected List<KeyValuePair<string, float>> finalMultipliers = new();
+    protected List<KeyValuePair<string, float>> modifiers = new();
 
     // Event to notify listeners about changes
     public event Action OnChange;
 
-    public Statistic(float bv) {
-        baseValue = bv;
-    }
-
-    // Get the final value after applying modifiers
-    public float GetValue()
-    {
-        float value = baseValue;
-        // first, apply the base multipliers
-        float baseMultiplier = baseMultipliers.Any() ? baseMultipliers.Sum(pair => pair.Value) : 1;
-       
-        value *= baseMultiplier;
-        
-        // then, add the static modifiers
-        modifiers.ForEach(pair => value += pair.Value);
-
-        // lastly, combine the final multipliers
-        float finalMultiplier = finalMultipliers.Any() ? finalMultipliers.Sum(pair => pair.Value) : 1;
-        value *= finalMultiplier;
-
-        return value;
-    }
-
-    public int GetValueInt() => (int)MathF.Round(GetValue(), 0);
+    public float BaseMultipliers(float defaultValue) => baseMultipliers.Any() ? baseMultipliers.Sum(pair => pair.Value) : defaultValue;
+    public float FinalMultipliers(float defaultValue) => finalMultipliers.Any() ? finalMultipliers.Sum(pair => pair.Value) : defaultValue;
+    public List<KeyValuePair<string, float>> Modifiers() => modifiers;
 
     // Add new modifier  
     public void AddModifier(string key, float modifier)
@@ -58,10 +34,8 @@ public class Statistic
         if (multiplier != 0)
         {
             var pair = new KeyValuePair<string, float>(key, multiplier);
-            if (isBase)
-                baseMultipliers.Add(pair);
-            else
-                finalMultipliers.Add(pair);
+            if (isBase) baseMultipliers.Add(pair);
+            else finalMultipliers.Add(pair);
 
             TriggerOnChange();
         }
