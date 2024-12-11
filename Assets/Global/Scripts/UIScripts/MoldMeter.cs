@@ -33,9 +33,9 @@ public class MoldMeter : MonoBehaviour
         string decimals = moldPercentage >= 100 || moldPercentage == 0 ? "F0" : "F1";
         MoldPercentageText.text = moldPercentage.ToString(decimals) + '%';
 
-        // when moldmeter is 0%, posX of mold should be -256.82. so it should move 2.772 per 1%
+        // when moldmeter is 0%, posX of mold should be -265. so it should move 2.75 per 1%
         // when moldmeter is 100% the posX is 10
-        float targetPosX = 2.772f * moldPercentage + OriginalPosX;
+        float targetPosX = 2.75f * moldPercentage + OriginalPosX;
         Vector2 targetPosition = new(targetPosX, MoldMeterImage.anchoredPosition.y);
 
         // Start smooth movement

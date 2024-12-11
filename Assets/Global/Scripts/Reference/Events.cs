@@ -31,11 +31,12 @@ public enum Events
     CRUMBS_CHANGED = 14,
     HEALTH_CHANGED = 15,
     STATISTIC_CHANGED = 16,
+    MOLDMETER_CHANGED = 17,
     #endregion
     
     // player attacks
     #region player attack
-    PLAYER_ATTACK_STARTED = 17,
-    PLAYER_ATTACK_ENDED = 18,
+    PLAYER_ATTACK_STARTED = 18,
+    PLAYER_ATTACK_ENDED = 19,
     #endregion
 }
