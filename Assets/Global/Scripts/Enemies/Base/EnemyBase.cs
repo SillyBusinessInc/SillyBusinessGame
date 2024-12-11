@@ -89,7 +89,7 @@ namespace EnemiesNS
         [Range(0f, 300f)]
         public float attackCooldown = 2f;
 
-        [Tooltip("The amount of time this character will have to recover from attacking, and be standing still before able to attack again")]
+        [Tooltip("The amount of time this character will have to recover from attacking, and be standing still before able to attack again. NOTE: if this is less than the attack clip length, there will be no additional waiting time applied.")]
         [SerializeField]
         [Range(0f, 10f)]
         public float attackRecoveryTime = 0.3f;
@@ -133,6 +133,16 @@ namespace EnemiesNS
         [HideInInspector]
         public bool HealthBarDestroy = false;
 
+        [Header("Death Particle Effect settings")]
+        [Tooltip("Reference to the Enemies Particle Death Prefab")]
+        [SerializeField]
+        private ParticleSystem PrefabDeathParticles;
+        [Tooltip("Origin point for the death particle effect")]
+        [SerializeField]
+        private Transform DeathParticleOrigin;
+
+        private ParticleSystem particleSystemDeath;
+
         [Header("References")]
         [Tooltip("OPTIONAL: Reference to the target's Transform. Default: Player")]
         [SerializeField]
@@ -146,8 +156,16 @@ namespace EnemiesNS
         [SerializeField]
         public NavMeshAgent agent;
 
-        [Tooltip("")]
+        [Tooltip("Reference to this enemy's weapon")]
         [SerializeField] public Collider weapon;
+
+        [Tooltip("Reference to this Enemy's walking particle system")]
+        public ParticleSystem particleSystemWalk;
+
+        [Tooltip("Miscellaneous")]
+        [HideInInspector]
+        public int VFXLayer;
+
 
         [Header("States")]
         [HideInInspector] public BaseStates states;
@@ -189,21 +207,25 @@ namespace EnemiesNS
             {
                 HealthBarPrefab.SetActive(true);
             }
+
             health -= damage;
-            //TODO: add visual indicator of hit
+
+            if (animator) animator.SetTrigger("PlayDamageFlash");
+
             if (health <= 0)
             {
                 OnDeath();
                 return;
             }
-            animator.SetTrigger("PlayDamage");
-        }
 
+            if (!animator) return;
+            if (!inAttackAnim) animator.SetTrigger("PlayDamage");
+
+        }
         protected virtual void OnDeath()
         {
             HealthBarDestroy = true;
             ChangeState(states.Dead);
-            StartCoroutine(DestroyWait()); //Temp in place of waiting for the non-existent death anim to finish
         }
 
         protected virtual void OnDestroy()
@@ -236,6 +258,11 @@ namespace EnemiesNS
             if (!animator)
             {
                 animator = this.GetComponent<Animator>();
+                VFXLayer = animator.GetLayerIndex("VFX");
+            }
+            if (!DeathParticleOrigin)
+            {
+                Debug.LogWarning("NULLREFERENCE: Death Paricle Origin not set. This will result in malfunctioning OnDeath() behavior.", this);
             }
         }
 
@@ -262,13 +289,6 @@ namespace EnemiesNS
             isWaiting = v;
             if (!isWaiting) chaseWaitElapsed = 0f;
         }
-
-        // public virtual void toggleInAttackAnim(bool v, float normalizedTime)
-        // {
-        //     inAttackAnim = v;
-        //     if (normalizedTime >= 1) playerHit = false;
-        //     if (normalizedTime >= 1) Debug.Log("anim set to false");
-        // }
 
         public void FreezeMovement(bool v)
         {
@@ -311,11 +331,6 @@ namespace EnemiesNS
             return directionToPlayer * attackKnockback;
         }
 
-        IEnumerator DestroyWait()
-        {
-            yield return new WaitForSecondsRealtime(1);
-            Destroy(gameObject);
-        }
 
         //
         // Used as events in animations
@@ -326,8 +341,26 @@ namespace EnemiesNS
         }
         public void AttackAnimEnded()
         {
+            toggleIsRecovering(true); // this seems more fitting to start recovery time. after the attack has finished. rather than on attack start like before.
             inAttackAnim = false;
         }
+        public void DeathAnimEnded()
+        {
+            // animator is on the Model's GameObject, so we can reach that GameObject through this.
+            if (animator != null)
+            {
+                animator.gameObject.SetActive(false);
+            }
+
+            // Instantiate and play the death particle effect
+            if (!DeathParticleOrigin) return;
+            particleSystemDeath = Instantiate(PrefabDeathParticles, DeathParticleOrigin);
+            particleSystemDeath.Play();
+
+            // Start a coroutine to destroy the particle system and the enemy once the particles finish playing
+            StartCoroutine(DestroyAfterParticles(particleSystemDeath));
+        }
+
 
         //
         // When creating your own enemy, override this to use your enemy specific BaseStates class. And set the set to your desired default state.
@@ -355,6 +388,23 @@ namespace EnemiesNS
             // Draw the Roam Range around the spawn position
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(spawnPos, roamRange);
+        }
+
+
+
+        private IEnumerator DestroyAfterParticles(ParticleSystem particles)
+        {
+            if (particles != null)
+            {
+                // Wait until the particle system finishes playing
+                yield return new WaitWhile(() => particles.isPlaying);
+
+                // Destroy the particle system
+                Destroy(particles.gameObject);
+            }
+
+            // Destroy the enemy object
+            Destroy(this.gameObject);
         }
     }
 }
