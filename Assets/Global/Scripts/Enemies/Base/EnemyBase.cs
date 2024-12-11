@@ -122,6 +122,7 @@ namespace EnemiesNS
 
         public GameObject HealthBarPrefab;
         public GameObject damagePopUpPrefab;
+        public float increasePopUpHeight;
         [HideInInspector]
         public bool canAttack = true;
         [HideInInspector]
@@ -191,10 +192,7 @@ namespace EnemiesNS
             {
                 HealthBarPrefab.SetActive(true);
             }
-            Vector3 position = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z);
-            GameObject damagePopUpTransform = Instantiate(damagePopUpPrefab, position, Quaternion.identity);
-            damagePopUp damagePopUp = damagePopUpTransform.GetComponent<damagePopUp>();
-            damagePopUp.SetUp(damage);
+            damagePopUp.CreatePopUp(new Vector3(transform.position.x, transform.position.y + increasePopUpHeight, transform.position.z), damagePopUpPrefab, damage);
             health -= damage;
             //TODO: add visual indicator of hit
             if (health <= 0)
