@@ -55,6 +55,7 @@ public abstract class SaveSystem
         ) Debug.LogError($"cannot save {id} because {type} is not a saveable type. please only save int, float, string or bool");
         // add value to the save system
         saveables.Add(id, new Saveable<T>($"{Prefix}_{id}", defaultValue));
+        
     }
 
     /// <summary> Saves all data stored in the save system to PlayerPrefs </summary>

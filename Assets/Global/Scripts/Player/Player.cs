@@ -30,10 +30,11 @@ public class Player : MonoBehaviour
     public float groundCheckAngle = 50.0f;
     public float maxIdleTime = 20f;
     public float minIdleTime = 5f;
+    [SerializeField] private float invulnerabilityTime = 0.5f;
 
 
     [Header("Stats")]
-    public PlayerStatistic playerStatistic = new();
+    public PlayerStatistic playerStatistic;
 
     public Tail Tail;
 
@@ -78,11 +79,19 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool isAttacking = false;
     [HideInInspector] public bool AirComboDone = false;
     // private PlayerInputActions inputActions;
-
     private bool IsLanding = false;
     [SerializeField] private Image fadeImage;
     [SerializeField] private CrossfadeController crossfadeController;
+    private bool isInvulnerable = false;
+    
+    void Awake()
+    {
+        playerStatistic = new();
+        playerStatistic.Generate();
 
+        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
+        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
+    }
 
     void Start()
     {
@@ -107,21 +116,15 @@ public class Player : MonoBehaviour
         if (isGrounded) canDodgeRoll = true;
     }
 
-
     private void attackingAnimation() => isAttacking = true;
     private void attackingStoppedAnimation() => isAttacking = false;
-    private void Awake()
-    {
-        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
-        GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
-    }
 
     private void OnDestroy()
     {
         GlobalReference.UnsubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
         GlobalReference.UnsubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
     }
-    
+
     private void OnDrawGizmos()
     {
         Debug.DrawLine(rb.position, rb.position + targetVelocity, debug_lineColor, 0, true);
@@ -166,7 +169,7 @@ public class Player : MonoBehaviour
                     if (Vector3.Angle(Vector3.up, hit.normal) < groundCheckAngle)
                     {
                         currentJumps = 0;
-                        if(!isGrounded)
+                        if (!isGrounded)
                             Tail.attackIndex = 0;
                         isGrounded = true;
                         playerAnimationsHandler.SetBool("IsOnGround", true);
@@ -187,19 +190,17 @@ public class Player : MonoBehaviour
         // playerAnimationsHandler.SetBool("IsOnGround", false);
 
     }
+
     private void CheckLandingAnimation()
     {
-        if (rb.linearVelocity.y < -0.1f && isGrounded)
+        if (rb.linearVelocity.y < -0.1f && isGrounded && !IsLanding)
         {
-            if (!IsLanding)
-            {
-                IsLanding = true;
-                playerAnimationsHandler.resetStates();
-                playerAnimationsHandler.animator.SetTrigger("IsLanding");
-            }
+            IsLanding = true;
+            playerAnimationsHandler.resetStates();
+            playerAnimationsHandler.animator.SetTrigger("IsLanding");
         }
     }
-    
+
     public void SetState(StateBase newState)
     {
         // stop active coroutine
@@ -259,7 +260,7 @@ public class Player : MonoBehaviour
     {
         // return if there is no target velocity to move towards | currently disabled as I'm investigating it's necessity
         // if (targetVelocity == Vector3.zero) return;
-        
+
         // slowly move to target velocity
         Vector3 newVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, currentMovementLerpSpeed * Time.deltaTime);
 
@@ -285,20 +286,29 @@ public class Player : MonoBehaviour
     // If we go the event route this should change right?
     public void OnHit(float damage)
     {
+        if (isInvulnerable) return;
         playerStatistic.Health -= damage;
         if (playerStatistic.Health <= 0) OnDeath();
 
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
-
         AddMold(5f); // add 5% to the moldmeter
     }
 
     public void AddMold(float percentage) {
         playerStatistic.Moldmeter += percentage;
         GlobalReference.AttemptInvoke(Events.MOLDMETER_CHANGED);
-    }
 
-    public void applyKnockback(Vector3 knockback, float time)
+        isInvulnerable = true;
+        StartCoroutine(InvulnerabilityTimer());
+    }
+    
+    private IEnumerator InvulnerabilityTimer()
+    {
+        yield return new WaitForSeconds(invulnerabilityTime);
+        isInvulnerable = false;
+    }
+    
+    public void ApplyKnockback(Vector3 knockback, float time)
     {
         //
         // TODO: Need to be written once we have reworked movement
@@ -315,12 +325,14 @@ public class Player : MonoBehaviour
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
 
-    public void MultiplyMaxHealth(float reward) {
+    public void MultiplyMaxHealth(float reward)
+    {
         playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
         Heal(1f);
     }
-    
-    public void IncreaseMaxHealth(float reward) {
+
+    public void IncreaseMaxHealth(float reward)
+    {
         playerStatistic.MaxHealth.AddModifier("reward", reward);
         Heal(1f);
     }
@@ -331,7 +343,8 @@ public class Player : MonoBehaviour
     {
         StartCoroutine(DeathScreen());
     }
-    private IEnumerator DeathScreen() {
+    private IEnumerator DeathScreen()
+    {
         Debug.Log("Player died", this);
         yield return StartCoroutine(crossfadeController.Crossfade_Start());
         SceneManager.LoadScene("Death");
