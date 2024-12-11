@@ -9,15 +9,18 @@ public class SpikeField : MonoBehaviour
     [SerializeField] private float disableDuration = 0.1f; // Avoid damage loop
     [SerializeField] private float knockbackForce = 10f; // Horizontal knockback speed
     [SerializeField] private float leapForce = 5f; // Vertical leap speed
-    private PlayerReference player;
+    private Player player;
 
     private List<GameObject> hitEntities = new();
     private Dictionary<string, System.Action<GameObject>> tagHandlers;
 
+    private bool isDisabled = false;
+
     private void Start()
     {
         // Ensure Player reference is set correctly
-        player = GlobalReference.GetReference<PlayerReference>();
+        player = GlobalReference.GetReference<PlayerReference>().Player;
+
         if (player == null)
         {
             Debug.LogError("Player reference not found.");
@@ -42,12 +45,19 @@ public class SpikeField : MonoBehaviour
 
     private void HandlePlayer(GameObject entity)
     {
+
         if (player == null) return;
+
+        PlayerObject playerObj = GlobalReference.GetReference<PlayerReference>().PlayerObj;
 
         if (AddToHitEntities(entity))
         {
-            player.Player.OnHit(damage);
-            ApplyKnockback(player.Player.gameObject);
+            player.OnHit(damage);
+
+            Vector3 knockback = ApplyKnockbackToGO.CalculateKnockback(gameObject, playerObj.gameObject, knockbackForce, leapForce);
+
+            ApplyKnockbackToGO.ApplyKnockback(playerObj.gameObject, knockback, disableDuration, this);
+
         }
     }
 
@@ -56,40 +66,20 @@ public class SpikeField : MonoBehaviour
         EnemyBase enemy = entity.GetComponent<EnemyBase>();
         if (enemy == null) return;
 
-        if (AddToHitEntities(entity))
-        {
-            enemy.OnHit(enemyDamage);
-            ApplyKnockback(enemy.gameObject);
-        }
+        if (!isDisabled) enemy.OnHit(enemyDamage);
+
+        Vector3 knockback = ApplyKnockbackToGO.CalculateKnockback(gameObject, enemy.gameObject, knockbackForce, leapForce);
+        ApplyKnockbackToGO.ApplyKnockback(enemy.gameObject, knockback, disableDuration, this);
     }
 
     private bool AddToHitEntities(GameObject entity)
     {
-        if (!hitEntities.Contains(entity))
-        {
-            hitEntities.Add(entity);
-            StartCoroutine(ReEnableAfterDelay(entity));
-            return true;
-        }
-        return false;
+        hitEntities.Add(entity);
+        StartCoroutine(ReEnableAfterDelay(entity));
+
+        return true;
     }
 
-    private void ApplyKnockback(GameObject entity)
-    {
-        Vector3 knockbackVelocity = CalculateKnockback(entity);
-        player.Player.applyKnockback(knockbackVelocity, 3);
-    }
-
-    public virtual Vector3 CalculateKnockback(GameObject entityObject)
-    {
-        Vector3 directionToEntity = entityObject.transform.position - transform.position;
-        directionToEntity.Normalize();
-
-        Vector3 knockbackVelocity = directionToEntity * knockbackForce;
-        knockbackVelocity.y = leapForce; // Add upward velocity for a leap
-
-        return knockbackVelocity * 3;
-    }
 
     // Coroutine to re-enable the spike cone after a delay
     private IEnumerator ReEnableAfterDelay(GameObject entity)

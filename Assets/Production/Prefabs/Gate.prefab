@@ -82,6 +82,9 @@ MonoBehaviour:
   interactionPrompt: E - Interact
   disabledPrompt: Cannot interact
   promptYOffset: 1.5
+  promptXOffset: 0
+  promptZOffset: 0
+  hudParent: {fileID: 4960323657670417029}
   interactDistance: 5
   isDisabled: 1
   interactionActions: []

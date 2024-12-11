@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using EnemiesNS;
+using Unity.VisualScripting;
+using UnityEngine.AI;
 
 
 public class Tail : MonoBehaviour
@@ -46,6 +48,7 @@ public class Tail : MonoBehaviour
                 : activeCooldownTime;
     }
 
+<<<<<<< Updated upstream
     public void OnTriggerEnter(Collider Collider)
     {
         if (!Collider.gameObject.CompareTag("Enemy")    ||
@@ -58,4 +61,83 @@ public class Tail : MonoBehaviour
         float actualDamage = tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
         Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
     }
+=======
+    public void WaffleQuake()
+    {
+        currentTail.groundCombo.Clear();
+        currentTail.groundCombo.Add(attacks.Where(x => x.Name == "FlipAttack").Single());
+        currentTail.groundCombo.First().damage *= 2;
+        slamObject.transform.localScale *= 1.5f; ;
+        currentTail.groundCombo.Where(x => x.Name == "FlipAttack").Single().cooldown += 3f;
+    }
+
+    public void ReverseWaffleQuake()
+    {
+        currentTail.groundCombo.Clear();
+        currentTail.groundCombo.Add(attacks.Where(x => x.Name == "LeftTailAttack").Single());
+        currentTail.groundCombo.Add(attacks.Where(x => x.Name == "RightTailAttack").Single());
+        currentTail.groundCombo.Add(attacks.Where(x => x.Name == "FlipAttack").Single());
+        currentTail.groundCombo.Where(x => x.Name == "FlipAttack").Single().damage /= 2;
+        slamObject.transform.localScale /= 1.5f;
+        currentTail.groundCombo.Where(x => x.Name == "FlipAttack").Single().cooldown -= 3f;
+    }
+    public void DoubleTap()
+    {
+        currentTail.groundCombo.Clear();
+        currentTail.groundCombo.Add(attacks.Where(x => x.Name == "LeftTailAttack").Single());
+        currentTail.groundCombo.Add(attacks.Where(x => x.Name == "RightTailAttack").Single());
+        increaseTailSpeed = 1.5f;
+    }
+
+    public void ReserseDoubleTap()
+    {
+        currentTail.groundCombo.Clear();
+        currentTail.groundCombo.Add(attacks.Where(x => x.Name == "LeftTailAttack").Single());
+        currentTail.groundCombo.Add(attacks.Where(x => x.Name == "RightTailAttack").Single());
+        currentTail.groundCombo.Add(attacks.Where(x => x.Name == "FlipAttack").Single());
+        increaseTailSpeed = 1.0f;
+    }
+    public void OnTriggerEnter(Collider Collider)
+    {
+        if (Collider.gameObject.CompareTag("Enemy"))
+        {
+            if (tailCanDoDamage)
+            {
+                if (player.collidersEnemy.Contains(Collider))
+                {
+                    return;
+                }
+                player.collidersEnemy.Add(Collider);
+                float actualDamage =
+                    tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
+
+                // enemy 
+                EnemiesNS.EnemyBase enemy = Collider.GetComponent<EnemiesNS.EnemyBase>();
+                Debug.Log("Enemy: " + enemy);
+                if (enemy != null)
+                {
+                    enemy.agent.updatePosition = false;
+                    enemy.agent.updateRotation = false;
+                    enemy.agent.isStopped = true;
+
+                    Vector3 kb = -enemy.transform.forward * 25000;
+
+                    Rigidbody rb = enemy.TryGetComponent<Rigidbody>(out var rigidbody) ? rigidbody : enemy.AddComponent<Rigidbody>();
+                    if (rb != null)
+                    {
+                        rb.AddForce(kb);
+                    }
+
+
+                    enemy.OnHit((int)MathF.Round(actualDamage, 0));
+                    // backwards knockback from where the enemy is facing
+
+
+                }
+            }
+        }
+    }
+
+
+>>>>>>> Stashed changes
 }

@@ -14,7 +14,7 @@ namespace EnemiesNS
 
         public virtual void Exit()
         {
-            enemy.FreezeMovement(false);
+            // enemy.FreezeMovement(false);
         }
 
         public virtual void Update()

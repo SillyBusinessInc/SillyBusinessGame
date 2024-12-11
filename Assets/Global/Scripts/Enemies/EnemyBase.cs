@@ -2,6 +2,7 @@
 ///                             OBSOLETE                                  ///
 /////////////////////////////////////////////////////////////////////////////
 
+using System.Collections;
 using UnityEngine;
 
 // Base enemy class
@@ -10,7 +11,13 @@ public abstract class EnemyBase : MonoBehaviour
     [Header("Base Enemy Fields")]
     [SerializeField]
     [Range(0, 250)]
+<<<<<<< Updated upstream
     public int health = 100;
+=======
+    protected int health = 100;
+    [SerializeField] private float invulnerabilityTime = 0.75f;
+    private bool isInvulnerable = false;
+>>>>>>> Stashed changes
 
     protected void Start()
     {
@@ -34,13 +41,27 @@ public abstract class EnemyBase : MonoBehaviour
 
     public void OnHit(int damage)
     {
-        
+        if (isInvulnerable) return;
+
         health -= damage;
         if (health <= 0)
         {
             OnDeath();
         }
+
+        isInvulnerable = true;
+
+        // Start invulnerability timer
+        StartCoroutine(InvulnerabilityTimer());
+
     }
+
+    private IEnumerator InvulnerabilityTimer()
+    {
+        yield return new WaitForSeconds(invulnerabilityTime);
+        isInvulnerable = false;
+    }
+
 
     virtual public void OnDeath()
     {

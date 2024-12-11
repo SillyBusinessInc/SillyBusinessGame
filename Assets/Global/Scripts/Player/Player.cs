@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     public float maxIdleTime = 20f;
     public float minIdleTime = 5f;
 
+    [SerializeField] private float invulnerabilityTime = 0.5f;
 
     [Header("Stats")]
     public PlayerStatistic playerStatistic = new();
@@ -71,7 +72,7 @@ public class Player : MonoBehaviour
     [Header("Debugging")]
     [SerializeField] public bool isGrounded;
     [SerializeField] private string debug_currentStateName = "none";
-    [SerializeField] private bool isKnockedBack = false;
+    [SerializeField] public bool isKnockedBack = false;
     [HideInInspector] public Color debug_lineColor;
     [HideInInspector] public bool isHoldingJump = false;
     [HideInInspector] public bool isHoldingDodge = false;
@@ -81,8 +82,12 @@ public class Player : MonoBehaviour
 
     private bool IsLanding = false;
     [SerializeField] private Image fadeImage;
+<<<<<<< Updated upstream
     [SerializeField] private CrossfadeController crossfadeController;
 
+=======
+    private bool isInvulnerable = false;
+>>>>>>> Stashed changes
 
     void Start()
     {
@@ -107,6 +112,7 @@ public class Player : MonoBehaviour
         if (isGrounded) canDodgeRoll = true;
     }
 
+<<<<<<< Updated upstream
 
     private void attackingAnimation() => isAttacking = true;
     private void attackingStoppedAnimation() => isAttacking = false;
@@ -122,6 +128,8 @@ public class Player : MonoBehaviour
         GlobalReference.UnsubscribeTo(Events.PLAYER_ATTACK_ENDED, attackingStoppedAnimation);
     }
     
+=======
+>>>>>>> Stashed changes
     private void OnDrawGizmos()
     {
         Debug.DrawLine(rb.position, rb.position + targetVelocity, debug_lineColor, 0, true);
@@ -199,7 +207,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-    
+
     public void SetState(StateBase newState)
     {
         // stop active coroutine
@@ -259,7 +267,13 @@ public class Player : MonoBehaviour
     {
         // return if there is no target velocity to move towards | currently disabled as I'm investigating it's necessity
         // if (targetVelocity == Vector3.zero) return;
+<<<<<<< Updated upstream
         
+=======
+
+
+
+>>>>>>> Stashed changes
         // slowly move to target velocity
         Vector3 newVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, currentMovementLerpSpeed * Time.deltaTime);
 
@@ -285,10 +299,20 @@ public class Player : MonoBehaviour
     // If we go the event route this should change right?
     public void OnHit(float damage)
     {
+        if (isInvulnerable) return;
         playerStatistic.Health -= damage;
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
 
         if (playerStatistic.Health <= 0) OnDeath();
+
+        isInvulnerable = true;
+        StartCoroutine(InvulnerabilityTimer());
+    }
+
+    private IEnumerator InvulnerabilityTimer()
+    {
+        yield return new WaitForSeconds(invulnerabilityTime);
+        isInvulnerable = false;
     }
 
     public void applyKnockback(Vector3 knockback, float time)
@@ -308,12 +332,14 @@ public class Player : MonoBehaviour
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
 
-    public void MultiplyMaxHealth(float reward) {
+    public void MultiplyMaxHealth(float reward)
+    {
         playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
         Heal(1f);
     }
-    
-    public void IncreaseMaxHealth(float reward) {
+
+    public void IncreaseMaxHealth(float reward)
+    {
         playerStatistic.MaxHealth.AddModifier("reward", reward);
         Heal(1f);
     }
@@ -329,6 +355,12 @@ public class Player : MonoBehaviour
         yield return StartCoroutine(crossfadeController.Crossfade_Start());
         SceneManager.LoadScene("Death");
     }
+<<<<<<< Updated upstream
+=======
+
+    private void MoveToMenu() => UILogic.FadeToScene("Death", fadeImage, this);
+
+>>>>>>> Stashed changes
 
     IEnumerator KnockbackStunRoutine(float time = 0.5f)
     {
