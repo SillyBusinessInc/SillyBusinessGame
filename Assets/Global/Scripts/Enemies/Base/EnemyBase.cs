@@ -207,15 +207,17 @@ namespace EnemiesNS
             {
                 HealthBarPrefab.SetActive(true);
             }
+
             health -= damage;
-            Debug.Log("HIT SHOULD FLASH");
+
             if (animator) animator.SetTrigger("PlayDamageFlash");
-            //TODO: add visual indicator of hit
+
             if (health <= 0)
             {
                 OnDeath();
                 return;
             }
+
             if (!animator) return;
             if (!inAttackAnim) animator.SetTrigger("PlayDamage");
 
