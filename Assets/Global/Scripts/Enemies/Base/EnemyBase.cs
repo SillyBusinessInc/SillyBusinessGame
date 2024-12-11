@@ -142,6 +142,10 @@ namespace EnemiesNS
         [SerializeField]
         public Animator animator;
 
+        [Tooltip("OPTIONAL: Reference to the Rigidbody of this enemy. Has Default")]
+        [SerializeField]
+        public Rigidbody rb;
+
         [Tooltip("OPTIONAL: Reference to the NavMeshAgent of this enemy. Has Default")]
         [SerializeField]
         public NavMeshAgent agent;
@@ -237,6 +241,41 @@ namespace EnemiesNS
             {
                 animator = this.GetComponent<Animator>();
             }
+
+            if (!rb)
+            {
+                rb = this.GetComponent<Rigidbody>();
+            }
+        }
+
+        public void DoKnockback(Vector3 knockback, float duration)
+        {
+            StartCoroutine(ApplyKnockback(knockback));
+        }
+
+        private IEnumerator ApplyKnockback(Vector3 force)
+        {
+            yield return null;
+
+            FreezeMovement(true);
+            rb.isKinematic = false;
+            rb.useGravity = true;
+            rb.AddForce(force);
+
+            yield return new WaitForFixedUpdate();
+            float knockbackTime = Time.deltaTime;
+            yield return new WaitUntil(
+                () => Time.deltaTime - knockbackTime > 0.5f || rb.linearVelocity.magnitude < 0.1f
+            );
+            yield return new WaitForSeconds(0.25f);
+
+            rb.isKinematic = true;
+            FreezeMovement(false);
+
+            FreezeMovement(false);
+
+            yield return null;
+
         }
 
         public void toggleCanAttack(bool v)
@@ -272,6 +311,7 @@ namespace EnemiesNS
 
         public void FreezeMovement(bool v)
         {
+            Debug.Log("Freeze: ");
             agent.isStopped = v;
         }
 

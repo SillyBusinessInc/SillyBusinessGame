@@ -68,17 +68,11 @@ public class Tail : MonoBehaviour
         Debug.Log("Enemy: " + enemy);
         if (enemy != null)
         {
-            enemy.agent.updatePosition = false;
-            enemy.agent.updateRotation = false;
-            enemy.agent.isStopped = true;
 
-            Vector3 kb = -enemy.transform.forward * 25000;
 
-            Rigidbody rb = enemy.TryGetComponent<Rigidbody>(out var rigidbody) ? rigidbody : enemy.AddComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.AddForce(kb);
-            }
+            Vector3 kb = -enemy.transform.forward * 5000;
+
+            enemy.DoKnockback(kb, 0.5f);
 
 
         }

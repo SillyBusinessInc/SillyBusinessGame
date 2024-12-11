@@ -2,6 +2,7 @@
 ///                             OBSOLETE                                  ///
 /////////////////////////////////////////////////////////////////////////////
 
+using System.Collections;
 using FollowEnemyStates;
 using UnityEngine;
 using UnityEngine.AI;
@@ -12,6 +13,7 @@ public class FollowEnemy : EnemyBase
     private FollowEnemyStates.StateBase currentState;
 
     [HideInInspector] public NavMeshAgent agent;
+    [HideInInspector] public Rigidbody Rigidbody;
     [HideInInspector] public Animator animator;
 
     [Header("Roaming behavior")]
@@ -71,6 +73,8 @@ public class FollowEnemy : EnemyBase
         currentState?.Enter();
         currentStateName = state.GetType().Name;
     }
+
+
 
     public void toggleCanAttack(bool v)
     {
