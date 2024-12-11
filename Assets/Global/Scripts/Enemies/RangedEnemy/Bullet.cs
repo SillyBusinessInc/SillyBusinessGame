@@ -15,6 +15,7 @@ namespace EnemiesNS
         [SerializeField]
         [Range(0f, 100f)]
         public float attackKnockback = 2f;
+        public GameObject impactVFX;
         public Bullet(Vector3 position)
         {
             bulletDirection = position;
@@ -27,15 +28,28 @@ namespace EnemiesNS
         
 
         void OnTriggerEnter(Collider hit)
-        {   
-            if (hit.gameObject.layer == 7 || hit.gameObject.layer == 9){
+        {
+            if (hit.gameObject.layer == 7 || hit.gameObject.layer == 9)
+            {
                 PlayerHit(bulletDamage);
-            }else if (hit.gameObject.tag == "Enemy"){
-                //damage enemy
-                hit.gameObject.GetComponent<EnemyBase>().OnHit(bulletEnemyDamage);
-            }if(hit.gameObject.layer == 1 || hit.gameObject.layer == 2 || hit.gameObject.layer == 5 || hit.gameObject.layer == 10){
+            }
+            else if (hit.gameObject.CompareTag("Enemy"))
+            {
+                // Damage enemy
+                var enemy = hit.gameObject.GetComponent<EnemyBase>();
+                if (enemy != null)
+                {
+                    enemy.OnHit(bulletEnemyDamage);
+                }
+            }
+
+            if (hit.gameObject.layer == 1 || hit.gameObject.layer == 2 || hit.gameObject.layer == 5 || hit.gameObject.layer == 10)
+            {
                 return;
             }
+
+            // Play VFX and destroy bullet
+            PlayImpactVFX();
             Destroy(gameObject);
         }
 
@@ -65,6 +79,26 @@ namespace EnemiesNS
 
             // Destroy the bullet after its lifetime
             Destroy(gameObject, bulletLifeTime);
+        }
+
+        private void PlayImpactVFX()
+        {
+            if (impactVFX == null) return;
+
+            // Instantiate VFX at the bullet's position and rotation
+            GameObject vfxInstance = Instantiate(impactVFX, transform.position, Quaternion.identity);
+
+            // Get the ParticleSystem component to check its duration
+            ParticleSystem vfxParticleSystem = vfxInstance.GetComponent<ParticleSystem>();
+            if (vfxParticleSystem != null)
+            {
+                Destroy(vfxInstance, vfxParticleSystem.main.duration + vfxParticleSystem.main.startLifetime.constantMax);
+            }
+            else
+            {
+                // If no ParticleSystem is found, destroy immediately
+                Destroy(vfxInstance, 2f); // Default to 2 seconds
+            }
         }
 
     }

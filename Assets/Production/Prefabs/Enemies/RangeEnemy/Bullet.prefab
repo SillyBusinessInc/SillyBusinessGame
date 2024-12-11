@@ -128,6 +128,7 @@ MonoBehaviour:
   bulletEnemyDamage: 5
   bulletDirection: {x: 0, y: 0, z: 0}
   attackKnockback: 0
+  impactVFX: {fileID: 4593184484909914552, guid: 2e1e9506f5904a64b81744324fb7cd50, type: 3}
 --- !u!54 &2774876018155544112
 Rigidbody:
   m_ObjectHideFlags: 0
