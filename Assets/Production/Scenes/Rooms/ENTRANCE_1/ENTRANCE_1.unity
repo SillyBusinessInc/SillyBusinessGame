@@ -7779,8 +7779,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bae2765092ca85419314e15e6e2f792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  from: 12
-  to: 18
+  from: 13
+  to: 2
 --- !u!4 &497316864 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3259338827336283191, guid: c8ee684c15659df459d8a2da69b99dd0, type: 3}
