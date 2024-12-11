@@ -1,6 +1,6 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
+using System.Collections;
 
 public class MoldMeter : MonoBehaviour
 {
@@ -10,8 +10,9 @@ public class MoldMeter : MonoBehaviour
     [SerializeField] private RectTransform MoldMeterImage;
     private Vector2 PositionMold;
     private float OriginalPosX;
+    private Coroutine moveCoroutine;
+    [SerializeField] private float animationDuration = 0.5f; // Duration for smooth movement
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         PositionMold = MoldMeterImage.anchoredPosition;
@@ -32,9 +33,32 @@ public class MoldMeter : MonoBehaviour
         string decimals = moldPercentage >= 100 || moldPercentage == 0 ? "F0" : "F1";
         MoldPercentageText.text = moldPercentage.ToString(decimals) + '%';
 
-        // when moldmeter is 0%, posX of mold should be -88. so it should move 2.71 per 1%
-        // when moldmeter is 100% the posX is 183
-        PositionMold.x = 2.71f * moldPercentage + OriginalPosX; // move the moldImage to the right based on the percentage
-        MoldMeterImage.anchoredPosition = PositionMold;
+        // when moldmeter is 0%, posX of mold should be -256.82. so it should move 2.772 per 1%
+        // when moldmeter is 100% the posX is 10
+        float targetPosX = 2.772f * moldPercentage + OriginalPosX;
+        Vector2 targetPosition = new(targetPosX, MoldMeterImage.anchoredPosition.y);
+
+        // Start smooth movement
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine); // Stop any ongoing movement
+        }
+        moveCoroutine = StartCoroutine(SmoothMove(MoldMeterImage, targetPosition, animationDuration));
+    }
+
+    private IEnumerator SmoothMove(RectTransform rect, Vector2 target, float duration)
+    {
+        Vector2 startPosition = rect.anchoredPosition;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration); // Normalize time (0 to 1)
+            rect.anchoredPosition = Vector2.Lerp(startPosition, target, t);
+            yield return null; // Wait for the next frame
+        }
+
+        rect.anchoredPosition = target; // Ensure it reaches the target position
     }
 }
