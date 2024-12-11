@@ -20,13 +20,13 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.9883371, g: 0.92255974, b: 0.66199934, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: a7a5530c3c0622d41b83f23d52083f1a, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 18771528553002c4f8c6d9fd3a177952, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -1043,6 +1043,79 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2937197684402846927, guid: 13138c07a937bc14ab5af6ee5d9d912c, type: 3}
   m_PrefabInstance: {fileID: 306467217}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &388777118
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 42500
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 42500
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 42500
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -34.49997
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -113.170044
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8.789463
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3391550196289d048bccd4c3324ed436, type: 2}
+    - target: {fileID: 919132149155446097, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
+      propertyPath: m_Name
+      value: skybox_sphere
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 27f15eea81f1d8a47b5c100da4f96fb6, type: 3}
 --- !u!1001 &425180232
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1089,6 +1162,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2201667226312078786, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2201667226312078786, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4316266649658499361, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
@@ -3865,6 +3946,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2201667226312078786, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2201667226312078786, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4316266649658499361, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
       propertyPath: m_Name
       value: Melee Enemy (2)
@@ -4046,6 +4135,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2201667226312078786, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2201667226312078786, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4316266649658499361, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
@@ -4708,6 +4805,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2201667226312078786, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2201667226312078786, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4316266649658499361, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
       propertyPath: m_Name
       value: Melee Enemy (5)
@@ -4846,6 +4951,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1587067519520307107, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2201667226312078786, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2201667226312078786, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4316266649658499361, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
@@ -6478,6 +6591,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2201667226312078786, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2201667226312078786, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4316266649658499361, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
       propertyPath: m_Name
       value: Melee Enemy (4)
@@ -6654,4 +6775,5 @@ SceneRoots:
   - {fileID: 1343744710}
   - {fileID: 2069645518}
   - {fileID: 1517186763}
+  - {fileID: 388777118}
   - {fileID: 1640861683}
