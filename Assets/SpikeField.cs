@@ -77,7 +77,7 @@ public class SpikeField : MonoBehaviour
     private void ApplyKnockback(GameObject entity)
     {
         Vector3 knockbackVelocity = CalculateKnockback(entity);
-        player.Player.ApplyKnockback(knockbackVelocity, 3);
+        player.Player.applyKnockback(knockbackVelocity, 3);
     }
 
     public virtual Vector3 CalculateKnockback(GameObject entityObject)

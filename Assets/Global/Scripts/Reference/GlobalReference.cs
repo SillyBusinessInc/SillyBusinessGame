@@ -15,17 +15,11 @@ public static class GlobalReference
     private static DevSettings devSettings;
     public static DevSettings DevSettings => devSettings ??= new();
 
-    private static PermanentPlayerStatistic permanentPlayerStatistic;
-    public static PermanentPlayerStatistic PermanentPlayerStatistic { 
-        get => permanentPlayerStatistic ??= new();
-    }
-
     public static void Save()
     {
         statistics.SaveAll();
         settings.SaveAll();
         devSettings.SaveAll();
-        permanentPlayerStatistic.SaveAll();
     }
 
     #endregion

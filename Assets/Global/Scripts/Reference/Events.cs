@@ -2,41 +2,37 @@ using UnityEngine;
 
 public enum Events
 {
-    // IMPORTANT: DON'T CHANGE THE NUMBERS OF EXISTING ENUMS. JUST ADD NEW ONES WITH A NEW NON EXISTING NUMBER
     #region general
-    PICKUP_COLLECTED = 0,
-    ROOM_FINISHED = 1,
-    DROP_TREASURE_EVENT = 2,
+    PICKUP_COLLECTED,
+    ROOM_FINISHED,
+    DROP_TREASURE_EVENT,
     #endregion
     
     #region enemy
-    ENEMY_KILLED = 3,
-    ENEMY_SPAWNED = 4,
+    ENEMY_KILLED,
+    ENEMY_SPAWNED,
     #endregion
     
     #region waves
-    ALL_ENEMIES_DEAD = 5,
-    NORMAL_WAVE_DONE = 6,
-    NORMAL_WAVE_START = 7,
-    SPAWN_WAVE = 8,
-    ALL_WAVES_DONE =9,
-    MOLD_CORE_SPAWNED = 10,
-    MOLD_CORE_KILLED = 11,
-    NEXT_SPAWNER = 12,
-    ALL_NEXT_SPAWNERS_DONE = 13,
+    ALL_ENEMIES_DEAD,
+    NORMAL_WAVE_DONE,
+    NORMAL_WAVE_START,
+    SPAWN_WAVE,
+    ALL_WAVES_DONE,
+    MOLD_CORE_SPAWNED,
+    MOLD_CORE_KILLED,
+    NEXT_SPAWNER,
+    ALL_NEXT_SPAWNERS_DONE,
     #endregion
 
-    // STATS RELATED EVENTS
     #region stats
-    CRUMBS_CHANGED = 14,
-    HEALTH_CHANGED = 15,
-    STATISTIC_CHANGED = 16,
-    MOLDMETER_CHANGED = 17,
+    CRUMBS_CHANGED,
+    HEALTH_CHANGED,
+    STATISTIC_CHANGED,
     #endregion
-    
-    // player attacks
+
     #region player attack
-    PLAYER_ATTACK_STARTED = 18,
-    PLAYER_ATTACK_ENDED = 19,
+    PLAYER_ATTACK_STARTED,
+    PLAYER_ATTACK_ENDED,
     #endregion
 }
