@@ -7800,7 +7800,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveTypes:
   - {fileID: 1034234624}
-  - {fileID: 1714373285}
 --- !u!4 &1221693899
 Transform:
   m_ObjectHideFlags: 0

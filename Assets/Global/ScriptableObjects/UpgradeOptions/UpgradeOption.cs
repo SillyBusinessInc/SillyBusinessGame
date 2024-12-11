@@ -7,6 +7,6 @@ public class UpgradeOption : ScriptableObject
     public Sprite image;
     public new string name;
     public string description;
-    public float rarity; 
+    public int rarity; 
     public List<ActionParamPair> interactionActions;
 }

@@ -34,9 +34,9 @@ public class StatIncreaseAction : ThreeParamAction
         // Use reflection to find and modify the field
         FieldInfo field = typeof(PlayerStatistic).GetField(stat, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 
-        if (field != null && field.FieldType == typeof(Statistic))
+        if (field != null && field.FieldType == typeof(CurrentStatistic))
         {
-            Statistic statistic = (Statistic)field.GetValue(stats);
+            CurrentStatistic statistic = (CurrentStatistic)field.GetValue(stats);
             float valueFloat = float.Parse(value);
 
             if (upgrade == UpgradeType.Modify)

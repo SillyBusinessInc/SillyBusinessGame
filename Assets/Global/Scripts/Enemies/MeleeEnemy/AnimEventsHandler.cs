@@ -22,4 +22,5 @@ public class AnimEventsHandler : MonoBehaviour
     void EnableHitBox() => enemy.EnableWeaponHitBox();
 
     void DisableHitBox() => enemy.DisableWeaponHitBox();
+    void DeathAnimEnded() => enemy.DeathAnimEnded();
 }
