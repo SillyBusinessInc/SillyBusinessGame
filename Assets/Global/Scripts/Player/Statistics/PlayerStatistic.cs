@@ -11,15 +11,30 @@ using UnityEngine;
 //[CreateAssetMenu(fileName = "PlayerStatistic", menuName = "PlayerStatistic")]
 public class PlayerStatistic
 {
-    // this is for the current stats of the player
-    public CurrentStatistic Speed;
-    public CurrentStatistic JumpForce;
-    public CurrentStatistic MaxHealth;
     private float health;
     public float Health { 
         get => health = Mathf.Min(health, MaxHealth.GetValue());
         set => health = value > 0 ? value : 0;
     }
+
+    private float moldmeter;
+    private float maxmoldmeter = 100f;
+
+    public float Moldmeter {
+        get => moldmeter = Mathf.Min(moldmeter, maxmoldmeter);
+        set => moldmeter = value > 0 ? value : 0;
+    }
+
+    private int crumbs;
+    public int Crumbs {
+        get => crumbs;
+        set => crumbs = value > 0 ? value : 0;
+    }
+
+    // this is for the current stats of the player
+    public CurrentStatistic Speed;
+    public CurrentStatistic JumpForce;
+    public CurrentStatistic MaxHealth;
     public CurrentStatistic AttackSpeedMultiplier;
     public CurrentStatistic AttackDamageMultiplier;
     public CurrentStatistic DodgeCooldown;

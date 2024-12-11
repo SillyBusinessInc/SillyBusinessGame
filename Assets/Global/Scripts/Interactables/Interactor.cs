@@ -85,30 +85,24 @@ public class PlayerInteraction : MonoBehaviour
                     SetInteractable(interactable);
                     return true;
                 }
-                Debug.Log("Get it before?");
             }
 
             // Debug visualization
             // Debug.DrawRay(rayOffset, direction * rayDistance, Color.green, 0.1f);
 
-            Debug.Log("Get it?");
             // Then check for raycast hit
             if (Physics.Raycast(ray, out RaycastHit hit, rayDistance, ~ignoreLayers))
             {
-                Debug.Log("Get it 1?");
                 if(hit.collider.TryGetComponent(out Interactable interactable)) {
-                    Debug.Log("Get it 2?");
                     float rayHitDistance = Vector3.Distance(transform.position, hit.point);
 
                     if (interactable.IsWithinInteractionRange(rayHitDistance))
                     {
-                        Debug.Log("Get it 3?");
                         SetInteractable(interactable);
                         return true;
                     }
                 }
             }
-            Debug.Log("Get it never?");
         }
         return false;
     }
