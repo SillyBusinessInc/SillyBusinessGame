@@ -85,7 +85,6 @@ public class Player : MonoBehaviour
     [SerializeField] private CrossfadeController crossfadeController;
     private bool isInvulnerable = false;
 
-
     void Start()
     {
         playerAnimationsHandler = GetComponent<PlayerAnimationsHandler>();
@@ -108,7 +107,6 @@ public class Player : MonoBehaviour
         if (isGrounded) AirComboDone = false;
         if (isGrounded) canDodgeRoll = true;
     }
-
 
     private void attackingAnimation() => isAttacking = true;
     private void attackingStoppedAnimation() => isAttacking = false;
@@ -189,16 +187,14 @@ public class Player : MonoBehaviour
         // playerAnimationsHandler.SetBool("IsOnGround", false);
 
     }
+
     private void CheckLandingAnimation()
     {
-        if (rb.linearVelocity.y < -0.1f && isGrounded)
+        if (rb.linearVelocity.y < -0.1f && isGrounded && !IsLanding)
         {
-            if (!IsLanding)
-            {
-                IsLanding = true;
-                playerAnimationsHandler.resetStates();
-                playerAnimationsHandler.animator.SetTrigger("IsLanding");
-            }
+            IsLanding = true;
+            playerAnimationsHandler.resetStates();
+            playerAnimationsHandler.animator.SetTrigger("IsLanding");
         }
     }
 

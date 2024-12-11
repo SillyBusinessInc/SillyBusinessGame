@@ -44,8 +44,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        var interactable = collision.collider.GetComponent<Interactable>();
-        if (interactable != null)
+        if (collision.collider.TryGetComponent<Interactable>(out Interactable interactable))
         {
             if (currentInteractable != null && currentInteractable != interactable)
             {
@@ -70,47 +69,46 @@ public class PlayerInteraction : MonoBehaviour
 
     private bool RaycastFindInteractable(Vector3 origin, Vector3 direction)
     {
-
         Vector3[] rayOffsets = { origin + Vector3.up * .75f, origin + Vector3.up * .5f, origin + Vector3.up * 0.1f };
+        Collider[] colliders = new Collider[10];
 
         foreach (var rayOffset in rayOffsets)
-
         {
             Ray ray = new(rayOffset, direction);
-
             // First check for overlap sphere, to see if the start of the ray is already colliding with an interactable
-            Collider[] colliders = Physics.OverlapSphere(rayOffset, 0.1f, ~ignoreLayers);
-            foreach (var collider in colliders)
+            int amount = Physics.OverlapSphereNonAlloc(rayOffset, 0.1f, colliders, ~ignoreLayers);
+            for (int i = 0; i < amount; i++)
             {
-                var interactable = collider.GetComponent<Interactable>();
-                if (interactable != null)
+                Collider collider = colliders[i];
+                if (collider.TryGetComponent(out Interactable interactable))
                 {
                     SetInteractable(interactable);
                     return true;
                 }
+                Debug.Log("Get it before?");
             }
 
             // Debug visualization
             // Debug.DrawRay(rayOffset, direction * rayDistance, Color.green, 0.1f);
 
+            Debug.Log("Get it?");
             // Then check for raycast hit
             if (Physics.Raycast(ray, out RaycastHit hit, rayDistance, ~ignoreLayers))
             {
-                var interactable = hit.collider.GetComponent<Interactable>();
-
-                if (interactable != null)
-                {
+                Debug.Log("Get it 1?");
+                if(hit.collider.TryGetComponent(out Interactable interactable)) {
+                    Debug.Log("Get it 2?");
                     float rayHitDistance = Vector3.Distance(transform.position, hit.point);
 
                     if (interactable.IsWithinInteractionRange(rayHitDistance))
                     {
+                        Debug.Log("Get it 3?");
                         SetInteractable(interactable);
                         return true;
-
                     }
                 }
             }
-
+            Debug.Log("Get it never?");
         }
         return false;
     }
