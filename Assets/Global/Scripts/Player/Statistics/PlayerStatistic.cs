@@ -28,12 +28,12 @@ public class PlayerStatistic
     public void Generate() {
         GlobalReference.PermanentPlayerStatistic.Generate();
         
-        Speed = new(10f, GlobalReference.PermanentPlayerStatistic.Speed);
-        JumpForce = new(2f, GlobalReference.PermanentPlayerStatistic.JumpForce);
+        Speed = new(12f, GlobalReference.PermanentPlayerStatistic.Speed);
+        JumpForce = new(8f, GlobalReference.PermanentPlayerStatistic.JumpForce);
         MaxHealth = new(6f, GlobalReference.PermanentPlayerStatistic.MaxHealth);
         AttackSpeedMultiplier = new(1f, GlobalReference.PermanentPlayerStatistic.AttackSpeedMultiplier);
         AttackDamageMultiplier = new(1f, GlobalReference.PermanentPlayerStatistic.AttackDamageMultiplier);
         DodgeCooldown = new(1f, GlobalReference.PermanentPlayerStatistic.DodgeCooldown);
-        DoubleJumpsCount = new(2f, GlobalReference.PermanentPlayerStatistic.DoubleJumpsCount);
+        DoubleJumpsCount = new(1f, GlobalReference.PermanentPlayerStatistic.DoubleJumpsCount);
     }
 }
