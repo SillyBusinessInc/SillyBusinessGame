@@ -4,7 +4,7 @@ namespace EnemiesNS
 {
     public class RangeAttackingState : BaseAttackingState
     {
-        private RangedEnemy enemy;
+        private new RangedEnemy enemy;
         private float currentTime;
         public RangeAttackingState(RangedEnemy enemy) : base(enemy) { this.enemy = enemy; }
 
