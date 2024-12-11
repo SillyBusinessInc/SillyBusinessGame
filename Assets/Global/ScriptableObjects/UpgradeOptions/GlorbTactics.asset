@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7f58623c8fcc854e88b271402b2c7d0, type: 3}
   m_Name: GlorbTactics
   m_EditorClassIdentifier: 
-  image: {fileID: 21300000, guid: f811d2d70eca96040940b9674e189958, type: 3}
+  image: {fileID: 21300000, guid: 670836c26ebeb544ba007821bb7cdd6e, type: 3}
   name: Glorb Tactics
   description: Increase max HP by 25
+  rarity: 0
   interactionActions:
   - action: {fileID: 11400000, guid: 6a88b6c35f690ac458cb5aa9e974188b, type: 2}
-    param: 
+    parameters: []

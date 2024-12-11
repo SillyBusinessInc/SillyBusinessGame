@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7f58623c8fcc854e88b271402b2c7d0, type: 3}
   m_Name: SugarRush
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 5f6b9fab84ab7764ca4ff408e8991c98, type: 3}
   name: SugarRush
   description: 
   rarity: 0
