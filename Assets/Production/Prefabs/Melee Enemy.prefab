@@ -100,6 +100,8 @@ MonoBehaviour:
   attackKnockback: 0
   knockbackStunTime: 0.5
   HealthBarPrefab: {fileID: 5245752069573577684}
+  damagePopUpPrefab: {fileID: 2168199860073914988, guid: 012b97fd599865245bdb6fb7421c0092, type: 3}
+  increasePopUpHeight: 5
   canAttack: 1
   isRecovering: 0
   attackCooldownElapsed: 0

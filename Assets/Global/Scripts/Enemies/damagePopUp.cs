@@ -6,8 +6,8 @@ public class damagePopUp : MonoBehaviour
 {
     private TextMeshPro textMesh;
     public float duration;
+    public float heightSpeed;
 
-    public float HeightTransfrom;
     public void Awake()
     {
         textMesh = transform.GetComponent<TextMeshPro>();
@@ -16,7 +16,7 @@ public class damagePopUp : MonoBehaviour
 
     public void Update()
     {
-        //make the color fade away over time
+        transform.position += new Vector3(0, heightSpeed * Time.deltaTime, 0);
         textMesh.color = new Color(textMesh.color.r, textMesh.color.g, textMesh.color.b, textMesh.color.a - (Time.deltaTime / duration));
     }
     public void SetUp(int damage)

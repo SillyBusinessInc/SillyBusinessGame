@@ -263,10 +263,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1710052168369373784, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
-      propertyPath: damagePopUpPrefab
-      value: 
-      objectReference: {fileID: 2168199860073914988, guid: 012b97fd599865245bdb6fb7421c0092, type: 3}
     - target: {fileID: 4316266649658499361, guid: 41003a96edc94614dbf26ad7e74a0f18, type: 3}
       propertyPath: m_Name
       value: Melee Enemy
