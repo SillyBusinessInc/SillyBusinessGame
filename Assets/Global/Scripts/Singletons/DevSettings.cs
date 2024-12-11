@@ -10,6 +10,6 @@ public class DevSettings : SaveSystem
         Add("targetDepth", 5);
         Add("bonusChance", 0);
         Add("seed", -1);
-        Add("shopDepthOverride", -2);
+        Add("shopDepthOverride", -1); // -2 = random ; -1 = disabled
     }
 }
