@@ -44,7 +44,6 @@ namespace EnemiesNS
             enemy.inAttackAnim = true;
             // Proceed with the attack if the player exists and can be damaged
             attacksThisState++;
-            enemy.toggleIsRecovering(true);
         }
 
         protected void FacePlayer()

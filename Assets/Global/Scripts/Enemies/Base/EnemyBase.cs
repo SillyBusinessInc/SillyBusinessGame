@@ -88,7 +88,7 @@ namespace EnemiesNS
         [Range(0f, 300f)]
         public float attackCooldown = 2f;
 
-        [Tooltip("The amount of time this character will have to recover from attacking, and be standing still before able to attack again")]
+        [Tooltip("The amount of time this character will have to recover from attacking, and be standing still before able to attack again. NOTE: if this is less than the attack clip length, there will be no additional waiting time applied.")]
         [SerializeField]
         [Range(0f, 10f)]
         public float attackRecoveryTime = 0.3f;
@@ -153,6 +153,10 @@ namespace EnemiesNS
         [Tooltip("Reference to this Enemy's walking particle system")]
         public ParticleSystem particleSystemWalk;
 
+        [Tooltip("Miscellaneous")]
+        [HideInInspector]
+        public int VFXLayer;
+
 
         [Header("States")]
         [HideInInspector] public BaseStates states;
@@ -190,15 +194,18 @@ namespace EnemiesNS
         public virtual void OnHit(int damage)
         {
             health -= damage;
+            Debug.Log("HIT SHOULD FLASH");
+            if (animator) animator.SetTrigger("PlayDamageFlash");
             //TODO: add visual indicator of hit
             if (health <= 0)
             {
                 OnDeath();
                 return;
             }
-            animator.SetTrigger("PlayDamage");
-        }
+            if (!animator) return;
+            if (!inAttackAnim) animator.SetTrigger("PlayDamage");
 
+        }
         protected virtual void OnDeath()
         {
             ChangeState(states.Dead);
@@ -234,6 +241,7 @@ namespace EnemiesNS
             if (!animator)
             {
                 animator = this.GetComponent<Animator>();
+                VFXLayer = animator.GetLayerIndex("VFX");
             }
             if (!DeathParticleOrigin)
             {
@@ -316,6 +324,7 @@ namespace EnemiesNS
         }
         public void AttackAnimEnded()
         {
+            toggleIsRecovering(true); // this seems more fitting to start recovery time. after the attack has finished. rather than on attack start like before.
             inAttackAnim = false;
         }
         public void DeathAnimEnded()
