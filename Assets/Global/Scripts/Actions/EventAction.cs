@@ -22,6 +22,5 @@ public class EventAction : OneParamAction
         // dynamicEvents.ForEach(e => GlobalReference.AttemptInvoke(e));
         // dynamicEvents.Clear();
     }
-
 }
 

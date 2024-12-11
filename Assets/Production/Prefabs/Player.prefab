@@ -4905,6 +4905,7 @@ GameObject:
   - component: {fileID: 29515307043888343}
   - component: {fileID: 1671110380266321935}
   - component: {fileID: 26064138549086305}
+  - component: {fileID: 6041751897651240447}
   m_Layer: 7
   m_Name: Player
   m_TagString: PlayerPrefeb
@@ -4962,7 +4963,7 @@ MonoBehaviour:
     Speed:
       baseValue: 12
     JumpForce:
-      baseValue: 50
+      baseValue: 8
     MaxHealth:
       baseValue: 6
     AttackSpeedMultiplier:
@@ -5259,6 +5260,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2954664065970205156}
+--- !u!114 &6041751897651240447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637936633501757367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c9ba022289222c4ba75c9dd39e1bfec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0.8
+  slideForceMultiplier: 10
+  maxUpwardsForce: 0.1
+  minForwardsForce: 0.6
 --- !u!1 &773626285719660731
 GameObject:
   m_ObjectHideFlags: 0
@@ -5284,7 +5301,7 @@ Transform:
   m_GameObject: {fileID: 773626285719660731}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10568,7 +10585,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5867138334220634699}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

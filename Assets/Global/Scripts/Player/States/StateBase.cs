@@ -60,9 +60,9 @@ public abstract class StateBase
             {
                 Player.playerAnimationsHandler.SetBool("IsFallingDown", false);
                 Player.playerAnimationsHandler.SetBool("IsJumpingBool",true);
-            }else{
+            }else
+            {
                 Player.playerAnimationsHandler.animator.SetTrigger("IsDoubleJumping");
-
             }
 
             Player.isHoldingJump = true;
@@ -83,7 +83,7 @@ public abstract class StateBase
         }
     }
 
-    public virtual void Crouch(InputAction.CallbackContext ctx) { }
+    public virtual void Crouch(InputAction.CallbackContext ctx) {}
 
     public virtual void Attack(InputAction.CallbackContext ctx)
     {

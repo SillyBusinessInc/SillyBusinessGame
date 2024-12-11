@@ -6,8 +6,7 @@ using UnityEngine.InputSystem.Utilities;
 [CreateAssetMenu(fileName = "TailAttacks", menuName = "FlipTail")]
 public class FlipAttack : TailAttack
 {
-    public FlipAttack(string Name, float damage, float cooldown)
-        : base(Name, damage, cooldown) { }
+    public FlipAttack(string Name, float damage, float cooldown) : base(Name, damage, cooldown) {}
 
     public override void Start()
     {

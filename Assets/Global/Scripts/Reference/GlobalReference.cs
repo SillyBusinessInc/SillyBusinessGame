@@ -4,7 +4,8 @@ using UnityEngine.Events;
 
 public static class GlobalReference
 {
-    // Non monobehavior singletons
+    #region singletons monobehavior
+
     private static Statistics statistics;
     public static Statistics Statistics
     {
@@ -35,7 +36,10 @@ public static class GlobalReference
         permanentPlayerStatistic.SaveAll();
     }
 
-    // GameObject reference logic
+    #endregion
+
+    #region gameobject reference
+
     public static Dictionary<string, Reference> referenceList = new();
 
     public static void RegisterReference(Reference ref_)
@@ -86,7 +90,10 @@ public static class GlobalReference
         return default;
     }
 
-    // Event Logic
+    #endregion
+
+    #region event logic
+
     public static Dictionary<Events, UnityEventBase> eventList = new();
 
     public static void SubscribeTo(Events eventName, UnityAction action) => TryGetEvent(eventName).AddListener(action);
@@ -120,4 +127,6 @@ public static class GlobalReference
         if (eventList[eventName] is UnityEvent<T> e) return e;
         throw new UnityException($"You are trying to access {eventName} as if it was an event with a parameter even though it has been created as a parameterless event");
     }
+
+    #endregion
 }

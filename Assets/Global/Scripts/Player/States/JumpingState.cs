@@ -6,7 +6,7 @@ public class JumpingState : StateBase
 
     public override void Enter()
     {
-        // play animation
+        // play particleSystem
         Player.particleSystemJump.Play();
 
         // add force upwards
@@ -16,7 +16,6 @@ public class JumpingState : StateBase
         // change state to falling after a bit to give the player some time to reach intended height
         Player.activeCoroutine = Player.StartCoroutine(Player.SetStateAfter(Player.states.Falling, Player.maxJumpHoldTime, true));
     }
-
 
     public override void Update()
     {

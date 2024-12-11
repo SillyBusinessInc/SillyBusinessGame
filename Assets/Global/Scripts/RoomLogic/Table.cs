@@ -67,7 +67,8 @@ public class Table
 
         // init
         RoomType roomType = RoomType.OTHER;
-        if (GlobalReference.GetReference<GameManagerReference>().GetRoom(row.id).IsStandard() && random.Next(0, 100) < bonusChance) AddBonusRoom(row);
+        var isStandard = GlobalReference.GetReference<GameManagerReference>().GetRoom(row.id).IsStandard();
+        if (isStandard && random.Next(0, 100) < bonusChance) AddBonusRoom(row);
 
         // get total branches to apply
         int branchesToApply = random.Next(minBranchCount, maxBranchCount+1);
@@ -135,29 +136,28 @@ public class Table
         GlobalReference.GetReference<GameManagerReference>().AddRoom(newRow.id, roomType);
         return newRow.id;
     }
+
     private int GetIdFromOldRow(List<Row> existingBranches) {
         Row newRow = existingBranches[random.Next(0, existingBranches.Count)];
         existingBranches.Remove(newRow);
         return newRow.id;
     }
 
-    // Debug print Table (Tree Structure)
-    public void PrintTableAsTree() {
-        Debug.Log("Generated Table (Tree Structure):");
-        PrintRowRecursive(GetRow(0), 0);
-    }
+    // // Debug print Table (Tree Structure)
+    // public void PrintTableAsTree() {
+    //     Debug.Log("Generated Table (Tree Structure):");
+    //     PrintRowRecursive(GetRow(0), 0);
+    // }
 
-    private void PrintRowRecursive(Row row, int indentLevel) {
-        string indent = new string(' ', indentLevel * 4);
-        Debug.Log($"{indent}- Row {row.id} (Depth: {row.depth})");
+    // private void PrintRowRecursive(Row row, int indentLevel) {
+    //     string indent = new string(' ', indentLevel * 4);
+    //     Debug.Log($"{indent}- Row {row.id} (Depth: {row.depth})");
 
-        foreach (int branchId in row.branches) {
-            Row branch = GetRow(branchId);
-            PrintRowRecursive(branch, indentLevel + 1);
-        }
-    }
-
-
+    //     foreach (int branchId in row.branches) {
+    //         Row branch = GetRow(branchId);
+    //         PrintRowRecursive(branch, indentLevel + 1);
+    //     }
+    // }
 }
 
 public struct Row {
