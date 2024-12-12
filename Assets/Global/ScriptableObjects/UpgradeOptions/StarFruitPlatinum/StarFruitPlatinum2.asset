@@ -16,4 +16,9 @@ MonoBehaviour:
   name: Starfruit Platinum
   description: Increases attack speed
   rarity: 2
-  interactionActions: []
+  interactionActions:
+  - action: {fileID: 11400000, guid: 21c2a01c9ec3b104bb8807de684e60a5, type: 2}
+    parameters:
+    - AttackSpeedMultiplier
+    - -0.1
+    - Modify
