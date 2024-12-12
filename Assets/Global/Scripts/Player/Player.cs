@@ -247,12 +247,12 @@ public class Player : MonoBehaviour
 
     private void RotatePlayerObj()
     {
-        if (isKnockedBack && rb.linearVelocity.magnitude < 0.1f) isKnockedBack = false;
+        if (isKnockedBack && targetVelocity.magnitude < 0.1f) isKnockedBack = false;
         if (isKnockedBack) return;
-        if (rb.linearVelocity.magnitude > 0.1f)
+        if (targetVelocity.magnitude > 0.1f)
         {
-            Vector3 direction = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up).normalized;
-            if (direction != Vector3.zero) rb.MoveRotation(Quaternion.LookRotation(direction));
+            Vector3 direction = Vector3.ProjectOnPlane(targetVelocity, Vector3.up).normalized;
+            if (direction != Vector3.zero) rb.MoveRotation(Quaternion.Lerp(rb.rotation, Quaternion.LookRotation(direction), 0.2f));
         }
     }
 
