@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 2f5a95fdac21e784780fc2538342fe32
+labels:
+- Paint
+- Brush
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/Resources/Shaders/PainterlyFourURotateMin.shader
+  uploadId: 103997

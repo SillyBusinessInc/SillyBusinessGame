@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 52c71ea41d93e38469bdea477f142e25
+labels:
+- Paint
+- Brush
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/Resources/Shaders/PainterlyThreeRandomizeMinGrade.shader
+  uploadId: 103997

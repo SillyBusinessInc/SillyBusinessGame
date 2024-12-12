@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 725a1279dc3beee49abf9e701a21b042
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/Editor/PainterlyEditor.cs
+  uploadId: 103997

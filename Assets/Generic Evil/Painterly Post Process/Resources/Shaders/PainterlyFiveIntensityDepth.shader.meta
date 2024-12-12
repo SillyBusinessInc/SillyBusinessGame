@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 70f4af17c136ef14981dcfafaf7d0fa0
+labels:
+- Paint
+- Brush
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/Resources/Shaders/PainterlyFiveIntensityDepth.shader
+  uploadId: 103997

@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 251259fd63ec76a4a9144e7b9b33ea85
+labels:
+- Paint
+- Brush
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/Resources/Shaders/PainterlyFourIntensity.shader
+  uploadId: 103997

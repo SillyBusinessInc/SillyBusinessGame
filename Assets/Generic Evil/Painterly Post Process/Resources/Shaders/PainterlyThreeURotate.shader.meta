@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 47f49afdb81fb6a4e98a38237baf13b9
+labels:
+- Paint
+- Brush
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/Resources/Shaders/PainterlyThreeURotate.shader
+  uploadId: 103997

@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 26a48056df814ed44af8135909ddf4c1
+labels:
+- Paint
+- Brush
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/Resources/Shaders/PainterlySixRandomizeIntensity.shader
+  uploadId: 103997

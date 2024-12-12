@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 361ca7cd2d060a64b989ef89d1e58ac3
+labels:
+- Paint
+- Brush
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/Resources/Shaders/PainterlySixRandomizeDepth.shader
+  uploadId: 103997

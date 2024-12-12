@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: d6e20266697a9ff48af221e5d0581af4
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - rampTexture: {fileID: 2800000, guid: 56db61a2a7770cb458196335b09a176e, type: 3}
+  - overlayShader: {fileID: 4800000, guid: ca14ad870f214704ba8b84342463d16a, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/PainterlyImageEffect.cs
+  uploadId: 103997

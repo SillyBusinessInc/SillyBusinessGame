@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: bc9cf33c3d80bb54eab8d4766a4cc365
+labels:
+- Paint
+- Brush
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/Resources/Shaders/PainterlyFourURotateIntensityGradeDepth.shader
+  uploadId: 103997

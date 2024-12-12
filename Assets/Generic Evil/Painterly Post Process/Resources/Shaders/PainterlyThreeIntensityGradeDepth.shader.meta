@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 74ead6f1413a0974cad72ab52366ebb9
+labels:
+- Paint
+- Brush
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/Resources/Shaders/PainterlyThreeIntensityGradeDepth.shader
+  uploadId: 103997

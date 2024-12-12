@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 507d959a49d0c684c8bb63afd770f893
+labels:
+- Paint
+- Brush
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/Resources/Shaders/PainterlySixDepth.shader
+  uploadId: 103997

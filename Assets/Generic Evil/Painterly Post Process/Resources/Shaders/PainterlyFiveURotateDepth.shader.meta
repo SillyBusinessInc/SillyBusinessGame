@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 4d25ddf5977e14c4d989d53e29487618
+labels:
+- Paint
+- Brush
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/Resources/Shaders/PainterlyFiveURotateDepth.shader
+  uploadId: 103997

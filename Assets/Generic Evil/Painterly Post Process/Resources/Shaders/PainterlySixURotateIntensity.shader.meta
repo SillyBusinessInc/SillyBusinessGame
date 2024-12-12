@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: c15ed0cce40ed5e4d8dc922215fbca5a
+labels:
+- Paint
+- Brush
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/Resources/Shaders/PainterlySixURotateIntensity.shader
+  uploadId: 103997

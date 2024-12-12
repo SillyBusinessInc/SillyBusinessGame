@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 0a8520c0d8ee1464d8993a838211bf14
+labels:
+- Paint
+- Brush
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/Resources/Shaders/PainterlyFiveURotateMinGrade.shader
+  uploadId: 103997

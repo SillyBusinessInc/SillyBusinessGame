@@ -52,10 +52,30 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -4683669308469848369, guid: 792fd43907a824c44ae227255c9c8649, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4c3601092c177494aa5e90eae1db2add, type: 2}
+    - target: {fileID: -1461304994638716399, guid: 792fd43907a824c44ae227255c9c8649, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9aab490a01105e5439ecc33d1fc64bb0, type: 2}
+    - target: {fileID: -1439730007547781893, guid: 792fd43907a824c44ae227255c9c8649, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5af46731a68c3dd48af23ba5b7d44c58, type: 2}
     - target: {fileID: 919132149155446097, guid: 792fd43907a824c44ae227255c9c8649, type: 3}
       propertyPath: m_Name
       value: pogflowa
       objectReference: {fileID: 0}
+    - target: {fileID: 7071182760956848314, guid: 792fd43907a824c44ae227255c9c8649, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5af46731a68c3dd48af23ba5b7d44c58, type: 2}
+    - target: {fileID: 7202271454713460447, guid: 792fd43907a824c44ae227255c9c8649, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5af46731a68c3dd48af23ba5b7d44c58, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

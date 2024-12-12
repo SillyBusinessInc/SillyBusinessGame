@@ -176,6 +176,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: big_loaf_tree
       objectReference: {fileID: 0}
+    - target: {fileID: 1381052813150280839, guid: 62eee1da1265ac648886de2de3f242bd, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ed41ee52ffc11c41b5529acb8b6b466, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

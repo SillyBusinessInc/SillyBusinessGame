@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 8b12818123330f94986ad6eaf6d92919
+labels:
+- Paint
+- Brush
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/Resources/Shaders/PainterlyThreeURotateGrade.shader
+  uploadId: 103997

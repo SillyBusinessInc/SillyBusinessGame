@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 4f11d24531fb12d478e2f0a1268c8682
+labels:
+- Paint
+- Brush
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/Resources/Shaders/PainterlyFiveURotateIntensityGrade.shader
+  uploadId: 103997

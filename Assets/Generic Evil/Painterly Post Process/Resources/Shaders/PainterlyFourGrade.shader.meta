@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: abc896e0ea82b6945b8b44c320088046
+labels:
+- Paint
+- Brush
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/Resources/Shaders/PainterlyFourGrade.shader
+  uploadId: 103997

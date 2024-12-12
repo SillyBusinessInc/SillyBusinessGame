@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 6ad2cf96917cb9f4fbe71c27a531ecd6
+labels:
+- Paint
+- Brush
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12093
+  packageName: Painterly
+  packageVersion: v1.6
+  assetPath: Assets/Generic Evil/Painterly Post Process/Resources/Shaders/PainterlyThree.shader
+  uploadId: 103997
