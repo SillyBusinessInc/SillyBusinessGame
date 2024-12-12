@@ -23,6 +23,12 @@ namespace EnemiesNS
         protected override void Attack()
         {
             enemy.animator.SetTrigger("PlayAttack");
+            // If the player is in range, attempt to face them
+            if (IsWithinAttackRange() && canAttack())
+            {
+                FacePlayer();
+                if (IsFacingPlayer()) Attack();
+            }
             base.Attack();
         }
     }

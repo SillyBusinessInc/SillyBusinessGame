@@ -25,12 +25,7 @@ namespace EnemiesNS
         {
             if (enemy.target == null) enemy.ChangeState(enemy.states.Idle);
 
-            // If the player is in range, attempt to face them
-            if (IsWithinAttackRange() && canAttack())
-            {
-                FacePlayer();
-                if (IsFacingPlayer()) Attack();
-            }
+            
 
             // check if we can still attack, then early return so we dont run the base update and dont trigger attack cooldown.
             if (attacksThisState < enemy.attacksPerCooldown && IsWithinAttackRange()) return;

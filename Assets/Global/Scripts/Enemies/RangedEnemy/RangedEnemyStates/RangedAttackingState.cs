@@ -6,6 +6,8 @@ namespace EnemiesNS
     {
         private new RangedEnemy enemy;
         private float currentTime;
+        private bool canshoot = true;
+        private int currentAttack = 0;
         public RangedAttackingState(RangedEnemy enemy) : base(enemy) { this.enemy = enemy; }
 
         public override void Enter()
@@ -14,26 +16,36 @@ namespace EnemiesNS
             // enemy.animator.SetBool("Attack", true);
             base.Enter();
             currentTime = 0;
-            attacksThisState = 1;
+            currentAttack = 0;
         }
         public override void Update()
         {
             base.Update();
-            currentTime += Time.deltaTime;
+            // Debug.Log(currentAttack);
             // Check if it's time to shoot
-            if (currentTime > enemy.attackRecoveryTime && CheckingInRange() == true )
+            if (currentTime > enemy.attackRecoveryTime && CheckingInRange() == true)
             {
+                // Debug.Log(currentTime);
+                // Debug.Log(enemy.attackRecoveryTime);
+                // Debug.Log(enemy.attacksPerCooldown);
+                currentTime = 0;
+                canshoot = false;
                 Attack();
+                canshoot = true;
+            }
+            if (canshoot){
+                currentTime += Time.deltaTime;
             }
             if (enemy.distanceToPlayer >= 2) {
                 FacePlayer();
             }
         }
         public bool CheckingInRange(){
-            if (!IsWithinAttackRange() || attacksThisState >= enemy.attacksPerCooldown){
-                attacksThisState +=1000;
-                enemy.inAttackAnim = false;   
-                enemy.toggleCanAttack(false);
+            if (!IsWithinAttackRange() || currentAttack >= enemy.attacksPerCooldown ){
+                // Debug.Log("Not in range");
+                currentAttack = 5000;
+                enemy.inAttackAnim = false;
+                CheckState();   
                 return false;             
             }
             return true;
@@ -50,6 +62,10 @@ namespace EnemiesNS
         {
             if (CheckingInRange())
             {
+                currentAttack += 1;
+                // Debug.Log(currentAttack);
+                // Debug.Log(enemy.attacksPerCooldown);
+
                 GameObject bullet = Object.Instantiate(enemy.bulletPrefab, enemy.bulletSpawnPoint.position, Quaternion.identity);
                 
                 // Assign the forward direction of the enemy to the bullet
@@ -60,11 +76,9 @@ namespace EnemiesNS
                 }
                 
                 // Reset the timer and increment the shot count
-                currentTime = 0;
-                // attacksThisState++;
                 enemy.inAttackAnim = true;
-                attacksThisState += 1;
                 enemy.toggleIsRecovering(true);
+                
             }
             // enemy.animator.SetTrigger("PlayAttack");
         }
