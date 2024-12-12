@@ -31,7 +31,7 @@ public class Room
     public static Dictionary<RoomType, int> RoomDistribution = new() {
         {RoomType.COMBAT, 90},
         {RoomType.PARKOUR, 0},
-        {RoomType.MOLDORB, 10},
+        {RoomType.MOLDORB, 0},
         {RoomType.WAVESURVIVAL, 0}
     };
 }
