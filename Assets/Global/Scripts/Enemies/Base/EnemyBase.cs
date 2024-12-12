@@ -120,8 +120,8 @@ namespace EnemiesNS
         [Range(0f, 5f)]
         public float knockbackStunTime = 0.5f;
 
-        public GameObject HealthBarPrefab;
-        public GameObject damagePopUpPrefab;
+        public GameObject healthBarPrefab;
+        public damagePopUp damagePopUp;
         public float increasePopUpHeight;
         [HideInInspector]
         public bool canAttack = true;
@@ -188,11 +188,11 @@ namespace EnemiesNS
 
         public virtual void OnHit(int damage)
         {
-            if (HealthBarPrefab != null)
+            if (healthBarPrefab != null)
             {
-                HealthBarPrefab.SetActive(true);
+                healthBarPrefab.SetActive(true);
             }
-            damagePopUp.CreatePopUp(new Vector3(transform.position.x, transform.position.y + increasePopUpHeight, transform.position.z), damagePopUpPrefab, damage);
+            damagePopUp.SetUp(damage);
             health -= damage;
             //TODO: add visual indicator of hit
             if (health <= 0)

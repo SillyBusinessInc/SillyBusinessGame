@@ -1,33 +1,46 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class damagePopUp : MonoBehaviour
 {
     private TextMeshPro textMesh;
+    private float showDamage = 0;
     public float duration;
-    public float heightSpeed;
-
+    public float activeDuration;
+    public Color defaultColor;
     public void Awake()
     {
-        textMesh = transform.GetComponent<TextMeshPro>();
-        Destroy(gameObject, duration);
+        Debug.Log("Awake daamge popup");
+        textMesh = GetComponent<TextMeshPro>();
+        defaultColor = textMesh.color;
     }
 
     public void Update()
     {
-        transform.position += new Vector3(0, heightSpeed * Time.deltaTime, 0);
-        textMesh.color = new Color(textMesh.color.r, textMesh.color.g, textMesh.color.b, textMesh.color.a - (Time.deltaTime / duration));
+        Debug.Log("Update");
+        if (duration <= activeDuration)
+        {
+            ResetColor();
+            textMesh.SetText("");
+            activeDuration = 0;
+            showDamage = 0;
+        }
+        else
+        {
+            Debug.Log(activeDuration);
+            activeDuration += Time.deltaTime;
+            textMesh.color = new Color(textMesh.color.r, textMesh.color.g, textMesh.color.b, textMesh.color.a - (Time.deltaTime / duration));
+        }
     }
     public void SetUp(int damage)
     {
-        textMesh.SetText(damage.ToString());
+        Debug.Log("Setup");
+        showDamage += damage;
+        textMesh.SetText(showDamage.ToString());
     }
 
-    public static void CreatePopUp(Vector3 position, GameObject damagePopUpPrefab, int damage)
+    public void ResetColor()
     {
-        GameObject damagePopUpTransform = Instantiate(damagePopUpPrefab, new Vector3(position.x, position.y, position.z) , Quaternion.identity);
-        damagePopUp damagePopUp = damagePopUpTransform.GetComponent<damagePopUp>();
-        damagePopUp.SetUp(damage);
+        textMesh.color = defaultColor;
     }
 }
