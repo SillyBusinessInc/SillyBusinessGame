@@ -67,8 +67,7 @@ public class Tail : MonoBehaviour
         EnemiesNS.EnemyBase enemy = Collider.GetComponent<EnemiesNS.EnemyBase>();
         Debug.Log("Enemy: " + enemy);
         if (enemy != null)
-        {
-
+        { 
 
             Vector3 kb = -enemy.transform.forward * 500;
 

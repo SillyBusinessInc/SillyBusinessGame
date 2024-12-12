@@ -251,15 +251,17 @@ namespace EnemiesNS
         public void DoKnockback(Vector3 knockback, float duration)
         {
 
+            FreezeMovement(true);
+            rb.isKinematic = false;
+            rb.useGravity = true;
+            rb.AddForce(knockback, ForceMode.Impulse);
+
             StartCoroutine(ApplyKnockback(knockback, duration));
         }
 
         private IEnumerator ApplyKnockback(Vector3 force, float duration)
         {
-            FreezeMovement(true);
-            rb.isKinematic = false;
-            rb.useGravity = true;
-            rb.AddForce(force, ForceMode.Impulse);
+
 
             float knockbackTime = Time.deltaTime;
             // if the enemy is knocked back for more than X (duration) seconds or the velocity is less than 0.1f, stop the knockback
