@@ -10,14 +10,12 @@ public class damagePopUp : MonoBehaviour
     public Color defaultColor;
     public void Awake()
     {
-        Debug.Log("Awake daamge popup");
         textMesh = GetComponent<TextMeshPro>();
         defaultColor = textMesh.color;
     }
 
     public void Update()
     {
-        Debug.Log("Update");
         if (duration <= activeDuration)
         {
             ResetColor();
