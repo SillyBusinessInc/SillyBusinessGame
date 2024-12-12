@@ -194,7 +194,7 @@ namespace EnemiesNS
 
         protected virtual void Update()
         {
-            agentIsStopped = agent.isStopped;
+            //agentIsStopped = agent.isStopped;
             UpdateTimers();
             currentState?.Update();
         }
@@ -259,13 +259,13 @@ namespace EnemiesNS
             // Note that its also a bit weird if we have a SetReference method, and have the fields be serialized.
             // Either make it through getComponent if its alsoways on the same object.
             // Or make it serializable if you allow it to be on a different object
-            /*
+
             if (!animator)
             {
                 animator = this.GetComponent<Animator>();
                 VFXLayer = animator.GetLayerIndex("VFX");
-            } 
-            */
+            }
+
             if (!DeathParticleOrigin)
             {
                 Debug.LogWarning("NULLREFERENCE: Death Paricle Origin not set. This will result in malfunctioning OnDeath() behavior.", this);
