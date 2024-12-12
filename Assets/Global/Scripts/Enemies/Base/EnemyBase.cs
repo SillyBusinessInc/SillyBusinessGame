@@ -250,27 +250,27 @@ namespace EnemiesNS
 
         public void DoKnockback(Vector3 knockback, float duration)
         {
-            StartCoroutine(ApplyKnockback(knockback));
+
+            StartCoroutine(ApplyKnockback(knockback, duration));
         }
 
-        private IEnumerator ApplyKnockback(Vector3 force)
+        private IEnumerator ApplyKnockback(Vector3 force, float duration)
         {
-            yield return null;
-
             FreezeMovement(true);
             rb.isKinematic = false;
             rb.useGravity = true;
-            rb.AddForce(force);
+            rb.AddForce(force, ForceMode.Impulse);
 
-            yield return new WaitForFixedUpdate();
             float knockbackTime = Time.deltaTime;
+            // if the enemy is knocked back for more than X (duration) seconds or the velocity is less than 0.1f, stop the knockback
             yield return new WaitUntil(
-                () => Time.deltaTime - knockbackTime > 0.5f || rb.linearVelocity.magnitude < 0.1f
+                () => Time.deltaTime - knockbackTime > duration || rb.linearVelocity.magnitude < 0.1f
             );
+            // just to be sure, wait a little bit more
             yield return new WaitForSeconds(0.25f);
 
             rb.isKinematic = true;
-            FreezeMovement(false);
+            rb.useGravity = false;
 
             FreezeMovement(false);
 

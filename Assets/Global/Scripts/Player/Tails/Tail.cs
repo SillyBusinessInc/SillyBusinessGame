@@ -70,9 +70,9 @@ public class Tail : MonoBehaviour
         {
 
 
-            Vector3 kb = -enemy.transform.forward * 5000;
+            Vector3 kb = -enemy.transform.forward * 500;
 
-            enemy.DoKnockback(kb, 0.5f);
+            enemy.DoKnockback(kb, 1.5f);
 
 
         }
