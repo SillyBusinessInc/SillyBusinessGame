@@ -33,10 +33,4 @@ public class PlayerReference : Reference
        get => cinemachineCamera ? cinemachineCamera : cinemachineCamera = GetComponentInChildren<CinemachineCamera>();
     }
 
-    private CameraManager cameraManager;
-    public CameraManager CameraManager
-    {
-       get => cameraManager ? cameraManager : cameraManager = GetComponent<CameraManager>();
-    }
-
 }
