@@ -64,8 +64,6 @@ public class PlayerEnemyHeadDecollider : MonoBehaviour
 
             // Apply the force
             playerRigidbody.AddForce(slideForce, ForceMode.Impulse);
-
-            Debug.Log($"Sliding off enemy! Slide Force: {slideForce}");
         }
     }
 
