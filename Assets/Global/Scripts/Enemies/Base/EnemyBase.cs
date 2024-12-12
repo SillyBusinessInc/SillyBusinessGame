@@ -91,8 +91,6 @@ namespace EnemiesNS
             GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
         }
 
-
-
         public virtual void FreezeMovement(bool v) { }
         public virtual void UpdateTimers() { }
 

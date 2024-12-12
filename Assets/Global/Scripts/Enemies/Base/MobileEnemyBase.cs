@@ -71,17 +71,17 @@ namespace EnemiesNS
         [HideInInspector] public float distanceToPlayer;
 
         [Header("Base attack settings")]
-        [Tooltip("The range of the attack")]
+        [Tooltip("The range of the attack.")]
         [SerializeField]
         [Range(0f, 250f)]
         public float attackRange = 2f;
 
-        [Tooltip("The time between attacking states")]
+        [Tooltip("The time between attacking states.")]
         [SerializeField]
         [Range(0f, 300f)]
         public float attackCooldown = 2f;
 
-        [Tooltip("The amount of time this character will have to recover from attacking, and be standing still before able to attack again. NOTE: if this is less than the attack clip length, there will be no additional waiting time applied.")]
+        [Tooltip("The amount of time this character will have to recover from a single attack (attack interval)")]
         [SerializeField]
         [Range(0f, 10f)]
         public float attackRecoveryTime = 0.3f;
@@ -114,26 +114,26 @@ namespace EnemiesNS
         [HideInInspector]
         public bool canAttack = true;
         [HideInInspector]
-        public bool isRecovering = false;
-        [HideInInspector]
         public float attackCooldownElapsed = 0;
         [HideInInspector]
-        public float attackRecoveryElapsed = 0;
-        [HideInInspector]
         public bool inAttackAnim = false;
+        [HideInInspector]
+        public bool isRecovering = false;
+        [HideInInspector]
+        public float attackRecoveryElapsed = 0;
 
         [Header("References")]
-        [Tooltip("Reference to the Animator of this enemy.")]
+        [Tooltip("Reference to the Animator.")]
         [SerializeField]
         public Animator animator;
         [HideInInspector]
         public int VFXLayer;
 
-        [Tooltip("Reference to the NavMeshAgent of this enemy.")]
+        [Tooltip("Reference to the NavMeshAgent.")]
         [SerializeField]
         public NavMeshAgent agent;
 
-        [Tooltip("Reference to this Enemy's walking particle system")]
+        [Tooltip("Reference to walking particle system")]
         public ParticleSystem particleSystemWalk;
 
         [Header("States")]
@@ -144,10 +144,6 @@ namespace EnemiesNS
         [Tooltip("DO NOT SET | shows the current state's name")]
         [SerializeField]
         protected string currentStateName;
-
-        [Tooltip("DO NOT SET | shows the current state's name")]
-        [SerializeField]
-        protected bool agentIsStopped = false;
 
         protected override void Start()
         {
