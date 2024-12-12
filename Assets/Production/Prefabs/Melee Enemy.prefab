@@ -5026,7 +5026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3152f9b0947e49640a21aa2b62687a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 60
+  health: 40
   maxHealth: 0
   idleTime: 0.5
   idleVariance: 0.5
@@ -5061,14 +5061,15 @@ MonoBehaviour:
   attackCooldownElapsed: 0
   attackRecoveryElapsed: 0
   inAttackAnim: 0
+  HealthBarDestroy: 0
   PrefabDeathParticles: {fileID: 2415248764043215591, guid: 6b6d721fee21a3d499376d3b29a0b4d4, type: 3}
   DeathParticleOrigin: {fileID: 1608619491930234734}
-  HealthBarDestroy: 0
   target: {fileID: 0}
   animator: {fileID: 5452983560052617153}
   agent: {fileID: 0}
   weapon: {fileID: 9053967190554233472}
   particleSystemWalk: {fileID: 877088373767564327}
+  VFXLayer: 0
   currentStateName: 
   agentIsStopped: 0
 --- !u!195 &5608345331629188897
