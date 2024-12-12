@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace EnemiesNS
 {
-    public class RangeAttackingState : BaseAttackingState
+    public class RangedAttackingState : BaseAttackingState
     {
         private new RangedEnemy enemy;
         private float currentTime;
-        public RangeAttackingState(RangedEnemy enemy) : base(enemy) { this.enemy = enemy; }
+        public RangedAttackingState(RangedEnemy enemy) : base(enemy) { this.enemy = enemy; }
 
         public override void Enter()
         {

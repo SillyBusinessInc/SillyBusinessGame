@@ -43,10 +43,6 @@ namespace EnemiesNS
                 }
             }
 
-            if (hit.gameObject.layer == 1 || hit.gameObject.layer == 2 || hit.gameObject.layer == 5 || hit.gameObject.layer == 10)
-            {
-                return;
-            }
 
             // Play VFX and destroy bullet
             PlayImpactVFX();
@@ -58,6 +54,8 @@ namespace EnemiesNS
             Player player = GlobalReference.GetReference<PlayerReference>().Player;
             if (!player) return;
             player.OnHit(damage);
+            
+            //TODO: implement knockback
             // player.applyKnockback(CalculatedKnockback(playerObject), attackKnockback);
         }
 
