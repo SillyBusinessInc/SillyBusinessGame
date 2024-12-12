@@ -14,11 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 21300000, guid: 670836c26ebeb544ba007821bb7cdd6e, type: 3}
   name: Perfect Loaf
-  description: Gain extra HP
+  description: Increase your attack speed, movement speed and damage while full health
   rarity: 1
-  interactionActions:
-  - action: {fileID: 11400000, guid: 21c2a01c9ec3b104bb8807de684e60a5, type: 2}
-    parameters:
-    - MaxHealth
-    - 1
-    - Modify
+  interactionActions: []
