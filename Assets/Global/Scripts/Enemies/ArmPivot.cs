@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ArmPivot : MonoBehaviour
 {
-    [SerializeField] private EnemiesNS.EnemyBase enemy;
+    [SerializeField] private EnemiesNS.MobileEnemyBase enemy;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
