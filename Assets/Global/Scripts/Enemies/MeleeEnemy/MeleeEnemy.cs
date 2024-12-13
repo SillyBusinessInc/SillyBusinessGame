@@ -2,8 +2,11 @@ using UnityEngine;
 
 namespace EnemiesNS
 {
-    public class MeleeEnemy : EnemyBase
+    public class MeleeEnemy : MobileEnemyBase
     {
+        [Header("Melee Enemy Settings")]
+        [Tooltip("Reference to this enemy's weapon")]
+        [SerializeField] public Collider weapon;
         private bool playerHit = false;
 
         //

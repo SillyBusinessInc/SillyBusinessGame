@@ -2,7 +2,7 @@ namespace EnemiesNS
 {
     public class BaseChasingState : StateBase
     {
-        public BaseChasingState(EnemyBase enemy) : base(enemy) { }
+        public BaseChasingState(MobileEnemyBase enemy) : base(enemy) { }
 
         public override void Enter()
         {

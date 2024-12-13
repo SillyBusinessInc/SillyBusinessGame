@@ -4,7 +4,7 @@ namespace EnemiesNS
 {
     public class BaseIdleState : StateBase
     {
-        public BaseIdleState(EnemyBase enemy) : base(enemy) {}
+        public BaseIdleState(MobileEnemyBase enemy) : base(enemy) { }
 
         public override void Enter()
         {

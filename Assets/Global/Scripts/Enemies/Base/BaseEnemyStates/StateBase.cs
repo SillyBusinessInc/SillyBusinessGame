@@ -4,13 +4,13 @@ namespace EnemiesNS
 {
     public abstract class StateBase
     {
-        protected EnemyBase enemy;
-        protected StateBase(EnemyBase enemy)
+        protected MobileEnemyBase enemy;
+        protected StateBase(MobileEnemyBase enemy)
         {
             this.enemy = enemy;
         }
 
-        public virtual void Enter() {}
+        public virtual void Enter() { }
 
         public virtual void Exit()
         {
@@ -23,8 +23,8 @@ namespace EnemiesNS
             CalculateDistanceToPlayer(); // do we want to calculate on every frame?
             CheckState();
         }
-        
-        public virtual void FixedUpdate() {}
+
+        public virtual void FixedUpdate() { }
 
         //
         // Add methods here that need to be accessed by multiple different states

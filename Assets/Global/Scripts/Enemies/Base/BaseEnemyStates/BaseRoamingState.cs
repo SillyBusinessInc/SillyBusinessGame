@@ -5,7 +5,7 @@ namespace EnemiesNS
 {
     public class BaseRoamingState : StateBase
     {
-        public BaseRoamingState(EnemyBase enemy) : base(enemy) { }
+        public BaseRoamingState(MobileEnemyBase enemy) : base(enemy) { }
 
         public override void Enter()
         {

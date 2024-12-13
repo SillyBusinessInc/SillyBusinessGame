@@ -5028,6 +5028,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 40
   maxHealth: 0
+  HealthBarPrefab: {fileID: 5245752069573577684}
+  HealthBarDestroy: 0
+  spawnPos: {x: 0, y: 0, z: 0}
+  PrefabDeathParticles: {fileID: 2415248764043215591, guid: 6b6d721fee21a3d499376d3b29a0b4d4, type: 3}
+  DeathParticleOrigin: {fileID: 1608619491930234734}
+  target: {fileID: 0}
   idleTime: 0.5
   idleVariance: 0.5
   idleWaitElapsed: 0
@@ -5036,7 +5042,6 @@ MonoBehaviour:
   roamRange: 15
   roamingSpeed: 3.5
   roamingAcceleration: 8
-  spawnPos: {x: 0, y: 0, z: 0}
   roamDestination: {x: 0, y: 0, z: 0}
   chaseRange: 25
   chaseSpeed: 3.5
@@ -5067,12 +5072,13 @@ MonoBehaviour:
   DeathParticleOrigin: {fileID: 1608619491930234734}
   target: {fileID: 0}
   animator: {fileID: 5452983560052617153}
-  agent: {fileID: 0}
-  weapon: {fileID: 9053967190554233472}
+  VFXLayer: 0
+  agent: {fileID: 5608345331629188897}
   particleSystemWalk: {fileID: 877088373767564327}
   VFXLayer: 0
   currentStateName: 
   agentIsStopped: 0
+  weapon: {fileID: 9053967190554233472}
 --- !u!195 &5608345331629188897
 NavMeshAgent:
   m_ObjectHideFlags: 0

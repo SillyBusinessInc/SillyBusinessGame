@@ -3,7 +3,7 @@ namespace EnemiesNS
 {
     public class BaseAttackingState : StateBase
     {
-        public BaseAttackingState(EnemyBase enemy) : base(enemy) { }
+        public BaseAttackingState(MobileEnemyBase enemy) : base(enemy) { }
 
         protected Player player;
         protected int attacksThisState;
