@@ -3,7 +3,92 @@ guid: f309fbd808b90824c861f13096063eac
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eyes
+    second: {fileID: 2100000, guid: bcd51810dacd75543a1cda2fdf81af9b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: afc8747067b6c1a478ac11bdfbee7517, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 780891acf67f6f34098822bea486293b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: 87cfafbd5145178438a9ae689a27bd17, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: a2444de139cdda04bb2ebc6a779ae2c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tail (Waffel)
+    second: {fileID: 2100000, guid: 05238de1280ca9345ad5803718f0d27f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wing
+    second: {fileID: 2100000, guid: de37517c382468f4c80ea33a454b51a8, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Beak
+    second: {fileID: 2800000, guid: 79f1913f96b466c43a1aed688fdc5383, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Bread
+    second: {fileID: 2800000, guid: f040d466aa3268046a8afa8fc6e4c754, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Bread Iside
+    second: {fileID: 2800000, guid: 9a76017aa6505204792a35c06dba5b89, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cake Pop Texture 1
+    second: {fileID: 2800000, guid: ad639754d34ef304f83f9cc9e44ae543, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cake Pop Texture 2
+    second: {fileID: 2800000, guid: 4309be532fdc4b54c9a04d55f6f2abc3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cake Pop Texture 3
+    second: {fileID: 2800000, guid: efdb4bb568b9c8340bc6827c6e6561c1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Eyes Base Color
+    second: {fileID: 2800000, guid: ec74c86c8731a2f4382abaaf4b92ba65, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Paws
+    second: {fileID: 2800000, guid: 3cbcb9531db36fa48afd7fe7680e73e4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tail
+    second: {fileID: 2800000, guid: 79093436560c4714c9fa154f183f429d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Wings
+    second: {fileID: 2800000, guid: cdd531383f947604996b7abae4f0464c, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

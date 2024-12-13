@@ -4985,8 +4985,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.61, z: 4.97}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 58632779837756172}
   - {fileID: 6240565839355704469}
@@ -5055,7 +5055,8 @@ MonoBehaviour:
   facingPlayerVarianceAngle: 5
   attackKnockback: 0
   knockbackStunTime: 0.5
-  HealthBarPrefab: {fileID: 5245752069573577684}
+  healthBarPrefab: {fileID: 5245752069573577684}
+  damagePopUp: {fileID: 5369099968126025891}
   canAttack: 1
   isRecovering: 0
   attackCooldownElapsed: 0
@@ -5614,3 +5615,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2096797852946635833, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
   m_PrefabInstance: {fileID: 6185119316210063341}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5369099968126025891 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2258320768371595086, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
+  m_PrefabInstance: {fileID: 6185119316210063341}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ff3416fecc9ee04db60148ad163da20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
