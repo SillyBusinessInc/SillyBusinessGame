@@ -87,7 +87,7 @@ namespace EnemiesNS
         private IEnumerator HandleAttackAnimation()
         {
             // Wait for the attack animation to reach a specific point
-            while (enemy.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.4f)
+            while (enemy.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.35f)
             {
                 yield return null;
             }

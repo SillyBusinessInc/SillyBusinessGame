@@ -794,7 +794,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Armature|Toast_attack1_shooting_ranged
+  m_Name: AttackingStart
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -920,7 +920,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Armature|Toast_attack1_EndOfAttack_ranged
+  m_Name: AttackingEnd
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1194,7 +1194,7 @@ AnimatorStateMachine:
     m_Position: {x: 320, y: -270, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1690072708938785549}
-    m_Position: {x: 310, y: -210, z: 0}
+    m_Position: {x: 310, y: -220, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 401353480216822717}
     m_Position: {x: 310, y: -170, z: 0}
