@@ -16,6 +16,10 @@ public class CurrentStatistic : BaseStatistic
         permanentStatistic = perm;
     }
 
+    public void AddPermanentStats(PermanentStatistic perm) {
+        permanentStatistic = perm;
+    }
+
     // Get the final value after applying modifiers
     public float GetValue()
     {
