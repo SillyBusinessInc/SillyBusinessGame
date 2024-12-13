@@ -34,7 +34,6 @@ public class AttackingState : StateBase
 
     public override void Exit()
     {
-        Player.targetVelocity *= 0;
         Player.playerAnimationsHandler.animator.speed = 1.0f;
         Player.Tail.flipCanDoDamage = false;
         Player.Tail.tailCanDoDamage = false;
