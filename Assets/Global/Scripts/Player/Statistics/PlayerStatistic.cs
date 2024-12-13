@@ -32,23 +32,23 @@ public class PlayerStatistic
     }
 
     // this is for the current stats of the player
-    public CurrentStatistic Speed;
-    public CurrentStatistic JumpForce;
-    public CurrentStatistic MaxHealth;
-    public CurrentStatistic AttackSpeedMultiplier;
-    public CurrentStatistic AttackDamageMultiplier;
-    public CurrentStatistic DodgeCooldown;
-    public CurrentStatistic DoubleJumpsCount;
+    public CurrentStatistic Speed = new(12f);
+    public CurrentStatistic JumpForce = new(8f);
+    public CurrentStatistic MaxHealth = new(6f);
+    public CurrentStatistic AttackSpeedMultiplier = new(1f);
+    public CurrentStatistic AttackDamageMultiplier = new(1f);
+    public CurrentStatistic DodgeCooldown = new(1f);
+    public CurrentStatistic DoubleJumpsCount = new(1f);
 
     public void Generate() {
         GlobalReference.PermanentPlayerStatistic.Generate();
         
-        Speed = new(12f, GlobalReference.PermanentPlayerStatistic.Speed);
-        JumpForce = new(8f, GlobalReference.PermanentPlayerStatistic.JumpForce);
-        MaxHealth = new(6f, GlobalReference.PermanentPlayerStatistic.MaxHealth);
-        AttackSpeedMultiplier = new(1f, GlobalReference.PermanentPlayerStatistic.AttackSpeedMultiplier);
-        AttackDamageMultiplier = new(1f, GlobalReference.PermanentPlayerStatistic.AttackDamageMultiplier);
-        DodgeCooldown = new(1f, GlobalReference.PermanentPlayerStatistic.DodgeCooldown);
-        DoubleJumpsCount = new(1f, GlobalReference.PermanentPlayerStatistic.DoubleJumpsCount);
+        Speed.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.Speed);
+        JumpForce.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.JumpForce);
+        MaxHealth.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.MaxHealth);
+        AttackSpeedMultiplier.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.AttackSpeedMultiplier);
+        AttackDamageMultiplier.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.AttackDamageMultiplier);
+        DodgeCooldown.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.DodgeCooldown);
+        DoubleJumpsCount.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.DoubleJumpsCount);
     }
 }

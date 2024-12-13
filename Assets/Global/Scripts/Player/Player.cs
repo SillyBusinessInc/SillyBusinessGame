@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
 
 
     [Header("Stats")]
-    public PlayerStatistic playerStatistic;
+    public PlayerStatistic playerStatistic = new();
 
     public Tail Tail;
 
@@ -86,7 +86,6 @@ public class Player : MonoBehaviour
     
     void Awake()
     {
-        playerStatistic = new();
         playerStatistic.Generate();
 
         GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
