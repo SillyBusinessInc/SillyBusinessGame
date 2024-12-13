@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace EnemiesNS
@@ -17,17 +18,23 @@ namespace EnemiesNS
             base.Enter();
             currentTime = 0;
             currentAttack = 0;
+            enemy.animator.SetBool("AttackIdle", true);
         }
         public override void Update()
         {
             base.Update();
             // Check if it's time to shoot
-            if (currentTime > enemy.attackRecoveryTime && CheckingInRange() == true)
+            if (currentTime > enemy.attackRecoveryTime && CheckingInRange())
             {
                 currentTime = 0;
                 canshoot = false;
-                Attack();
-                canshoot = true;
+
+                // Transition to attack state
+                enemy.animator.SetBool("AttackIdle", false);
+                enemy.animator.SetTrigger("AttackStart");
+
+                // Wait for a specific point in the animation to fire the bullet
+                enemy.StartCoroutine(HandleAttackAnimation());
             }
             if (canshoot){
                 currentTime += Time.deltaTime;
@@ -38,6 +45,7 @@ namespace EnemiesNS
         }
         public bool CheckingInRange(){
             if (!IsWithinAttackRange() || currentAttack >= enemy.attacksPerCooldown ){
+                enemy.animator.SetBool("AttackIdle", false);
                 currentAttack = 5000;
                 enemy.inAttackAnim = false;
                 CheckState();   
@@ -49,7 +57,7 @@ namespace EnemiesNS
 
         public override void Exit()
         {
-            // enemy.animator.SetBool("Attack", false);
+            enemy.animator.SetBool("AttackIdle", false);
             base.Exit();
         }
 
@@ -59,6 +67,7 @@ namespace EnemiesNS
             {
                 currentAttack += 1;
 
+                // enemy.animator.SetTrigger("AttackStart");
                 GameObject bullet = Object.Instantiate(enemy.bulletPrefab, enemy.bulletSpawnPoint.position, Quaternion.identity);
                 
                 // Assign the forward direction of the enemy to the bullet
@@ -72,9 +81,34 @@ namespace EnemiesNS
                 enemy.inAttackAnim = true;
                 enemy.toggleIsRecovering(true);
                 
+
             }
-            // enemy.animator.SetTrigger("PlayAttack");
         }
+        private IEnumerator HandleAttackAnimation()
+        {
+            // Wait for the attack animation to reach a specific point
+            while (enemy.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.4f)
+            {
+                yield return null;
+            }
+
+            // Fire the bullet
+            Attack();
+
+            // Wait for the end of the attack animation
+            while (enemy.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+            {
+                yield return null;
+            }
+
+            // Reset back to idle
+            if (currentAttack < enemy.attacksPerCooldown)
+            {
+                enemy.animator.SetBool("AttackIdle", true);
+            }
+            canshoot = true;
+        }
+
 
     }
 }
