@@ -1,4 +1,5 @@
 using UnityEngine.InputSystem;
+using UnityEngine;
 
 public class AttackingState : StateBase
 {
@@ -42,7 +43,10 @@ public class AttackingState : StateBase
 
     public override void Attack(InputAction.CallbackContext ctx) { }
 
-    public override void Move(InputAction.CallbackContext ctx) { }
+    public override void Move(InputAction.CallbackContext ctx)
+    {
+        Player.movementInput = ctx.ReadValue<Vector2>();
+    }
 
     public override void Sprint(InputAction.CallbackContext ctx) { }
 
