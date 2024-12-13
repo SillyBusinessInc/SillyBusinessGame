@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3564698354068662259}
+  m_Father: {fileID: 1587067519520307107}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &3941124687225673657
 ParticleSystem:
@@ -4923,6 +4923,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1415693135327573262}
   - {fileID: 3564698354068662259}
   - {fileID: 2840633372587601158}
   m_Father: {fileID: 0}
@@ -5020,7 +5021,7 @@ MonoBehaviour:
   inAttackAnim: 0
   HealthBarDestroy: 0
   PrefabDeathParticles: {fileID: 2415248764043215591, guid: 6b6d721fee21a3d499376d3b29a0b4d4, type: 3}
-  DeathParticleOrigin: {fileID: 3564698354068662259}
+  DeathParticleOrigin: {fileID: 1587067519520307107}
   target: {fileID: 0}
   animator: {fileID: 1937094336905328084}
   agent: {fileID: 5608345331629188897}
@@ -5118,9 +5119,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: f994444d57c2b304595f310b1abfbede, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1415693135327573262}
     - targetCorrespondingSourceObject: {fileID: -2775877231347559957, guid: f994444d57c2b304595f310b1abfbede, type: 3}
       insertIndex: -1
       addedObject: {fileID: 183695346255901166}
@@ -5128,6 +5126,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f994444d57c2b304595f310b1abfbede, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1937094336905328084}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f994444d57c2b304595f310b1abfbede, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4137162425347368935}
   m_SourcePrefab: {fileID: 100100000, guid: f994444d57c2b304595f310b1abfbede, type: 3}
 --- !u!4 &3564698354068662259 stripped
 Transform:
@@ -5161,6 +5162,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4137162425347368935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193848409987153225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246017821b2eef748aac2c67582956ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 3267703782720431196}
 --- !u!4 &8036947746398982643 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -2775877231347559957, guid: f994444d57c2b304595f310b1abfbede, type: 3}
