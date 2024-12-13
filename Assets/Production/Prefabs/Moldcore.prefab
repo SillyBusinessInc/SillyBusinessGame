@@ -124,8 +124,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 74
   maxHealth: 0
-  HealthBarPrefab: {fileID: 1921965334366325782}
+  healthBarPrefab: {fileID: 1921965334366325782}
   HealthBarDestroy: 0
+  damagePopUp: {fileID: 1793075892915242849}
   spawnPos: {x: 0, y: 0, z: 0}
   PrefabDeathParticles: {fileID: 2415248764043215591, guid: 6b6d721fee21a3d499376d3b29a0b4d4, type: 3}
   DeathParticleOrigin: {fileID: 8782158723128784215}
@@ -139,6 +140,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8782158723128784215}
     m_Modifications:
+    - target: {fileID: 1053938282919532713, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8225337528354744887, guid: 2b701abec4dd1f34881b5e6041926a58, type: 2}
     - target: {fileID: 1875510034735515812, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
       propertyPath: enemyBase
       value: 
@@ -146,6 +151,26 @@ PrefabInstance:
     - target: {fileID: 2096797852946635833, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
       propertyPath: m_Name
       value: EnemyHealthbar
+      objectReference: {fileID: 0}
+    - target: {fileID: 2096797852946635833, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3464080572873126594, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8225337528354744887, guid: 2b701abec4dd1f34881b5e6041926a58, type: 2}
+    - target: {fileID: 3464080572873126594, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5429108669858505263, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5429108669858505263, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6126508531114296545, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
       propertyPath: m_Pivot.x
@@ -213,7 +238,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6126508531114296545, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 6126508531114296545, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -232,6 +257,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
+--- !u!114 &1793075892915242849 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2258320768371595086, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
+  m_PrefabInstance: {fileID: 555459806797402159}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ff3416fecc9ee04db60148ad163da20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1921965334366325782 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2096797852946635833, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}

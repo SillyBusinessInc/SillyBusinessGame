@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace EnemiesNS
 {
@@ -13,7 +12,7 @@ namespace EnemiesNS
         public int health = 100;
         [HideInInspector]
         public int maxHealth;
-        public GameObject HealthBarPrefab;
+        public GameObject healthBarPrefab;
         [HideInInspector]
         public bool HealthBarDestroy = false;
         [Tooltip("Damage popup for this enemy")]
@@ -62,9 +61,9 @@ namespace EnemiesNS
 
         public virtual void OnHit(int damage)
         {
-            if (HealthBarPrefab)
+            if (healthBarPrefab != null)
             {
-                HealthBarPrefab.SetActive(true);
+                healthBarPrefab.SetActive(true);
             }
             damagePopUp.SetUp(damage);
             health -= damage;
