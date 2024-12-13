@@ -119,10 +119,10 @@ namespace EnemiesNS
         [SerializeField]
         [Range(0f, 5f)]
         public float knockbackStunTime = 0.5f;
-
+        [Tooltip("Healthbar prefab for this enemy")]
         public GameObject healthBarPrefab;
+        [Tooltip("Damage popup for this enemy")]
         public damagePopUp damagePopUp;
-        public float increasePopUpHeight;
         [HideInInspector]
         public bool canAttack = true;
         [HideInInspector]
