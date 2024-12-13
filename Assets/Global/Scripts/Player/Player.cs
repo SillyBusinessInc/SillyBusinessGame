@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Image fadeImage;
     [SerializeField] private CrossfadeController crossfadeController;
     private bool isInvulnerable = false;
-    
+
     void Awake()
     {
         playerStatistic.Generate();
@@ -286,6 +286,7 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         if (isInvulnerable) return;
+        playerAnimationsHandler.animator.SetTrigger("PlayDamageFlash"); // why is this wrapped, but does not implement all animator params?
         playerStatistic.Health -= damage;
         if (playerStatistic.Health <= 0) OnDeath();
 
@@ -293,20 +294,21 @@ public class Player : MonoBehaviour
         AddMold(5f); // add 5% to the moldmeter
     }
 
-    public void AddMold(float percentage) {
+    public void AddMold(float percentage)
+    {
         playerStatistic.Moldmeter += percentage;
         GlobalReference.AttemptInvoke(Events.MOLDMETER_CHANGED);
 
         isInvulnerable = true;
         StartCoroutine(InvulnerabilityTimer());
     }
-    
+
     private IEnumerator InvulnerabilityTimer()
     {
         yield return new WaitForSeconds(invulnerabilityTime);
         isInvulnerable = false;
     }
-    
+
     public void ApplyKnockback(Vector3 knockback, float time)
     {
         //
