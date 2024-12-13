@@ -1063,7 +1063,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ver. 121224.a
+  m_text: v1.1 - d121224
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2b701abec4dd1f34881b5e6041926a58, type: 2}
   m_sharedMaterial: {fileID: 8225337528354744887, guid: 2b701abec4dd1f34881b5e6041926a58, type: 2}
@@ -2936,7 +2936,7 @@ RectTransform:
   m_GameObject: {fileID: 1981469084}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 813655945}
@@ -2980,7 +2980,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bf713fb58ad29c940a838fb8e7c9ce66, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 257d70c2a6afe21418e30523fdf96e1f, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3146,6 +3146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   confirmation: {fileID: 1512194434}
   fadeImage: {fileID: 112517500}
+  cursorTex: {fileID: 2800000, guid: 9ea41652ef8023343a5a24a88615bffd, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
