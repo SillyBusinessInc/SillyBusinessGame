@@ -7,7 +7,7 @@ public class damagePopUp : MonoBehaviour
     private float showDamage = 0;
     public float duration;
     private float activeDuration;
-    public Color defaultColor;
+    private Color defaultColor;
     public void Awake()
     {
         textMesh = GetComponent<TextMeshPro>();
