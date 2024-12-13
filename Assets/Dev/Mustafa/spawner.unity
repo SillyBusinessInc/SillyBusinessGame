@@ -950,11 +950,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3267703782720431196, guid: d8b2e166b36c47d42a61ebf445269bef, type: 3}
       propertyPath: attackRecoveryTime
-      value: 2.23
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 3267703782720431196, guid: d8b2e166b36c47d42a61ebf445269bef, type: 3}
       propertyPath: attacksPerCooldown
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267703782720431196, guid: d8b2e166b36c47d42a61ebf445269bef, type: 3}
+      propertyPath: randomMoveCooldown
+      value: 17.6
       objectReference: {fileID: 0}
     - target: {fileID: 3267703782720431196, guid: d8b2e166b36c47d42a61ebf445269bef, type: 3}
       propertyPath: minDistanceToPlayer

@@ -21,13 +21,9 @@ namespace EnemiesNS
         public override void Update()
         {
             base.Update();
-            // Debug.Log(currentAttack);
             // Check if it's time to shoot
             if (currentTime > enemy.attackRecoveryTime && CheckingInRange() == true)
             {
-                // Debug.Log(currentTime);
-                // Debug.Log(enemy.attackRecoveryTime);
-                // Debug.Log(enemy.attacksPerCooldown);
                 currentTime = 0;
                 canshoot = false;
                 Attack();
@@ -42,7 +38,6 @@ namespace EnemiesNS
         }
         public bool CheckingInRange(){
             if (!IsWithinAttackRange() || currentAttack >= enemy.attacksPerCooldown ){
-                // Debug.Log("Not in range");
                 currentAttack = 5000;
                 enemy.inAttackAnim = false;
                 CheckState();   
@@ -63,8 +58,6 @@ namespace EnemiesNS
             if (CheckingInRange())
             {
                 currentAttack += 1;
-                // Debug.Log(currentAttack);
-                // Debug.Log(enemy.attacksPerCooldown);
 
                 GameObject bullet = Object.Instantiate(enemy.bulletPrefab, enemy.bulletSpawnPoint.position, Quaternion.identity);
                 

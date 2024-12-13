@@ -6,7 +6,8 @@ namespace EnemiesNS
     public class RangedChasingState : BaseChasingState
     {
         private bool isMovingToRandomPosition = false;
-        public RangedChasingState(RangedEnemy enemy) : base(enemy) { }
+        private new RangedEnemy enemy;
+        public RangedChasingState(RangedEnemy enemy) : base(enemy) { this.enemy = enemy; }
         private float timeSinceLastRandomMove = 0f;
         private float randomMoveCooldown = 2f; // Cooldown time in seconds
 
@@ -43,7 +44,7 @@ namespace EnemiesNS
                     // Prevent random movement if cooldown hasn't expired
                     if (!isMovingToRandomPosition && Time.time >= timeSinceLastRandomMove + randomMoveCooldown)
                     {
-                        Vector3 randomDestination = GetRandomNavMeshPosition(enemy.transform.position, enemy.attackRange / 2);
+                        Vector3 randomDestination = GetRandomNavMeshPosition(enemy.transform.position, enemy.moveRadiusAfterAttacking);
                         enemy.agent.SetDestination(randomDestination);
                         isMovingToRandomPosition = true; // Set the flag
                     }

@@ -102,7 +102,7 @@ MonoBehaviour:
   roamingAcceleration: 8
   spawnPos: {x: 0, y: 0, z: 0}
   roamDestination: {x: 0, y: 0, z: 0}
-  chaseRange: 18
+  chaseRange: 28
   chaseSpeed: 3.5
   chaseAcceleration: 8
   minDistanceToPlayer: 2
@@ -111,10 +111,10 @@ MonoBehaviour:
   isChasing: 0
   isWaiting: 0
   distanceToPlayer: 0
-  attackRange: 25
+  attackRange: 14
   attackCooldown: 2
-  attackRecoveryTime: 0
-  attacksPerCooldown: 1
+  attackRecoveryTime: 1.07
+  attacksPerCooldown: 3
   attackDamage: 1
   facingPlayerVarianceAngle: 5
   attackKnockback: 0
@@ -129,10 +129,9 @@ MonoBehaviour:
   agent: {fileID: 5608345331629188897}
   currentStateName: 
   agentIsStopped: 0
-  BulletsNeedtoShoot: 3
   bulletSpawnPoint: {fileID: 183695346255901166}
   bulletPrefab: {fileID: 1033295440354773173, guid: c709c6fb45dfccf41a4fe46fbac3a9ae, type: 3}
-  shotInterval: 2
+  moveRadiusAfterAttacking: 13.8
 --- !u!1 &5503590916145919650
 GameObject:
   m_ObjectHideFlags: 0
