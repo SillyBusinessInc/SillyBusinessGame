@@ -5,7 +5,7 @@ public class MenuLogic : MonoBehaviour
 {
     [SerializeField] private Confirmation confirmation;
     [SerializeField] private Image fadeImage;
-
+    
     public void OnNewRun() => UILogic.FadeToScene("Loading", fadeImage, this);
     public void OnUpgrades() => UILogic.FadeToScene("Loading", fadeImage, this);
     public void OnArchive() => UILogic.FadeToScene("Loading", fadeImage, this);

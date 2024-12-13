@@ -24,13 +24,36 @@ public class UpgradeOptionLogic : MonoBehaviour
         upgradeName = transform.GetChild(3).GetComponent<TMP_Text>();
         description = transform.GetChild(4).GetComponent<TMP_Text>();
 
-        rarityImage.sprite = GetRarityImage(data.rarity);
-        image.sprite = data.image;
-        upgradeName.text = data.name;
-        description.text = data.description;
+        SetPanelData(data);
     }
 
-    private Sprite GetRarityImage(int rarity) {
+    public void SetPanelData(UpgradeOption upgradeOption)
+    {
+        data = upgradeOption;
+
+        if (image)
+        {
+            image.sprite = upgradeOption.image;
+        }
+
+        if (upgradeName)
+        {
+            upgradeName.text = upgradeOption.name;
+        }
+
+        if (description)
+        {
+            description.text = upgradeOption.description;
+        }
+
+        if (rarityImage)
+        {
+            rarityImage.sprite = GetRarityImage(upgradeOption.rarity);
+        }
+    }
+
+    private Sprite GetRarityImage(int rarity)
+    {
         return rarity switch
         {
             1 => rarity_common,

@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: StarFruitPlatinum3
   m_EditorClassIdentifier: 
   image: {fileID: 21300000, guid: 46b4f6eb0a106c74983a6d48f635a8f7, type: 3}
-  name: StarFruitPlatinum
+  name: Starfruit Platinum
   description: Increases attack speed
   rarity: 3
-  interactionActions: []
+  interactionActions:
+  - action: {fileID: 11400000, guid: 21c2a01c9ec3b104bb8807de684e60a5, type: 2}
+    parameters:
+    - AttackSpeedMultiplier
+    - -0.15
+    - Modify

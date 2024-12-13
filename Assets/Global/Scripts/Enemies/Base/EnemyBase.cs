@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 namespace EnemiesNS
 {
@@ -118,8 +119,10 @@ namespace EnemiesNS
         [SerializeField]
         [Range(0f, 5f)]
         public float knockbackStunTime = 0.5f;
-
-        public GameObject HealthBarPrefab;
+        [Tooltip("Healthbar prefab for this enemy")]
+        public GameObject healthBarPrefab;
+        [Tooltip("Damage popup for this enemy")]
+        public damagePopUp damagePopUp;
         [HideInInspector]
         public bool canAttack = true;
         [HideInInspector]
@@ -203,13 +206,12 @@ namespace EnemiesNS
 
         public virtual void OnHit(int damage)
         {
-            if (HealthBarPrefab != null)
+            if (healthBarPrefab != null)
             {
-                HealthBarPrefab.SetActive(true);
+                healthBarPrefab.SetActive(true);
             }
-
+            damagePopUp.SetUp(damage);
             health -= damage;
-
             if (animator) animator.SetTrigger("PlayDamageFlash");
 
             if (health <= 0)
@@ -255,11 +257,17 @@ namespace EnemiesNS
             {
                 agent = this.GetComponent<NavMeshAgent>();
             }
+            // ANIMATOR IS CAUSE PROBLEMS WHEN ENEMIES DONT HAVE ANY. But MOLD CORES DONT HAVE ANIMATORS
+            // Note that its also a bit weird if we have a SetReference method, and have the fields be serialized.
+            // Either make it through getComponent if its alsoways on the same object.
+            // Or make it serializable if you allow it to be on a different object
+            /*
             if (!animator)
             {
                 animator = this.GetComponent<Animator>();
                 VFXLayer = animator.GetLayerIndex("VFX");
-            }
+            } 
+            */
             if (!DeathParticleOrigin)
             {
                 Debug.LogWarning("NULLREFERENCE: Death Paricle Origin not set. This will result in malfunctioning OnDeath() behavior.", this);
@@ -347,7 +355,7 @@ namespace EnemiesNS
         public void DeathAnimEnded()
         {
             // animator is on the Model's GameObject, so we can reach that GameObject through this.
-            if (animator != null)
+            if (animator)
             {
                 animator.gameObject.SetActive(false);
             }
