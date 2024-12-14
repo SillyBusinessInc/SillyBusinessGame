@@ -5,18 +5,36 @@ using UnityEngine.SceneManagement;
 
 public class DiscordPresence : MonoBehaviour
 {
+    private static DiscordPresence instance;
+
     private Discord.Discord discord;
     private ActivityManager activityManager;
+    private string lastSceneName = "";
+    private long sessionStartTime; // Persistent timestamp
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject); // Persist this GameObject across scene loads
+    }
 
     private void Start()
     {
         InitializeDiscord();
+        sessionStartTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds(); 
         UpdatePresence();
+        lastSceneName = SceneManager.GetActiveScene().name; 
     }
 
     private void InitializeDiscord()
     {
-        const long applicationId = 1316852538561138738;
+        const long applicationId = 1316852538561138738; 
         discord = new Discord.Discord(applicationId, (ulong)Discord.CreateFlags.Default);
         activityManager = discord.GetActivityManager();
     }
@@ -26,13 +44,22 @@ public class DiscordPresence : MonoBehaviour
         string currentScene = SceneManager.GetActiveScene().name;
         string details;
 
-        if (currentScene == "Menu" || currentScene == "Title" || currentScene == "Loading")
+        // Update presence details based on the current scene
+        switch (currentScene)
         {
-            details = "Browsing the menus";
-        }
-        else
-        {
-            details = "In a run";
+            case "Menu":
+            case "Title":
+            case "Loading":
+                details = "Browsing the menus";
+                break;
+
+            case "BaseScene":
+                details = "In a run!";
+                break;
+
+            default: // Unknown state
+                details = "Playing the game"; 
+                break;
         }
 
         var activity = new Activity
@@ -40,12 +67,12 @@ public class DiscordPresence : MonoBehaviour
             Details = details,
             Timestamps =
             {
-                Start = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
+                Start = sessionStartTime, // Use persistent session start time
             },
             Assets =
             {
                 LargeImage = "game_icon",
-                LargeText = "Game Icon Text"
+                LargeText = "Moldbreaker: Rise of the Loaf"
             }
         };
 
@@ -67,9 +94,10 @@ public class DiscordPresence : MonoBehaviour
         discord.RunCallbacks();
 
         // Update presence if the scene changes
-        if (SceneManager.GetActiveScene().name != lastSceneName)
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene != lastSceneName)
         {
-            lastSceneName = SceneManager.GetActiveScene().name;
+            lastSceneName = currentScene;
             UpdatePresence();
         }
     }
@@ -78,6 +106,4 @@ public class DiscordPresence : MonoBehaviour
     {
         discord.Dispose();
     }
-
-    private string lastSceneName = "";
 }
