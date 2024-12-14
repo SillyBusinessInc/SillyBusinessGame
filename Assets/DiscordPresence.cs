@@ -41,7 +41,6 @@ public class DiscordPresence : MonoBehaviour
             Timestamps =
             {
                 Start = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
-                End = DateTimeOffset.UtcNow.ToUnixTimeSeconds() + 3600 // Add 1 hour for demonstration
             },
             Assets =
             {
