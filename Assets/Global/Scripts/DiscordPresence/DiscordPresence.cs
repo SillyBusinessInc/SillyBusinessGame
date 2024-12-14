@@ -57,6 +57,10 @@ public class DiscordPresence : MonoBehaviour
                 details = "In a run!";
                 break;
 
+           case "Death":
+                details = "Failed a run..";
+                break;
+
             default: // Unknown state
                 details = "Playing the game"; 
                 break;
