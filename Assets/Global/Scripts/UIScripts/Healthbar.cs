@@ -54,6 +54,7 @@ public class Healthbar : MonoBehaviour
                 source.anchorMax = new(i+1, 1);
                 source.offsetMin = new(0, 0);
                 source.offsetMax = new(0, 0);
+                source.localScale = new(1, 1 ,1);
                 SetMode(newObj, "full", true);
                 healthObjects.Add(newObj);
             }
