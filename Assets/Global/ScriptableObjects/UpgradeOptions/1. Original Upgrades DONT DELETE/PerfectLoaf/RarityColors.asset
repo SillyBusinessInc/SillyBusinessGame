@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e84114bc0232274799d729c8bf08032, type: 3}
+  m_Name: RarityColors
+  m_EditorClassIdentifier: 
+  rarityColorPairs:
+  - rarity: 1
+    name: Common
+    rarityColor: {r: 0.87058824, g: 0.9019608, b: 0.9019608, a: 0}
+    rarityBackground: {fileID: 21300000, guid: 36f689d170af68845b1d638af2f62810, type: 3}
+  - rarity: 2
+    name: Uncommon
+    rarityColor: {r: 0, g: 0, b: 0, a: 0}
+    rarityBackground: {fileID: 21300000, guid: c4fce13cd3a8afa4197ba9aef24097d3, type: 3}
+  - rarity: 3
+    name: Rare
+    rarityColor: {r: 0.43529412, g: 0.98039216, b: 1, a: 0}
+    rarityBackground: {fileID: 0}
+  - rarity: 4
+    name: Epic
+    rarityColor: {r: 0.83137256, g: 0.21176471, b: 0.7372549, a: 0}
+    rarityBackground: {fileID: 21300000, guid: 37d3c3f395e998f498ffdcf6429c649a, type: 3}
+  - rarity: 5
+    name: Legendary
+    rarityColor: {r: 0, g: 0, b: 0, a: 0}
+    rarityBackground: {fileID: 21300000, guid: 134b751aea14ee34cbd136b14b210d34, type: 3}
