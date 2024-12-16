@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 // using System.Numerics;
 
@@ -82,6 +83,8 @@ public class Player : MonoBehaviour
     private bool IsLanding = false;
     [SerializeField] private Image fadeImage;
     [SerializeField] private CrossfadeController crossfadeController;
+    [SerializeField] public int score = 0;
+    public TextMeshProUGUI scoreUI;
     private bool isInvulnerable = false;
 
     void Awake()
@@ -113,6 +116,8 @@ public class Player : MonoBehaviour
         RotatePlayerObj();
         if (isGrounded) AirComboDone = false;
         if (isGrounded) canDodgeRoll = true;
+        scoreUI.text = score.ToString("D6");
+
     }
 
     private void attackingAnimation() => isAttacking = true;
