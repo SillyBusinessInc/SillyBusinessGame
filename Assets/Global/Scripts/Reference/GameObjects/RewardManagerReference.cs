@@ -6,15 +6,29 @@ public class RewardManagerReference : Reference
 {
     public List<UpgradeOption> upgradeOptions;
 
-    public UpgradeOption GetRandomUpgrade() {
+    public UpgradeOption GetRandomUpgrade()
+    {
         Dictionary<UpgradeOption, int> optionsTable = new();
-        for (int i = 0; i < upgradeOptions.Count; i++) {
+        for (int i = 0; i < upgradeOptions.Count; i++)
+        {
             optionsTable.Add(upgradeOptions[i], GetWeight(upgradeOptions[i].rarity));
         }
         return RandomDistribution.GetRandom(optionsTable);
     }
 
-    private int GetWeight(int rarity) {
+    public List<UpgradeOption> GetRandomUpgrades(int count, bool allowDuplicates = false)
+    {
+        Dictionary<UpgradeOption, int> optionsTable = new();
+        for (int i = 0; i < upgradeOptions.Count; i++)
+        {
+            optionsTable.Add(upgradeOptions[i], GetWeight(upgradeOptions[i].rarity));
+        }
+        return RandomDistribution.GetMultipleRandom(optionsTable, null, count, allowDuplicates);
+    }
+
+
+    private int GetWeight(int rarity)
+    {
         return rarity switch
         {
             1 => 40,

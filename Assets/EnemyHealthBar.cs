@@ -5,6 +5,8 @@ public class EnemyHealthBar : MonoBehaviour
     public Slider healthSlider;
     public EnemiesNS.EnemyBase enemyBase;
 
+    public damagePopUp damagePopUp;
+
     void Start()
     {
         healthSlider.maxValue = enemyBase.maxHealth;

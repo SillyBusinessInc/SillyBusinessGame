@@ -773,7 +773,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeOptions:
-  - {fileID: 11400000, guid: bf9a96e1be201c64f9cdf721b6cbea01, type: 2}
   - {fileID: 11400000, guid: efd27e4c180b9e64499cb50fbf76c08c, type: 2}
   - {fileID: 11400000, guid: c5fe9d0c0e6250c4a86d51552d3b16bf, type: 2}
   - {fileID: 11400000, guid: 37c239daaa4a944408899fd811d24177, type: 2}
