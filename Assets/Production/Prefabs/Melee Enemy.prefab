@@ -5012,8 +5012,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.1635585, y: 4.048072, z: 0.39385176}
-  m_Center: {x: 0.063645065, y: 1.5240359, z: 0}
+  m_Size: {x: 3.1328447, y: 3.8741412, z: 1.3215487}
+  m_Center: {x: 0.14414024, y: 1.9335458, z: 0.012102803}
 --- !u!114 &1710052168369373784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5040,7 +5040,7 @@ MonoBehaviour:
   roamDestination: {x: 0, y: 0, z: 0}
   chaseRange: 25
   chaseSpeed: 3.5
-  chaseAcceleration: 8
+  chaseAcceleration: 9
   minDistanceToPlayer: 2
   chaseWaitTime: 1
   chaseWaitElapsed: 0
