@@ -4944,7 +4944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8727f22fc89cd54b9e87543dfb8dca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 2
+  acceleration: 10
   deceleration: 10
   currentMovementLerpSpeed: 100
   maxJumpHoldTime: 0.2
@@ -4954,7 +4954,7 @@ MonoBehaviour:
   coyoteTime: 0.2
   glideDrag: 1
   dodgeRollSpeed: 30
-  dodgeRollDuration: 0.2
+  dodgeRollDuration: 12
   dodgeRollDeceleration: 1
   groundCheckAngle: 50
   maxIdleTime: 20
@@ -4962,15 +4962,15 @@ MonoBehaviour:
   invulnerabilityTime: 0.5
   playerStatistic:
     Speed:
-      baseValue: 12
+      baseValue: 20
     JumpForce:
-      baseValue: 8
+      baseValue: 10
     MaxHealth:
-      baseValue: 6
+      baseValue: 30
     AttackSpeedMultiplier:
-      baseValue: 1
+      baseValue: 4
     AttackDamageMultiplier:
-      baseValue: 1
+      baseValue: 8
     DodgeCooldown:
       baseValue: 1
     DoubleJumpsCount:
