@@ -20,36 +20,90 @@ namespace EnemiesNS
             currentAttack = 0;
             enemy.animator.SetBool("AttackIdle", true);
         }
+        private bool isAttacking = false; // Tracks if currently in attack animation
+
         public override void Update()
         {
             base.Update();
-            // Check if it's time to shoot
-            if (currentTime > enemy.attackRecoveryTime && CheckingInRange())
+
+            // If attacking, handle the animation progress
+            if (isAttacking)
             {
-                currentTime = 0;
-                canshoot = false;
-
-                // Transition to attack state
-                enemy.animator.SetBool("AttackIdle", false);
-                enemy.animator.SetTrigger("AttackStart");
-
-                // Wait for a specific point in the animation to fire the bullet
-                enemy.StartCoroutine(HandleAttackAnimation());
+                HandleAttackProgress();
+                return; // Exit Update while handling attack animation
             }
-            if (canshoot){
+
+            // Check if the enemy can attack
+            if (canshoot && currentTime > enemy.attackRecoveryTime && CheckingInRange())
+            {
+                Debug.Log("Attack");
+                StartAttack();
+            }
+
+            // Increment recovery time if not attacking
+            if (canshoot)
+            {
                 currentTime += Time.deltaTime;
             }
-            if (enemy.distanceToPlayer >= 2) {
+
+            // Face the player if needed
+            if (enemy.distanceToPlayer >= 2)
+            {
                 FacePlayer();
             }
         }
-        public bool CheckingInRange(){
-            if (!IsWithinAttackRange() || currentAttack >= enemy.attacksPerCooldown ){
+
+        private void StartAttack()
+        {
+            currentTime = 0;
+            canshoot = false;
+            isAttacking = true;
+
+            // Trigger the attack animation
+            enemy.animator.SetBool("AttackIdle", false);
+            enemy.animator.SetTrigger("AttackStart");
+        }
+
+        private void HandleAttackProgress()
+        {
+            var stateInfo = enemy.animator.GetCurrentAnimatorStateInfo(0);
+
+            // Wait for the animation to reach the bullet firing point
+            if (stateInfo.normalizedTime >= 0.35f && stateInfo.normalizedTime < 1f && !enemy.inAttackAnim)
+            {
+                Attack();
+                enemy.inAttackAnim = true; // Ensure bullet fires only once
+            }
+
+            // Wait for the animation to finish
+            if (stateInfo.normalizedTime >= 1f)
+            {
+                EndAttack();
+            }
+        }
+
+        private void EndAttack()
+        {
+            isAttacking = false; // Reset attack state
+            enemy.inAttackAnim = false;
+
+            if (currentAttack < enemy.attacksPerCooldown)
+            {
+                enemy.animator.SetBool("AttackIdle", true);
+            }
+
+            canshoot = true; // Allow for next attack
+        }
+
+        public bool CheckingInRange()
+        {
+            if (!IsWithinAttackRange() || currentAttack >= enemy.attacksPerCooldown)
+            {
                 enemy.animator.SetBool("AttackIdle", false);
                 currentAttack = 5000;
                 enemy.inAttackAnim = false;
-                CheckState();   
-                return false;             
+                CheckState();
+                return false;
             }
             return true;
         }
@@ -69,23 +123,27 @@ namespace EnemiesNS
 
                 // enemy.animator.SetTrigger("AttackStart");
                 GameObject bullet = Object.Instantiate(enemy.bulletPrefab, enemy.bulletSpawnPoint.position, Quaternion.identity);
-                
+
                 // Assign the forward direction of the enemy to the bullet
                 Bullet bulletScript = bullet.GetComponent<Bullet>();
                 if (bulletScript != null)
                 {
                     bulletScript.bulletDirection = (GlobalReference.GetReference<PlayerReference>().SmoothCamaraTarget.transform.position - enemy.bulletSpawnPoint.position).normalized;
                 }
-                
+
                 // Reset the timer and increment the shot count
                 enemy.inAttackAnim = true;
                 enemy.toggleIsRecovering(true);
-                
+                canshoot = true;
 
             }
         }
         private IEnumerator HandleAttackAnimation()
         {
+            if (!CheckingInRange())
+            {
+                yield return null;
+            }
             // Wait for the attack animation to reach a specific point
             while (enemy.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.35f)
             {
