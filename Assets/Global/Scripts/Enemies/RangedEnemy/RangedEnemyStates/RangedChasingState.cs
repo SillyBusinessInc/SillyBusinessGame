@@ -10,9 +10,11 @@ namespace EnemiesNS
         public RangedChasingState(RangedEnemy enemy) : base(enemy) { this.enemy = enemy; }
         private float timeSinceLastRandomMove = 0f;
         private float randomMoveCooldown = 2f; // Cooldown time in seconds
+        private bool doneWalking = false;
 
         public override void Enter()
         {
+            doneWalking = false;
             enemy.animator.SetBool("Walk", true);
             base.Enter();
         }
@@ -24,6 +26,12 @@ namespace EnemiesNS
         }
         public override void Update()
         {
+            enemy.animator.SetFloat("WalkingSpeed", enemy.agent.velocity.magnitude);
+            CalculateDistanceToPlayer(); // Decide if needed every frame
+
+            if(!IsWithinAttackRange()){
+                doneWalking = false;
+            }
             if (!enemy.isWaiting)
             {
                 if (enemy.agent.isStopped)
@@ -39,8 +47,9 @@ namespace EnemiesNS
                         CheckState(); // Allow state change here
                     }
                 }
-                else if (IsWithinAttackRange() )
+                else if (IsWithinAttackRange() && !doneWalking)
                 {
+                    doneWalking = true;
                     // Prevent random movement if cooldown hasn't expired
                     if (!isMovingToRandomPosition && Time.time >= timeSinceLastRandomMove + randomMoveCooldown)
                     {
@@ -49,15 +58,15 @@ namespace EnemiesNS
                         isMovingToRandomPosition = true; // Set the flag
                     }
                 } 
-                else
+                else if (!doneWalking)
                 {
+                    doneWalking = true;
                     // Chase the player
                     enemy.agent.SetDestination(enemy.target.transform.position);
                 }
             }
             // Update the walking speed for animation
-            enemy.animator.SetFloat("WalkingSpeed", enemy.agent.velocity.magnitude);
-            CalculateDistanceToPlayer(); // Decide if needed every frame
+
 
             if (!isMovingToRandomPosition && IsWithinAttackRange())
             {
