@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
         collidersEnemy = new List<Collider>();
 
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
-        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
+        // GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED); doing this in Healthbar.cs instead
     }
 
     void Update()
@@ -328,13 +328,13 @@ public class Player : MonoBehaviour
     public void MultiplyMaxHealth(float reward)
     {
         playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
-        Heal(1f);
+        // Heal(1f);
     }
 
     public void IncreaseMaxHealth(float reward)
     {
         playerStatistic.MaxHealth.AddModifier("reward", reward);
-        Heal(1f);
+        // Heal(1f);
     }
 
     // If we go the event route this should change right?
@@ -355,4 +355,14 @@ public class Player : MonoBehaviour
         yield return new WaitForSecondsRealtime(time);
         isKnockedBack = false;
     }
+
+    [ContextMenu("heal1")] public void Heal1() => Heal(1);
+    [ContextMenu("heal2")] public void Heal2() => Heal(2);
+    [ContextMenu("heal3")] public void Heal3() => Heal(3);
+    [ContextMenu("heal5")] public void Heal5() => Heal(5);
+    [ContextMenu("max-2")] public void Maxm2() => IncreaseMaxHealth(-2);
+    [ContextMenu("max-1")] public void Maxm1() => IncreaseMaxHealth(-1);
+    [ContextMenu("max1")] public void Max1() => IncreaseMaxHealth(1);
+    [ContextMenu("max2")] public void Max2() => IncreaseMaxHealth(2);
+    
 }
