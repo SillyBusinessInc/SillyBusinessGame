@@ -101,7 +101,8 @@ public class Player : MonoBehaviour
         collidersEnemy = new List<Collider>();
 
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
-        // GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED); doing this in Healthbar.cs instead
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED); 
+
     }
 
     void Update()

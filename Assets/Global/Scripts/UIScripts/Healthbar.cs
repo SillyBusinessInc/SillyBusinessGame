@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Healthbar : MonoBehaviour
 {
-    private readonly List<GameObject> healthObjects = new();
+    private List<GameObject> healthObjects = null;
     
     [SerializeField] private GameObject healthPrefab;
 
@@ -14,8 +14,9 @@ public class Healthbar : MonoBehaviour
         GlobalReference.SubscribeTo(Events.HEALTH_CHANGED, UpdateCurrentHealthByPlayer);
     }
 
-    void Start()
+    public void Initialize()
     {
+        healthObjects = new();
         for (int i = 0; i < transform.childCount; i++) {
             healthObjects.Add(transform.GetChild(i).gameObject);
         }
@@ -23,16 +24,16 @@ public class Healthbar : MonoBehaviour
 
         UpdateMaxHealth(player.playerStatistic.MaxHealth.GetValue());
         UpdateCurrentHealth(player.playerStatistic.Health);
-        Debug.Log(healthObjects.Count);
-
 
         player.playerStatistic.MaxHealth.Subscribe(() => UpdateMaxHealth(player.playerStatistic.MaxHealth.GetValue()));
     }
 
     private void UpdateCurrentHealthByPlayer() {
-        Player player = GlobalReference.GetReference<PlayerReference>().Player;
-
-        UpdateCurrentHealth(player.playerStatistic.Health);
+        if (healthObjects == null) Initialize();
+        else {
+            Player player = GlobalReference.GetReference<PlayerReference>().Player;
+            UpdateCurrentHealth(player.playerStatistic.Health);
+        }
     }
 
     public void UpdateMaxHealth(float maxHealth) {
