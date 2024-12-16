@@ -25,31 +25,34 @@ namespace EnemiesNS
         public override void Update()
         {
             base.Update();
+            if (CheckingInRange()){
+                
+            
+                // If attacking, handle the animation progress
+                if (isAttacking)
+                {
+                    HandleAttackProgress();
+                    return; // Exit Update while handling attack animation
+                }
 
-            // If attacking, handle the animation progress
-            if (isAttacking)
-            {
-                HandleAttackProgress();
-                return; // Exit Update while handling attack animation
-            }
+                // Check if the enemy can attack
+                if (canshoot && currentTime > enemy.attackRecoveryTime && CheckingInRange())
+                {
+                    Debug.Log("Attack");
+                    StartAttack();
+                }
 
-            // Check if the enemy can attack
-            if (canshoot && currentTime > enemy.attackRecoveryTime && CheckingInRange())
-            {
-                Debug.Log("Attack");
-                StartAttack();
-            }
+                // Increment recovery time if not attacking
+                if (canshoot)
+                {
+                    currentTime += Time.deltaTime;
+                }
 
-            // Increment recovery time if not attacking
-            if (canshoot)
-            {
-                currentTime += Time.deltaTime;
-            }
-
-            // Face the player if needed
-            if (enemy.distanceToPlayer >= 2)
-            {
-                FacePlayer();
+                // Face the player if needed
+                if (enemy.distanceToPlayer >= 2)
+                {
+                    FacePlayer();
+                }
             }
         }
 
@@ -138,35 +141,6 @@ namespace EnemiesNS
 
             }
         }
-        private IEnumerator HandleAttackAnimation()
-        {
-            if (!CheckingInRange())
-            {
-                yield return null;
-            }
-            // Wait for the attack animation to reach a specific point
-            while (enemy.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.35f)
-            {
-                yield return null;
-            }
-
-            // Fire the bullet
-            Attack();
-
-            // Wait for the end of the attack animation
-            while (enemy.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
-            {
-                yield return null;
-            }
-
-            // Reset back to idle
-            if (currentAttack < enemy.attacksPerCooldown)
-            {
-                enemy.animator.SetBool("AttackIdle", true);
-            }
-            canshoot = true;
-        }
-
 
     }
 }
