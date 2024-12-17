@@ -10385,7 +10385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &480049636159477938
 Transform:
   m_ObjectHideFlags: 0
@@ -10395,7 +10395,7 @@ Transform:
   m_GameObject: {fileID: 3673123473092810611}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 5.69}
+  m_LocalPosition: {x: 0, y: 0.62, z: 4.71}
   m_LocalScale: {x: 6.3833947, y: 1.2031434, z: 6.3833947}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10416,7 +10416,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3673123473092810611}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -10692,7 +10692,6 @@ MonoBehaviour:
   activeCooldownTime: 0
   activeResetComboTime: 0
   tailCanDoDamage: 0
-  flipCanDoDamage: 0
   slamObject: {fileID: 3673123473092810611}
   slamObjectSize: 1
 --- !u!1 &7790592947966091340
