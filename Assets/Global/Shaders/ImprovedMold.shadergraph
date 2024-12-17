@@ -146,6 +146,9 @@
         },
         {
             "m_Id": "ea8b8fc3332f40eba2939a0de37bac24"
+        },
+        {
+            "m_Id": "536f5504d00f4fd98dc2ca3ceb62c274"
         }
     ],
     "m_GroupDatas": [],
@@ -570,12 +573,15 @@
             },
             {
                 "m_Id": "1bccddceebdc4241b05359e44b4465de"
+            },
+            {
+                "m_Id": "536f5504d00f4fd98dc2ca3ceb62c274"
             }
         ]
     },
     "m_PreviewData": {
         "serializedMesh": {
-            "m_SerializedMesh": "{\"mesh\":{\"fileID\":-1354631672181299356,\"guid\":\"d34fa98ec9f7f58499f5250db28f1147\",\"type\":3}}",
+            "m_SerializedMesh": "{\"mesh\":{\"fileID\":5243746252324506206,\"guid\":\"0d1c994e00f99cd4fa084e9386a6677e\",\"type\":3}}",
             "m_Guid": ""
         },
         "preventRotation": false
@@ -643,7 +649,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"9c5f5b9eee8aa4e4f8257db7c563c251\",\"type\":3}}",
+        "m_SerializedTexture": "",
         "m_Guid": ""
     },
     "isMainTexture": false,
@@ -1488,7 +1494,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"e015c4147dfdd444eabcb929b520f4da\",\"type\":3}}",
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"4d35d12b715a7b14dbe535698ba76d51\",\"type\":3}}",
         "m_Guid": ""
     },
     "isMainTexture": false,
@@ -1801,7 +1807,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"c2719ca0a899ab64a922fd2c99871273\",\"type\":3}}",
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"4524ad0967538ac4a85513addc539d59\",\"type\":3}}",
         "m_Guid": ""
     },
     "isMainTexture": false,
@@ -1968,13 +1974,47 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"1536160f1877b454bacef50b76adf0e9\",\"type\":3}}",
+        "m_SerializedTexture": "",
         "m_Guid": ""
     },
     "isMainTexture": false,
     "useTilingAndOffset": false,
     "m_Modifiable": true,
     "m_DefaultType": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
+    "m_ObjectId": "536f5504d00f4fd98dc2ca3ceb62c274",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "SurfaceDescription.AlphaClipThreshold",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "c6d19e3011b644e8bfa2f0ba5b9bfd86"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_SerializedDescriptor": "SurfaceDescription.AlphaClipThreshold"
 }
 
 {
@@ -3633,6 +3673,21 @@
     "m_ShaderOutputName": "Smoothness",
     "m_StageCapability": 2,
     "m_Value": 0.5,
+    "m_DefaultValue": 0.5,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "c6d19e3011b644e8bfa2f0ba5b9bfd86",
+    "m_Id": 0,
+    "m_DisplayName": "Alpha Clip Threshold",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "AlphaClipThreshold",
+    "m_StageCapability": 2,
+    "m_Value": 0.0,
     "m_DefaultValue": 0.5,
     "m_Labels": []
 }
