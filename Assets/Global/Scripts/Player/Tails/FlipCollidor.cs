@@ -6,9 +6,11 @@ public class FlipCollidor : MonoBehaviour
 
     public void OnTriggerEnter(Collider Collider)
     {
-        if (!Collider.gameObject.CompareTag("Enemy") ||
+        if (!Collider.gameObject.CompareTag("Enemy")    || 
+            !player.Tail.flipCanDoDamage                || 
             Collider.GetComponent<EnemiesNS.EnemyBase>() == null
         ) return;
+        
         float actualDamage = player.Tail.tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
         Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
     }
