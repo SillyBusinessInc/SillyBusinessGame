@@ -28,13 +28,12 @@ public class FlipAttack : TailAttack
     public override IEnumerator SetStateIdle()
     {
         yield return new WaitForSeconds(duration / 2);
-        player.Tail.flipCanDoDamage = true;
         player.Tail.slamObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
-        player.Tail.flipCanDoDamage = false;
         player.Tail.slamObject.SetActive(false);
         yield return new WaitForSeconds(duration / 2);
-        player.SetState(player.states.Idle);
+        if (player.isGrounded) player.SetState(player.movementInput.magnitude > 0 ? player.states.Walking : player.states.Idle);
+        else player.SetState(player.states.Falling);
         player.Tail.cooldownTime = cooldown;
     }
 }
