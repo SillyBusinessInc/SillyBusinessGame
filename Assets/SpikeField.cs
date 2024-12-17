@@ -9,9 +9,6 @@ public class SpikeField : MonoBehaviour
     [SerializeField] private float disableDuration = 0.1f; // Avoid damage loop
     [SerializeField] private float knockbackForce = 10f; // Horizontal knockback speed
     [SerializeField] private float leapForce = 5f; // Vertical leap speed
-    [SerializeField] private AudioClip playerHitSound; // Sound to play on Player collision
-
-    private AudioSource audioSource;
     private PlayerReference player;
 
     private List<GameObject> hitEntities = new();
@@ -25,10 +22,6 @@ public class SpikeField : MonoBehaviour
         {
             Debug.LogError("Player reference not found.");
         }
-
-        // Initialize the audio source
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.playOnAwake = false;
 
         // Initialize tag handlers
         tagHandlers = new()
@@ -53,10 +46,6 @@ public class SpikeField : MonoBehaviour
 
         if (AddToHitEntities(entity))
         {
-            // Play the sound
-            PlaySound(playerHitSound);
-
-            // Apply damage and knockback to the player
             player.Player.OnHit(damage);
             ApplyKnockback(player.Player.gameObject);
         }
@@ -69,7 +58,6 @@ public class SpikeField : MonoBehaviour
 
         if (AddToHitEntities(entity))
         {
-            // Apply damage and knockback to the enemy
             enemy.OnHit(enemyDamage);
             ApplyKnockback(enemy.gameObject);
         }
@@ -108,13 +96,5 @@ public class SpikeField : MonoBehaviour
     {
         yield return new WaitForSeconds(disableDuration);
         hitEntities.Remove(entity);
-    }
-
-    private void PlaySound(AudioClip clip)
-    {
-        if (clip != null)
-        {
-            audioSource.PlayOneShot(clip);
-        }
     }
 }
