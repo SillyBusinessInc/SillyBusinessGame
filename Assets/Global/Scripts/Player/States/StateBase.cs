@@ -93,6 +93,11 @@ public abstract class StateBase
         }
     }
 
+    public virtual void KnockBack()
+    {
+        Player.SetState(Player.states.Knockback);
+    }
+
     // general movement logic
     protected float ApplyGravity(float yValue) {
         if (yValue < Player.jumpVelocityFalloff || yValue > 0 && !Player.isHoldingJump && !Player.isHoldingDodge) {
