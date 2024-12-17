@@ -1,35 +1,42 @@
-using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEditor.XR;
 
 public class PauseLogic : MonoBehaviour
 {
-    public GameObject PauseMenu;
-    public GameObject[] UpgradeOptions;
-    // public Image fadeImage;
-    private bool isPaused = false;
+    public GameObject Menu;
+    public GameObject Upgrades;
+    private bool isPaused;
 
 
     void Start() {
-        PauseMenu.SetActive(false);
-        foreach (var option in UpgradeOptions)  {
-            option.SetActive(false);
-        }
+        Menu.SetActive(false);
+        Upgrades.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        isPaused = false;
     }
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.Escape) && IsLoadingSceneLoaded()) { 
             isPaused = !isPaused;
-            Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked; 
-            Cursor.visible = !Cursor.visible;
+            // Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked; 
+            // Cursor.visible = !Cursor.visible;
 
-            PauseMenu.SetActive(!PauseMenu.activeSelf); 
-            foreach (var option in UpgradeOptions)  {
-                option.SetActive(!option.activeSelf);
-            }
+            Menu.SetActive(!Menu.activeSelf); 
+            Upgrades.SetActive(!Upgrades.activeSelf); 
             Time.timeScale = isPaused ? 0f : 1f;
+            // Debug.Log("");
+            // ContinueGame();
         }
+
+        if (isPaused == true) {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        } else {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
     }
 
     bool IsLoadingSceneLoaded() { 
@@ -39,28 +46,35 @@ public class PauseLogic : MonoBehaviour
                 return false; 
             }
         }
-        return true; 
+        return true;
     }
 
     public void ContinueGame() {
         Debug.Log(" !!! ContinueGame !!! ");
         isPaused = false;
-        PauseMenu.SetActive(!PauseMenu.activeSelf); 
+        Menu.SetActive(!Menu.activeSelf); 
+        Upgrades.SetActive(!Upgrades.activeSelf); 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         Time.timeScale = 1f;
     }
 
     public void Settings() {
-        PauseMenu.SetActive(!PauseMenu.activeSelf); 
+        isPaused = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Menu.SetActive(!Menu.activeSelf); 
+        Upgrades.SetActive(!Upgrades.activeSelf); 
         SceneManager.LoadScene("Settings");
-        // UILogic.FadeToScene("Settings", fadeImage, this);
     }
 
     public void QuitGame() {
-        PauseMenu.SetActive(!PauseMenu.activeSelf); 
+        isPaused = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Menu.SetActive(!Menu.activeSelf); 
+        Upgrades.SetActive(!Upgrades.activeSelf); 
         SceneManager.LoadScene("Menu");
-        // UILogic.FadeToScene("Menu", fadeImage, this);
     }
 
 }
