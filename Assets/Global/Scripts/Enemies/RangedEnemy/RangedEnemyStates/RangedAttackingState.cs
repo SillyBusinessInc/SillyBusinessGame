@@ -9,25 +9,32 @@ namespace EnemiesNS
         private float currentTime;
         private bool canshoot = true;
         private int currentAttack = 0;
+        private bool isAttacking = false; // Tracks if currently in attack animation
         public RangedAttackingState(RangedEnemy enemy) : base(enemy) { this.enemy = enemy; }
 
         public override void Enter()
         {
-            // enemy.animator.SetInteger("Attack_var", 0);
-            // enemy.animator.SetBool("Attack", true);
             base.Enter();
             currentTime = 0;
             currentAttack = 0;
+            canshoot = true;
+            isAttacking = false; // Ensure attack is not active
+
             enemy.animator.SetBool("AttackIdle", true);
         }
-        private bool isAttacking = false; // Tracks if currently in attack animation
 
         public override void Update()
         {
             base.Update();
+            if (enemy.distanceToPlayer >= 2)
+            {
+                FacePlayer();
+            }
             if (CheckingInRange()){
-                
-            
+                if (canshoot && currentTime > enemy.attackRecoveryTime && CheckingInRange())
+                {
+                    StartAttack();
+                }
                 // If attacking, handle the animation progress
                 if (isAttacking)
                 {
@@ -36,11 +43,7 @@ namespace EnemiesNS
                 }
 
                 // Check if the enemy can attack
-                if (canshoot && currentTime > enemy.attackRecoveryTime && CheckingInRange())
-                {
-                    Debug.Log("Attack");
-                    StartAttack();
-                }
+                
 
                 // Increment recovery time if not attacking
                 if (canshoot)
@@ -49,10 +52,7 @@ namespace EnemiesNS
                 }
 
                 // Face the player if needed
-                if (enemy.distanceToPlayer >= 2)
-                {
-                    FacePlayer();
-                }
+                
             }
         }
 
@@ -71,15 +71,17 @@ namespace EnemiesNS
         {
             var stateInfo = enemy.animator.GetCurrentAnimatorStateInfo(0);
 
+            string Idle = stateInfo.IsName("attackIdle") ? "attackIdle" : "Unknown";
             // Wait for the animation to reach the bullet firing point
-            if (stateInfo.normalizedTime >= 0.35f && stateInfo.normalizedTime < 1f && !enemy.inAttackAnim)
+            if (Idle != "attackIdle" && stateInfo.normalizedTime >= 0.35f && stateInfo.normalizedTime < 1f && !enemy.inAttackAnim)
             {
                 Attack();
+                
                 enemy.inAttackAnim = true; // Ensure bullet fires only once
             }
 
             // Wait for the animation to finish
-            if (stateInfo.normalizedTime >= 1f)
+            if ( stateInfo.normalizedTime >= 1f)
             {
                 EndAttack();
             }
