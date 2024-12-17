@@ -25,6 +25,7 @@ public class Crumb : MonoBehaviour
             {
                 audioSource.PlayOneShot(pickupSound);
             }
+            GlobalReference.GetReference<PlayerReference>().GetComponent<Player>().score += 1;
 
             Destroy(gameObject, pickupSound.length);
         }
