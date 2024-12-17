@@ -93,9 +93,9 @@ public abstract class StateBase
         }
     }
 
-    public virtual void KnockBack()
+    public virtual void Hurt(Vector3 direction)
     {
-        Player.SetState(Player.states.Knockback);
+        Player.rb.AddForce(Vector3.up * 5, ForceMode.Impulse);
     }
 
     // general movement logic

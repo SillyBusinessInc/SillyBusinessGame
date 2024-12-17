@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class KnockbackState: StateBase
+public class HurtState: StateBase
 {
-    public KnockbackState(Player player) : base(player) { }
+
+    public HurtState(Player player) : base(player) { }
     public override void Enter()
     {
         
@@ -13,7 +14,7 @@ public class KnockbackState: StateBase
     {
         
     }
-    public override void KnockBack(){}
+    public override void Hurt(Vector3 direction){}
     public override void Move(InputAction.CallbackContext ctx){}
 
     public override void Sprint(InputAction.CallbackContext ctx) { }

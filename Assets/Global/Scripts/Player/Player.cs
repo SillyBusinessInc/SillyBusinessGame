@@ -286,6 +286,7 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         if (isInvulnerable) return;
+        currentState.Hurt(Vector3.zero);
         playerAnimationsHandler.animator.SetTrigger("PlayDamageFlash"); // why is this wrapped, but does not implement all animator params?
         playerStatistic.Health -= damage;
         if (playerStatistic.Health <= 0) OnDeath();
