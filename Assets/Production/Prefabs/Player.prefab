@@ -4948,13 +4948,13 @@ MonoBehaviour:
   acceleration: 2
   deceleration: 10
   currentMovementLerpSpeed: 100
-  maxJumpHoldTime: 0.2
+  maxJumpHoldTime: 0
   airBorneMovementFactor: 1
-  fallMultiplier: 5
+  fallMultiplier: 7
   jumpVelocityFalloff: 8
   coyoteTime: 0.2
   glideDrag: 1
-  dodgeRollSpeed: 30
+  dodgeRollSpeed: 45
   dodgeRollDuration: 0.2
   dodgeRollDeceleration: 1
   groundCheckAngle: 50
@@ -4963,9 +4963,9 @@ MonoBehaviour:
   invulnerabilityTime: 0.5
   playerStatistic:
     Speed:
-      baseValue: 12
+      baseValue: 14
     JumpForce:
-      baseValue: 8
+      baseValue: 12
     MaxHealth:
       baseValue: 6
     AttackSpeedMultiplier:
@@ -4976,12 +4976,12 @@ MonoBehaviour:
       baseValue: 1
     DoubleJumpsCount:
       baseValue: 1
-  Tail: {fileID: 2433743845863343982}
-  rb: {fileID: 8218035431276073872}
-  orientation: {fileID: 8661837782861090297}
-  particleSystemJump: {fileID: 3654745173966643205}
-  particleSystemDash: {fileID: 878975008514134550}
-  particleSystemWalk: {fileID: 6792631176631313089}
+  Tail: {fileID: 0}
+  rb: {fileID: 0}
+  orientation: {fileID: 0}
+  particleSystemJump: {fileID: 0}
+  particleSystemDash: {fileID: 0}
+  particleSystemWalk: {fileID: 0}
   playerAnimationsHandler: {fileID: 0}
   slamCanDoDamage: 0
   attackCounter: 0
@@ -4994,17 +4994,17 @@ MonoBehaviour:
   verticalInput: 0
   movementInput: {x: 0, y: 0}
   collidersEnemy: []
-  groundCheckDistance: 0
-  targetVelocity: {x: 0, y: 0, z: 0}
-  timeLeftGrounded: 0
-  timeLastDodge: 0
-  currentWalkingPenalty: 0
+  groundCheckDistance: 0.70628166
+  targetVelocity: {x: 0, y: -0.9044733, z: 0}
+  timeLeftGrounded: 899.9406
+  timeLastDodge: 898.4612
+  currentWalkingPenalty: 1
   awaitingNewState: 0
   maxWalkingPenalty: 0.5
-  isGrounded: 0
-  debug_currentStateName: none
+  isGrounded: 1
+  debug_currentStateName: IdleState
   isKnockedBack: 0
-  debug_lineColor: {r: 0, g: 0, b: 0, a: 0}
+  debug_lineColor: {r: 1, g: 0, b: 0, a: 1}
   isHoldingJump: 0
   isHoldingDodge: 0
   isAttacking: 0
@@ -5023,7 +5023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_Actions: {fileID: 0}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -15704,6 +15704,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4811859323897289456}
     m_Modifications:
+    - target: {fileID: 901918917812189700, guid: 4ec84f5d41734f9408b997a36d7413f8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.098
+      objectReference: {fileID: 0}
     - target: {fileID: 3809092235127846673, guid: 4ec84f5d41734f9408b997a36d7413f8, type: 3}
       propertyPath: player
       value: 
@@ -15784,19 +15788,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.049874764
+      value: 0.049874745
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.014071794
+      value: -0.014071792
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9819856
+      value: 0.9819855
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.1817109
+      value: -0.18171091
       objectReference: {fileID: 0}
     - target: {fileID: 1850711288717789347, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_Name
@@ -15820,19 +15824,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6038357418998698453, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.049874764
+      value: 0.049874745
       objectReference: {fileID: 0}
     - target: {fileID: 6038357418998698453, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.014071794
+      value: -0.014071792
       objectReference: {fileID: 0}
     - target: {fileID: 6038357418998698453, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9819856
+      value: 0.9819855
       objectReference: {fileID: 0}
     - target: {fileID: 6038357418998698453, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.1817109
+      value: -0.18171091
       objectReference: {fileID: 0}
     - target: {fileID: 7368220910572632056, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.x
