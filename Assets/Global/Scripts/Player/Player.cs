@@ -330,7 +330,7 @@ public class Player : MonoBehaviour
     // If we go the event route this should change right?
     private void OnDeath()
     {
-        currentState.Death();
+        SetState(states.Death);
     }
     public IEnumerator DeathScreen()
     {

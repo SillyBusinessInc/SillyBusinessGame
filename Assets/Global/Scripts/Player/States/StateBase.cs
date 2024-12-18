@@ -96,10 +96,6 @@ public abstract class StateBase
         }
     }
 
-    public virtual void Death()
-    {
-        Player.SetState(Player.states.Death);
-    }
     // general movement logic
     protected float ApplyGravity(float yValue)
     {

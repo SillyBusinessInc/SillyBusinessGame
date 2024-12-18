@@ -51,8 +51,4 @@ public class DeathState : StateBase
     public override void Attack(InputAction.CallbackContext ctx)
     {
     }
-
-    public override void Death()
-    {
-    }
 }
