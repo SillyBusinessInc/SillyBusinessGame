@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class DeathState : StateBase
 {
-    private bool isNotDeath = true;
-    private float time = 0;
+    private bool isNotDeath;
+    private float time;
     public DeathState(Player player) : base(player) { }
 
     public override void Enter()
     {
         Player.playerAnimationsHandler.animator.SetTrigger("IsDeath");
+        time = 0;
+        isNotDeath = true;
     }
 
     public override void Update()
@@ -26,11 +28,6 @@ public class DeathState : StateBase
         }
     }
 
-    public override void Exit()
-    {
-        time = 0;
-        isNotDeath = true;
-    }
     public override void Move(InputAction.CallbackContext ctx)
     {
     }
