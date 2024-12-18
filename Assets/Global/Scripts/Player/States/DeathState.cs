@@ -25,6 +25,12 @@ public class DeathState : StateBase
             }
         }
     }
+
+    public override void Exit()
+    {
+        time = 0;
+        isNotDeath = true;
+    }
     public override void Move(InputAction.CallbackContext ctx)
     {
     }
