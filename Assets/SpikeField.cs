@@ -46,7 +46,7 @@ public class SpikeField : MonoBehaviour
 
         if (AddToHitEntities(entity))
         {
-            player.Player.OnHit(damage);
+            //player.Player.OnHit(damage);
             ApplyKnockback(player.Player.gameObject);
         }
     }

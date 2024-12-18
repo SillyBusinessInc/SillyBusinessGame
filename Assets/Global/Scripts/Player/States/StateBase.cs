@@ -95,7 +95,8 @@ public abstract class StateBase
 
     public virtual void Hurt(Vector3 direction)
     {
-        Player.rb.AddForce(Vector3.up * 5, ForceMode.Impulse);
+        Player.hitDirection = direction * -1;
+        Player.SetState(Player.states.hurtState);
     }
 
     // general movement logic
