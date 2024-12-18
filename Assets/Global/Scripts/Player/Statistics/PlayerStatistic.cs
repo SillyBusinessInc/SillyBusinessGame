@@ -12,7 +12,8 @@ using UnityEngine;
 public class PlayerStatistic
 {
     private float health;
-    public float Health { 
+    public float Health
+    {
         get => health = Mathf.Min(health, MaxHealth.GetValue());
         set => health = value > 0 ? value : 0;
     }
@@ -20,13 +21,15 @@ public class PlayerStatistic
     private float moldmeter;
     private float maxmoldmeter = 100f;
 
-    public float Moldmeter {
+    public float Moldmeter
+    {
         get => moldmeter = Mathf.Min(moldmeter, maxmoldmeter);
         set => moldmeter = value > 0 ? value : 0;
     }
 
     private int crumbs;
-    public int Crumbs {
+    public int Crumbs
+    {
         get => crumbs;
         set => crumbs = value > 0 ? value : 0;
     }
@@ -39,10 +42,13 @@ public class PlayerStatistic
     public CurrentStatistic AttackDamageMultiplier = new(1f);
     public CurrentStatistic DodgeCooldown = new(1f);
     public CurrentStatistic DoubleJumpsCount = new(1f);
+    public CurrentStatistic KnockbackForce = new(1f);
+    public CurrentStatistic FlipKnockbackMultiplier = new(1f);
 
-    public void Generate() {
+    public void Generate()
+    {
         GlobalReference.PermanentPlayerStatistic.Generate();
-        
+
         Speed.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.Speed);
         JumpForce.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.JumpForce);
         MaxHealth.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.MaxHealth);
@@ -50,5 +56,7 @@ public class PlayerStatistic
         AttackDamageMultiplier.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.AttackDamageMultiplier);
         DodgeCooldown.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.DodgeCooldown);
         DoubleJumpsCount.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.DoubleJumpsCount);
+        KnockbackForce.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.KnockbackForce);
+        FlipKnockbackMultiplier.AddPermanentStats(GlobalReference.PermanentPlayerStatistic.FlipKnockbackMultiplier);
     }
 }

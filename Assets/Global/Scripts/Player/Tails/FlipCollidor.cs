@@ -10,6 +10,10 @@ public class FlipCollidor : MonoBehaviour
             Collider.GetComponent<EnemiesNS.EnemyBase>() == null
         ) return;
         float actualDamage = player.Tail.tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
-        Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
+
+        float knockbackForce = player.playerStatistic.KnockbackForce.GetValue();
+        Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0), knockbackForce);
+
+
     }
 }

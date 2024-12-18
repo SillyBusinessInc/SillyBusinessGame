@@ -12,7 +12,7 @@ public class Tail : MonoBehaviour
     public List<BaseTail> tails;
     public List<Attack> attacks;
 
-    public TailStatistic tailStatistic = new(); 
+    public TailStatistic tailStatistic = new();
 
     [HideInInspector] public int attackIndex;
 
@@ -21,11 +21,11 @@ public class Tail : MonoBehaviour
     [HideInInspector] public float activeResetComboTime;
 
     [HideInInspector] public bool tailCanDoDamage = false;
-    
+
     [HideInInspector] public GameObject slamObject;
     [HideInInspector] public float slamObjectSize = 1.0f;
 
-    public void Start() {}
+    public void Start() { }
 
     public void Update()
     {
@@ -48,14 +48,18 @@ public class Tail : MonoBehaviour
 
     public void OnTriggerEnter(Collider Collider)
     {
-        if (!Collider.gameObject.CompareTag("Enemy")    ||
-            !tailCanDoDamage                            ||
-            player.collidersEnemy.Contains(Collider)    ||
+        if (!Collider.gameObject.CompareTag("Enemy") ||
+            !tailCanDoDamage ||
+            player.collidersEnemy.Contains(Collider) ||
             Collider.GetComponent<EnemiesNS.EnemyBase>() == null
         ) return;
 
         player.collidersEnemy.Add(Collider);
         float actualDamage = tailDoDamage * player.playerStatistic.AttackDamageMultiplier.GetValue();
-        Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0));
+
+        float knockbackForce = player.playerStatistic.KnockbackForce.GetValue();
+        Collider.GetComponent<EnemiesNS.EnemyBase>().OnHit((int)MathF.Round(actualDamage, 0), knockbackForce);
+
+
     }
 }

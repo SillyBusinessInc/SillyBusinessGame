@@ -34,10 +34,13 @@ public class PermanentPlayerStatistic : SecureSaveSystem
     public PermanentStatistic AttackDamageMultiplier;
     public PermanentStatistic DodgeCooldown;
     public PermanentStatistic DoubleJumpsCount;
+    public PermanentStatistic KnockbackForce;
+    public PermanentStatistic FlipKnockbackMultiplier;
     protected override string Prefix => "PermanentPlayerStatistic";
     private PermanentStatistic[] Stats;
 
-    private void Setup() {
+    private void Setup()
+    {
         Speed = new("speed", this);
         JumpForce = new("jumpForce", this);
         MaxHealth = new("maxHealth", this);
@@ -45,30 +48,37 @@ public class PermanentPlayerStatistic : SecureSaveSystem
         AttackDamageMultiplier = new("attackDamageMultiplier", this);
         DodgeCooldown = new("dodgeCooldown", this);
         DoubleJumpsCount = new("doubleJumpsCount", this);
+        KnockbackForce = new("knockbackForce", this);
+        FlipKnockbackMultiplier = new("flipKnockbackMultiplier", this);
 
         Stats = new[] {
-            Speed, JumpForce, MaxHealth, AttackSpeedMultiplier, AttackDamageMultiplier, DodgeCooldown, DoubleJumpsCount
+            Speed, JumpForce, MaxHealth, AttackSpeedMultiplier, AttackDamageMultiplier, DodgeCooldown, DoubleJumpsCount, KnockbackForce, FlipKnockbackMultiplier
         };
     }
 
-    public override void Init() {
+    public override void Init()
+    {
         Setup();
-        
+
         // these are just default values
-        foreach (var stat in Stats) {
+        foreach (var stat in Stats)
+        {
             Add(stat.Param, "");
         }
         Add("crumbs", 0);
     }
 
-    public void Generate() {
+    public void Generate()
+    {
         // putting the saved values in the multipliers and modifiers list
-        foreach (var stat in Stats) {
+        foreach (var stat in Stats)
+        {
             stat.DeserializeModifications(Get<string>(stat.Param));
         }
     }
 
-    public void ModifyCrumbs(int amount) {
+    public void ModifyCrumbs(int amount)
+    {
         var crumbs = Get<int>("crumbs") + amount;
         if (crumbs < 0) crumbs = 0;
         Set("crumbs", crumbs);

@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -159,6 +160,10 @@ namespace EnemiesNS
         [SerializeField]
         public NavMeshAgent agent;
 
+        [Tooltip("OPTIONAL: Reference to the Rigidbody of this enemy. Has Default")]
+        [SerializeField]
+        public Rigidbody rb;
+
         [Tooltip("Reference to this enemy's weapon")]
         [SerializeField] public Collider weapon;
 
@@ -204,7 +209,7 @@ namespace EnemiesNS
 
         protected void FxedUpdate() => currentState?.FixedUpdate();
 
-        public virtual void OnHit(int damage)
+        public virtual void OnHit(int damage, float force = 0f, float leapForce = 0f)
         {
             if (healthBarPrefab != null)
             {
@@ -223,6 +228,12 @@ namespace EnemiesNS
             if (!animator) return;
             if (!inAttackAnim) animator.SetTrigger("PlayDamage");
 
+            if (force > 0)
+            {
+                Vector3 kb = ApplyKnockbackToGO.CalculateKnockback(this.gameObject, target.gameObject, force, leapForce);
+                DoKnockback(kb, knockbackStunTime);
+            }
+
         }
         protected virtual void OnDeath()
         {
@@ -233,6 +244,39 @@ namespace EnemiesNS
         protected virtual void OnDestroy()
         {
             GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
+        }
+
+
+
+        public void DoKnockback(Vector3 knockback, float duration)
+        {
+
+            FreezeMovement(true);
+            rb.isKinematic = false;
+            rb.useGravity = true;
+            rb.AddForce(knockback, ForceMode.Impulse);
+
+            StartCoroutine(AfterKnockback(duration));
+        }
+
+        private IEnumerator AfterKnockback(float duration)
+        {
+
+            float knockbackTime = Time.deltaTime;
+            // if the enemy is knocked back for more than X (duration) seconds or the velocity is less than 0.1f, stop the knockback
+            yield return new WaitUntil(
+                () => Time.deltaTime - knockbackTime > duration || rb.linearVelocity.magnitude < 0.1f
+            );
+            // just to be sure, wait a little bit more
+            yield return new WaitForSeconds(0.25f);
+
+            rb.isKinematic = true;
+            rb.useGravity = false;
+
+            FreezeMovement(false);
+
+            yield return null;
+
         }
 
         public void ChangeState(StateBase state)
@@ -268,6 +312,8 @@ namespace EnemiesNS
                 VFXLayer = animator.GetLayerIndex("VFX");
             } 
             */
+            if (!rb) rb = this.GetComponent<Rigidbody>();
+
             if (!DeathParticleOrigin)
             {
                 Debug.LogWarning("NULLREFERENCE: Death Paricle Origin not set. This will result in malfunctioning OnDeath() behavior.", this);

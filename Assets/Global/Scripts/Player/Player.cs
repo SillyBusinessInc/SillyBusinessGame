@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
     [Header("Debugging")]
     [SerializeField] public bool isGrounded;
     [SerializeField] private string debug_currentStateName = "none";
-    [SerializeField] private bool isKnockedBack = false;
+    [SerializeField] public bool isKnockedBack = false;
     [HideInInspector] public Color debug_lineColor;
     [HideInInspector] public bool isHoldingJump = false;
     [HideInInspector] public bool isHoldingDodge = false;
@@ -101,7 +101,7 @@ public class Player : MonoBehaviour
         collidersEnemy = new List<Collider>();
 
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
-        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED); 
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
 
     }
 
@@ -326,7 +326,7 @@ public class Player : MonoBehaviour
         playerStatistic.Health += reward;
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
-    
+
     // If we go the event route this should change right?
     [ContextMenu("Die!!!!!")]
     private void OnDeath()
