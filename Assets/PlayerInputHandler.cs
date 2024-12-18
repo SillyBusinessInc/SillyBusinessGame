@@ -10,6 +10,8 @@ public class PlayerInputHandler : MonoBehaviour
     public void OnMove(InputAction.CallbackContext ctx)
     {
         player.currentState.Move(ctx);
+
+        
     }
 
     public void OnAttack(InputAction.CallbackContext ctx)
@@ -45,5 +47,9 @@ public class PlayerInputHandler : MonoBehaviour
     public void OnInteract(InputAction.CallbackContext ctx)
     {
         interactor.Interact(ctx);
+    }
+
+    public void OnConfirm(InputAction.CallbackContext ctx) {
+
     }
 }
