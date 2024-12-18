@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 
 // IF you want to make this a Scriptable ,
@@ -30,6 +31,7 @@ public class PlayerStatistic
         get => crumbs;
         set => crumbs = value > 0 ? value : 0;
     }
+    public List<string> SecretCrumbs;
 
     // this is for the current stats of the player
     public CurrentStatistic Speed = new(12f);
