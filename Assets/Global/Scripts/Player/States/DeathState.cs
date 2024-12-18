@@ -1,28 +1,27 @@
 using UnityEngine.InputSystem;
-using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class DeathState : StateBase
 {
     private bool isNotDeath = true;
-     
+    private float time = 0;
     public DeathState(Player player) : base(player) { }
-    private AnimatorStateInfo stateInfo;
-    
+
     public override void Enter()
     {
-        stateInfo = Player.playerAnimationsHandler.animator.GetCurrentAnimatorStateInfo(0);
         Player.playerAnimationsHandler.animator.SetTrigger("IsDeath");
     }
+
     public override void Update()
     {
-        Debug.Log(stateInfo.normalizedTime);
-        if (stateInfo.IsName("Breadaplus|Bradley_death 0") && stateInfo.normalizedTime >= 0.8f)
+        time += Time.deltaTime;
+        if (Player.playerAnimationsHandler.animator.runtimeAnimatorController.animationClips.Where(x => x.name == "Breadaplus|Bradley_death").FirstOrDefault().length*0.8 <= time)
         {
             if (isNotDeath)
             {
                 isNotDeath = false;
-                Player.StartCoroutine(Player.DeathScreen());
+                SceneManager.LoadScene("Death");
             }
         }
     }

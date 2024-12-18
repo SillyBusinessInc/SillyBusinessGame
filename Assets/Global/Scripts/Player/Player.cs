@@ -331,7 +331,6 @@ public class Player : MonoBehaviour
     private void OnDeath()
     {
         currentState.Death();
-        // StartCoroutine(DeathScreen());
     }
     public IEnumerator DeathScreen()
     {
