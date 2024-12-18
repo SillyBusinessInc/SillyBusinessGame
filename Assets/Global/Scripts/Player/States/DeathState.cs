@@ -17,6 +17,9 @@ public class DeathState : StateBase
 
     public override void Update()
     {
+        float linearY = ApplyGravity(Player.rb.linearVelocity.y);
+        Player.targetVelocity = new Vector3(0, linearY, 0);
+
         time += Time.deltaTime;
         if (Player.playerAnimationsHandler.animator.runtimeAnimatorController.animationClips.Where(x => x.name == "Breadaplus|Bradley_death").FirstOrDefault().length*0.8 <= time)
         {
