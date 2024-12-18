@@ -11,8 +11,9 @@ public class HurtState : StateBase
         if (Player.isInvulnerable) Player.SetState(Player.states.Idle);
         Player.playerAnimationsHandler.animator.SetTrigger("TakingDamage");
         activeKnockbackDuration = 0.0f;
-
+        Player.rb.MoveRotation(Quaternion.Lerp(Player.rb.rotation, Quaternion.LookRotation(Player.hitDirection * -1), 1));
     }
+
     public override void Update()
     {
         if (activeKnockbackDuration >= Player.knockbackDuration)
