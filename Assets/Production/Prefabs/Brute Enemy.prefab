@@ -5031,7 +5031,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3351866423742185054}
   - component: {fileID: 7399730250562940959}
-  - component: {fileID: 1569866996615332254}
+  - component: {fileID: 7811520418258646416}
   - component: {fileID: 3132593184975547743}
   - component: {fileID: 5736893307651846989}
   m_Layer: 8
@@ -5080,7 +5080,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.1635585, y: 3.607091, z: 0.423598}
   m_Center: {x: 0.06364505, y: 1.7445273, z: 0.0062236786}
---- !u!114 &1569866996615332254
+--- !u!114 &7811520418258646416
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5089,7 +5089,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7668994237565754070}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3152f9b0947e49640a21aa2b62687a6f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ea785b13c1970b4eb0394112e163949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 40
@@ -5100,13 +5100,13 @@ MonoBehaviour:
   idleWaitTime: 0
   isIdling: 0
   roamRange: 15
-  roamingSpeed: 3.5
-  roamingAcceleration: 8
+  roamingSpeed: 2
+  roamingAcceleration: 5
   spawnPos: {x: 0, y: 0, z: 0}
   roamDestination: {x: 0, y: 0, z: 0}
   chaseRange: 25
-  chaseSpeed: 3.5
-  chaseAcceleration: 8
+  chaseSpeed: 2.8
+  chaseAcceleration: 5
   minDistanceToPlayer: 2
   chaseWaitTime: 1
   chaseWaitElapsed: 0
@@ -5117,7 +5117,7 @@ MonoBehaviour:
   attackCooldown: 2
   attackRecoveryTime: 0.3
   attacksPerCooldown: 1
-  attackDamage: 1
+  attackDamage: 2
   facingPlayerVarianceAngle: 5
   attackKnockback: 0
   knockbackStunTime: 0.5
@@ -5139,6 +5139,7 @@ MonoBehaviour:
   VFXLayer: 0
   currentStateName: 
   agentIsStopped: 0
+  attackType: 4
 --- !u!195 &3132593184975547743
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5192,10 +5193,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3351866423742185054}
     m_Modifications:
-    - target: {fileID: 1875510034735515812, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
-      propertyPath: enemyBase
-      value: 
-      objectReference: {fileID: 1569866996615332254}
     - target: {fileID: 2096797852946635833, guid: dee6ce253579037439514ee9fa1bda2b, type: 3}
       propertyPath: m_Name
       value: EnemyHealthbar
@@ -5439,7 +5436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 246017821b2eef748aac2c67582956ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 1569866996615332254}
+  enemy: {fileID: 0}
 --- !u!4 &6257272963687212147 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8602287851875234997, guid: f842308d25669044084fa0b5ad20bd92, type: 3}

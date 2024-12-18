@@ -101,28 +101,28 @@ ModelImporter:
       curves: []
       events:
       - time: 1
-        functionName: NewEvent
+        functionName: AttackAnimEnded
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0
-        functionName: NewEvent
+        functionName: AttackAnimStarted
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.44851905
-        functionName: NewEvent
+        functionName: EnableHitBox
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.7122708
-        functionName: NewEvent
+        functionName: DisableHitBox
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
