@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -5,22 +6,12 @@ public class PlayerSpawnPoint : MonoBehaviour
 {
     private CinemachineCamera cinemachineCamera;
     private SmoothTarget smoothCamaraTarget;
-    private Vector3 previousPosition;
-    private Vector3 presentPosition;
-    private Vector3 delta;
 
     public void Start() {
         cinemachineCamera = GlobalReference.GetReference<PlayerReference>().CinemachineCamera;
         smoothCamaraTarget = GlobalReference.GetReference<PlayerReference>().SmoothCamaraTarget;
-        previousPosition = smoothCamaraTarget.transform.position;
 
         SpawnPoint();
-
-        presentPosition = smoothCamaraTarget.transform.position;
-        delta = presentPosition - previousPosition;
-
-        // move the camera immidiately to the smoothCamaraTarget's transform
-        cinemachineCamera.OnTargetObjectWarped(smoothCamaraTarget.transform, delta);
     }
 
     public void SpawnPoint() {
@@ -33,7 +24,25 @@ public class PlayerSpawnPoint : MonoBehaviour
         rb.MoveRotation(targetRotation);
 
         var SmoothCamaraTarget = GlobalReference.GetReference<PlayerReference>().SmoothCamaraTarget;
-        SmoothCamaraTarget.transform.position = this.transform.position +offset;
+        SmoothCamaraTarget.transform.position = this.transform.position + offset;
         SmoothCamaraTarget.transform.rotation = targetRotation;
+
+        StartCoroutine(AdjustPositionAndRotation(1f));
+    }
+
+    private IEnumerator AdjustPositionAndRotation(float duration) { 
+        
+        var SmoothCamaraTarget = GlobalReference.GetReference<PlayerReference>().SmoothCamaraTarget.transform;
+
+        Vector3 newPosition = this.transform.position + new Vector3(0, 2, 8); 
+        Quaternion newRotation = Quaternion.Euler(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y + 180, this.transform.rotation.eulerAngles.z); 
+        
+        cinemachineCamera.ForceCameraPosition(newPosition, newRotation);
+
+        yield return new WaitForSeconds(duration); 
+        
+        cinemachineCamera.Follow = SmoothCamaraTarget; 
+        cinemachineCamera.LookAt = SmoothCamaraTarget;
+
     }
 }

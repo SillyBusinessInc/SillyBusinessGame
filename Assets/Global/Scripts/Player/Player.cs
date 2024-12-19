@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
 
 
     [Header("Stats")]
-    public PlayerStatistic playerStatistic;
+    public PlayerStatistic playerStatistic = new();
 
     public Tail Tail;
 
@@ -83,10 +83,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Image fadeImage;
     [SerializeField] private CrossfadeController crossfadeController;
     private bool isInvulnerable = false;
-    
+
     void Awake()
     {
-        playerStatistic = new();
         playerStatistic.Generate();
 
         GlobalReference.SubscribeTo(Events.PLAYER_ATTACK_STARTED, attackingAnimation);
@@ -102,7 +101,8 @@ public class Player : MonoBehaviour
         collidersEnemy = new List<Collider>();
 
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
-        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED); 
+
     }
 
     void Update()
@@ -287,6 +287,7 @@ public class Player : MonoBehaviour
     public void OnHit(float damage)
     {
         if (isInvulnerable) return;
+        playerAnimationsHandler.animator.SetTrigger("PlayDamageFlash"); // why is this wrapped, but does not implement all animator params?
         playerStatistic.Health -= damage;
         if (playerStatistic.Health <= 0) OnDeath();
 
@@ -294,20 +295,21 @@ public class Player : MonoBehaviour
         AddMold(5f); // add 5% to the moldmeter
     }
 
-    public void AddMold(float percentage) {
+    public void AddMold(float percentage)
+    {
         playerStatistic.Moldmeter += percentage;
         GlobalReference.AttemptInvoke(Events.MOLDMETER_CHANGED);
 
         isInvulnerable = true;
         StartCoroutine(InvulnerabilityTimer());
     }
-    
+
     private IEnumerator InvulnerabilityTimer()
     {
         yield return new WaitForSeconds(invulnerabilityTime);
         isInvulnerable = false;
     }
-    
+
     public void ApplyKnockback(Vector3 knockback, float time)
     {
         //
@@ -324,19 +326,7 @@ public class Player : MonoBehaviour
         playerStatistic.Health += reward;
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
     }
-
-    public void MultiplyMaxHealth(float reward)
-    {
-        playerStatistic.MaxHealth.AddMultiplier("reward", reward, true);
-        Heal(1f);
-    }
-
-    public void IncreaseMaxHealth(float reward)
-    {
-        playerStatistic.MaxHealth.AddModifier("reward", reward);
-        Heal(1f);
-    }
-
+    
     // If we go the event route this should change right?
     [ContextMenu("Die!!!!!")]
     private void OnDeath()

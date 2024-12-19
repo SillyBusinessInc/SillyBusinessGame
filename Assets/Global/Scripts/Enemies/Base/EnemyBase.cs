@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 namespace EnemiesNS
 {
@@ -118,8 +119,10 @@ namespace EnemiesNS
         [SerializeField]
         [Range(0f, 5f)]
         public float knockbackStunTime = 0.5f;
-
-        public GameObject HealthBarPrefab;
+        [Tooltip("Healthbar prefab for this enemy")]
+        public GameObject healthBarPrefab;
+        [Tooltip("Damage popup for this enemy")]
+        public damagePopUp damagePopUp;
         [HideInInspector]
         public bool canAttack = true;
         [HideInInspector]
@@ -203,13 +206,12 @@ namespace EnemiesNS
 
         public virtual void OnHit(int damage)
         {
-            if (HealthBarPrefab != null)
+            if (healthBarPrefab != null)
             {
-                HealthBarPrefab.SetActive(true);
+                healthBarPrefab.SetActive(true);
             }
-
+            damagePopUp.SetUp(damage);
             health -= damage;
-
             if (animator) animator.SetTrigger("PlayDamageFlash");
 
             if (health <= 0)
