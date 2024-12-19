@@ -183,6 +183,11 @@ namespace EnemiesNS
         [SerializeField]
         protected bool agentIsStopped = false;
 
+        [Header("Visual")]
+        [SerializeField] private SkinnedMeshRenderer moldRenderer;
+        private float targetMoldPercentage = 1;
+        private float currentMoldPercentage = 1;
+
         //TODO: this is a quick fix to get the demo out the door, make this nicer
         // this should be cleaned up and placed higher up somewhere
 
@@ -200,6 +205,9 @@ namespace EnemiesNS
             agentIsStopped = agent.isStopped;
             UpdateTimers();
             currentState?.Update();
+
+            currentMoldPercentage -= (currentMoldPercentage - targetMoldPercentage) * 2 * Time.deltaTime;
+            moldRenderer.material.SetFloat("_MoldStrength", currentMoldPercentage > 0 ? currentMoldPercentage * 0.6f + 0.2f : currentMoldPercentage);
         }
 
         protected void FxedUpdate() => currentState?.FixedUpdate();
@@ -223,7 +231,11 @@ namespace EnemiesNS
             if (!animator) return;
             if (!inAttackAnim) animator.SetTrigger("PlayDamage");
 
+            float p = health/(float)maxHealth;
+            Debug.LogWarning($"[{p}] health: {health}, maxHealth: {maxHealth}");
+            targetMoldPercentage = p;
         }
+
         protected virtual void OnDeath()
         {
             HealthBarDestroy = true;
@@ -354,6 +366,14 @@ namespace EnemiesNS
         }
         public void DeathAnimEnded()
         {
+            targetMoldPercentage = 0;
+            if (animator) animator.SetBool("Idle", true);
+            currentMoldPercentage = 0;
+
+            GetComponentInChildren<Collider>().enabled = false;
+
+            GlobalReference.AttemptInvoke(Events.ENEMY_KILLED);
+            return;
             // animator is on the Model's GameObject, so we can reach that GameObject through this.
             if (animator)
             {

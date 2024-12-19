@@ -5073,6 +5073,7 @@ MonoBehaviour:
   VFXLayer: 0
   currentStateName: 
   agentIsStopped: 0
+  moldRenderer: {fileID: 996188129961723855}
 --- !u!195 &5608345331629188897
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5384,6 +5385,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 6684295394808222897, guid: 2578af70ae4953f42ae387d01c4f5988, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6684295394808222897, guid: 2578af70ae4953f42ae387d01c4f5988, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0afb7bd6aa21ef943a18e3ca8fa20ace, type: 2}
+    - target: {fileID: 6684295394808222897, guid: 2578af70ae4953f42ae387d01c4f5988, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b1bbe469fdad9ab4c9905daf90ac5cc2, type: 2}
     - target: {fileID: 6710351527785120249, guid: 2578af70ae4953f42ae387d01c4f5988, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -5426,6 +5439,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 234034200508397240}
   m_SourcePrefab: {fileID: 100100000, guid: 2578af70ae4953f42ae387d01c4f5988, type: 3}
+--- !u!137 &996188129961723855 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6684295394808222897, guid: 2578af70ae4953f42ae387d01c4f5988, type: 3}
+  m_PrefabInstance: {fileID: 5841248896667784062}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6240565839355704469 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2578af70ae4953f42ae387d01c4f5988, type: 3}
