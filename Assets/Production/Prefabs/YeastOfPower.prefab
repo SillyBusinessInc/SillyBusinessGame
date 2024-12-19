@@ -126,9 +126,6 @@ MonoBehaviour:
   - action: {fileID: 11400000, guid: 738a1be2e325a1145bb93269c4296ad8, type: 2}
     parameters:
     - skibidi
-  - action: {fileID: 11400000, guid: 0bc009f30c697ca499e1143da9d849ae, type: 2}
-    parameters:
-    - skibidi
 --- !u!1 &3030290548714589633
 GameObject:
   m_ObjectHideFlags: 0
