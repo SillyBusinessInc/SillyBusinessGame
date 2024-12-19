@@ -323,7 +323,7 @@ namespace EnemiesNS
         {
             Player player = playerObject.GetComponentInParent<Player>();
             if (!player) return;
-            player.OnHit(damage, direction);
+            player.OnHit(damage, transform.forward);
             player.ApplyKnockback(CalculatedKnockback(playerObject), knockbackStunTime);
         }
 

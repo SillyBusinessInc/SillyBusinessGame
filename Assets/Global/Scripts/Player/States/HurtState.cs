@@ -11,7 +11,8 @@ public class HurtState : StateBase
         if (Player.isInvulnerable) Player.SetState(Player.states.Idle);
         Player.playerAnimationsHandler.animator.SetTrigger("TakingDamage");
         activeKnockbackDuration = 0.0f;
-        Player.rb.MoveRotation(Quaternion.Lerp(Player.rb.rotation, Quaternion.LookRotation(Player.hitDirection * -1), 1));
+        Vector3 hitdirection = Vector3.ProjectOnPlane(Player.hitDirection, Vector3.up).normalized;
+        Player.rb.MoveRotation(Quaternion.LookRotation(hitdirection * -1));
     }
 
     public override void Update()

@@ -95,7 +95,7 @@ public abstract class StateBase
 
     public virtual void Hurt(Vector3 direction)
     {
-        Player.hitDirection = direction * -1;
+        Player.hitDirection = direction;
         Player.SetState(Player.states.hurtState);
     }
 
