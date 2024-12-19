@@ -1,16 +1,22 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractableUpgradeUI : Interactable
+public class InteractableUpgradeUI : MonoBehaviour
 {
-    public override void TriggerInteraction(PlayerInteraction interactor)
-    {
-        UpgradeOption option = GlobalReference.GetReference<RewardManagerReference>().GetRandomUpgrade();
+    [Header("Upgrade Option")]
+    [SerializeField] private UpgradeOption option;
 
-        GlobalReference.GetReference<UpgradeOptions>().option = option;
-        GlobalReference.GetReference<UpgradeOptions>().ShowOption();
+    [Header("Interaction")]
+    [SerializeField] private List<ActionParamPair> interactionActions;
 
-        base.TriggerInteraction(interactor);
-        IsDisabled = true;
+    void OnTriggerEnter(Collider other) {
+        if (other.gameObject.GetComponent<PlayerObject>() != null) {
+            if (option != null) {
+                GlobalReference.GetReference<UpgradeOptions>().option = option;
+            }
+            GlobalReference.GetReference<UpgradeOptions>().ShowOption();
+            GlobalReference.GetReference<UpgradeOptions>().interactionActions = interactionActions;
+        }
     }
 }
