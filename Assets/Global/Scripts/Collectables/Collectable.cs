@@ -1,17 +1,9 @@
 using UnityEngine;
 
-public abstract class Collectable : MonoBehaviour
+public abstract class Collectable : PickupBase
 {
     // Called when the player collects this item
     public abstract void OnCollect();
 
-    private void OnTriggerEnter(Collider other)
-    {
-        // Check if the object entering the trigger is the player
-        if (other.CompareTag("Player"))
-        {
-            OnCollect(); // Trigger specific behavior
-            Destroy(gameObject); // Destroy the collectable
-        }
-    }
+    protected override void OnTrigger() => OnCollect();
 }

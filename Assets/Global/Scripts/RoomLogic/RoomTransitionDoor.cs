@@ -57,6 +57,16 @@ public class RoomTransitionDoor : Interactable
 
     public IEnumerator LoadRoomCoroutine()
     {
+        CollectableSave saveData = new CollectableSave(SceneManager.GetActiveScene().name);
+        if (saveData.Get<int>("crumbs") < GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.Crumbs)
+        {
+            saveData.Set("crumbs", GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.Crumbs);
+        }
+        Debug.Log("Saved Crumbs: " + saveData.Get<int>("crumbs"));
+        Debug.Log("Saved Calories: " + saveData.Get<List<string>>("calories").Count);
+        Debug.Log("---------------------------------------------------------------------");
+        saveData.SaveAll();
+
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
             Scene scene = SceneManager.GetSceneAt(i);

@@ -331,6 +331,9 @@ public class Player : MonoBehaviour
     [ContextMenu("Die!!!!!")]
     private void OnDeath()
     {
+        CollectableSave saveData = new CollectableSave(SceneManager.GetActiveScene().name);
+        saveData.LoadAll();
+
         StartCoroutine(DeathScreen());
     }
     private IEnumerator DeathScreen()
