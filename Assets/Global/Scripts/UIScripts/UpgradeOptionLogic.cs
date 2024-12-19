@@ -18,16 +18,4 @@ public class UpgradeOptionLogic : MonoBehaviour
         upgradeName.text = data.name;
         description.text = data.description ?? "Hmm yes, yeast of power. So powerful";
     }
-
-    /*private void GetRarity(int rarityId) {
-        // use the rarityColors scriptableobject to get the color
-        foreach (var rarityColorPair in rarityColors.rarityColorPairs) {
-            if (rarityColorPair.rarity == rarityId) {
-                rarityImage.sprite = rarityColorPair.rarityBackground;
-                rarity.text = rarityColorPair.name;
-                rarity.color = rarityColorPair.rarityColor;
-                return;
-            }
-        }
-    }*/
 }

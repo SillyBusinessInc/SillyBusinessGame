@@ -13,10 +13,10 @@ public class InteractableUpgradeUI : Interactable
 
         upgradeOptions.ForEach((u) => Debug.LogWarning(u.name));
 
-        GlobalReference.GetReference<UpgradeOptions>().options = upgradeOptions;
+        /*GlobalReference.GetReference<UpgradeOptions>().options = upgradeOptions;
         GlobalReference.GetReference<UpgradeOptions>().ShowOptions();
         
         base.TriggerInteraction(interactor);
-        IsDisabled = true;
+        IsDisabled = true;*/
     }
 }

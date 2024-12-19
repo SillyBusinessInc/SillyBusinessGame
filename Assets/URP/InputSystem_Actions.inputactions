@@ -103,15 +103,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Confirm",
-                    "type": "Button",
-                    "id": "23f55a8c-d883-42dd-8318-9be6a2689e24",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -552,17 +543,6 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "Dodge",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "39629e26-f480-4244-b7df-de3122d74ed5",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Confirm",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
