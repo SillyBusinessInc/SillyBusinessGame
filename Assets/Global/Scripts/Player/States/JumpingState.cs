@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class JumpingState : StateBase
 {
@@ -22,10 +21,5 @@ public class JumpingState : StateBase
     {
         // force state change if player let's go of jump button early
         if (!Player.isHoldingJump) Player.SetState(Player.states.Falling);
-    }
-
-    public override void Move(InputAction.CallbackContext ctx)
-    {
-        Player.movementInput = ctx.ReadValue<Vector2>();
     }
 }

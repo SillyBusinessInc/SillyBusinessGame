@@ -20,7 +20,7 @@ public class Tail : MonoBehaviour
     [HideInInspector] public float cooldownTime, activeCooldownTime;
     [HideInInspector] public float activeResetComboTime;
 
-    [HideInInspector] public bool tailCanDoDamage = false;
+    [HideInInspector] public bool tailCanDoDamage, flipCanDoDamage = false;
     
     [HideInInspector] public GameObject slamObject;
     [HideInInspector] public float slamObjectSize = 1.0f;
