@@ -15,6 +15,7 @@ public class InteractableUpgradeUI : MonoBehaviour
             if (option != null) {
                 GlobalReference.GetReference<UpgradeOptions>().option = option;
             }
+            
             GlobalReference.GetReference<UpgradeOptions>().ShowOption();
             GlobalReference.GetReference<UpgradeOptions>().interactionActions = interactionActions;
             Destroy(gameObject);
