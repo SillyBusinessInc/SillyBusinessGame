@@ -21,6 +21,7 @@ public class BreakableObjectWithAnimation : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
+        animator.ResetTrigger("respawn");
         playerObject = GlobalReference.GetReference<PlayerReference>().PlayerObj;
 
         if (other.gameObject == playerObject.gameObject && canBreak) {
@@ -39,8 +40,14 @@ public class BreakableObjectWithAnimation : MonoBehaviour
     private void RespawnObject()
     {
         animator.ResetTrigger("cracking");
-        if (canRespawn) {
+
+        if (!canRespawn) {
+            animator.enabled = false;
+            boxcollider.enabled = false;
+            platformRenderer.enabled = false;
+        } else {
             animator.SetTrigger("respawn");
         }
+
     }
 }
