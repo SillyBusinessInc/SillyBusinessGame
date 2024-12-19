@@ -107,7 +107,8 @@ public class Player : MonoBehaviour
         collidersEnemy = new List<Collider>();
 
         playerStatistic.Health = playerStatistic.MaxHealth.GetValue();
-        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
+        GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED); 
+
     }
 
     void Update()
@@ -207,6 +208,7 @@ public class Player : MonoBehaviour
 
     public void SetState(StateBase newState)
     {
+        if (currentState == states.Death) return;
         // stop active coroutine
         if (activeCoroutine != null)
         {
@@ -295,7 +297,7 @@ public class Player : MonoBehaviour
         playerAnimationsHandler.animator.SetTrigger("PlayDamageFlash"); // why is this wrapped, but does not implement all animator params?
         playerStatistic.Health -= damage;
         if (playerStatistic.Health <= 0) OnDeath();
-
+        
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
         AddMold(5f); // add 5% to the moldmeter
     }
@@ -333,7 +335,6 @@ public class Player : MonoBehaviour
     }
     
     // If we go the event route this should change right?
-    [ContextMenu("Die!!!!!")]
     private void OnDeath()
     {
         StartCoroutine(DeathScreen());
