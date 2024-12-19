@@ -72,7 +72,7 @@ public class RoomTransitionDoor : Interactable
         var gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
         if (gameManagerReference != null)
         {
-            doorManager.currentId = nextRoomId; 
+            doorManager.currentId = nextRoomId;
             Room nextRoom = gameManagerReference.GetRoom(nextRoomId);
             if (nextRoom != null)
             {
@@ -106,12 +106,15 @@ public class RoomTransitionDoor : Interactable
     public override void OnEnableInteraction()
     {
         doorMesh.SetMaterials(new List<Material> { unlockedMaterial });
+        animator.SetTrigger("TriggerDoorOpen");
+        animator.SetTrigger("TriggerDoorRight");
     }
 
     private void OpenDoorAnimation()
     {
         if (IsDisabled) return;
         animator.SetTrigger("TriggerDoorOpen");
+        animator.SetTrigger("TriggerDoorRight");
     }
 
     [ContextMenu("Unlock Door")] void UnlockDoorTest() => IsDisabled = false;
