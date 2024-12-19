@@ -5,6 +5,7 @@ public class InteractableUpgradeUI : Interactable
 {
     public override void TriggerInteraction(PlayerInteraction interactor)
     {
+
         List<UpgradeOption> upgradeOptions = new();
 
         List<UpgradeOption> options = GlobalReference.GetReference<RewardManagerReference>().GetRandomUpgrades(3);
@@ -13,7 +14,7 @@ public class InteractableUpgradeUI : Interactable
         options.ForEach((o) => upgradeOptions.Add(o));
 
         upgradeOptions.ForEach((u) => Debug.LogWarning(u.name));
-
+        GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().powerUpPickUp);
         GlobalReference.GetReference<UpgradeOptions>().options = upgradeOptions;
         GlobalReference.GetReference<UpgradeOptions>().ShowOptions();
 
