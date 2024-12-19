@@ -1501,19 +1501,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2317976681962100755}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5427887237119498114}
-        m_TargetAssemblyTypeName: UpgradeOptions, Assembly-CSharp
-        m_MethodName: HideOptions
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &7722653136578928598
 GameObject:
   m_ObjectHideFlags: 0

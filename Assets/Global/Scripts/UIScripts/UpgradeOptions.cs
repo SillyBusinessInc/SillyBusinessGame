@@ -67,6 +67,7 @@ public class UpgradeOptions : Reference
 
             foreach(ActionParamPair action in interactionActions) {
                 action.InvokeAction();
+                GlobalReference.AttemptInvoke(Events.STATISTIC_CHANGED);
             }
         }
         HideOption();
