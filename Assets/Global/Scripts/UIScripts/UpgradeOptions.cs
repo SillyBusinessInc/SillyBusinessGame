@@ -8,6 +8,8 @@ public class UpgradeOptions : Reference
     public List<UpgradeOption> options;
     [HideInInspector]
     public bool isShown = false;
+    public UpgradeList upgradeList;
+
 
     [ContextMenu("SHOW")]
     public void ShowOptions()
@@ -52,6 +54,7 @@ public class UpgradeOptions : Reference
 
         if (Input.GetKeyDown("1"))
         {
+            AddToUpgradeList(0);
             foreach (ActionParamPair action in options[0].interactionActions)
             {
                 action.InvokeAction();
@@ -60,6 +63,7 @@ public class UpgradeOptions : Reference
         }
         else if (Input.GetKeyDown("2"))
         {
+            AddToUpgradeList(1);
             foreach (ActionParamPair action in options[1].interactionActions)
             {
                 action.InvokeAction();
@@ -68,11 +72,17 @@ public class UpgradeOptions : Reference
         }
         else if (Input.GetKeyDown("3"))
         {
+            AddToUpgradeList(2);
             foreach (ActionParamPair action in options[2].interactionActions)
             {
                 action.InvokeAction();
             }
             HideOptions();
         }
+    }
+
+
+    void AddToUpgradeList(int i) {
+        upgradeList.AddUpgrade(options[i].rarity, options[i].image);
     }
 }
