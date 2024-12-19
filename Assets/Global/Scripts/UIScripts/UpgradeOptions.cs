@@ -1,16 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class UpgradeOptions : Reference
 {
     [HideInInspector]
     public List<UpgradeOption> options;
+    public UpgradeOption option;
     [HideInInspector]
     public bool isShown = false;
 
     [ContextMenu("SHOW")]
-    public void ShowOptions()
+    public void ShowOption()
     {
         isShown = true;
         Time.timeScale = 0;
@@ -74,5 +76,9 @@ public class UpgradeOptions : Reference
             }
             HideOptions();
         }
+    }
+
+    public void Confirm(InputAction.CallbackContext ctx) {
+
     }
 }

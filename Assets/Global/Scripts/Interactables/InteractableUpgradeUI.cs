@@ -5,17 +5,10 @@ public class InteractableUpgradeUI : Interactable
 {
     public override void TriggerInteraction(PlayerInteraction interactor)
     {
-        List<UpgradeOption> upgradeOptions = new();
+        UpgradeOption option = GlobalReference.GetReference<RewardManagerReference>().GetRandomUpgrade();
 
-        List<UpgradeOption> options = GlobalReference.GetReference<RewardManagerReference>().GetRandomUpgrades(3);
-        Debug.LogWarning("options:" + options[0].name + " " + options[1].name + " " + options[2].name);
-
-        options.ForEach((o) => upgradeOptions.Add(o));
-
-        upgradeOptions.ForEach((u) => Debug.LogWarning(u.name));
-
-        GlobalReference.GetReference<UpgradeOptions>().options = upgradeOptions;
-        GlobalReference.GetReference<UpgradeOptions>().ShowOptions();
+        GlobalReference.GetReference<UpgradeOptions>().option = option;
+        GlobalReference.GetReference<UpgradeOptions>().ShowOption();
 
         base.TriggerInteraction(interactor);
         IsDisabled = true;
