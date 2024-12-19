@@ -96,6 +96,12 @@ public abstract class StateBase
         }
     }
 
+    public virtual void Hurt(Vector3 direction)
+    {
+        Player.hitDirection = direction;
+        Player.SetState(Player.states.HurtState);
+    }
+
     // general movement logic
     protected float ApplyGravity(float yValue)
     {
