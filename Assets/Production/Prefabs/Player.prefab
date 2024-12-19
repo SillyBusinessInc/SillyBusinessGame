@@ -4965,7 +4965,7 @@ MonoBehaviour:
     Speed:
       baseValue: 14
     JumpForce:
-      baseValue: 12
+      baseValue: 16
     MaxHealth:
       baseValue: 6
     AttackSpeedMultiplier:
@@ -15776,15 +15776,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.569973
+      value: -38.080345
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 105.04141
+      value: 119.073
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 28.06179
+      value: 308.3014
       objectReference: {fileID: 0}
     - target: {fileID: 704885162905041959, guid: bcb315490311a1c44acc7e5c76c44ee6, type: 3}
       propertyPath: m_LocalRotation.w
