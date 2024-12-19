@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     public float deceleration = 0.5f;
     public float currentMovementLerpSpeed = 100;
 
+    public float soundAfterTime = 0.5f;
+
     [Header("Jumping Settings")]
     public float maxJumpHoldTime = 0.2f;
     public float airBorneMovementFactor = 0.5f;
