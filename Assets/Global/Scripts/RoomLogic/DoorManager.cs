@@ -85,9 +85,10 @@ public class DoorManager : Reference
 
     void SetupDoors()
     {
-        LoadConnectedRooms();
-        DeactivateExtraDoors();
-        ConnectDoorsToRooms();
+        // LoadConnectedRooms(); // disabled for structure change
+        // DeactivateExtraDoors(); // disabled for structure change
+        // ConnectDoorsToRooms(); // disabled for structure change
+        connectedRooms = gameManagerReference.GetRooms(); // added for structure change
         doors.ForEach(x => x.GetComponent<RoomTransitionDoor>().Initialize());
     }
 }

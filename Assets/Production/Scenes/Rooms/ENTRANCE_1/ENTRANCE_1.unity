@@ -1579,6 +1579,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gate (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6697922947640386179, guid: 87a134eda9ddccd4db4a53f4fe718824, type: 3}
+      propertyPath: nextRoomId
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697922947640386179, guid: 87a134eda9ddccd4db4a53f4fe718824, type: 3}
+      propertyPath: nextRoomType
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697922947640386179, guid: 87a134eda9ddccd4db4a53f4fe718824, type: 3}
+      propertyPath: nextRoomIndex
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9083,6 +9095,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gate (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6697922947640386179, guid: 87a134eda9ddccd4db4a53f4fe718824, type: 3}
+      propertyPath: nextRoomId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697922947640386179, guid: 87a134eda9ddccd4db4a53f4fe718824, type: 3}
+      propertyPath: nextRoomType
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697922947640386179, guid: 87a134eda9ddccd4db4a53f4fe718824, type: 3}
+      propertyPath: nextRoomIndex
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10242,6 +10266,22 @@ PrefabInstance:
     - target: {fileID: 4288179660336547401, guid: 87a134eda9ddccd4db4a53f4fe718824, type: 3}
       propertyPath: m_Name
       value: Gate
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697922947640386179, guid: 87a134eda9ddccd4db4a53f4fe718824, type: 3}
+      propertyPath: nextRoomId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697922947640386179, guid: 87a134eda9ddccd4db4a53f4fe718824, type: 3}
+      propertyPath: randomIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697922947640386179, guid: 87a134eda9ddccd4db4a53f4fe718824, type: 3}
+      propertyPath: nextRoomType
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697922947640386179, guid: 87a134eda9ddccd4db4a53f4fe718824, type: 3}
+      propertyPath: nextRoomIndex
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

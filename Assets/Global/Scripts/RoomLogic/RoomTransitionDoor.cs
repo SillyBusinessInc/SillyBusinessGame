@@ -12,8 +12,9 @@ public class RoomTransitionDoor : Interactable
     [SerializeField] private Animator animator;
     [SerializeField] private MeshRenderer doorMesh;
     [SerializeField] private string nextRoomName;
-    [HideInInspector] public RoomType nextRoomType;
-    public int nextRoomId;
+    [SerializeField] private int nextRoomIndex;
+    public RoomType nextRoomType; // made public for structure change
+    public int nextRoomId; // made public for structure change
     private int roomAmounts;
 
     private GameManagerReference gameManagerReference;
@@ -34,8 +35,8 @@ public class RoomTransitionDoor : Interactable
         gameManagerReference = GlobalReference.GetReference<GameManagerReference>();
         doorManager = GlobalReference.GetReference<DoorManager>();
         roomAmounts = gameManagerReference.GetAmountForRoomType(nextRoomType);
-        int randomIndex = Random.Range(1, roomAmounts + 1);
-        nextRoomName = nextRoomType.ToString() + "_" + randomIndex;
+        // int randomIndex = Random.Range(1, roomAmounts + 1); // disabled for structure change
+        nextRoomName = nextRoomType.ToString() + "_" + nextRoomIndex;
     }
 
     private void RoomFinished()
