@@ -289,6 +289,7 @@ public class Player : MonoBehaviour
         if (isInvulnerable) return;
         playerAnimationsHandler.animator.SetTrigger("PlayDamageFlash"); // why is this wrapped, but does not implement all animator params?
         playerStatistic.Health -= damage;
+        GlobalReference.GetReference<AudioManager>().PlaySFX(GlobalReference.GetReference<AudioManager>().bradleyGetsHurt);
         if (playerStatistic.Health <= 0) OnDeath();
 
         GlobalReference.AttemptInvoke(Events.HEALTH_CHANGED);
