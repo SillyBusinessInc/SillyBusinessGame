@@ -22,8 +22,8 @@ public class GameManagerReference : Reference
 
     public void Initialize() {
         // table = new(); // disabled for structure change
-        AddRoom(0, RoomType.ENTRANCE); // added for structure change
-        AddRoom(1, RoomType.COMBAT); // added for structure change
+        AddRoom(0, RoomType.ENTRANCE, true); // added for structure change
+        AddRoom(1, RoomType.COMBAT, true); // added for structure change
         AddRoom(2, RoomType.COMBAT); // added for structure change
         AddRoom(3, RoomType.COMBAT); // added for structure change
 
@@ -36,8 +36,8 @@ public class GameManagerReference : Reference
     public Room activeRoom;
     private readonly List<Room> rooms = new();
 
-    public void AddRoom(int id, RoomType roomType) {
-        if (rooms.Where((x) => x.id == id).Count() == 0) rooms.Add(new(id, roomType));
+    public void AddRoom(int id, RoomType roomType, bool unlocked = false) {
+        if (rooms.Where((x) => x.id == id).Count() == 0) rooms.Add(new(id, roomType, unlocked));
     }
     
     public void RemoveRoom(int id) {

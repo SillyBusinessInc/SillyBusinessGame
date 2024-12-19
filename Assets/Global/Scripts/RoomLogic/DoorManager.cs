@@ -22,7 +22,7 @@ public class DoorManager : Reference
     void Update()
     {
         if (Time.timeScale == 0) return;
-        if (currentId != 0 && currentId != previousId)
+        if (currentId != previousId)
         {
             previousId = currentId;
             doors = GameObject.FindGameObjectsWithTag("DoorPrefab").ToList();
