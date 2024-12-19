@@ -25,7 +25,7 @@ namespace EnemiesNS
             Shot();
         }
 
-        
+
 
         void OnTriggerEnter(Collider hit)
         {
@@ -53,8 +53,8 @@ namespace EnemiesNS
         {
             Player player = GlobalReference.GetReference<PlayerReference>().Player;
             if (!player) return;
-            player.OnHit(damage);
-            
+            player.OnHit(damage, Vector3.forward); // TODO: Add proper knockback direction 
+
             //TODO: implement knockback
             // player.applyKnockback(CalculatedKnockback(playerObject), attackKnockback);
         }
@@ -73,7 +73,7 @@ namespace EnemiesNS
             Rigidbody rb = GetComponent<Rigidbody>();
 
             rb.linearVelocity = bulletDirection * bulletSpeed;
-            
+
 
             // Destroy the bullet after its lifetime
             Destroy(gameObject, bulletLifeTime);
