@@ -4,8 +4,33 @@ namespace EnemiesNS
 {
     public class MeleeEnemy : EnemyBase
     {
+        public enum AttackType
+        {
+            Stab = 0,
+            Slam = 1,
+            Slash = 2,
+            Slash360 = 3,
+            BruteSlash = 4
+        }
+
+        public AttackType attackType;
         public Collider weapon;
         private bool playerHit = false;
+
+        protected override void Start()
+        {
+            base.Start();
+            if (!IsValidAttack(attackType)) Debug.LogWarning($"{attackType} is not valid for this type of enemy", this);
+        }
+
+        // check if chosen attack is valid for this enemy
+        public virtual bool IsValidAttack(AttackType attackType)
+        {
+            return attackType == AttackType.Stab ||
+                   attackType == AttackType.Slam ||
+                   attackType == AttackType.Slash ||
+                   attackType == AttackType.Slash360;
+        }
 
         //
         // called in animations as events
