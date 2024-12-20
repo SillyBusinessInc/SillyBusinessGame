@@ -211,10 +211,11 @@ public class Player : MonoBehaviour
 
     public void SetState(StateBase newState)
     {
-        if (currentState == states.Death) return;
-        
         // cancel upcomming state
         if (upcommingState != null) upcommingState = null;
+
+        // cancel when dead
+        if (currentState == states.Death) return;
 
         // chance state
         currentState?.Exit();
