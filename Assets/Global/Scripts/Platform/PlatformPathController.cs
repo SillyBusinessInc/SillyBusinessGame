@@ -4,13 +4,16 @@ using System.Collections;
 
 public class PlatformPathController : MonoBehaviour
 {
-    public Transform pathParent; 
+    [Header("Path Settings")]
+    [SerializeField] private Transform pathParent; 
     private List<Vector3> controlPoints = new List<Vector3>();
-    public float platformSpeed = 5f; 
-    public float tStartPause = 0f; 
-    public float tEndPause = 0f;
+    [SerializeField] private float platformSpeed = 5f; 
+    
+    [Header("Pause Settings")]
+    [SerializeField] private float tStartPause = 0f; 
+    [SerializeField] private float tEndPause = 0f;
+    [SerializeField] private bool pause = false;
     private bool pausedTime = false;
-    public bool pause = false;
     private float pauseTimer = 0f;
 
     private float t = 0f; 
@@ -24,23 +27,22 @@ public class PlatformPathController : MonoBehaviour
             controlPoints.Add(child.position);
         }
     }
-
-
-private void FixedUpdate()
-{
-    if (pause) return; 
-    if (pausedTime) return;
-
-    if (controlPoints.Count < 4) return; 
-
-    if (pauseTimer > 0)
+    
+    private void FixedUpdate()
     {
-        pauseTimer -= Time.fixedDeltaTime;
-        return;
-    }
+        if (pause) return; 
+        if (pausedTime) return;
 
-    MovePlatform();
-}
+        if (controlPoints.Count < 4) return; 
+
+        if (pauseTimer > 0)
+        {
+            pauseTimer -= Time.fixedDeltaTime;
+            return;
+        }
+
+        MovePlatform();
+    }
 
     private void MovePlatform()
     {
@@ -90,7 +92,6 @@ private void FixedUpdate()
 
         Debug.Log($"Segment: {currentSegment}, Reversing: {isReversing}");
     }
-
 
     private Vector3 GetCatmullRomPosition(float t, Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3)
     {
