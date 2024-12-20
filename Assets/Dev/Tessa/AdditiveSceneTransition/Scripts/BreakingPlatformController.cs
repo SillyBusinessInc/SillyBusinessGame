@@ -3,20 +3,20 @@ using System.Collections;
 
 public class BreakableObjectWithAnimation : MonoBehaviour
 {
-    public float delay = 3f;     
-    public float respawnDelay = 7f; 
+    [SerializeField] private float delay = 3f;     
+    [SerializeField] private float respawnDelay = 7f; 
 
-    public bool canRespawn = true;
-    public bool canBreak = true; 
+    [SerializeField] private bool canRespawn = true;
+    [SerializeField] private bool canBreak = true; 
 
     private Animator animator;
-    private Collider boxcollider;
+    private Collider boxCollider;
     private Renderer platformRenderer;
     private PlayerObject playerObject;
 
     void Start() {
         animator = GetComponent<Animator>();
-        boxcollider = GetComponent<Collider>();
+        boxCollider = GetComponent<Collider>();
         platformRenderer = GetComponent<Renderer>();
     }
 
@@ -25,7 +25,6 @@ public class BreakableObjectWithAnimation : MonoBehaviour
         playerObject = GlobalReference.GetReference<PlayerReference>().PlayerObj;
 
         if (other.gameObject == playerObject.gameObject && canBreak) {
-            Debug.Log("OnCollisionEnter");
             Invoke(nameof(CrackObject), delay);
         }
     }
@@ -43,7 +42,7 @@ public class BreakableObjectWithAnimation : MonoBehaviour
 
         if (!canRespawn) {
             animator.enabled = false;
-            boxcollider.enabled = false;
+            boxCollider.enabled = false;
             platformRenderer.enabled = false;
         } else {
             animator.SetTrigger("respawn");
