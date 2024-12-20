@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 // using System.Numerics;
 
@@ -69,8 +70,8 @@ public class Player : MonoBehaviour
     [HideInInspector] public float timeLeftGrounded;
     [HideInInspector] public float timeLastDodge;
     [HideInInspector] public float currentWalkingPenalty;
-    [HideInInspector] public bool awaitingNewState = false;
-    [HideInInspector] public Coroutine activeCoroutine;
+    [HideInInspector] public float upcommingStateTime;
+    [HideInInspector] public StateBase upcommingState;
     [HideInInspector] public float maxWalkingPenalty = 0.5f;
 
     [Header("Debugging")]
@@ -113,6 +114,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (upcommingState != null && upcommingStateTime < Time.time) SetState(upcommingState);
+
         GroundCheck();
         CheckLandingAnimation();
         currentState.Update();
@@ -209,12 +212,9 @@ public class Player : MonoBehaviour
     public void SetState(StateBase newState)
     {
         if (currentState == states.Death) return;
-        // stop active coroutine
-        if (activeCoroutine != null)
-        {
-            StopCoroutine(activeCoroutine);
-            activeCoroutine = null;
-        }
+        
+        // cancel upcomming state
+        if (upcommingState != null) upcommingState = null;
 
         // chance state
         currentState?.Exit();
@@ -226,23 +226,10 @@ public class Player : MonoBehaviour
         debug_lineColor = Color.yellow;
     }
 
-    public IEnumerator SetStateAfter(StateBase newState, float time, bool override_ = false)
-    {
-        // stop active coroutine
-        if (activeCoroutine != null)
-        {
-            if (override_)
-            {
-                StopCoroutine(activeCoroutine);
-                activeCoroutine = null;
-            }
-            else yield break;
-        }
-
-        // set state after time
-        yield return new WaitForSeconds(time);
-        activeCoroutine = null;
-        SetState(newState);
+    public void SetStateAfter(StateBase newState, float time, bool override_ = false) {
+        if (upcommingState != null && !override_) return;
+        upcommingState = newState;
+        upcommingStateTime = Time.time + time;
     }
 
     public Vector3 GetDirection()

@@ -32,11 +32,9 @@ public class FallingState : StateBase
         Player.targetVelocity = new(newTargetVelocity.x, linearY, newTargetVelocity.z);
 
         // change state on ground
-        // if (Player.isGrounded) Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
-        if (Player.isGrounded && Player.movementInput.sqrMagnitude == 0) Player.SetState(Player.states.Idle);
-        else if (Player.isGrounded) {
-            Player.SetState(Player.states.Walking);
-        }
+        if (Player.isGrounded) Player.SetState(Player.movementInput.magnitude > 0 ? Player.states.Walking : Player.states.Idle);
+        // if (Player.isGrounded && Player.movementInput.sqrMagnitude == 0) Player.SetState(Player.states.Idle);
+        // else if (Player.isGrounded) Player.SetState(Player.states.Walking);
     }
 
     public override void Jump(InputAction.CallbackContext ctx)

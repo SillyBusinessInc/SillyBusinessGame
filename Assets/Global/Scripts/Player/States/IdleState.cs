@@ -18,7 +18,7 @@ public class IdleState : StateBase
         float linearY = ApplyGravity(Player.rb.linearVelocity.y);
         Player.targetVelocity = new Vector3(0, linearY, 0);
 
-        if (!Player.isGrounded) Player.activeCoroutine = Player.StartCoroutine(Player.SetStateAfter(Player.states.Falling, Player.coyoteTime));
+        if (!Player.isGrounded) Player.SetStateAfter(Player.states.Falling, Player.coyoteTime);
 
         currentTime -= Time.deltaTime;
         if (currentTime <= 0)

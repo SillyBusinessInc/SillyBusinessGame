@@ -5,15 +5,15 @@ public class WalkingState : StateBase
     public WalkingState(Player player) : base(player) {}
 
     public Vector3 debug_hitpos;
+    public float enterTime;
+
     public override void Update()
     {
         Player.playerAnimationsHandler.resetStates();
         Player.playerAnimationsHandler.SetBool("IsRunning", true);
         
         // perform ground check first
-        if (!Player.isGrounded) {
-            Player.activeCoroutine = Player.StartCoroutine(Player.SetStateAfter(Player.states.Falling, Player.coyoteTime));
-        }
+        if (!Player.isGrounded) Player.SetStateAfter(Player.states.Falling, Player.coyoteTime);
         
         // calculate walking direction and speed
         if (Player.GetDirection() != Vector3.zero) Player.currentWalkingPenalty += Player.acceleration * Time.deltaTime;
@@ -41,6 +41,7 @@ public class WalkingState : StateBase
     {
         // play particleSystem
         Player.particleSystemWalk.Play();
+        enterTime = Time.time;
     }
 
     public override void Exit()
