@@ -45,22 +45,20 @@ private void FixedUpdate()
     private void MovePlatform()
     {
         Vector3 p0, p1, p2, p3;
+        int controlPointCount = controlPoints.Count - 1;
 
-        if (isReversing)
-        {
-            // 역방향 경로 설정
-            p3 = controlPoints[Mathf.Clamp(currentSegment, 0, controlPoints.Count - 1)];
-            p2 = controlPoints[Mathf.Clamp(currentSegment-1, 0, controlPoints.Count - 1)];
-            p1 = controlPoints[Mathf.Clamp(currentSegment - 2, 0, controlPoints.Count - 1)];
-            p0 = controlPoints[Mathf.Clamp(currentSegment - 3, 0, controlPoints.Count - 1)];
-        }
-        else
-        {
-            // 순방향 경로 설정
-            p0 = controlPoints[Mathf.Clamp(currentSegment - 1, 0, controlPoints.Count - 1)];
+        if (isReversing) {
+            // Set reverse route
+            p3 = controlPoints[Mathf.Clamp(currentSegment, 0, controlPointCount)];
+            p2 = controlPoints[Mathf.Clamp(currentSegment-1, 0, controlPointCount)];
+            p1 = controlPoints[Mathf.Clamp(currentSegment - 2, 0, controlPointCount)];
+            p0 = controlPoints[Mathf.Clamp(currentSegment - 3, 0, controlPointCount)];
+        } else {
+            // Set forward path
+            p0 = controlPoints[Mathf.Clamp(currentSegment - 1, 0, controlPointCount)];
             p1 = controlPoints[currentSegment];
-            p2 = controlPoints[Mathf.Clamp(currentSegment + 1, 0, controlPoints.Count - 1)];
-            p3 = controlPoints[Mathf.Clamp(currentSegment + 2, 0, controlPoints.Count - 1)];
+            p2 = controlPoints[Mathf.Clamp(currentSegment + 1, 0, controlPointCount)];
+            p3 = controlPoints[Mathf.Clamp(currentSegment + 2, 0, controlPointCount)];
         }
 
         Vector3 positionOnCurve = GetCatmullRomPosition(t, p0, p1, p2, p3);
@@ -68,26 +66,21 @@ private void FixedUpdate()
 
         t += Time.deltaTime * platformSpeed * (isReversing ? -1f : 1f);
 
-        if (t > 1f)
-        {
+        if (t > 1f) {
             t = 0f;
             currentSegment++;
 
-            if (currentSegment >= controlPoints.Count - 1)
-            {
-                currentSegment = controlPoints.Count ;
-                t = 1f ;
+            if (currentSegment >= controlPoints.Count - 1) {
+                currentSegment = controlPoints.Count;
+                t = 1f;
                 isReversing = true; 
                 StartCoroutine(PauseAtPosition(tEndPause)); 
             }
-        }
-        else if (t < 0f)
-        {
+        } else if (t < 0f) {
             t = 1f;
             currentSegment--;
 
-            if (currentSegment <= 1)
-            {
+            if (currentSegment <= 1) {
                 currentSegment = 0; 
                 t = 0f;
                 isReversing = false; 

@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerSync : MonoBehaviour
 {
     private Rigidbody playerRigidbody;
-    private Vector3 offset; // 플레이어와 플랫폼 간의 거리
+    private Vector3 offset; // Distance between player and platform
     private Vector3 PlatformVelocity;
 
     void Start()
