@@ -149,12 +149,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a7ba5204c424a6c86d4baf034a1b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 2
+  delay: 0
   respawnDelay: 5
   canRespawn: 1
   canBreak: 1
-  animator: {fileID: 7831099257063467262}
-  boxcollider: {fileID: 94020538685322813}
 --- !u!222 &4207249782052456727
 CanvasRenderer:
   m_ObjectHideFlags: 0
