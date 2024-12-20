@@ -390,31 +390,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.882635
+      value: 9.569973
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 101.262794
+      value: 105.04141
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15.861134
+      value: 28.06179
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.05177161
+      value: 0.049874764
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0022788453
+      value: -0.014071794
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.91429657
+      value: 0.9819856
       objectReference: {fileID: 0}
     - target: {fileID: 1367837106214492311, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.4017169
+      value: -0.1817109
       objectReference: {fileID: 0}
     - target: {fileID: 2974869042834182435, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_ActionEvents.Array.size
@@ -498,19 +498,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5260001915288532325, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.05177161
+      value: 0.049874764
       objectReference: {fileID: 0}
     - target: {fileID: 5260001915288532325, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0022788453
+      value: -0.014071794
       objectReference: {fileID: 0}
     - target: {fileID: 5260001915288532325, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.91429657
+      value: 0.9819856
       objectReference: {fileID: 0}
     - target: {fileID: 5260001915288532325, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.4017169
+      value: -0.1817109
       objectReference: {fileID: 0}
     - target: {fileID: 9169223613212550927, guid: e9197bb02818d834aa2a5843319b8e00, type: 3}
       propertyPath: fadeImage
@@ -644,11 +644,12 @@ MonoBehaviour:
   bradleyGetsHurt: {fileID: 8300000, guid: e41a916d6fc936a42813c370f9683a76, type: 3}
   powerUpPickUp: {fileID: 8300000, guid: 3f698c0fcb143fe40b9d2d37ec6d9bf4, type: 3}
   healItemPickup: {fileID: 8300000, guid: 749d4e941869a1243ad5f2dd45681a86, type: 3}
-  dashSfx: {fileID: 0}
+  dashSfx: {fileID: 8300000, guid: c95e64b35ada2bf4aa4e949895a50a0d, type: 3}
   deathSfx: {fileID: 0}
   gameOverScreenSFX: {fileID: 0}
   calorieSFX: {fileID: 0}
   enemyThankYousfx: {fileID: 0}
+  walkingSound: {fileID: 0}
 --- !u!4 &1041724800
 Transform:
   m_ObjectHideFlags: 0
@@ -698,7 +699,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ebabb1c12984a1f957891b4c3f1b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-
+--- !u!114 &1526607293 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 41829477981651025, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
+  m_PrefabInstance: {fileID: 47187329}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd03ff994ae029c40ae8dc46f7184b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1871960542
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,19 +839,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1041724800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-
---- !u!114 &1526607293 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 41829477981651025, guid: 13367e1bb5335e0458640101aefac0dd, type: 3}
-  m_PrefabInstance: {fileID: 47187329}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd03ff994ae029c40ae8dc46f7184b85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-
 --- !u!1 &1883964941
 GameObject:
   m_ObjectHideFlags: 0
