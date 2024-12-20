@@ -10,15 +10,16 @@ public class InteractableUpgradeUI : MonoBehaviour
     [Header("Interaction")]
     [SerializeField] private List<ActionParamPair> interactionActions;
 
-    void OnTriggerEnter(Collider other) {
-        if (other.gameObject.GetComponent<PlayerObject>() != null) {
-            if (option != null) {
-                GlobalReference.GetReference<UpgradeOptions>().option = option;
-            }
-            
-            GlobalReference.GetReference<UpgradeOptions>().ShowOption();
-            GlobalReference.GetReference<UpgradeOptions>().interactionActions = interactionActions;
-            Destroy(gameObject);
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<PlayerObject>() == null) return;
+        
+        if (option != null) {
+            GlobalReference.GetReference<UpgradeOptions>().option = option;
         }
+            
+        GlobalReference.GetReference<UpgradeOptions>().ShowOption();
+        GlobalReference.GetReference<UpgradeOptions>().interactionActions = interactionActions;
+        Destroy(gameObject);
     }
 }
