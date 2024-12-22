@@ -14,7 +14,7 @@ public class UpgradeList : MonoBehaviour
         AddUpgrade(option.rarity, option.image);
     }
     
-    public void AddUpgrade(int rarity, Sprite upgradeOption)
+    private void AddUpgrade(int rarity, Sprite upgradeOption)
     {
         foreach (var upgrade in upgrades)
         {
