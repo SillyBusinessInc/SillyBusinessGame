@@ -188,14 +188,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16a26ac11d872b5438574ab4a763076a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rarityImage: {fileID: 0}
-  upgradeImage: {fileID: 0}
-  amountText: {fileID: 0}
-  rarity_common: {fileID: 0}
-  rarity_uncommon: {fileID: 0}
-  rarity_rare: {fileID: 0}
-  rarity_epic: {fileID: 0}
-  rarity_legendary: {fileID: 0}
+  rarityImage: {fileID: 1758455701912379404}
+  upgradeImage: {fileID: 5992097834163334995}
+  amountText: {fileID: 2335254035956753571}
+  rarity_common: {fileID: 21300000, guid: 36f689d170af68845b1d638af2f62810, type: 3}
+  rarity_uncommon: {fileID: 21300000, guid: c4fce13cd3a8afa4197ba9aef24097d3, type: 3}
+  rarity_rare: {fileID: 21300000, guid: 36f689d170af68845b1d638af2f62810, type: 3}
+  rarity_epic: {fileID: 21300000, guid: 37d3c3f395e998f498ffdcf6429c649a, type: 3}
+  rarity_legendary: {fileID: 21300000, guid: 134b751aea14ee34cbd136b14b210d34, type: 3}
 --- !u!1 &2313044223659563888
 GameObject:
   m_ObjectHideFlags: 0
