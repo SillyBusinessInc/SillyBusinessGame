@@ -9,6 +9,11 @@ public class UpgradeList : MonoBehaviour
     public int itemsPerRow = 3;
     private readonly List<UpgradePausePrefab> upgrades = new();
 
+    public void AddUpgrade(UpgradeOption option)
+    {
+        AddUpgrade(option.rarity, option.image);
+    }
+    
     public void AddUpgrade(int rarity, Sprite upgradeOption)
     {
         foreach (var upgrade in upgrades)
