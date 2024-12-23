@@ -6,7 +6,7 @@ public class FlipCollidor : MonoBehaviour
 
     public void OnTriggerEnter(Collider Collider)
     {
-        if (!Collider.gameObject.CompareTag("Enemy")    || 
+        if (!Collider.gameObject.CompareTag("Enemy") ||
             Collider.GetComponent<EnemiesNS.EnemyBase>() == null
         ) return;
         
