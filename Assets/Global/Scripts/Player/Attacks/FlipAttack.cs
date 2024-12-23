@@ -25,16 +25,15 @@ public class FlipAttack : TailAttack
         player.playerAnimationsHandler.SetInt("AttackType", 2);
         player.playerAnimationsHandler.animator.SetTrigger("IsAttackingTrigger");
     }
-    public override IEnumerator SetStateIdle()
+    public override IEnumerator SetStateIdle()	    
     {
-        yield return new WaitForSeconds(duration / 2);
-        player.Tail.flipCanDoDamage = true;
-        player.Tail.slamObject.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
-        player.Tail.flipCanDoDamage = false;
-        player.Tail.slamObject.SetActive(false);
-        yield return new WaitForSeconds(duration / 2);
-        player.SetState(player.states.Idle);
-        player.Tail.cooldownTime = cooldown;
-    }
+        yield return new WaitForSeconds(duration / 2);	   
+        player.Tail.slamObject.SetActive(true);	  
+        yield return new WaitForSeconds(0.1f);	        
+        player.Tail.slamObject.SetActive(false);	      
+        yield return new WaitForSeconds(duration / 2);	 
+        if (player.isGrounded) player.SetState(player.movementInput.magnitude > 0 ? player.states.Walking : player.states.Idle);	  
+        else player.SetState(player.states.Falling);	
+        player.Tail.cooldownTime = cooldown;	      
+    }	
 }
