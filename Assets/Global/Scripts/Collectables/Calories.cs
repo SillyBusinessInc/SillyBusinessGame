@@ -5,35 +5,46 @@ using UnityEngine.SceneManagement;
 
 public class Calories : Collectable
 {
-    public string caloriesId; // Unique identifier for this secret
+    private string caloriesId; // Unique identifier for this secret
     private CollectableSave saveData;
+    public bool collected;
 
     void Awake()
     {
-        saveData = new CollectableSave(SceneManager.GetActiveScene().name);
+        saveData = new CollectableSave(gameObject.scene.name);
+
+        // Check if the ID has already been assigned
+        if (string.IsNullOrEmpty(caloriesId))
+        {
+            GeneratePersistentId();
+        }
 
         List<string> calories = saveData.Get<List<string>>("calories");
-        foreach (var secret in calories)
-        {
-            Debug.Log(secret);
-        }
         if (calories.Contains(caloriesId))
         {
-            Destroy(gameObject);
+            // gray shader or destroy or something TODO
+            collected = true;
+            // Destroy(gameObject);
         }
-
     }
 
     public override void OnCollect()
     {
-        GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.Calories.Add(caloriesId);
-
-        foreach (var secret in GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.Calories)
+        if (collected)
         {
-            Debug.Log(secret);
+            return;
         }
-        List<string> calories = saveData.Get<List<string>>("calories");
-        calories.Add(caloriesId);
-        saveData.Set("calories", calories);
+        GlobalReference.GetReference<PlayerReference>().Player.playerStatistic.Calories.Add(caloriesId);
+    }
+
+    private void GeneratePersistentId()
+    {
+        if (!string.IsNullOrEmpty(caloriesId))
+        {
+            // ID is already assigned; no need to regenerate.
+            return;
+        }
+        string key = gameObject.scene.name+"_"+transform.position.ToString();
+        caloriesId = key;
     }
 }

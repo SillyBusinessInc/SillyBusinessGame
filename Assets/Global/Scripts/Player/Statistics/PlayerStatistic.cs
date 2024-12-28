@@ -32,7 +32,7 @@ public class PlayerStatistic
         set => crumbs = value > 0 ? value : 0;
     }
     public List<string> Calories;
-
+    public int CaloriesCount;
     // this is for the current stats of the player
     public CurrentStatistic Speed = new(12f);
     public CurrentStatistic JumpForce = new(8f);
