@@ -337,6 +337,9 @@ public class Player : MonoBehaviour
     // If we go the event route this should change right?
     private void OnDeath()
     {
+        CollectableSave saveData = new CollectableSave(SceneManager.GetActiveScene().name);
+        saveData.LoadAll();
+
         StartCoroutine(DeathScreen());
     }   
     private IEnumerator DeathScreen()
